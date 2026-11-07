@@ -1,0 +1,242 @@
+// Single source of truth for site copy. Edit content here, not in components.
+// Items marked TODO(client) need confirmation — see docs/client-checklist.md.
+
+export const company = {
+  name: "Kram Healthcare",
+  tagline: "Accuracy you can count on",
+  copyrightYear: 2026, // static: Cache Components disallows new Date() in prerendered pages
+  phoneDisplay: "(213) 832-7088",
+  phoneHref: "tel:+12138327088",
+  email: "sales@kramhealthcare.com",
+  address: null as string | null, // TODO(client): US business address
+  hours: null as string | null, // TODO(client): live site lists no hours; add once confirmed
+  social: {
+    linkedin: "https://www.linkedin.com/company/kram-healthcare",
+    facebook: "https://www.facebook.com/people/Kram-Healthcare/61584755162350/",
+    instagram: "https://www.instagram.com/p/DUDlsz2kbOz/", // link used on the live site
+  },
+};
+
+// Same page structure and URLs as the live site (keeps existing links and search rankings working).
+export const nav = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Services", href: "/services" },
+  { label: "Specialties", href: "/specialties" },
+  { label: "Contact Us", href: "/contact-us" },
+];
+
+export const cta = {
+  primary: "Book a free practice review",
+  header: "Get in touch",
+  href: "/contact-us",
+};
+
+export const hero = {
+  kicker: "Credentialing · Medical billing · Licensing",
+  // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
+  titleStart: "Get credentialed faster and",
+  titleHighlight: "paid",
+  titleEnd: "on the first pass",
+  // Client's own hero sentence from kramhealthcare.com
+  body: "KRAM Healthcare simplifies your practice management, with accurate billing, faster credentialing, and compliant revenue cycle solutions built for modern healthcare providers.",
+  primaryCta: "Book a free practice review",
+  secondaryCta: "Explore services",
+  partnerPrompt: "Adding providers or switching billers?",
+  // TODO(client): keep only claims that are true today
+  // The three bullets from the live site hero
+  trust: [
+    "Comprehensive credentialing & enrollment across all specialties",
+    "Efficient revenue cycle management tailored to your needs",
+    "Multi-state licensing and telehealth licensing support",
+  ],
+};
+
+// TODO(client): confirm each figure and its "as of" date
+export const stats = [
+  { value: 10, suffix: "+", label: "Years of combined industry expertise" },
+  { value: 5000, suffix: "+", label: "Providers served across all 50 states" },
+  { value: 120000, suffix: "+", label: "Insurance applications processed" },
+  { value: 99, suffix: "%", label: "First-time submission success rate" },
+];
+
+export const services = [
+  {
+    id: "credentialing",
+    eyebrow: "Front of the cycle",
+    title: "Provider enrollment & credentialing",
+    body: "Get every provider in network and keep them there, with one team tracking every payer and deadline.",
+    items: [
+      "Commercial & government payer enrollment",
+      "CAQH registration and re-attestation",
+      "NPI Type 1 & Type 2 registration",
+      "Medicare (PECOS) & Medicaid enrollment",
+      "Facility & group enrollment",
+      "Revalidations & demographic updates",
+      "Provider onboarding support",
+    ],
+  },
+  {
+    id: "billing",
+    eyebrow: "Middle and back of the cycle",
+    title: "Medical billing & revenue cycle",
+    body: "Clean claims out the door, denials worked fast, and payments posted and reconciled every day.",
+    items: [
+      "Claim submission & follow-up",
+      "Denial management & appeals",
+      "Accounts receivable (A/R) recovery",
+      "Payment posting & reconciliation",
+      "Patient statements & billing support",
+    ],
+  },
+  {
+    id: "licensing",
+    eyebrow: "Around the cycle",
+    title: "Licensing & practice support",
+    body: "Expand into new states and telehealth without the paperwork slowing you down.",
+    items: [
+      "Multi-state & telehealth licensing",
+      "Insurance verification & eligibility",
+      "Prior authorization management",
+      "Credentialing database upkeep (CAQH, Modio)",
+      "Compliance & audit support",
+      "Ongoing payer maintenance",
+    ],
+  },
+];
+
+export const process = [
+  { title: "Free practice review", body: "A free consultation. We look at your payers, providers and open A/R and tell you where revenue is stuck.", time: "Day 1" },
+  { title: "Onboarding & BAA", body: "We sign a Business Associate Agreement, collect documents once, and set up secure access.", time: "Week 1" },
+  { title: "We file and follow up", body: "Applications, claims and appeals go out. We chase every payer until each item is closed.", time: "Ongoing" },
+  { title: "You see every status", body: "A weekly report shows each enrollment, claim batch and denial, with the next step and owner.", time: "Every week" },
+];
+
+export const enrollmentSample = [
+  { payer: "Medicare (PECOS)", status: "Approved", tone: "ok" },
+  { payer: "CAQH re-attestation", status: "Current", tone: "ok" },
+  { payer: "Aetna · Group", status: "In review", tone: "progress" },
+  { payer: "BCBS · Individual", status: "Docs needed", tone: "wait" },
+] as const;
+
+export const specialties = [
+  "Family Medicine", "Internal Medicine", "Primary Care", "Cardiology", "Dermatology", "Pediatrics",
+  "Orthopedics", "Neurology", "Psychiatry & Behavioral Health", "Gastroenterology", "Endocrinology", "Pulmonology",
+  "Nephrology", "Rheumatology", "Oncology", "Pain Management", "Physical Therapy", "OB/GYN",
+  "Urology", "ENT (Otolaryngology)", "Ophthalmology", "Podiatry", "General Surgery", "Plastic Surgery",
+  "Anesthesiology", "Radiology", "Home Health", "Hospice Care", "Skilled Nursing Facilities (SNF)", "Mental Health Clinics",
+  "Telehealth Providers", "Urgent Care", "Durable Medical Equipment (DME)", "Speech Therapy", "Occupational Therapy", "Chiropractic Care",
+  "Dental Billing Support", "Addiction Treatment Centers", "Sleep Medicine", "Infectious Disease", "Multi-Specialty Practices", "PRTF Enrollment",
+  "Pharmacy", "Retail Pharmacy", "Specialty Pharmacy", "Pharmacist Enrollment Services", "Behavioral Health & Mental Health Facilities",
+  "Angioplasty", "Eye Care", "RMI",
+];
+
+export const featuredSpecialties = [
+  { name: "Primary & Family Care", note: "High-volume E/M coding and fast panel growth" },
+  { name: "Behavioral Health", note: "Telehealth, multi-state licensing, and carve-out payers" },
+  { name: "Cardiology", note: "Prior auths for imaging and procedures" },
+  { name: "Home Health & Hospice", note: "Medicare enrollment and revalidations" },
+  { name: "DME", note: "Supplier enrollment and documentation" },
+  { name: "Pharmacy", note: "Pharmacy and pharmacist enrollment" },
+];
+
+export const reasons = [
+  { title: "One owner for your account", body: "A named account manager who knows your providers, payers and deadlines, not a ticket queue." },
+  { title: "Status you can see", body: "Weekly reports on every application and claim batch. No chasing us for updates." },
+  { title: "All 50 states and telehealth", body: "Multi-state licensing and payer enrollment for practices growing across state lines." },
+  { title: "Built around compliance", body: "Minimum-necessary access, signed BAAs and audit-ready records for every engagement." },
+];
+
+export const timelines = [
+  { label: "CAQH profile set up", days: 7, max: 120 },
+  { label: "Medicare (PECOS) enrollment", days: 45, max: 120 },
+  { label: "Commercial payer enrollment", days: 90, max: 120 },
+];
+// TODO(client): confirm typical timelines before launch
+
+export const faqs = [
+  { q: "How long does provider credentialing take?", a: "Most commercial payers take 60 to 120 days from a complete application. Medicare usually takes 30 to 60 days. We start with the slowest payers first and send you a status report every week." },
+  { q: "Do you sign a Business Associate Agreement (BAA)?", a: "Yes. Every engagement that involves protected health information starts with a signed BAA, and access is limited to what the work requires." },
+  { q: "Can you take over from our current biller?", a: "Yes. We audit your open A/R and pending applications, then run a planned handover so no claims or deadlines are dropped." },
+  { q: "Which specialties do you work with?", a: "More than 45, from primary care and behavioral health to DME, pharmacy and skilled nursing. If yours isn't listed, ask us." },
+  { q: "How is pricing structured?", a: "Credentialing is priced per provider and payer. Billing is usually a percentage of collections. You get a written quote after the free review." },
+  { q: "Do you work with practices in every state?", a: "Yes. We enroll and license providers in all 50 states, including telehealth providers who see patients across state lines." },
+];
+
+export const contact = {
+  title: "Tell us where revenue is stuck.",
+  body: "Share a few details and a member of our team will get back to you.",
+  phiNotice: "Please don't include patient names or other health information in this form.",
+  providerOptions: ["1", "2–5", "6–20", "21–50", "50+"],
+  needs: ["Credentialing", "Medical billing", "Licensing", "Not sure yet"],
+};
+
+/* ---------------- Home ---------------- */
+
+export const statement = {
+  muted: "One partner for everything between a new provider and a",
+  strong: "paid claim.",
+};
+
+/* ---------------- Services page ---------------- */
+
+// Extra detail per service, keyed by services[].id
+export const serviceDetail: Record<string, { outcome: string; forWho: string }> = {
+  credentialing: {
+    outcome: "Providers in network sooner, with every payer, CAQH attestation and revalidation date tracked for you.",
+    forWho: "New practices, groups adding providers, and facilities expanding payer mix.",
+  },
+  billing: {
+    outcome: "Cleaner claims, faster denials work, and A/R that stops aging past 90 days.",
+    forWho: "Practices replacing an in-house biller or an outside vendor that isn't following up.",
+  },
+  licensing: {
+    outcome: "New states and telehealth opened without your team chasing boards and portals.",
+    forWho: "Telehealth groups, multi-state practices and providers relocating.",
+  },
+};
+
+/* ---------------- About page ---------------- */
+
+export const about = {
+  kicker: "About Kram Healthcare",
+  titleStart: "Your",
+  titleHighlight: "partner",
+  titleEnd: "in credentialing and revenue cycle",
+  body: "We take the administrative load of enrollment, credentialing and billing off your team, so providers can focus on patients and the practice gets paid on time.",
+  mission: {
+    title: "Why we exist",
+    // Client copy from kramhealthcare.com/about-us
+    paragraphs: [
+      "At KRAM Healthcare, our mission is to empower healthcare providers and organizations by delivering reliable, efficient, and compliant revenue cycle management solutions. We specialize in provider enrollment, credentialing, medical billing, denial management, and DME billing, ensuring that every step of the process is handled with accuracy and care.",
+      "We understand the challenges healthcare professionals face, from navigating complex payer requirements to resolving claim denials and maintaining steady cash flow. That's why we are committed to removing administrative burdens so providers can focus on what truly matters: delivering quality care to patients.",
+      "Through transparency, dedication, and innovation, we strive to become a trusted partner to providers and healthcare organizations. Our goal is not just to manage billing and credentialing, but to optimize revenue cycles, minimize errors, and build long-term success for every client we serve.",
+    ],
+  },
+  whyBilling: {
+    title: "Why choose KRAM for medical billing?",
+    paragraphs: [
+      "At KRAM Healthcare, we understand that accurate and timely billing is the backbone of a successful healthcare practice. Our team is dedicated to providing comprehensive medical billing solutions that maximize revenue, reduce claim denials, and ensure faster reimbursements. With expertise in billing, denial management, and DME billing, we handle the complexities of the revenue cycle so providers can focus entirely on patient care.",
+      "We combine industry knowledge, advanced tools, and a client-first approach to deliver transparent, compliant, and results-driven services. Whether it's minimizing errors, resolving denied claims, or streamlining billing operations, KRAM Healthcare is committed to improving your financial performance while maintaining the highest standards of integrity and professionalism.",
+    ],
+  },
+  values: [
+    { title: "Accuracy first", body: "Applications and claims are checked before they go out, because a clean first submission is the fastest path to approval and payment." },
+    { title: "Open status", body: "You always know where each enrollment and claim batch stands, who owns the next step, and when it is due." },
+    { title: "Compliance by default", body: "Signed BAAs, minimum-necessary access and audit-ready records on every engagement." },
+    { title: "Long-term partnership", body: "We stay after go-live: re-attestations, revalidations and payer changes are tracked for as long as you work with us." },
+  ],
+  // TODO(client): founding year, leadership names + headshots, where the team works
+};
+
+/* ---------------- Specialties page ---------------- */
+
+export const specialtyGroups = [
+  { name: "Primary & urgent care", items: ["Family Medicine", "Internal Medicine", "Primary Care", "Pediatrics", "Urgent Care", "Multi-Specialty Practices", "Telehealth Providers"] },
+  { name: "Medical specialties", items: ["Cardiology", "Dermatology", "Neurology", "Gastroenterology", "Endocrinology", "Pulmonology", "Nephrology", "Rheumatology", "Oncology", "Infectious Disease", "Sleep Medicine", "Radiology", "Anesthesiology", "Angioplasty", "RMI"] },
+  { name: "Surgical & procedural", items: ["Orthopedics", "General Surgery", "Plastic Surgery", "Urology", "ENT (Otolaryngology)", "Ophthalmology", "Eye Care", "OB/GYN", "Podiatry", "Pain Management"] },
+  { name: "Behavioral health", items: ["Psychiatry & Behavioral Health", "Mental Health Clinics", "Behavioral Health & Mental Health Facilities", "Addiction Treatment Centers", "PRTF Enrollment"] },
+  { name: "Therapy & rehab", items: ["Physical Therapy", "Occupational Therapy", "Speech Therapy", "Chiropractic Care"] },
+  { name: "Post-acute & equipment", items: ["Home Health", "Hospice Care", "Skilled Nursing Facilities (SNF)", "Durable Medical Equipment (DME)"] },
+  { name: "Pharmacy & dental", items: ["Pharmacy", "Retail Pharmacy", "Specialty Pharmacy", "Pharmacist Enrollment Services", "Dental Billing Support"] },
+];

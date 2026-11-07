@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Kram Healthcare tokens — see docs/design-system.md. Colours sampled from the client logo. */
+@theme {
+  --color-orange: #f77c27;
+  --color-orange-ink: #a9490c;
+  --color-orange-soft: #fba066;
+  --color-peach: #fde6d3;      /* keyword highlight, soft pill buttons */
+  --color-peach-2: #fff3ea;    /* soft card fill */
+  --color-canvas: #f6ece2;     /* page backdrop around the white frame */
+  --color-graphite: #414546;
+  --color-ink: #1d2124;        /* primary pill buttons, dark bands */
+  --color-ink-2: #2a3034;
+  --color-ink-line: #3a4145;
+  --color-fg: #1c2023;
+  --color-muted: #5e6366;
+  --color-on-ink: #c7cbcd;
+  --color-stone: #f6f4f1;
+  --color-stone-2: #eeeae6;
+  --color-line: #e7e3df;
+  --color-success: #1d6f66;
+
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --animate-rise: rise 0.7s var(--ease-out-soft) both;
+  --animate-fade: fade 0.9s var(--ease-out-soft) both;
+  --animate-marquee: marquee 60s linear infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-canvas text-fg font-sans antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  h1, h2, h3 {
+    @apply text-balance;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  ::selection { background: #fbd3b4; color: var(--color-fg); }
+}
+
+/* Keyword highlight pill inside headlines ("credentialed", "revenue"…) */
+.hl {
+  background: var(--color-peach);
+  border-radius: 0.28em;
+  padding: 0 0.16em;
+  margin: 0 -0.04em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ---------- Scroll reveal (progressive: visible without JS) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal][data-shown] { opacity: 1; transform: none; }
+
+/* ---------- Statement: words darken as they scroll into view (CSS only) ---------- */
+.statement-word { color: var(--color-fg); }
+@supports (animation-timeline: view()) {
+  .statement-word {
+    animation: word-ink linear both;
+    animation-timeline: view();
+    animation-range: entry 60% cover 42%;
+  }
+}
+@keyframes word-ink {
+  from { color: #b9b5b1; }
+  to { color: var(--color-fg); }
+}
+
+/* ---------- Header gains a surface on scroll: CSS scroll-driven, zero JS ---------- */
+@supports (animation-timeline: scroll()) {
+  .site-header-bar {
+    animation: header-compact linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 120px;
+  }
+}
+@keyframes header-compact {
+  to { background-color: rgb(255 255 255 / 0.86); box-shadow: 0 1px 0 var(--color-line), 0 14px 30px -26px rgb(29 33 36 / 0.45); }
+}
+
+/* ---------- Process line draw ---------- */
+.js .process-line { transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--ease-out-soft) 0.2s; }
+.js [data-shown] .process-line { transform: scaleX(1); }
+
+/* ---------- Bars ---------- */
+.js .bar-fill { transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--ease-out-soft); transition-delay: var(--reveal-delay, 0ms); }
+.js [data-shown] .bar-fill { transform: scaleX(1); }
+
+/* ---------- Hero floating cards ---------- */
+.float-in { animation: var(--animate-rise); animation-delay: var(--d, 400ms); }
+.tracker-row { animation: var(--animate-rise); animation-delay: calc(600ms + var(--i) * 140ms); }
+.pulse-dot::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 999px;
+  border: 2px solid currentColor; opacity: 0;
+  animation: ping 2.4s var(--ease-out-soft) 1.6s infinite;
+}
+@keyframes ping {
+  0% { transform: scale(0.6); opacity: 0.6; }
+  80%, 100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ---------- Marquee pauses on hover / focus ---------- */
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+/* ---------- FAQ disclosure ---------- */
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details .faq-icon { transition: transform 0.25s var(--ease-out-soft); }
+details[open] .faq-icon { transform: rotate(45deg); }
+details.faq::details-content {
+  block-size: 0; overflow: hidden;
+  transition: block-size 0.35s var(--ease-out-soft), content-visibility 0.35s allow-discrete;
+}
+details.faq[open]::details-content { block-size: auto; }
+@supports (interpolate-size: allow-keywords) { :root { interpolate-size: allow-keywords; } }
+
+/* ---------- Mobile menu panel ---------- */
+.menu-panel { transition: opacity 0.25s var(--ease-out-soft), transform 0.25s var(--ease-out-soft), visibility 0.25s; }
+.menu-panel[data-open="false"] { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+
+/* ---------- Reduced motion: everything visible, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js [data-reveal] { opacity: 1; transform: none; }
+  .marquee-track { animation: none !important; }
+  .statement-word { animation: none !important; color: var(--color-fg); }
+}

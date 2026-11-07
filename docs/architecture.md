@@ -1,0 +1,39 @@
+# Architecture and gotchas
+
+Read this before touching build config, motion, the contact form or anything cache-related.
+
+## Stack
+- Next.js 16 App Router, TypeScript, `src/` dir, Turbopack. `cacheComponents` + `partialPrefetching` are on. For any unfamiliar Next API read `node_modules/next/dist/docs/` first (see `AGENTS.md`); do not rely on memory.
+- Tailwind CSS v4, CSS-first: tokens live in `src/app/globals.css` under `@theme`. No `tailwind.config.js`.
+- Font: Public Sans variable 400–700, self-hosted via `next/font/local` from `src/fonts/`. Do NOT switch to `next/font/google` (fails in the sandbox, adds a build-time network dependency). `SourceSerif4-600-display.woff2` is unused since Direction v2.
+
+## Cache Components
+- `new Date()` and `Math.random()` are forbidden in prerendered server components. Use constants, e.g. `company.copyrightYear`.
+- Server Components by default; `"use client"` only for real interactivity (today: `site/nav.tsx`, `ui/motion-observer.tsx`, `sections/contact-form.tsx`).
+
+## Motion (no animation library, keep it that way)
+- CSS plus one tiny client component, `src/components/ui/motion-observer.tsx`:
+  - scroll reveal via `data-reveal` (helper `reveal()` in `ui/primitives.tsx` builds the attributes)
+  - count-up via `data-count` (stats are real numbers in the HTML; JS only animates toward them)
+- Render `<MotionObserver />` at the END of every page, never in the layout (a layout-level one races page hydration). Each page already does this; a new page must too.
+- Header surface compaction and the statement word-darkening are CSS scroll-driven animations (`header-compact`, `word-ink` in `globals.css`). No JS.
+- Reveal starts visible if JS is off. Everything honours `prefers-reduced-motion` (rules at the bottom of `globals.css`).
+- Numbers and easing: see "Motion" in `docs/design-system.md`.
+
+## Contact form
+- Server Action `src/app/actions/contact.ts` posts to the Resend REST API with plain `fetch` (no SDK).
+- Without `RESEND_API_KEY` it logs the lead to the server console, so local dev works with no setup.
+- Env vars (`.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`.
+- UI is `src/components/sections/contact-form.tsx` (client). It is the only form on the site and must keep the "no patient information" notice.
+
+## Images
+- `next/image` with static imports from `src/assets/photos/` (AVIF then WebP). Photo sources are in `src/assets/photos/CREDITS.md`. They are placeholders: `TODO(client)` for real photos.
+
+## Performance budget
+- Keep homepage first-load JS small. After any large change run `npm run build` and compare the route table sizes.
+
+## Commands
+- `npm run dev` → http://localhost:3000
+- `npm run build && npm start` → production check
+- `npm run lint`
+- In the Claude sandbox npm needs `npm_config_cache=$TMPDIR/npm-cache` (default `~/.npm` is not writable).

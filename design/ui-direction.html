@@ -1,0 +1,593 @@
+<title>Kram Healthcare UI Direction</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a long-form design brief. Narrow reading column, wide "specimen" bands for colour, type, motion and the homepage blueprint. */
+:root{
+  /* Brand (fixed in both themes; these are the client's real colours) */
+  --kram-orange:#F77C27;   /* logo petals + wordmark */
+  --kram-orange-ink:#A9490C; /* AA-safe orange for text/links on light */
+  --kram-orange-soft:#FBA066; /* orange for text on deep ink */
+  --deep-ink:#23282B;      /* primary dark surface: hero, footer */
+  --charcoal:#414546;      /* logo X mark (sampled) */
+  --care-teal:#1D6F66;     /* success, checkmarks, "verified" */
+
+  /* Board tokens (theme-aware) */
+  --bg:#F4F2EF; --surface:#FFFFFF; --line:#E2DED9; --fg:#1C2023; --muted:#5E6366; --accent-text:#A9490C; --chip:#ECE8E4;
+  --font-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body:"Public Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-alt:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141618; --surface:#1C1F21; --line:#303437; --fg:#ECEAE7; --muted:#AEB2B4; --accent-text:#FBA066; --chip:#26292C; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141618; --surface:#1C1F21; --line:#303437; --fg:#ECEAE7; --muted:#AEB2B4; --accent-text:#FBA066; --chip:#26292C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.prose{max-width:68ch}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:600}
+h3{font-size:1.2rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-text)}
+section.block{padding-block:56px;border-top:1px solid var(--line)}
+section.block > .wrap{display:grid;gap:24px}
+.lede{font-size:1.1rem;color:var(--muted)}
+a{color:var(--accent-text)}
+:focus-visible{outline:3px solid var(--kram-orange);outline-offset:2px;border-radius:4px}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+code,.mono{font-family:var(--font-mono);font-size:.85em}
+
+/* ---------- Top: hero mock ---------- */
+.top{padding-block:40px 24px}
+.top .meta{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between}
+.top h1{font-size:clamp(2rem,4.6vw,3.1rem);font-weight:600;margin-top:12px}
+.mock{margin-top:28px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;color:#1C2023}
+.mock-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid #E7E3DE;flex-wrap:wrap}
+.mock-bar img{height:34px;width:auto}
+.mock-nav{display:flex;gap:18px;font-size:.85rem;color:#414546;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-weight:600;font-size:.92rem;border-radius:8px;padding:11px 18px;border:0;cursor:pointer;text-decoration:none;transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out),background-color .2s}
+.btn-primary{background:var(--kram-orange);color:#1C2023}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 18px -8px rgba(247,124,39,.8)}
+.btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px #fff}
+.btn-sm{padding:8px 14px;font-size:.82rem}
+.mock-hero{background:var(--deep-ink);color:#fff;display:grid;grid-template-columns:1.25fr 1fr;gap:32px;padding:44px 40px;position:relative;overflow:hidden}
+.mock-hero::after{content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(247,124,39,.20),rgba(247,124,39,0) 70%);pointer-events:none}
+.mock-hero .kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--kram-orange-soft)}
+.mock-hero h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:600;margin-top:12px;color:#fff}
+.mock-hero h2 em{font-style:normal;color:var(--kram-orange-soft)}
+.mock-hero p{color:#C7CBCD;margin-top:14px;max-width:46ch}
+.mock-hero .ctas{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.mock-hero .trust{display:flex;gap:16px;margin-top:22px;font-size:.78rem;color:#C7CBCD;flex-wrap:wrap}
+.mock-hero .trust span::before{content:"✓ ";color:#7FD1C4}
+.status-card{background:#fff;color:#1C2023;border-radius:12px;padding:18px;align-self:center;box-shadow:0 20px 40px -20px rgba(0,0,0,.5);position:relative;z-index:1;min-width:0}
+.status-card .t{font-size:.72rem;font-family:var(--font-mono);color:#5E6366;text-transform:uppercase;letter-spacing:.08em}
+.status-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px solid #EFECE8;font-size:.85rem;align-items:center}
+.status-row:last-child{border-bottom:0}
+.pill{font-size:.7rem;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:#DDF0EC;color:#155A52}
+.pill.wait{background:#FDEBDC;color:#8A3D12}
+.pill.prog{background:#E3ECF7;color:#1F4A80}
+.mock-strip{display:flex;gap:28px;padding:14px 20px;background:#F4F2EF;border-top:1px solid #E7E3DE;overflow:hidden;font-size:.8rem;color:#414546;white-space:nowrap}
+.marquee{display:flex;gap:28px;animation:marq 38s linear infinite}
+@keyframes marq{to{transform:translateX(-50%)}}
+.caption{font-size:.82rem;color:var(--muted);margin-top:10px}
+
+/* ---------- Decisions summary ---------- */
+.decisions{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.decision{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:6px;align-content:start}
+.decision b{font-family:var(--font-display);font-size:1.15rem;font-weight:600}
+
+/* ---------- Tables ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.9rem}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.75rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+.sw-inline{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid rgba(0,0,0,.15)}
+
+/* ---------- Colour ---------- */
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.sw{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface);display:grid;grid-template-rows:96px auto}
+.sw .chip{padding:12px;display:flex;align-items:flex-end;font-weight:600;font-size:.9rem}
+.sw .info{padding:12px;display:grid;gap:2px;font-size:.82rem}
+.sw .info b{font-size:.9rem}
+.ratio{font-family:var(--font-mono);font-size:.75rem}
+.pass{color:var(--care-teal)}
+:root[data-theme="dark"] .pass{color:#7FD1C4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pass{color:#7FD1C4}}
+.fail{color:#B42318}
+:root[data-theme="dark"] .fail{color:#FF9C8F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fail{color:#FF9C8F}}
+.callout{border-left:4px solid var(--kram-orange);background:var(--surface);padding:16px 18px;border-radius:0 10px 10px 0}
+.logo-sample{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.logo-sample span{width:36px;height:36px;border-radius:50% 0;border:1px solid var(--line)}
+.logo-sample em{font-style:normal;flex-basis:100%}
+.ratio-bar{display:flex;height:22px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.ratio-bar span{display:block}
+
+/* ---------- Type ---------- */
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface);gap:2px;flex-wrap:wrap}
+.toggle button{font:inherit;font-size:.85rem;border:0;background:transparent;color:var(--fg);padding:7px 14px;border-radius:999px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--deep-ink);color:#fff}
+.specimen{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;display:grid;gap:18px}
+.specimen .d1{font-size:clamp(2rem,4.4vw,3.2rem);font-weight:600;line-height:1.08;text-wrap:balance}
+.specimen .d2{font-size:1.6rem;font-weight:600;line-height:1.2}
+.specimen .body{font-size:1.05rem;max-width:62ch;color:var(--fg)}
+.specimen .stats{display:flex;gap:28px;flex-wrap:wrap}
+.specimen .stat b{display:block;font-size:2.1rem;font-variant-numeric:tabular-nums;line-height:1}
+.specimen .stat span{font-size:.8rem;color:var(--muted)}
+.specimen[data-pair="b"] .d1,.specimen[data-pair="b"] .d2{font-family:var(--font-alt);letter-spacing:-.02em}
+.specimen[data-pair="b"] .body,.specimen[data-pair="b"] .stat b{font-family:var(--font-alt)}
+.specimen[data-pair="a"] .d1,.specimen[data-pair="a"] .d2{font-family:var(--font-display)}
+.specimen[data-pair="a"] .stat b{font-family:var(--font-body);font-weight:600}
+.scale{display:grid;gap:0}
+.scale div{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.scale div:last-child{border-bottom:0}
+.scale .lbl{font-family:var(--font-mono);font-size:.75rem;color:var(--muted)}
+.scale .s{min-width:0;overflow-wrap:anywhere}
+
+/* ---------- Motion ---------- */
+.motion-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;align-content:start}
+.demo .stage{height:150px;border-radius:8px;background:var(--chip);display:grid;place-items:center;overflow:hidden;position:relative}
+.reveal-cards{display:flex;gap:8px}
+.reveal-cards i{display:block;width:52px;height:68px;border-radius:6px;background:var(--surface);border:1px solid var(--line)}
+.reveal-cards.play i{animation:rise .6s var(--ease-out) both}
+.reveal-cards.play i:nth-child(2){animation-delay:.07s}
+.reveal-cards.play i:nth-child(3){animation-delay:.14s}
+.reveal-cards.play i:nth-child(4){animation-delay:.21s}
+@keyframes rise{from{opacity:.15;transform:translateY(16px)}to{opacity:1;transform:none}}
+.count{font-family:var(--font-display);font-size:2.6rem;font-weight:600;font-variant-numeric:tabular-nums}
+.hover-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;width:78%;transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out),border-color .25s;cursor:default}
+.hover-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(35,40,43,.45);border-color:var(--kram-orange)}
+.hover-card .arrow{display:inline-block;transition:transform .25s var(--ease-out);color:var(--accent-text)}
+.hover-card:hover .arrow{transform:translateX(4px)}
+.timeline{display:flex;align-items:center;gap:0;width:86%}
+.timeline .dot{width:14px;height:14px;border-radius:50%;background:var(--line);flex:none;transition:background .3s}
+.timeline .seg{height:3px;flex:1;background:var(--line);position:relative;overflow:hidden}
+.timeline .seg::after{content:"";position:absolute;inset:0;background:var(--kram-orange);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out)}
+.timeline.play .seg::after{transform:scaleX(1)}
+.timeline.play .dot{background:var(--kram-orange)}
+.timeline.play .seg:nth-of-type(2)::after{transition-delay:.0s}
+.replay{justify-self:start;font:inherit;font-size:.82rem;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;padding:6px 10px;cursor:pointer}
+.tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tokens div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.85rem}
+.tokens b{display:block;font-family:var(--font-mono);font-size:.78rem;font-weight:500;color:var(--accent-text)}
+
+/* ---------- Blueprint ---------- */
+.blueprint{display:grid;gap:10px;counter-reset:sec}
+.bp{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;align-items:start}
+.bp::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);font-family:var(--font-mono);font-size:.85rem;color:var(--accent-text);padding-top:2px}
+.bp.dark{background:var(--deep-ink);border-color:var(--deep-ink);color:#ECEAE7}
+.bp.dark::before{color:var(--kram-orange-soft)}
+.bp.dark .muted{color:#C7CBCD}
+.bp > div{min-width:0;display:grid;gap:4px}
+.bp b{font-weight:600}
+.sitemap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.sitemap div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.sitemap ul{margin:8px 0 0;padding-left:18px;font-size:.9rem;color:var(--muted)}
+.sitemap b{font-family:var(--font-display);font-size:1.05rem}
+
+/* ---------- Form ---------- */
+.form-split{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:start}
+.form-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:14px}
+.form-card .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:.82rem;font-weight:600}
+.field input,.field select,.field textarea{font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;width:100%;transition:border-color .2s, box-shadow .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--kram-orange);box-shadow:0 0 0 3px rgba(247,124,39,.25)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{font-weight:500;font-size:.85rem;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chips input{accent-color:var(--kram-orange);width:auto}
+.phi{font-size:.8rem;background:var(--chip);border-radius:8px;padding:10px 12px;color:var(--muted)}
+.consent{display:flex;gap:10px;font-size:.8rem;color:var(--muted);align-items:flex-start}
+.consent input{margin-top:3px;accent-color:var(--kram-orange)}
+.form-done{display:none;padding:14px;border-radius:8px;background:#DDF0EC;color:#155A52;font-size:.9rem}
+.form-done.show{display:block}
+.flow{display:grid;gap:10px;counter-reset:fl}
+.flow li{list-style:none;display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:.92rem}
+.flow li::before{counter-increment:fl;content:counter(fl);width:26px;height:26px;border-radius:50%;background:var(--deep-ink);color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:600}
+.flow{padding:0;margin:0}
+
+/* ---------- Do / avoid ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.list-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.list-card ul{margin:10px 0 0;padding-left:18px;display:grid;gap:8px;font-size:.92rem}
+.list-card h3 .tag{font-family:var(--font-mono);font-size:.7rem;padding:2px 8px;border-radius:999px;vertical-align:3px;margin-left:6px}
+.tag.do{background:#DDF0EC;color:#155A52}
+.tag.no{background:#FBE4E1;color:#8E1F14}
+ol.q{display:grid;gap:10px;padding-left:22px;margin:0}
+.sources{font-size:.85rem;display:grid;gap:4px;padding-left:18px;margin:0}
+footer.end{padding-block:40px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+
+@media (max-width:760px){
+  .mock-hero{grid-template-columns:1fr;padding:32px 22px}
+  .mock-nav .hide-sm{display:none}
+  .form-split,.two{grid-template-columns:1fr}
+  .form-card .row{grid-template-columns:1fr}
+  .scale div{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="meta">
+      <span class="eyebrow">UI direction · v1 · November 7, 2026</span>
+      <span class="small muted">For: Kram Healthcare website revamp (US market)</span>
+    </div>
+    <h1>Kram Healthcare UI direction</h1>
+    <p class="lede prose" style="margin-top:12px">A calm, credible look for a US credentialing and medical billing company. The theme comes straight from the client's logo: the petal orange leads, the graphite of the X mark grounds it. Motion is quiet and purposeful.</p>
+
+    <div class="mock" aria-label="Homepage hero preview">
+      <div class="mock-bar">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWoAAABhCAYAAAD/aOuUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ2MCwgMjAyMC8wNS8xMi0xNjowNDoxNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Qjk0QTc1QTU1QzBGMTFGMThGNDhBMEI2ODYxODBBQUUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Qjk0QTc1QTQ1QzBGMTFGMThGNDhBMEI2ODYxODBBQUUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RUNDNjUwODQ1MDBGMTFGMUJBNzhFMjAxRDM1NzY2NkMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RUNDNjUwODU1MDBGMTFGMUJBNzhFMjAxRDM1NzY2NkMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4NNbJYAABJIUlEQVR42ux9B4Ab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" alt="Kram Healthcare logo">
+        <nav class="mock-nav" aria-label="Preview navigation">
+          <span class="hide-sm">Services</span><span class="hide-sm">Specialties</span><span class="hide-sm">About</span><span class="hide-sm">Resources</span>
+          <span class="mono hide-sm" style="color:#414546">(213) 832-7088</span>
+          <a class="btn btn-primary btn-sm" href="#form">Get in touch</a>
+        </nav>
+      </div>
+      <div class="mock-hero">
+        <div style="position:relative;z-index:1;min-width:0">
+          <span class="kicker">Credentialing · Medical billing · Licensing</span>
+          <h2>Get credentialed faster. <em>Get paid on the first pass.</em></h2>
+          <p>We handle payer enrollment, CAQH, Medicare and Medicaid, and the full billing cycle for practices in all 50 states, so your team can stay with patients.</p>
+          <div class="ctas">
+            <a class="btn btn-primary" href="#form">Book a free practice review</a>
+            <a class="btn btn-ghost" href="#blueprint">See how it works</a>
+          </div>
+          <div class="trust"><span>HIPAA-compliant workflows</span><span>BAA on every engagement</span><span>US-hours support</span></div>
+        </div>
+        <div class="status-card" aria-label="Example enrollment tracker">
+          <div class="t">Enrollment tracker · sample</div>
+          <div class="status-row"><span>Medicare (PECOS)</span><span class="pill ok">Approved</span></div>
+          <div class="status-row"><span>CAQH attestation</span><span class="pill ok">Current</span></div>
+          <div class="status-row"><span>Aetna · Group</span><span class="pill prog">In review</span></div>
+          <div class="status-row"><span>BCBS · Individual</span><span class="pill wait">Docs needed</span></div>
+        </div>
+      </div>
+      <div class="mock-strip" aria-hidden="true">
+        <div class="marquee">
+          <span>Family Medicine</span><span>Cardiology</span><span>Behavioral Health</span><span>Orthopedics</span><span>Dermatology</span><span>Home Health</span><span>Urgent Care</span><span>DME</span><span>Podiatry</span><span>OB/GYN</span>
+          <span>Family Medicine</span><span>Cardiology</span><span>Behavioral Health</span><span>Orthopedics</span><span>Dermatology</span><span>Home Health</span><span>Urgent Care</span><span>DME</span><span>Podiatry</span><span>OB/GYN</span>
+        </div>
+      </div>
+    </div>
+    <p class="caption">Direction preview, not final copy. The tracker card shows what Kram does instead of a stock photo of a doctor. Trust badges in the hero must be confirmed by the client before launch.</p>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">The short version</span>
+    <h2>Six decisions</h2>
+    <div class="decisions">
+      <div class="decision"><span class="eyebrow">Colour</span><b>Logo orange + logo graphite</b><span class="small muted">Sampled from the client's logo files. Every competitor we checked uses navy or blue, so orange on graphite is Kram's alone.</span></div>
+      <div class="decision"><span class="eyebrow">Headings</span><b>Source Serif 4</b><span class="small muted">Echoes the serif "KRAM" wordmark. Reads as established and medical-grade, not startup.</span></div>
+      <div class="decision"><span class="eyebrow">Body &amp; UI</span><b>Public Sans</b><span class="small muted">Built for the U.S. Web Design System. Very legible, neutral, and familiar to US readers from government and health sites.</span></div>
+      <div class="decision"><span class="eyebrow">Motion</span><b>Fade-rise, count-up, progress lines</b><span class="small muted">200–600 ms, one easing curve, never blocking content, off for reduced-motion users.</span></div>
+      <div class="decision"><span class="eyebrow">Structure</span><b>9 homepage sections, not 18</b><span class="small muted">Competitors repeat themselves. We say each thing once, with proof beside it.</span></div>
+      <div class="decision"><span class="eyebrow">Stack</span><b>Next.js + Tailwind + Motion + Resend</b><span class="small muted">Static-fast pages, a typed contact form, and email delivery through Resend.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Research · what the market looks like</span>
+    <h2>The current site and the three references</h2>
+    <p class="prose muted">We pulled the live HTML and stylesheets of all four sites to read their real colour tokens and fonts, and read their content pages for structure, proof and calls to action.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Site</th><th>Fonts</th><th>Colours</th><th>What works</th><th>What to avoid</th></tr></thead>
+        <tbody>
+          <tr><td><b>kramhealthcare.com</b> (current)</td><td>Manrope only</td><td><span class="sw-inline" style="background:#F3872C"></span>#F3872C <span class="sw-inline" style="background:#14457B"></span>#14457B <span class="sw-inline" style="background:#363738"></span>#363738</td><td>Clear service list. Good stats (10+ yrs, 5K+ providers, 120K+ applications, 99% first-time success).</td><td>Stats hidden on About. No testimonials, address, privacy policy or HIPAA statement. Header phone is a placeholder (<code>tel:9876543210</code>). Typos ("What Choose Us"). British "Orthopaedics" for a US audience. Logo alt text says "medicate".</td></tr>
+          <tr><td><b>credsagercm.com</b></td><td>Instrument Serif + Manrope</td><td><span class="sw-inline" style="background:#071A3D"></span>#071A3D navy <span class="sw-inline" style="background:#1F6FE5"></span>#1F6FE5 blue</td><td>Editorial serif + clean sans pairing. Premium dark feel.</td><td>Fully client-rendered: the HTML has only a title, so search engines and link previews see almost nothing.</td></tr>
+          <tr><td><b>knackrcm.com</b></td><td>Fraunces + Poppins</td><td><span class="sw-inline" style="background:#4E35DF"></span>#4E35DF violet <span class="sw-inline" style="background:#18D7CF"></span>#18D7CF teal</td><td>Specialty-first navigation. Named case studies with numbers. ROI calculator. PHI warning on the form. Response-time promise.</td><td>Stats render as "0" without JavaScript. ~18 homepage sections. Six CTA labels for one action. A 9-field required form.</td></tr>
+          <tr><td><b>altermedrcm.com</b></td><td>Plus Jakarta Sans</td><td><span class="sw-inline" style="background:#2B2B5E"></span>#2B2B5E indigo <span class="sw-inline" style="background:#00CDE5"></span>#00CDE5 cyan</td><td>Precise credentialing facts (CAQH every 120 days, PECOS every 3–5 years, 60–180+ day cycle). Billing / Credentialing split. Click-to-call everywhere.</td><td>Half the homepage sells their app. Social links point to twitter.com root. Unsourced stats. Logos with no alt text.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout prose"><b>Takeaway.</b> All three references sit in navy, indigo or blue. Kram's orange is a real advantage if we use it with discipline: as a signature accent on a deep, calm base, never as a wall of colour.</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Colour system</span>
+    <h2>Built from the logo: orange petals, graphite X</h2>
+    <p class="prose muted">We sampled the client's logo files (<code>Simple.png</code>, <code>3D.png</code>, <code>3D WB.png</code>). The flat petals are <b>#F77C27</b> and the X mark is <b>#414546</b>. Orange brings warmth and energy; graphite keeps it serious and clinical. Every other colour below is a tint, shade or functional colour derived from those two, so the site and logo always match.</p>
+    <div class="logo-sample" aria-label="Colours sampled from the client logo"><span style="background:#F77C27"></span><span style="background:#414546"></span><span style="background:#F77C27"></span><span style="background:#23282B"></span><span style="background:#F4F2EF"></span><em class="small muted">Petal #F77C27 · X mark #414546 · 3D shadow #2A3237 → Graphite Deep #23282B · 3D backdrop #EDE9E5 → Stone #F4F2EF</em></div>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#F77C27;color:#1C2023">Kram Orange</div><div class="info"><b>#F77C27</b><span>Logo petals, buttons, highlights</span><span class="ratio pass">6.2:1 with dark text · AA</span></div></div>
+      <div class="sw"><div class="chip" style="background:#A9490C;color:#fff">Orange Ink</div><div class="info"><b>#A9490C</b><span>Orange text and links on light</span><span class="ratio pass">5.2:1 on Stone · AA</span></div></div>
+      <div class="sw"><div class="chip" style="background:#23282B;color:#fff">Graphite Deep</div><div class="info"><b>#23282B</b><span>Hero, footer, dark bands</span><span class="ratio pass">15:1 with white · AAA</span></div></div>
+      <div class="sw"><div class="chip" style="background:#1D6F66;color:#fff">Success</div><div class="info"><b>#1D6F66</b><span>Functional only: "approved" pills, form success. Never decorative.</span><span class="ratio pass">6.0:1 on white · AA</span></div></div>
+      <div class="sw"><div class="chip" style="background:#414546;color:#fff">Logo Graphite</div><div class="info"><b>#414546</b><span>X mark, icons, secondary text</span><span class="ratio pass">9.7:1 on white · AAA</span></div></div>
+      <div class="sw"><div class="chip" style="background:#F4F2EF;color:#1C2023;border-bottom:1px solid #E2DED9">Stone</div><div class="info"><b>#F4F2EF</b><span>Page background, alternating bands</span><span class="ratio">Warm grey, from the 3D logo backdrop</span></div></div>
+    </div>
+
+    <div class="callout prose">
+      <b>The one rule that matters:</b> the logo orange on white is only <span class="fail mono">2.67:1</span>. That fails WCAG for text and for white-text buttons. So:
+      <ul style="margin:8px 0 0;padding-left:18px;display:grid;gap:4px">
+        <li>Orange buttons use <b>dark text</b>, not white (6.2:1).</li>
+        <li>Orange <b>text</b> on light backgrounds uses Orange Ink <span class="mono">#A9490C</span>.</li>
+        <li>Bright orange text is fine on Graphite Deep (5.6:1).</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="small muted" style="margin-bottom:8px">Target proportion on a typical page</p>
+      <div class="ratio-bar" role="img" aria-label="About 60 percent Stone, 25 percent Graphite Deep, 10 percent white surfaces, 5 percent orange">
+        <span style="width:60%;background:#F4F2EF"></span><span style="width:25%;background:#23282B"></span><span style="width:10%;background:#FFFFFF"></span><span style="width:5%;background:#F77C27"></span>
+      </div>
+      <p class="small muted" style="margin-top:6px">60% Stone · 25% Graphite Deep · 10% white cards · 5% orange</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Typography</span>
+    <h2>A serif for authority, a sans for clarity</h2>
+    <p class="prose muted">Option A is the recommendation. Option B is an all-sans fallback if the client wants a more tech-forward feel. Toggle to compare with real Kram copy.</p>
+    <div class="toggle" role="group" aria-label="Font pairing">
+      <button type="button" id="pairA" aria-pressed="true">A · Source Serif 4 + Public Sans</button>
+      <button type="button" id="pairB" aria-pressed="false">B · Hanken Grotesk</button>
+    </div>
+    <div class="specimen" id="specimen" data-pair="a">
+      <div class="d1">Accuracy you can count on, from first application to final payment.</div>
+      <div class="d2">Provider enrollment &amp; credentialing</div>
+      <p class="body">Commercial and government payer enrollment, CAQH registration and maintenance, NPI Type 1 and Type 2, Medicare and Medicaid enrollment, and revalidations. We track every application and tell you exactly what each payer needs next.</p>
+      <div class="stats">
+        <div class="stat"><b>5,000+</b><span>Providers served</span></div>
+        <div class="stat"><b>120K+</b><span>Applications processed</span></div>
+        <div class="stat"><b>99%</b><span>First-time submission success</span></div>
+      </div>
+    </div>
+    <div class="two">
+      <div class="list-card">
+        <h3>Why this pairing</h3>
+        <ul>
+          <li><b>Source Serif 4</b> (Adobe, open source) has optical sizes, so big headlines look refined and small ones stay sturdy. It rhymes with the serif "KRAM" wordmark.</li>
+          <li><b>Public Sans</b> was made for the U.S. Web Design System. It's tuned for long reading and forms and has tabular numbers for stats.</li>
+          <li>Neither face is used by the three references, so Kram won't look like a sibling of Knack (Fraunces/Poppins) or Credsage (Instrument Serif/Manrope).</li>
+          <li>Both are free on Google Fonts and can be self-hosted with <code>next/font</code> for speed and privacy.</li>
+        </ul>
+      </div>
+      <div class="list-card">
+        <h3>Type scale (desktop)</h3>
+        <div class="scale">
+          <div><span class="lbl">Display 56/60</span><span class="s" style="font-family:var(--font-display);font-size:2rem;font-weight:600">Display</span></div>
+          <div><span class="lbl">H2 40/46</span><span class="s" style="font-family:var(--font-display);font-size:1.6rem;font-weight:600">Section heading</span></div>
+          <div><span class="lbl">H3 24/30</span><span class="s" style="font-family:var(--font-display);font-size:1.25rem;font-weight:600">Card heading</span></div>
+          <div><span class="lbl">Body 18/28</span><span class="s">Body text in Public Sans</span></div>
+          <div><span class="lbl">Small 15/22</span><span class="s small">Captions, form help</span></div>
+          <div><span class="lbl">Label 13 caps</span><span class="s eyebrow">Eyebrow label</span></div>
+        </div>
+        <p class="small muted" style="margin-top:10px">Body never below 16px. Mobile display scales down to ~36px with <code>clamp()</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Motion</span>
+    <h2>Subtle, smooth, and never in the way</h2>
+    <p class="prose muted">Healthcare buyers are cautious. Motion should guide the eye and make the site feel well made, not perform. Hover the cards and press replay to see each pattern.</p>
+    <div class="motion-grid">
+      <div class="demo">
+        <b>Section reveal</b>
+        <div class="stage"><div class="reveal-cards play" id="rv"><i></i><i></i><i></i><i></i></div></div>
+        <span class="small muted">Rise 16px + fade, 600 ms, 70 ms stagger. Starts visible-ish so nothing is hidden if JS fails.</span>
+        <button class="replay" type="button" data-replay="rv">Replay</button>
+      </div>
+      <div class="demo">
+        <b>Stat count-up</b>
+        <div class="stage"><span class="count" id="ct" data-to="120000">120,000+</span></div>
+        <span class="small muted">Real number is in the HTML. Animation only counts toward it, so search and no-JS users never see "0" (Knack's bug).</span>
+        <button class="replay" type="button" data-replay="ct">Replay</button>
+      </div>
+      <div class="demo">
+        <b>Card hover</b>
+        <div class="stage"><div class="hover-card"><b style="font-family:var(--font-display)">Denial management</b><div class="small muted">Appeals within 48 hours <span class="arrow">→</span></div></div></div>
+        <span class="small muted">Lift 3px, soft shadow, orange border, arrow nudges. 250 ms.</span>
+      </div>
+      <div class="demo">
+        <b>Process line</b>
+        <div class="stage"><div class="timeline play" id="tl"><span class="dot"></span><span class="seg"></span><span class="dot"></span><span class="seg"></span><span class="dot"></span><span class="seg"></span><span class="dot"></span></div></div>
+        <span class="small muted">The "how it works" steps draw in as you scroll. Mirrors an application moving through stages.</span>
+        <button class="replay" type="button" data-replay="tl">Replay</button>
+      </div>
+    </div>
+    <div class="tokens">
+      <div><b>--ease-out</b>cubic-bezier(.2,.7,.2,1) for everything</div>
+      <div><b>Durations</b>150 ms hover · 250 ms UI · 600 ms reveal</div>
+      <div><b>Distance</b>Max 16px travel. No spins, bounces, or parallax on text.</div>
+      <div><b>Reduced motion</b>All movement off; content shows instantly.</div>
+      <div><b>Header</b>Shrinks from 84px to 64px on scroll, gains a hairline.</div>
+      <div><b>Specialties</b>Slow marquee (40 s loop), pauses on hover/focus.</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="blueprint">
+  <div class="wrap">
+    <span class="eyebrow">Homepage blueprint</span>
+    <h2>Nine sections, in order</h2>
+    <p class="prose muted">Each section answers one question a practice manager has, in the order they ask it.</p>
+    <div class="blueprint">
+      <div class="bp"><div><b>Header</b><span class="small muted">Logo, Services, Specialties, About, Resources, phone number (real one), "Get in touch" button. Sticky, shrinks on scroll.</span></div></div>
+      <div class="bp dark"><div><b>Hero: what we do, in plain words</b><span class="small muted">Headline, one-line subhead, primary CTA "Book a free practice review", secondary "See how it works". Live-looking enrollment tracker card. No carousel.</span></div></div>
+      <div class="bp"><div><b>Proof strip</b><span class="small muted">The four stats (10+ yrs, 5K+ providers, 120K+ applications, 99% first-time success) with a footnote on how each is measured. Compliance line below.</span></div></div>
+      <div class="bp"><div><b>Services: three pillars</b><span class="small muted">Credentialing &amp; Enrollment · Billing &amp; RCM · Licensing &amp; Support. Each card lists 4 items and links to its own page.</span></div></div>
+      <div class="bp"><div><b>How it works: four steps</b><span class="small muted">Free review → Onboarding &amp; BAA → We file and follow up → You see status weekly. Real timelines (e.g. typical payer enrollment 60–120 days).</span></div></div>
+      <div class="bp"><div><b>Specialties</b><span class="small muted">Searchable grid of the top 12 with icons, "View all 47 specialties" link. US spelling throughout.</span></div></div>
+      <div class="bp"><div><b>Why Kram</b><span class="small muted">Dedicated account manager, transparent reporting, 50-state coverage, telehealth licensing. Each claim paired with a specific detail.</span></div></div>
+      <div class="bp"><div><b>Testimonials + FAQ</b><span class="small muted">2–3 real quotes with name, role, practice and state. 6 FAQs (cost, timelines, which payers, do you sign a BAA, switching from another biller).</span></div></div>
+      <div class="bp dark"><div><b>Get in touch + footer</b><span class="small muted">Short form beside contact details and response promise. Footer with services, legal links (Privacy, Terms, HIPAA Notice, Accessibility), address, socials.</span></div></div>
+    </div>
+
+    <h3 style="margin-top:12px">Sitemap</h3>
+    <div class="sitemap">
+      <div><b>Services</b><ul><li>Provider Enrollment &amp; Credentialing</li><li>Medical Billing &amp; RCM</li><li>Multi-state &amp; Telehealth Licensing</li><li>Prior Auth &amp; Eligibility</li><li>Compliance &amp; Audit Support</li></ul></div>
+      <div><b>Specialties</b><ul><li>Index with search + filters</li><li>Template detail page (pain points, codes, payers, FAQ)</li><li>Start with 8 priority specialties</li></ul></div>
+      <div><b>Company</b><ul><li>About (story, team, values)</li><li>Contact</li><li>Resources / blog (phase 2)</li><li>Careers (optional)</li></ul></div>
+      <div><b>Legal (required)</b><ul><li>Privacy Policy</li><li>Terms of Use</li><li>HIPAA / Security statement</li><li>Accessibility statement</li><li>SMS / communications policy</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="form">
+  <div class="wrap">
+    <span class="eyebrow">Get in touch form</span>
+    <h2>Short, safe, and sent through Resend</h2>
+    <div class="form-split">
+      <div style="display:grid;gap:16px;min-width:0">
+        <p class="muted">Seven fields, four required. Knack asks for nine required fields; that costs leads. We ask only what sales needs for the first call.</p>
+        <ol class="flow">
+          <li><span>Form validates in the browser (React Hook Form + Zod).</span></li>
+          <li><span>A Next.js server action re-validates, checks a honeypot and Cloudflare Turnstile, and rate-limits by IP.</span></li>
+          <li><span>Resend sends the lead to <code>sales@kramhealthcare.com</code> with a reply-to of the visitor.</span></li>
+          <li><span>Resend sends the visitor a branded confirmation ("We'll reply within one business day").</span></li>
+          <li><span>The page shows an inline success message. No third-party ad pixels fire on this page.</span></li>
+        </ol>
+        <p class="small muted">Domain must be verified in Resend (SPF, DKIM, DMARC on kramhealthcare.com) so emails don't land in spam.</p>
+      </div>
+      <form class="form-card" id="demoForm" novalidate>
+        <div class="row">
+          <div class="field"><label for="f-name">Full name *</label><input id="f-name" autocomplete="name" value="Dana Whitfield"></div>
+          <div class="field"><label for="f-email">Work email *</label><input id="f-email" type="email" autocomplete="email" value="dana@lakesidefamilymed.com"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="f-phone">Phone *</label><input id="f-phone" type="tel" autocomplete="tel" value="(512) 555-0142"></div>
+          <div class="field"><label for="f-org">Practice name *</label><input id="f-org" autocomplete="organization" value="Lakeside Family Medicine"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="f-size">Number of providers</label><select id="f-size"><option>1</option><option selected>2–5</option><option>6–20</option><option>21–50</option><option>50+</option></select></div>
+          <div class="field"><label for="f-state">State</label><select id="f-state"><option>Texas</option><option>California</option><option>Florida</option><option>New York</option><option>Multiple states</option></select></div>
+        </div>
+        <div class="field"><span style="font-size:.82rem;font-weight:600">What do you need help with?</span>
+          <div class="chips">
+            <label><input type="checkbox" id="c1" checked> Credentialing</label>
+            <label><input type="checkbox" id="c2"> Medical billing</label>
+            <label><input type="checkbox" id="c3"> Licensing</label>
+            <label><input type="checkbox" id="c4"> Not sure yet</label>
+          </div>
+        </div>
+        <div class="field"><label for="f-msg">Anything else? (optional)</label><textarea id="f-msg" rows="3">Adding two new NPs in January and need them enrolled with Medicare and BCBS.</textarea></div>
+        <p class="phi">Please don't include patient names or other health information in this form.</p>
+        <label class="consent"><input type="checkbox" id="f-consent" checked> <span>I agree to the Privacy Policy and to Kram Healthcare contacting me about this request by phone or email.</span></label>
+        <button class="btn btn-primary" type="submit" style="justify-self:start">Send message</button>
+        <div class="form-done" id="formDone" role="status">Preview only: in the real site this sends through Resend and shows "Thanks, Dana. We'll reply within one business day."</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">US healthcare checklist</span>
+    <h2>What must be there, and what must not</h2>
+    <div class="two">
+      <div class="list-card">
+        <h3>Must have <span class="tag do">do</span></h3>
+        <ul>
+          <li><b>WCAG 2.1 AA accessibility.</b> HHS's Section 504 rule makes it the standard for HHS-funded providers (deadline moved to May 11, 2027). Kram's clients will expect vendors to meet it, and it protects against ADA demand letters.</li>
+          <li><b>Real proof.</b> Stats with a footnote, named testimonials, client logos with permission.</li>
+          <li><b>Compliance stated precisely:</b> "HIPAA-compliant processes" and "We sign a BAA". Show SOC 2 or similar only if Kram actually holds it.</li>
+          <li><b>A physical US address</b>, real phone in header and footer, business hours with time zone.</li>
+          <li><b>Privacy Policy, Terms, Accessibility statement</b> linked in the footer.</li>
+          <li><b>PHI warning</b> on every form and clear consent wording.</li>
+          <li><b>US spelling and terms</b> (Orthopedics, payer, practice manager) and US date/phone formats.</li>
+          <li><b>Fast pages</b>: Core Web Vitals green, images in AVIF/WebP, fonts self-hosted.</li>
+          <li><b>SEO</b>: one page per service and specialty, unique titles, schema.org Organization + FAQ markup.</li>
+        </ul>
+      </div>
+      <div class="list-card">
+        <h3>Avoid <span class="tag no">don't</span></h3>
+        <ul>
+          <li><b>"HIPAA certified".</b> There is no such certification; compliance buyers notice.</li>
+          <li><b>Meta Pixel or ad trackers on forms.</b> A Texas court vacated part of HHS's tracking guidance, but private class actions over pixels continue. Use privacy-friendly analytics.</li>
+          <li><b>Fake or unsourced numbers</b>, stock testimonials, or AI-generated doctor photos.</li>
+          <li><b>Hero carousels</b>, autoplay video with sound, pop-ups on load, chatbots that invite health details.</li>
+          <li><b>Long required forms</b> and many CTA labels for one action. One label: "Get in touch" / "Book a free practice review".</li>
+          <li><b>Content only JavaScript can render</b> (Credsage) or stats that show "0" without it (Knack).</li>
+          <li><b>Pre-checked SMS opt-in.</b> Texting needs separate, explicit consent under the TCPA.</li>
+          <li><b>Low-contrast orange text</b> on white.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Before design starts</span>
+    <h2>Questions for the client</h2>
+    <ol class="q prose">
+      <li>Can we keep the four stats (10+, 5K+, 120K+, 99%)? How is each measured, and as of what date?</li>
+      <li>Which compliance claims are true today: BAA signed with clients? SOC 2, ISO 27001, or HITRUST? Any AAPC-certified coders?</li>
+      <li>Can we get 2–3 testimonials with name, title, practice and state, and permission to show any client logos?</li>
+      <li>What US office address and business hours should appear? Is the team US-based, offshore, or mixed?</li>
+      <li>Is the logo available as SVG? Are they open to a light logo refresh (cleaner mark for small sizes)?</li>
+      <li>Which 8 specialties matter most for sales? These get detail pages first.</li>
+      <li>Who receives form leads, and should they also go to a CRM (HubSpot, Zoho)?</li>
+      <li>Do they want pricing shown ("starting at" or percentage of collections), or "custom quote" only?</li>
+    </ol>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="eyebrow">Sources</span>
+    <ul class="sources">
+      <li>Live HTML and CSS of kramhealthcare.com, credsagercm.com, knackrcm.com, altermedrcm.com (fetched Nov 7, 2026)</li>
+      <li><a href="https://www.feldesman.com/hhs-extends-compliance-deadlines-for-web-and-mobile-accessibility-requirements/">Feldesman: HHS extends web accessibility deadlines</a></li>
+      <li><a href="https://accessible.org/hhs-web-accessibility-wcag-21-aa/">Accessible.org: HHS rule requires WCAG 2.1 AA</a></li>
+      <li><a href="https://www.hipaajournal.com/texas-judge-vacates-ocr-website-tracking-technology-guidance/">HIPAA Journal: Texas judge vacates OCR tracking guidance</a></li>
+      <li><a href="https://www.govinfosecurity.com/hhs-ocr-drops-appeal-courts-web-tracker-ruling-a-26201">GovInfoSecurity: OCR drops appeal on web tracker ruling</a></li>
+      <li><a href="https://www.hfma.org/revenue-cycle/patient-access/from-intake-to-billing-5-tips-for-safe-successful-digital-communications/">HFMA: safe digital communications and consent</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="end"><div class="wrap">Kram Healthcare · UI direction v1 · Next step: client sign-off on colour and type, then high-fidelity homepage design.</div></footer>
+
+<script>
+(function(){
+  var spec=document.getElementById('specimen'),a=document.getElementById('pairA'),b=document.getElementById('pairB');
+  function setPair(p){spec.setAttribute('data-pair',p);a.setAttribute('aria-pressed',p==='a');b.setAttribute('aria-pressed',p==='b');}
+  a.addEventListener('click',function(){setPair('a')});b.addEventListener('click',function(){setPair('b')});
+
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countUp(el){
+    var to=+el.getAttribute('data-to'); if(reduce){return;}
+    var start=null,dur=1400;
+    function step(t){if(!start)start=t;var p=Math.min((t-start)/dur,1);var e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(to*e).toLocaleString('en-US')+'+'; if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  }
+  function replay(id){
+    var el=document.getElementById(id);
+    if(id==='ct'){countUp(el);return;}
+    el.classList.remove('play'); void el.offsetWidth; requestAnimationFrame(function(){el.classList.add('play');});
+  }
+  document.querySelectorAll('[data-replay]').forEach(function(btn){btn.addEventListener('click',function(){replay(btn.getAttribute('data-replay'))});});
+  countUp(document.getElementById('ct'));
+
+  document.getElementById('demoForm').addEventListener('submit',function(e){e.preventDefault();document.getElementById('formDone').classList.add('show');});
+})();
+</script>
