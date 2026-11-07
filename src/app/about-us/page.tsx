@@ -30,6 +30,7 @@ export default function AboutPage() {
             alt="A physician talking with a patient in an exam room"
             fill
             sizes="(min-width: 1024px) 45vw, 100vw"
+            quality={70}
             placeholder="blur"
             loading="eager"
             className="object-cover object-[40%_center]"
@@ -56,6 +57,7 @@ export default function AboutPage() {
               alt="Two colleagues celebrating at a desk covered with reports and a laptop"
               fill
               sizes="(min-width: 1240px) 1160px, 100vw"
+              quality={70}
               placeholder="blur"
               className="object-cover object-[center_40%]"
             />

@@ -63,13 +63,36 @@ export function reveal(delayMs = 0): { "data-reveal": true; style?: CSSPropertie
     : { "data-reveal": true };
 }
 
-/** Headline with one highlighted keyword, the signature type treatment of the site. */
-export function Highlight({ start, word, end }: { start?: string; word: string; end?: string }) {
+/**
+ * Splits plain text into per-word spans so CSS can stagger them in (Enima-style headline reveal).
+ * Words are inline-block spans separated by real spaces, so copy, selection and screen readers
+ * behave as normal text. `from` continues the stagger index across several calls in one headline.
+ */
+export function Words({ text, from = 0 }: { text: string; from?: number }) {
+  const words = text.split(" ").filter(Boolean);
   return (
     <>
-      {start && <>{start} </>}
-      <span className="hl">{word}</span>
-      {end && <> {end}</>}
+      {words.map((w, i) => (
+        <span key={`${w}-${i}`}>
+          <span className="w" style={{ ["--i" as string]: from + i }}>{w}</span>
+          {i < words.length - 1 && " "}
+        </span>
+      ))}
+    </>
+  );
+}
+
+const wordCount = (t?: string) => (t ? t.split(" ").filter(Boolean).length : 0);
+
+/** Headline with one highlighted keyword, the signature type treatment of the site. Words stagger in. */
+export function Highlight({ start, word, end }: { start?: string; word: string; end?: string }) {
+  const a = wordCount(start);
+  const b = wordCount(word);
+  return (
+    <>
+      {start && <><Words text={start} /> </>}
+      <span className="hl"><Words text={word} from={a} /></span>
+      {end && <> <Words text={end} from={a + b} /></>}
     </>
   );
 }
@@ -83,10 +106,12 @@ export function SectionHeading({
   const bodyColor = tone === "dark" ? "text-on-ink" : "text-muted";
   const a = align === "center" ? "mx-auto items-center text-center" : "";
   return (
-    <div className={`flex max-w-[46rem] flex-col gap-5 ${a}`} {...reveal()}>
-      {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
-      <H className={`text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.06] ${titleColor} ${align === "center" ? "self-center" : ""}`}>{title}</H>
-      {body && <p className={`max-w-[58ch] text-lg ${bodyColor}`}>{body}</p>}
+    <div className={`flex max-w-[46rem] flex-col gap-5 ${a}`}>
+      {eyebrow && <div {...reveal()}><Eyebrow tone={tone}>{eyebrow}</Eyebrow></div>}
+      <H data-words="" className={`text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.06] ${titleColor} ${align === "center" ? "self-center" : ""}`}>
+        {typeof title === "string" ? <Words text={title} /> : title}
+      </H>
+      {body && <p className={`max-w-[58ch] text-lg ${bodyColor}`} {...reveal(260)}>{body}</p>}
     </div>
   );
 }

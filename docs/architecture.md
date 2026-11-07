@@ -28,6 +28,8 @@ Read this before touching build config, motion, the contact form or anything cac
 
 ## Images
 - `next/image` with static imports from `src/assets/photos/` (AVIF then WebP). Photo sources are in `src/assets/photos/CREDITS.md`. They are placeholders: `TODO(client)` for real photos.
+- Compression is configured in `next.config.ts`: AVIF then WebP, `qualities: [70]` (every `<Image>` sets `quality={70}`; Next 16 coerces anything not in the allowlist), `deviceSizes` trimmed to 640–1920, and a 1-year `minimumCacheTTL` (static imports are content-hashed, so this is safe). Every `<Image>` must set an accurate `sizes` so phones download the small variant (measured: 640w AVIF ≈ 11 KB vs 193 KB source). Add `placeholder="blur"` (automatic for static imports), `loading="eager"` + `fetchPriority="high"` only for the above-the-fold image.
+- New photo: drop a ≤1600 px-wide JPG in `src/assets/photos/`; do not commit multi-MB originals.
 
 ## Performance budget
 - Keep homepage first-load JS small. After any large change run `npm run build` and compare the route table sizes.

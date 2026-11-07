@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { company, cta, nav, services } from "@/content/site";
 import { Logo } from "../ui/logo";
-import { Arrow, ButtonLink } from "../ui/primitives";
+import { Arrow, ButtonLink, Words } from "../ui/primitives";
 
 const legal = ["Privacy Policy", "Terms of Use", "HIPAA Notice", "Accessibility"]; // TODO(client): legal pages
 
@@ -12,8 +12,9 @@ export function Footer() {
         {/* Closing CTA */}
         <div className="relative mx-auto flex max-w-[1240px] flex-col gap-8 px-6 py-16 sm:px-10 md:flex-row md:items-end md:justify-between md:py-20">
           <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.22),transparent_65%)]" />
-          <h2 className="relative max-w-[18ch] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05] text-white">
-            Ready to get your providers enrolled and <span className="text-orange-soft">paid?</span>
+          <h2 className="words-view relative max-w-[18ch] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05] text-white">
+            <Words text="Ready to get your providers enrolled and" />{" "}
+            <span className="text-orange-soft"><Words text="paid?" from={7} /></span>
           </h2>
           <div className="relative flex flex-wrap gap-3">
             <ButtonLink href={cta.href} variant="white" size="lg" className="ring-0">

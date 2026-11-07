@@ -23,18 +23,18 @@ export function HomeHero() {
         <div className="flex flex-col justify-between gap-12 py-2 lg:py-10">
           <div className="flex flex-col gap-6">
             <p className="animate-rise text-[0.9rem] font-medium text-muted">{hero.kicker}</p>
-            <h1 className="animate-rise text-[clamp(2.6rem,6.2vw,4.6rem)] leading-[1.02] [animation-delay:80ms]">
+            <h1 className="words-load text-[clamp(2.6rem,6.2vw,4.6rem)] leading-[1.02]">
               <Highlight start={hero.titleStart} word={hero.titleHighlight} end={hero.titleEnd} />
             </h1>
-            <p className="animate-rise max-w-[44ch] text-lg text-muted [animation-delay:160ms]">{hero.body}</p>
-            <div className="animate-rise flex flex-wrap gap-3 pt-1 [animation-delay:240ms]">
+            <p className="animate-rise max-w-[44ch] text-lg text-muted [animation-delay:620ms]">{hero.body}</p>
+            <div className="animate-rise flex flex-wrap gap-3 pt-1 [animation-delay:760ms]">
               <ButtonLink href={cta.href} size="lg">{hero.primaryCta} <Arrow /></ButtonLink>
               <ButtonLink href="/services" variant="soft" size="lg">{hero.secondaryCta}</ButtonLink>
             </div>
           </div>
 
           {/* Social proof + partner prompt, like the reference's bottom-left cluster */}
-          <div className="animate-rise flex flex-col gap-4 [animation-delay:360ms]">
+          <div className="animate-rise flex flex-col gap-4 [animation-delay:900ms]">
             <div className="flex items-center gap-4">
               <div className="flex -space-x-2.5" aria-hidden="true">
                 {proofIcons.map((n, i) => (
@@ -77,17 +77,18 @@ export function HomeHero() {
 function HeroVisual() {
   const rows = enrollmentSample.filter((r) => r.payer !== "CAQH re-attestation"); // 3 rows keep the card compact
   return (
-    <div className="relative min-h-[560px] overflow-hidden rounded-[28px] bg-peach sm:min-h-[640px] animate-fade">
+    <div className="relative min-h-[460px] overflow-hidden rounded-[28px] bg-peach sm:min-h-[640px] animate-expand">
       {/* TODO(client): replace with the client's own photography (src/assets/photos/CREDITS.md) */}
       <Image
         src={heroPhoto}
         alt="A clinician reviewing patient imaging with a colleague at a workstation"
         fill
         sizes="(min-width: 1240px) 610px, (min-width: 1024px) 50vw, 100vw"
+        quality={70}
         placeholder="blur"
         loading="eager"
         fetchPriority="high"
-        className="object-cover object-[74%_center]"
+        className="animate-settle object-cover object-[74%_center]"
       />
       {/* Warm tint + bottom shade so the floating cards read cleanly over the photo */}
       <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgb(247_124_39/0.06),transparent_40%,rgb(29_33_36/0.38))]" />

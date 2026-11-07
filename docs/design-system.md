@@ -42,6 +42,7 @@ Contrast rule: `#F77C27` on white = 2.67:1 → never for text on light, never wh
 ## Motion
 - Ease `cubic-bezier(.2,.7,.2,1)` everywhere. 150 ms hover, 250 ms UI, 600 ms reveal, 70 ms stagger.
 - Patterns: section reveal (rise 16px + fade), stat count-up, card hover lift (−3px + shadow + orange border), process line draw, header compacts on scroll (CSS scroll-driven animation, no JS), slow specialty marquee (pauses on hover).
+- Enima-style additions (Nov 7 2026): headlines reveal word by word (`<Words>` / `<Highlight>` in `primitives.tsx`; 10px rise + fade, 55 ms stagger, capped at 14 words). Hero/page-hero headlines play on load (`.words-load`); section headings play on scroll (`[data-words]` + `MotionObserver`). Header drops in on load (`animate-drop`), the hero visual expands from an inset clip with a slow image settle (`animate-expand`, `animate-settle`).
 - No parallax on text, no bounces/spins, no autoplay video, no carousels in the hero.
 - `prefers-reduced-motion: reduce` → all motion off, content shown immediately.
 

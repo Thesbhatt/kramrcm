@@ -20,7 +20,7 @@ export function DesktopNav() {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`flex items-center gap-2 rounded-full px-3.5 py-2 transition-colors duration-150 ${
+                className={`flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 transition-colors duration-150 ${
                   active ? "font-medium text-fg" : "text-muted hover:text-fg"
                 }`}
               >

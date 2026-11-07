@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 /**
- * Scroll motion (keeps client JS tiny): [data-reveal] gets [data-shown] when it scrolls into view;
+ * Scroll motion (keeps client JS tiny): [data-reveal] and [data-words] (staggered headline words) get [data-shown] when it scrolls into view;
  * [data-count] counts up to the number already in the HTML. Content is readable without JS.
  *
  * Render this at the END of each page (not in the layout). React runs a component's effects only after
@@ -22,7 +22,7 @@ export function MotionObserver() {
 /** One observer for the current page: reveal on scroll, count stats up. */
 function observe(): IntersectionObserver | undefined {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown])");
+  const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown]), [data-words]:not([data-shown])");
   const counters = document.querySelectorAll<HTMLElement>("[data-count]:not([data-counted])");
 
   if (reduce || !("IntersectionObserver" in window)) {

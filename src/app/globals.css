@@ -26,6 +26,9 @@
 
   --animate-rise: rise 0.7s var(--ease-out-soft) both;
   --animate-fade: fade 0.9s var(--ease-out-soft) both;
+  --animate-drop: drop 0.8s var(--ease-out-soft) both;
+  --animate-expand: expand 1.1s var(--ease-out-soft) 0.1s both;
+  --animate-settle: settle 1.8s var(--ease-out-soft) both;
   --animate-marquee: marquee 60s linear infinite;
 
   @keyframes rise {
@@ -38,6 +41,22 @@
   }
   @keyframes marquee {
     to { transform: translateX(-50%); }
+  }
+  @keyframes drop {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes expand {
+    from { opacity: 0; clip-path: inset(7% 5% round 28px); }
+    to { opacity: 1; clip-path: inset(0% 0% round 28px); }
+  }
+  @keyframes settle {
+    from { transform: scale(1.14); }
+    to { transform: scale(1); }
+  }
+  @keyframes word-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
   }
   @keyframes grow {
     from { transform: scaleX(0); }
@@ -82,11 +101,32 @@
 /* ---------- Scroll reveal (progressive: visible without JS) ---------- */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(12px);
   transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .js [data-reveal][data-shown] { opacity: 1; transform: none; }
+
+/* ---------- Word-by-word headline reveal (Enima-style: 10px rise + fade, 55 ms stagger) ---------- */
+.w { display: inline-block; }
+/* Hero headlines: play on load. Needs no JS (the animation ends visible). */
+.words-load .w { animation: word-in 0.7s var(--ease-out-soft) both; animation-delay: calc(120ms + min(var(--i), 14) * 55ms); }
+/* Section headlines: wait for the observer to add [data-shown]. Visible by default without JS. */
+.js [data-words] .w {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
+  transition-delay: calc(min(var(--i), 14) * 55ms);
+}
+.js [data-words][data-shown] .w { opacity: 1; transform: none; }
+
+/* Footer CTA: words rise as the card scrolls into view (CSS scroll-driven, no JS, safe in the layout). */
+@supports (animation-timeline: view()) {
+  .words-view .w {
+    animation: word-in linear both;
+    animation-timeline: view();
+    animation-range: entry calc(var(--i) * 3%) entry calc(45% + var(--i) * 3%);
+  }
+}
 
 /* ---------- Statement: words darken as they scroll into view (CSS only) ---------- */
 .statement-word { color: var(--color-fg); }
@@ -165,6 +205,8 @@ details.faq[open]::details-content { block-size: auto; }
     transition-delay: 0ms !important;
   }
   .js [data-reveal] { opacity: 1; transform: none; }
+  .js [data-words] .w { opacity: 1; transform: none; }
+  .words-view .w, .words-load .w { animation: none !important; opacity: 1; transform: none; }
   .marquee-track { animation: none !important; }
   .statement-word { animation: none !important; color: var(--color-fg); }
 }

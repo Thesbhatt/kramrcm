@@ -17,12 +17,12 @@ export function PageHero({
               <li aria-current="page" className="font-medium text-fg">{crumb}</li>
             </ol>
           </nav>
-          <h1 className="animate-rise max-w-[18ch] text-[clamp(2.5rem,6vw,4.4rem)] leading-[1.03] [animation-delay:80ms]">
+          <h1 className="words-load max-w-[18ch] text-[clamp(2.5rem,6vw,4.4rem)] leading-[1.03]">
             <Highlight start={start} word={word} end={end} />
           </h1>
-          <p className="animate-rise max-w-[54ch] text-lg text-muted [animation-delay:160ms]">{body}</p>
+          <p className="animate-rise max-w-[54ch] text-lg text-muted [animation-delay:520ms]">{body}</p>
         </div>
-        {children && <div className="animate-rise [animation-delay:240ms]">{children}</div>}
+        {children && <div className="animate-rise [animation-delay:640ms]">{children}</div>}
       </Container>
     </section>
   );

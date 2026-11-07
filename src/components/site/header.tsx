@@ -6,7 +6,7 @@ import { DesktopNav, MobileMenu } from "./nav";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40">
+    <header className="animate-drop sticky top-0 z-40">
       <div className="site-header-bar relative bg-white/70 backdrop-blur-md">
         <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-10">
           <div className="flex items-center gap-8 xl:gap-12">
