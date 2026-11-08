@@ -23,7 +23,7 @@ function place(glider: HTMLElement | null, item: HTMLElement | null) {
 const current = (list: HTMLElement | null) => list?.querySelector<HTMLElement>('li:has([aria-current="page"])') ?? null;
 
 /**
- * Desktop links. One tint pill with an orange base bar rests behind the current page and glides to whichever link
+ * Desktop links. One orange bar (no background fill) rests under the current page and glides to whichever link
  * is hovered or focused, then returns. The current page is also marked with aria-current and full-ink text.
  * No mega-menus.
  */
@@ -139,7 +139,7 @@ export function MobileMenu() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   tabIndex={open ? undefined : -1}
-                  className={`relative flex items-center justify-between border-b border-line px-3 py-3.5 font-display text-lg tracking-[-0.01em] transition-colors duration-150 ${active ? "bg-tint text-fg" : "text-muted hover:bg-tint/60 hover:text-fg"}`}
+                  className={`relative flex items-center justify-between border-b border-line px-3 py-3.5 font-display text-lg tracking-[-0.01em] transition-colors duration-150 ${active ? "text-fg" : "text-muted hover:text-fg"}`}
                 >
                   {active && <span className="absolute inset-y-0 left-0 w-[3px] bg-orange" aria-hidden="true" />}
                   {item.label}

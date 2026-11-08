@@ -23,7 +23,7 @@ Every page ends with `<MotionObserver />`.
 | `ui/primitives.tsx` | `Container` (1200px), `Eyebrow` (plain small text), `ButtonLink` (variants `dark`/`soft` = filled ink, `white` = outline, `ghost-dark` = outline on ink; `/…` hrefs use next/link), `SectionHeading`, `Icon` (+ `IconName`), `Arrow`, `Check`. `reveal(delayMs)` (scroll reveal attrs), `stagger` (list stagger attrs), `Words` (masked word rise, hero h1 only) and `Highlight` (plain text, no pill) |
 | `ui/logo.tsx` | `LogoMark` (our SVG trace of the client mark; no vector from client yet) |
 | `ui/motion-observer.tsx` | client; the only page-level script: scroll reveals (`data-shown`), stagger index, count-up (`data-count`), and holds the status board until visible (`data-play`) |
-| `site/header.tsx`, `site/nav.tsx` | white 97px header, centered links, one CTA. `nav.tsx` is client: sliding `.nav-glider` pill (tint + orange base bar) on the current/hovered link, mobile menu with active-row highlight |
+| `site/header.tsx`, `site/nav.tsx` | white 97px header, centered links, one CTA. `nav.tsx` is client: sliding `.nav-glider` orange bar (no fill) under the current/hovered link, mobile menu with active-row bar |
 | `site/footer.tsx` | closing CTA band (pale tint) + ink footer; on every page |
 | `home/hero.tsx` | `HomeHero`: split layout. Left: headline (masked words), sentence, one button, muted trust line. Right: doctors photo (`hero.photo`, parallax + settle). No status board here |
 | `home/status-board.tsx` | the framed "Practice status board" of a SAMPLE practice, used in `product-preview.tsx`; CSS-only sequence started by `MotionObserver` when visible (see `docs/architecture.md`). Data: `statusBoard` in `site.ts` |

@@ -126,15 +126,15 @@ details.faq[open]::details-content { block-size: auto; }
 .menu-panel[data-open="false"] li { opacity: 0; transform: translateY(10px); transition-delay: 0ms; }
 
 /* ---------- Header nav ---------- */
-/* One pill for the whole list: rests on the current page, glides to the hovered or focused link. Positioned from nav.tsx.
-   The orange bar along its base is the "you are here" mark. */
+/* One orange bar for the whole list: rests under the current page, glides to the hovered or focused link. Positioned from nav.tsx.
+   No background fill: the bar alone is the "you are here" mark. */
 .nav-glider {
   position: absolute; inset-block: 0; left: 0; width: 0; opacity: 0;
-  border-radius: 6px; background: var(--color-tint); pointer-events: none;
+  pointer-events: none;
   transition: opacity 0.25s var(--ease-out-soft);
 }
 .nav-glider::after {
-  content: ""; position: absolute; inset-inline: 16px; bottom: 0; height: 2px; border-radius: 2px;
+  content: ""; position: absolute; inset-inline: 16px; bottom: 2px; height: 2px; border-radius: 2px;
   background: var(--color-orange);
 }
 .nav-glider[data-ready] {
