@@ -40,7 +40,7 @@ export function Why() {
               <li key={t.label} className="bar-row flex flex-col gap-2">
                 <div className="flex items-baseline justify-between gap-4 text-sm">
                   <span className="text-white">{t.label}</span>
-                  <span className="font-medium tabular-nums text-orange-soft">~{t.days} days</span>
+                  <span className="font-medium tabular-nums text-orange-soft">~<span data-count={t.days}>{t.days}</span> days</span>
                 </div>
                 <div className="h-2 overflow-hidden rounded-full bg-ink-line">
                   <div

@@ -33,7 +33,13 @@
   @keyframes fill-1 { from { transform: scaleX(0); } to { transform: scaleX(0.5); } }
   @keyframes fill-2 { from { transform: scaleX(0.5); } to { transform: scaleX(1); } }
   @keyframes dot-on { from { background-color: #fff; border-color: var(--color-line); } to { background-color: var(--color-orange); border-color: var(--color-orange); } }
-  @keyframes board-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  @keyframes board-in { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+  @keyframes hero-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+  @keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
+  @keyframes photo-in { from { clip-path: inset(12% 7% round 28px); opacity: 0.4; } to { clip-path: inset(0% 0% round 28px); opacity: 1; } }
+  @keyframes photo-settle { from { scale: 1.16; } to { scale: 1; } }
+  @keyframes photo-drift { from { translate: 0 -5%; } to { translate: 0 5%; } }
+  @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
 
 @layer base {
@@ -68,8 +74,8 @@
    Plays once on load (about 5 s) and holds. Each row waits --t1, then moves Submitted -> In review; rows marked
    data-end="done" move on to Approved/Paid at --t2. Pure CSS, so it needs no JS. The base styles are the START
    state; the reduced-motion block at the end swaps in the END state without animating. */
-.board-row { --t1: calc(0.9s + var(--i, 0) * 0.45s); --t2: calc(var(--t1) + 1.6s); }
-.board { animation: board-in 0.9s var(--ease-out-strong) 0.1s both; }
+.board-row { --t1: calc(1.7s + var(--i, 0) * 0.45s); --t2: calc(var(--t1) + 1.6s); }
+.board { animation: board-in 1s var(--ease-out-strong) 0.8s both; }
 /* With JS, MotionObserver holds the board until it is on screen (a phone shows it below the fold) */
 .js .board:not([data-play]), .js .board:not([data-play]) * { animation-play-state: paused !important; }
 
@@ -119,9 +125,51 @@ details.faq[open]::details-content { block-size: auto; }
 .menu-panel { transition: opacity 0.2s var(--ease-out-soft), visibility 0.2s; }
 .menu-panel[data-open="false"] { opacity: 0; visibility: hidden; }
 
-/* ---------- Legacy motion hooks: inert in this design (no reveals, no parallax). Kept so inner pages still render. ---------- */
+/* ---------- Hero entrance (CSS only, plays on load; the animations end visible, so no-JS is fine) ---------- */
+.hero-in { animation: hero-rise 0.9s var(--ease-out-strong) both; animation-delay: calc(var(--h, 0) * 120ms + 350ms); }
+.w-mask { display: inline-block; clip-path: inset(-0.1em -0.1em -0.25em -0.1em); }
+.w { display: inline-block; animation: word-up 0.95s var(--ease-out-strong) both; animation-delay: calc(var(--i, 0) * 70ms + 80ms); }
+
+.hero-photo { animation: photo-in 1.3s var(--ease-out-strong) 0.45s both; }
+.hero-photo img { animation: photo-settle 2.2s var(--ease-out-strong) 0.45s both; }
+@supports (animation-timeline: view()) {
+  .hero-parallax { animation: photo-drift linear both; animation-timeline: view(); animation-range: cover; }
+}
+
+/* ---------- Scroll reveals: hidden only once JS is running (.js), shown by MotionObserver via IntersectionObserver ---------- */
+/* Hover properties are listed (undelayed) so a revealed element's hover colour changes still ease. */
+.js [data-reveal], .js [data-stagger] > * {
+  opacity: 0;
+  transform: translateY(var(--rise, 28px));
+  transition: opacity 0.85s var(--ease-out-strong), transform 0.95s var(--ease-out-strong),
+    background-color 0.2s var(--ease-out-soft), color 0.2s var(--ease-out-soft), border-color 0.2s var(--ease-out-soft), box-shadow 0.2s var(--ease-out-soft);
+  transition-delay: var(--d, 0ms), var(--d, 0ms), 0ms, 0ms, 0ms, 0ms;
+}
+.js [data-stagger] > * { transition-delay: calc(var(--i, 0) * 90ms), calc(var(--i, 0) * 90ms), 0ms, 0ms, 0ms, 0ms; }
+.js [data-reveal][data-shown], .js [data-stagger][data-shown] > * { opacity: 1; transform: none; }
+.rise-lg { --rise: 48px; }
+
+/* A hairline that draws left to right when its block arrives (process steps) */
+.js [data-stagger] .rule, .js [data-reveal] .rule { transform: scaleX(0); transform-origin: left; transition: transform 1.1s var(--ease-out-strong); transition-delay: calc(var(--i, 0) * 90ms + 150ms); }
+.js [data-shown] .rule, .js [data-shown].rule { transform: scaleX(1); }
+
+/* Inside a revealed block (older inner-page sections): list rows cascade, ticks draw, icons pop, photos wipe */
+.cascade { transition: opacity 0.7s var(--ease-out-strong), transform 0.8s var(--ease-out-strong); transition-delay: calc(var(--d, 0ms) + 200ms + var(--i, 0) * 65ms); }
+.js [data-reveal]:not([data-shown]) .cascade { opacity: 0; transform: translateY(20px); }
+.tick path { stroke-dasharray: 1 2; transition: stroke-dashoffset 0.6s var(--ease-out-soft); transition-delay: calc(var(--d, 0ms) + 320ms + var(--i, 0) * 55ms); }
+.js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 1; }
+.pop { transition: scale 0.7s var(--ease-out-strong), opacity 0.5s var(--ease-out-soft); transition-delay: calc(var(--d, 0ms) + 140ms); }
+.js [data-reveal]:not([data-shown]) .pop { scale: 0.4; opacity: 0; }
+.js .photo img { clip-path: inset(100% 0 0 0); transform: scale(1.12); transition: clip-path 1.2s var(--ease-out-strong), transform 1.8s var(--ease-out-strong); transition-delay: var(--d, 0ms); }
+.js .photo[data-shown] img { clip-path: inset(0 0 0 0); transform: none; }
 .bar-fill { transform-origin: left; }
+.js .bar-fill { transform: scaleX(0); transition: transform 1.2s var(--ease-out-soft); transition-delay: var(--reveal-delay, 0ms); }
+.js [data-shown] .bar-fill { transform: scaleX(1); }
 @keyframes claim-line { to { transform: scaleX(1); } }
+
+/* Calm hover details (no layout movement) */
+.row-link .row-arrow { transition: transform 0.25s var(--ease-out-soft); }
+.row-link:hover .row-arrow, .row-link:focus-within .row-arrow { transform: translateX(4px); }
 
 /* ---------- Reduced motion: the board shows its end state, nothing moves ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -133,7 +181,13 @@ details.faq[open]::details-content { block-size: auto; }
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-  .board { animation: none; }
+  .board, .hero-in, .w, .hero-photo, .hero-photo img, .hero-parallax { animation: none !important; }
+  .js [data-reveal], .js [data-stagger] > *, .js [data-reveal]:not([data-shown]) .cascade, .js [data-reveal]:not([data-shown]) .pop { opacity: 1; transform: none; scale: none; }
+  .js [data-stagger] .rule, .js [data-reveal] .rule { transform: none; }
+  .js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 0; }
+  .js .photo img { clip-path: none; transform: none; }
+  .js .bar-fill { transform: none; }
+  .row-link:hover .row-arrow { transform: none; }
   .board-row .st-1 { opacity: 0; animation: none; }
   .board-row .st-2 { opacity: 1; animation: none; }
   .board-row[data-end="done"] .st-2 { opacity: 0; }

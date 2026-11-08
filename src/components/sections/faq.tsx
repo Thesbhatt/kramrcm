@@ -1,5 +1,5 @@
 import { company, faqSection, faqs } from "@/content/site";
-import { Container } from "../ui/primitives";
+import { Container, reveal, stagger } from "../ui/primitives";
 
 export function Faq({ limit }: { limit?: number }) {
   const list = limit ? faqs.slice(0, limit) : faqs;
@@ -7,7 +7,7 @@ export function Faq({ limit }: { limit?: number }) {
     <section id="faq" className="border-t border-line py-20 md:py-28">
       <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         {/* Sticky on desktop: the heading rides alongside a long (or expanding) question list. */}
-        <div className="flex flex-col gap-4 lg:sticky lg:top-32 lg:self-start">
+        <div className="flex flex-col gap-4 lg:sticky lg:top-32 lg:self-start" {...reveal()}>
           <h2>{faqSection.title}</h2>
           <p className="max-w-[40ch] text-muted">
             {faqSection.bodyLead}{" "}
@@ -15,7 +15,7 @@ export function Faq({ limit }: { limit?: number }) {
             {faqSection.bodyTail}
           </p>
         </div>
-        <div className="border-t border-line">
+        <div className="border-t border-line" {...stagger}>
           {list.map((f) => (
             <details key={f.q} className="faq group border-b border-line">
               <summary className="flex cursor-pointer items-center justify-between gap-6 py-5 text-left text-base font-medium">

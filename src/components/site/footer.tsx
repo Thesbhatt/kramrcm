@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { closing, company, cta, legal, nav, services } from "@/content/site";
 import { Logo } from "../ui/logo";
-import { ButtonLink, Container } from "../ui/primitives";
+import { ButtonLink, Container, reveal } from "../ui/primitives";
 
 /** Closing CTA band (the page's pale tint) followed by the ink footer. Rendered on every page via the layout. */
 export function Footer() {
@@ -9,9 +9,11 @@ export function Footer() {
     <footer>
       <section className="bg-tint py-20 md:py-28" aria-labelledby="closing-title">
         <Container className="flex flex-col items-center gap-6 text-center">
+          <div className="flex flex-col items-center gap-6" {...reveal()}>
           <h2 id="closing-title" className="max-w-[26ch]">{closing.titleStart} {closing.titleHighlight}</h2>
           <p className="max-w-[46ch] text-muted">{closing.body}</p>
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 pt-2" {...reveal(160)}>
             <ButtonLink href={cta.href}>{cta.primary}</ButtonLink>
             <ButtonLink href={company.phoneHref} variant="white">Call {company.phoneDisplay}</ButtonLink>
           </div>

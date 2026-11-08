@@ -54,17 +54,32 @@ export function Check({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 /**
- * Kept as a no-op: this design has no scroll reveals (calm, sparse motion). Call sites still spread it,
- * so nothing else has to change when a reveal is wanted again.
+ * Marks a block for scroll reveal: it rises and fades in once, the first time it is on screen. Visible by default;
+ * hidden only after JS has loaded (`.js` class), and shown again by MotionObserver. `delayMs` staggers siblings.
  */
-export function reveal(delayMs = 0): { style?: CSSProperties } {
-  void delayMs;
-  return {};
+export function reveal(delayMs = 0): { "data-reveal": string; style?: CSSProperties } {
+  return delayMs ? { "data-reveal": "", style: { ["--d" as string]: `${delayMs}ms` } } : { "data-reveal": "" };
 }
 
-/** Plain text. (Per-word headline masks were removed with the old motion system.) */
-export function Words({ text }: { text: string; from?: number }) {
-  return <>{text}</>;
+/** Props for a list or grid whose direct children rise in one after another when it arrives. */
+export const stagger = { "data-stagger": "" } as const;
+
+/**
+ * Splits plain text into words that rise from behind their own mask (hero headline). Words stay real text separated
+ * by real spaces. The CSS animation ends visible, so the headline reads fine without JS. `from` continues the index.
+ */
+export function Words({ text, from = 0 }: { text: string; from?: number }) {
+  const words = text.split(" ").filter(Boolean);
+  return (
+    <>
+      {words.map((w, i) => (
+        <span key={`${w}-${i}`}>
+          <span className="w-mask"><span className="w" style={{ ["--i" as string]: from + i }}>{w}</span></span>
+          {i < words.length - 1 && " "}
+        </span>
+      ))}
+    </>
+  );
 }
 
 /** Headline pieces joined as ordinary text: no highlight pill, no accent on a single word. */
@@ -80,7 +95,7 @@ export function SectionHeading({
   const dark = tone === "dark" || tone === "orange";
   const a = align === "center" ? "mx-auto items-center text-center" : "";
   return (
-    <div className={`flex max-w-[46rem] flex-col gap-4 ${a}`}>
+    <div className={`flex max-w-[46rem] flex-col gap-4 ${a}`} {...reveal()}>
       {eyebrow && <Eyebrow tone={dark ? "dark" : "light"}>{eyebrow}</Eyebrow>}
       <H className={dark ? "text-white" : "text-fg"}>{title}</H>
       {body && <p className={`max-w-[58ch] ${dark ? "text-on-ink" : "text-muted"}`}>{body}</p>}

@@ -25,6 +25,4 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 | service-credentialing.jpg | s1.jpg | Service card + /services, credentialing |
 | service-billing.jpg | s2.jpg | Service card + /services, billing |
 | service-support.jpg | s3.jpg | Service card + /services, licensing & support |
-
-## Hero video
-`public/video/hero-loop.mp4` is generated from the hero-slide photos above (they are no longer imported by the site, only used as video source frames): see `design/hero-video/README.md`. No third-party footage.
+| hero-slide-team.jpg | https://unsplash.com/photos/yd_RKGH_RH4 (photo-1758691737124-05c5bffe46f0) | Home hero photo (`hero.photo`). TODO(client): replace with the practice's own photography |
