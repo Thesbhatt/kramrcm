@@ -7,14 +7,14 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `company` | name, tagline, `copyrightYear`, phone, email, `address` (null, TODO), hours (TODO), social links | header, footer, contact, about, specialties |
 | `nav` | header/footer links | `site/nav.tsx`, footer |
 | `cta` | the one primary CTA label and header label | buttons everywhere |
-| `hero` | homepage hero copy, CTAs, `trust` claims (TODO(client)) | `home/hero.tsx` |
+| `hero` | homepage hero copy, CTAs, carousel control labels | `home/hero.tsx` |
+| `heroSlides`, `heroIcons` | carousel slides (tab, caption, link, alt text, photo focus); floating icon labels | `home/hero-carousel.tsx`, `home/hero.tsx` |
 | `stats` | the 4 headline numbers (client must confirm, see checklist) | `sections/stats.tsx` |
 | `services` | the 3 services; `items` are short labels only (matches the live site; no per-item explanations) | service cards, `/services` |
 | `aboutIntro` | home "About us" block (live-site copy, tightened) | `sections/about-intro.tsx` |
 | `billingWhy` | "Why choose Kram for medical billing?" (live-site copy, tightened) | `sections/billing-why.tsx` (home + About) |
 | `closing` | footer closing CTA headline + line | `site/footer.tsx` |
 | `process` | step list | `sections/process.tsx` |
-| `enrollmentSample` | sample enrollment-tracker rows in the hero card | `home/hero.tsx` |
 | `specialties`, `featuredSpecialties`, `specialtyGroups` | the 50 specialties, featured subset, groups | specialties preview and page |
 | `reasons`, `timelines` | "why choose us" cards; timeline bars (CAQH, PECOS, commercial; TODO(client)) | `sections/why.tsx` (home + about) |
 | `faqs` | FAQ items | `sections/faq.tsx` |
@@ -28,5 +28,5 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 - US English and US formats: "Orthopedics", "(213) 832-7088".
 - One primary CTA label site-wide: "Book a free practice review". Header uses "Get in touch".
 - Never say "HIPAA certified". Say "HIPAA-compliant processes"; "we sign a BAA" only once the client confirms it.
-- Known open item: the FAQ answer says "Yes" to signing a BAA, and `hero.trust` lists "Business Associate Agreement available". Both are unconfirmed by the client (see `docs/client-checklist.md`).
+- Known open item: the FAQ answer says "Yes" to signing a BAA. This is unconfirmed by the client (see `docs/client-checklist.md`).
 - Specialty names must match between the preview and the full page (the live site had a mismatch; do not reintroduce it).

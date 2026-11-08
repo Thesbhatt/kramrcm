@@ -5,8 +5,8 @@ import { Arrow, ButtonLink, Words } from "../ui/primitives";
 
 export function Footer() {
   return (
-    <footer className="px-2 pb-2 sm:px-3 sm:pb-3">
-      <div className="closing-card overflow-hidden rounded-[28px] bg-ink text-on-ink">
+    <footer>
+      <div className="closing-card overflow-hidden bg-ink text-on-ink">
         {/* Closing CTA */}
         <div className="relative mx-auto flex max-w-[1240px] flex-col gap-8 px-6 py-16 sm:px-10 md:flex-row md:items-end md:justify-between md:py-20">
           <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.45),transparent_65%)]" />

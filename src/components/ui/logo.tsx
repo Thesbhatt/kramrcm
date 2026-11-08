@@ -25,14 +25,15 @@ export function LogoMark({ className = "h-9 w-9", reversed = false }: { classNam
   );
 }
 
-export function Logo({ tone = "light" }: { tone?: "light" | "dark" }) {
+export function Logo({ tone = "light", size = "md" }: { tone?: "light" | "dark"; size?: "md" | "sm" }) {
+  const sm = size === "sm";
   const sub = tone === "dark" ? "text-on-ink" : "text-graphite";
   return (
-    <span className="flex items-center gap-2.5">
-      <LogoMark className="h-10 w-10 shrink-0" reversed={tone === "dark"} />
+    <span className={`flex items-center ${sm ? "gap-2" : "gap-2.5"}`}>
+      <LogoMark className={`${sm ? "h-8 w-8" : "h-10 w-10"} shrink-0`} reversed={tone === "dark"} />
       <span className="flex flex-col leading-none">
-        <span className={`text-[1.3rem] font-bold tracking-[0.16em] ${tone === "dark" ? "text-orange" : "text-orange-ink"}`}>KRAM</span>
-        <span className={`mt-1 text-[0.56rem] font-semibold tracking-[0.32em] ${sub}`}>HEALTHCARE</span>
+        <span className={`${sm ? "text-[1.1rem]" : "text-[1.3rem]"} font-bold tracking-[0.16em] ${tone === "dark" ? "text-orange" : "text-orange-ink"}`}>KRAM</span>
+        <span className={`mt-1 ${sm ? "text-[0.475rem]" : "text-[0.56rem]"} font-semibold tracking-[0.32em] ${sub}`}>HEALTHCARE</span>
       </span>
     </span>
   );

@@ -28,10 +28,10 @@ Task shortcuts:
 
 ## Hard rules (always apply)
 - Server Components by default; `"use client"` only for real interactivity.
-- Colours only via tokens (`bg-ink`, `text-orange-ink`, …). Logo orange `#F77C27` is 2.67:1 on light: never white text on orange; orange text on light uses `orange-ink`. Primary buttons are `ink` pills.
+- Colours only via tokens (`bg-ink`, `text-orange-ink`, …). Logo orange `#F77C27` is 2.67:1 on light, so orange text on light uses `orange-ink`. Text on orange surfaces is white (client decision, Nov 8 2026: keep the logo orange despite 2.67:1). Primary buttons are `ink` pills.
 - Copy lives in `src/content/site.ts`, not in components. Never invent stats, testimonials, certifications or addresses: leave `TODO(client)`.
 - Content must render without JS (stats are real numbers in HTML; reveal starts visible).
-- Respect `prefers-reduced-motion`. Motion: 150 ms hover, 250 ms UI, Bold, Knack-style entrances: 850-950 ms reveal, 40-72px block travel, words rise from a mask, ease `cubic-bezier(.16,1,.3,1)` (see `docs/design-system.md`).
+- Respect `prefers-reduced-motion`. Motion: 150 ms hover, 250 ms UI, Bold, Knack-style entrances: 850-950 ms reveal, 40-72px block travel, words rise from a mask, ease `cubic-bezier(.16,1,.3,1)` (see `docs/design-system.md`). Section entrances follow scroll position both ways (reverse on scroll up), so never wrap a `[data-reveal]` in `overflow-hidden`/`overflow-auto`; use `overflow-clip` (see `docs/architecture.md`).
 - No animation library. `<MotionObserver />` goes at the END of every page, never in the layout.
 - No `new Date()` / `Math.random()` in prerendered server components (use constants like `company.copyrightYear`).
 - Font: Public Sans via `next/font/local`; never `next/font/google`.

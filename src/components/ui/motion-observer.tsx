@@ -3,8 +3,9 @@
 import { useEffect } from "react";
 
 /**
- * Scroll motion (keeps client JS tiny): [data-reveal] and [data-words] (staggered headline words) get [data-shown] when it scrolls into view;
- * [data-count] counts up to the number already in the HTML. Content is readable without JS.
+ * Scroll motion (keeps client JS tiny). Entrances ([data-reveal], [data-words]) follow the scroll position in both directions: CSS does that
+ * where scroll timelines exist, and this toggles [data-shown] both ways where they don't. [data-count] counts up to the number already in
+ * the HTML. Content is readable without JS.
  *
  * Render this at the END of each page (not in the layout). React runs a component's effects only after
  * its own tree has hydrated, so the observer never touches server HTML React hasn't claimed yet
@@ -13,10 +14,10 @@ import { useEffect } from "react";
  */
 export function MotionObserver() {
   useEffect(() => {
-    const io = observe();
+    const stopObserving = observe();
     const stopMarquee = reactiveMarquee();
     return () => {
-      io?.disconnect();
+      stopObserving?.();
       stopMarquee();
     };
   }, []);
@@ -66,55 +67,85 @@ function reactiveMarquee(): () => void {
   };
 }
 
-/** One observer for the current page: reveal on scroll, count stats up. */
-function observe(): IntersectionObserver | undefined {
+/**
+ * Observers for the current page. Returns their cleanup.
+ * Stats count up each time they arrive from below. Reveals are only handled here in browsers without scroll
+ * timelines: elsewhere CSS ties them to the scroll position, and toggling [data-shown] would start transitions
+ * that override those animations (transitions outrank animations in the cascade).
+ */
+function observe(): (() => void) | undefined {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown]), [data-words]:not([data-shown])");
-  const counters = document.querySelectorAll<HTMLElement>("[data-count]:not([data-counted])");
+  const reveals = document.querySelectorAll<HTMLElement>("[data-reveal], [data-words]");
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
 
   if (reduce || !("IntersectionObserver" in window)) {
     reveals.forEach((el) => el.setAttribute("data-shown", ""));
     return;
   }
 
+  // Each running or finished count-up, by element: calling it restores the real number and re-arms the stat.
+  const counts = new Map<HTMLElement, () => void>();
+
   const countUp = (el: HTMLElement) => {
-    el.setAttribute("data-counted", "");
     const final = el.textContent; // real value rendered on the server
     // Hidden tabs throttle animation frames; never risk leaving a stat stuck at "0".
-    if (document.hidden) return;
+    if (document.hidden) {
+      counts.set(el, () => {});
+      return;
+    }
     const target = Number(el.dataset.count);
     const suffix = el.dataset.suffix ?? "";
     const duration = 1600;
     let start: number | null = null;
-    let done = false;
+    let frame = 0;
+    const finish = () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(safety);
+      el.textContent = final;
+    };
     const step = (t: number) => {
-      if (done) return;
       start ??= t;
       const p = Math.min((t - start) / duration, 1);
+      if (p === 1) return finish();
       const eased = 1 - Math.pow(1 - p, 4);
       el.textContent = Math.round(target * eased).toLocaleString("en-US") + suffix;
-      if (p < 1) requestAnimationFrame(step);
-      else done = true;
+      frame = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
+    frame = requestAnimationFrame(step);
     // Safety net: whatever happens to rAF, show the real number shortly after the animation should end.
-    window.setTimeout(() => { done = true; el.textContent = final; }, duration + 400);
+    const safety = window.setTimeout(finish, duration + 400);
+    counts.set(el, finish);
   };
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const el = entry.target as HTMLElement;
-        if (el.dataset.count) countUp(el);
-        else el.setAttribute("data-shown", "");
-        io.unobserve(el);
+  const onChange: IntersectionObserverCallback = (entries) => {
+    for (const entry of entries) {
+      const el = entry.target as HTMLElement;
+      const isCounter = el.dataset.count !== undefined;
+      if (entry.isIntersecting) {
+        if (!isCounter) el.setAttribute("data-shown", "");
+        else if (!counts.has(el)) countUp(el);
+      } else if (entry.boundingClientRect.top > 0) {
+        // Gone back below the fold (scrolling up). Leaving through the top keeps its state, like the footer.
+        if (!isCounter) el.removeAttribute("data-shown");
+        else {
+          counts.get(el)?.();
+          counts.delete(el);
+        }
       }
-    },
-    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
-  );
+    }
+  };
 
-  reveals.forEach((el) => io.observe(el));
+  const io = new IntersectionObserver(onChange, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+  // [data-sequence] blocks play a multi-second sequence, so they wait until they are well on screen (top edge past 70% of the viewport).
+  const sequences = new IntersectionObserver(onChange, { rootMargin: "0px 0px -30% 0px" });
+
   counters.forEach((el) => io.observe(el));
-  return io;
+  if (!CSS.supports("animation-timeline", "view()")) {
+    reveals.forEach((el) => (el.hasAttribute("data-sequence") ? sequences : io).observe(el));
+  }
+  return () => {
+    io.disconnect();
+    sequences.disconnect();
+    counts.forEach((stop) => stop());
+  };
 }

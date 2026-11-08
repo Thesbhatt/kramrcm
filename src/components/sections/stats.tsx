@@ -16,7 +16,7 @@ function display(value: number, suffixIn: string) {
 export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" }) {
   if (tone === "strip") {
     return (
-      <section className="pb-6 md:pb-8" aria-label="Kram Healthcare in numbers">
+      <section className="py-6 md:py-8" aria-label="Kram Healthcare in numbers">
         <Container>
           <dl className="grid grid-cols-2 gap-y-7 rounded-[28px] bg-ink px-6 py-8 md:px-10 md:py-11 lg:grid-cols-4">
             {stats.map((s, i) => {
@@ -43,11 +43,12 @@ export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" }
   return (
     <section className="pb-20 md:pb-28">
       <Container>
-        <div className={`grid grid-cols-2 gap-px overflow-hidden rounded-[28px] lg:grid-cols-4 ${tone === "peach" ? "bg-orange" : "bg-line"}`}>
+        {/* clip, not hidden: a hidden ancestor would capture the cells' scroll-linked reveal */}
+        <div className={`grid grid-cols-2 gap-px overflow-clip rounded-[28px] lg:grid-cols-4 ${tone === "peach" ? "bg-orange" : "bg-line"}`}>
           {stats.map((s, i) => {
             const { n, suffix } = display(s.value, s.suffix);
             return (
-              <div key={s.label} className={`flex flex-col gap-2 p-5 sm:p-9 ${tone === "peach" ? "bg-orange" : "bg-stone"}`} {...reveal(i * 70)}>
+              <div key={s.label} className={`flex flex-col gap-2 p-5 sm:p-9 ${tone === "peach" ? "bg-orange text-white" : "bg-stone"}`} {...reveal(i * 70)}>
                 <span
                   className="whitespace-nowrap text-[clamp(1.75rem,9vw,2.2rem)] sm:text-[clamp(2.2rem,4.6vw,3.4rem)] font-medium leading-none tracking-[-0.04em] tabular-nums"
                   data-count={n}
@@ -55,7 +56,7 @@ export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" }
                 >
                   {n.toLocaleString("en-US")}{suffix}
                 </span>
-                <span className={`max-w-[22ch] text-[0.95rem] ${tone === "peach" ? "text-fg" : "text-muted"}`}>{s.label}</span>
+                <span className={`max-w-[22ch] text-[0.95rem] ${tone === "peach" ? "text-white" : "text-muted"}`}>{s.label}</span>
               </div>
             );
           })}

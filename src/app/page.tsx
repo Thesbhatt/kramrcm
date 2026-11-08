@@ -2,7 +2,6 @@ import { MotionObserver } from "@/components/ui/motion-observer";
 import { HomeHero } from "@/components/home/hero";
 import { AboutIntro } from "@/components/sections/about-intro";
 import { BillingWhy } from "@/components/sections/billing-why";
-import { DelayCost } from "@/components/sections/delay-cost";
 import { Faq } from "@/components/sections/faq";
 import { Process } from "@/components/sections/process";
 import { ServiceCards } from "@/components/sections/service-cards";
@@ -23,7 +22,6 @@ export default function Home() {
       <ServiceCards />
       <Process />
       <BillingWhy />
-      <DelayCost />
       {/* Hidden until real quotes arrive: toggle `proof.enabled` in site.ts */}
       <Testimonials />
       <SpecialtiesPreview />

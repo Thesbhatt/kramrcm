@@ -31,7 +31,7 @@ export function BillingWhy() {
           <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2" {...reveal(200)}>
             {billingWhy.benefits.map((b, i) => (
               <li key={b} className="cascade flex items-center gap-3 rounded-2xl bg-peach-2 px-4 py-3 font-medium" style={{ ["--i" as string]: i }}>
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange text-fg">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange text-white">
                   <Check className="tick h-3.5 w-3.5" />
                 </span>
                 {b}

@@ -60,7 +60,7 @@ export function SpecialtiesPreview() {
                 key={`${name}-${i}`}
                 className="group/chip flex cursor-default items-center gap-2.5 whitespace-nowrap rounded-full bg-white py-1.5 pl-1.5 pr-5 text-[0.95rem] text-graphite shadow-[0_1px_2px_rgb(47_51_54/0.04)] ring-1 ring-line transition-[transform,background-color,box-shadow,color] duration-250 hover:-translate-y-0.5 hover:bg-peach-2 hover:text-fg hover:shadow-[0_10px_20px_-14px_rgb(169_73_12/0.55)] hover:ring-orange/50"
               >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-stone text-orange-ink transition-colors duration-250 group-hover/chip:bg-orange group-hover/chip:text-ink">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-stone text-orange-ink transition-colors duration-250 group-hover/chip:bg-orange group-hover/chip:text-white">
                   <Icon name={iconFor.get(name) ?? "cross"} className="h-4 w-4" />
                 </span>
                 {name}

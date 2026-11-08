@@ -4,7 +4,7 @@ import billingPhoto from "@/assets/photos/service-billing.jpg";
 import credentialingPhoto from "@/assets/photos/service-credentialing.jpg";
 import supportPhoto from "@/assets/photos/service-support.jpg";
 import { services } from "@/content/site";
-import { Arrow, Check, Container, Icon, SectionHeading, reveal, type IconName } from "../ui/primitives";
+import { Arrow, Container, Icon, SectionHeading, reveal, type IconName } from "../ui/primitives";
 
 export const serviceIcons: Record<string, IconName> = { credentialing: "shield", billing: "receipt", licensing: "map" };
 
@@ -15,7 +15,7 @@ export const servicePhotos: Record<string, { src: StaticImageData; alt: string }
   licensing: { src: supportPhoto, alt: "Clinicians and an administrator reviewing documents together" },
 };
 
-/** Three image-free service cards linking into /services (photos live on that page), each with its full list. The middle one is the dark "featured" card. */
+/** Three image-free summary cards linking into /services (photos and each service's full list live on that page). The middle one is the dark "featured" card. */
 export function ServiceCards({ heading = true }: { heading?: boolean }) {
   return (
     <section className="pb-20 md:pb-28">
@@ -47,7 +47,7 @@ export function ServiceCards({ heading = true }: { heading?: boolean }) {
                 {...reveal(i * 130)}
               >
                 <div className="flex items-center justify-between gap-4">
-                  <span className={`pop flex h-12 w-12 items-center justify-center rounded-2xl ${"bg-orange text-fg"}`}>
+                  <span className={`pop flex h-12 w-12 items-center justify-center rounded-2xl ${"bg-orange text-white"}`}>
                     <Icon name={serviceIcons[s.id]} className="h-6 w-6" />
                   </span>
                   <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors ${dark ? "bg-white/10 group-hover:bg-white group-hover:text-fg" : "bg-white group-hover:bg-ink group-hover:text-white"}`}>
@@ -59,13 +59,6 @@ export function ServiceCards({ heading = true }: { heading?: boolean }) {
                   <h3 className="text-[1.6rem] leading-tight">{s.title}</h3>
                   <p className={dark ? "text-on-ink" : "text-muted"}>{s.body}</p>
                 </div>
-                <ul className={`mt-auto flex flex-col border-t text-[0.95rem] ${dark ? "border-ink-line" : "border-line"}`}>
-                  {s.items.map((it, n) => (
-                    <li key={it} className={`cascade flex items-start gap-2.5 border-b py-2.5 last:border-b-0 last:pb-0 ${dark ? "border-ink-line" : "border-line"}`} style={{ ["--i" as string]: n }}>
-                      <Check className={`tick mt-1 h-4 w-4 shrink-0 ${dark ? "text-orange-soft" : "text-orange-ink"}`} /> {it}
-                    </li>
-                  ))}
-                </ul>
               </Link>
             );
           })}
