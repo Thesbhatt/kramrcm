@@ -8,7 +8,7 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `nav` | header/footer links | `site/nav.tsx`, footer |
 | `cta` | the one primary CTA label and header label | buttons everywhere |
 | `hero` | homepage hero: headline parts (rendered as one plain sentence), body, CTA label, `reassurance` (three short sentences shown as one muted line) | `home/hero.tsx` |
-| `statusBoard` | hero visual: SAMPLE practice rows (generic labels only; `end: "done"` or `"review"`), column and stage labels, "Sample practice, illustrative" | `home/status-board.tsx` |
+| `statusBoard` | status board visual (in the "Every status, every week" section): SAMPLE practice rows (generic labels only; `end: "done"` or `"review"`), column and stage labels, "Sample practice, illustrative" | `home/status-board.tsx` |
 | `stats` | the 4 headline numbers (client must confirm, see checklist) | `sections/stats.tsx` |
 | `services` | the 3 services; `items` are short labels only (matches the live site; no per-item explanations) | service cards, `/services` |
 | `aboutIntro` | former home "About us" block (live-site copy, tightened). **Not on the home page on this branch** | `sections/about-intro.tsx` (unused) |
