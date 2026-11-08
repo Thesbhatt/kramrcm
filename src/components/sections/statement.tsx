@@ -8,7 +8,7 @@ export function Statement() {
   return (
     <section className="py-16 md:py-24">
       <Container>
-        <p className="mx-auto max-w-[22ch] text-center text-[clamp(2rem,5vw,4rem)] font-medium leading-[1.12] tracking-[-0.035em] text-balance">
+        <p className="mx-auto max-w-[22ch] text-center text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.12] tracking-[-0.04em] text-balance">
           {words.map((w, i) => (
             <span key={i} className="statement-word">{w} </span>
           ))}

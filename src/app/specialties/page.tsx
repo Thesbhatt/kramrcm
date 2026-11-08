@@ -29,7 +29,7 @@ export default function SpecialtiesPage() {
             ["1", "team for credentialing and billing"],
           ].map(([n, l]) => (
             <div key={l} className="rounded-[20px] bg-stone p-5">
-              <p className="text-[2.2rem] font-medium leading-none tracking-[-0.04em] tabular-nums">{n}</p>
+              <p className="text-[2.2rem] font-semibold leading-none tracking-[-0.04em] tabular-nums">{n}</p>
               <p className="mt-2 text-sm text-muted">{l}</p>
             </div>
           ))}

@@ -5,7 +5,7 @@ Read this before touching build config, motion, the contact form or anything cac
 ## Stack
 - Next.js 16 App Router, TypeScript, `src/` dir, Turbopack. `cacheComponents` + `partialPrefetching` are on. For any unfamiliar Next API read `node_modules/next/dist/docs/` first (see `AGENTS.md`); do not rely on memory.
 - Tailwind CSS v4, CSS-first: tokens live in `src/app/globals.css` under `@theme`. No `tailwind.config.js`.
-- Font: Public Sans variable 400–700, self-hosted via `next/font/local` from `src/fonts/`. Do NOT switch to `next/font/google` (fails in the sandbox, adds a build-time network dependency). `SourceSerif4-600-display.woff2` is unused since Direction v2.
+- Font: Geist variable 100–900 (`src/fonts/Geist-latin-var.woff2`, Latin subset, OFL), self-hosted via `next/font/local`; CSS variable `--font-geist-sans`. Do NOT switch to `next/font/google` (fails in the sandbox, adds a build-time network dependency).
 
 ## Cache Components
 - `new Date()` and `Math.random()` are forbidden in prerendered server components. Use constants, e.g. `company.copyrightYear`.

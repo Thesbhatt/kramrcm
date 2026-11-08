@@ -48,8 +48,26 @@ export const hero = {
   primaryCta: "Book a free practice review",
   secondaryCta: "Explore services",
   reassurance: ["Free practice review", "Written quote", "No commitment until you sign"],
-  photoAlt: "A physician in a white coat with arms crossed, holding a red stethoscope",
-  photoFocus: "88% 45%", // keeps the red stethoscope in frame on phones (portrait crop); barely moves the desktop crop
+  // Background carousel (Nov 8 2026). `id` maps to a photo in `home/hero.tsx`; `focus` is the object-position crop
+  // (keeps the people in frame on phones); `flip` mirrors the photo so the subject sits right of the copy.
+  // Order matters: the first slide is the one painted before JS loads.
+  slides: [
+    { id: "team", alt: "A diverse team of healthcare colleagues gathered around a laptop in a bright office", focus: "55% 40%" },
+    { id: "tablet", alt: "Two doctors in white coats reviewing information together on a tablet", focus: "60% 40%" },
+    { id: "phone", alt: "A doctor in a white coat on the phone while working at her laptop", focus: "55% 40%", flip: true },
+    { id: "huddle", alt: "Colleagues collaborating around a table with laptops and notebooks", focus: "70% 45%" },
+    { id: "desk", alt: "Two colleagues talking at a desk, with a dashboard open on a laptop between them", focus: "70% 40%" },
+  ] as { id: "team" | "tablet" | "phone" | "huddle" | "desk"; alt: string; focus: string; flip?: boolean }[],
+  carousel: {
+    label: "Photos of healthcare teams at work",
+    controls: "Photo slideshow controls",
+    slide: "Photo",
+    prev: "Previous photo",
+    next: "Next photo",
+    pause: "Pause slideshow",
+    play: "Play slideshow",
+    goTo: "Show photo",
+  },
 };
 
 // TODO(client): confirm each figure and its "as of" date
@@ -361,6 +379,12 @@ export const billingWhy = {
   ],
   link: "See billing services",
   photoAlt: "A billing team working on laptops at a shared desk",
+  // Floating card on the photo: an illustration of a claim moving through billing, no figures.
+  tracker: {
+    title: "Claim status",
+    note: "Tracked from submission to payment",
+    steps: ["Submitted", "Scrubbed", "Paid"],
+  },
 };
 
 // Closing CTA in the footer. Body is the live site's "Feel free to connect with us" line.

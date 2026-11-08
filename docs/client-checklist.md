@@ -11,7 +11,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [x] Logo mark (PNG, 1024px): received Nov 7 2026 → `design/client-logo/`
 - [ ] Logo as **vector** (SVG / AI / PDF), mark + "KRAM HEALTHCARE" wordmark + tagline. We currently use our own SVG trace of the mark.
 - [ ] Confirm tagline: "Accuracy you can count on"
-- [ ] Approval of colours (orange #F77C27, graphite #414546) and font (Public Sans)
+- [ ] Approval of colours (orange #F77C27, graphite #414546) and font (Geist; the current live site uses Manrope, so mention the change)
 
 ## Proof and claims
 - [ ] Confirm stats and how each is measured, with an "as of" date: 10+ years, 5,000+ providers, 120,000+ applications, 99% first-time submission success

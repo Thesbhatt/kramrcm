@@ -26,7 +26,7 @@ export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" |
               return (
                 <div key={s.label} className={`flex flex-col gap-1 pr-4 lg:px-8 lg:first:pl-0 ${i > 0 ? "lg:border-l lg:border-ink-line" : ""} ${i % 2 === 1 ? "border-l border-ink-line pl-5 lg:pl-8" : ""}`}>
                   <dt className="order-2 max-w-[26ch] text-[0.9rem] leading-snug text-on-ink">{s.label}</dt>
-                  <dd className="order-1 whitespace-nowrap text-[clamp(1.75rem,3vw,2.3rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-orange">
+                  <dd className="order-1 whitespace-nowrap text-[clamp(1.75rem,3vw,2.3rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange">
                     <span data-count={n} data-suffix={suffix}>{n.toLocaleString("en-US")}{suffix}</span>
                   </dd>
                 </div>
@@ -52,7 +52,7 @@ export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" |
                   {...reveal(i * 70)}
                 >
                   <dt className="order-2 max-w-[24ch] text-[0.92rem] leading-snug text-on-ink">{s.label}</dt>
-                  <dd className="order-1 whitespace-nowrap text-[clamp(1.9rem,3.4vw,2.6rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-orange">
+                  <dd className="order-1 whitespace-nowrap text-[clamp(1.9rem,3.4vw,2.6rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange">
                     <span data-count={n} data-suffix={suffix}>{n.toLocaleString("en-US")}{suffix}</span>
                   </dd>
                 </div>
@@ -74,7 +74,7 @@ export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" |
             return (
               <div key={s.label} className={`flex flex-col gap-2 p-5 sm:p-9 ${tone === "peach" ? "bg-orange text-white" : "bg-stone"}`} {...reveal(i * 70)}>
                 <span
-                  className="whitespace-nowrap text-[clamp(1.75rem,9vw,2.2rem)] sm:text-[clamp(2.2rem,4.6vw,3.4rem)] font-medium leading-none tracking-[-0.04em] tabular-nums"
+                  className="whitespace-nowrap text-[clamp(1.75rem,9vw,2.2rem)] sm:text-[clamp(2.2rem,4.6vw,3.4rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums"
                   data-count={n}
                   data-suffix={suffix}
                 >

@@ -20,7 +20,7 @@
   --color-line: #dcdcd9;
   --color-success: #b84a0c;
 
-  --font-sans: var(--font-public-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 
   --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);  /* entrances: fast start, long glide */
@@ -79,8 +79,8 @@
   }
   h1, h2, h3 {
     @apply text-balance;
-    font-weight: 500;
-    letter-spacing: -0.035em;
+    font-weight: 600;
+    letter-spacing: -0.04em;
   }
   :focus-visible {
     /* Orange on white is only 2.67:1, so the ring is ink on light and orange on dark surfaces */
@@ -177,6 +177,52 @@
 }
 .js [data-reveal]:not([data-shown]) .pop { scale: 0.3; opacity: 0; }
 
+/* Benefit chips (BillingWhy): cascade in, then lift on hover. Hover properties are listed undelayed so the lift
+   isn't held back by the cascade's stagger delay (same reason as the [data-reveal] rule). */
+.benefit {
+  transition: opacity 0.7s var(--ease-out-strong), transform 0.8s var(--ease-out-strong),
+    translate 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 200ms + var(--i, 0) * 65ms), calc(var(--reveal-delay, 0ms) + 200ms + var(--i, 0) * 65ms), 0ms, 0ms, 0ms;
+}
+.benefit:hover {
+  translate: 0 -3px;
+  background-color: var(--color-peach);
+  box-shadow: 0 14px 24px -16px rgb(184 74 12 / 0.55);
+}
+.benefit-dot { transition: scale 0.35s var(--ease-back), rotate 0.5s var(--ease-back); }
+.benefit:hover .benefit-dot { scale: 1.18; rotate: 12deg; }
+
+/* Claim tracker card (BillingWhy): a 7 s loop. The line fills, the three steps light up in turn, the last one pulses,
+   then it all fades and starts over. The base styles are the finished state, so reduced motion (animation off) and
+   no-JS show a completed claim. */
+.claim-line { animation: claim-line 7s var(--ease-out-soft) infinite; }
+.claim-node { animation: 7s var(--ease-out-soft) infinite; }
+.claim-node-1 { animation-name: claim-node-1; }
+.claim-node-2 { animation-name: claim-node-2; }
+.claim-node-3 { animation-name: claim-node-3; }
+@keyframes claim-line {
+  0%, 8% { transform: scaleX(0); opacity: 1; }
+  44%, 52% { transform: scaleX(0.5); }
+  84%, 95% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes claim-node-1 {
+  0%, 2% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
+  8%, 95% { background-color: var(--color-orange); color: #fff; scale: 1; }
+  100% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
+}
+@keyframes claim-node-2 {
+  0%, 46% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
+  54%, 95% { background-color: var(--color-orange); color: #fff; scale: 1; }
+  100% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
+}
+@keyframes claim-node-3 {
+  0%, 86% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; box-shadow: 0 0 0 0 rgb(247 124 39 / 0); }
+  90% { background-color: var(--color-orange); color: #fff; scale: 1.2; box-shadow: 0 0 0 0 rgb(247 124 39 / 0.55); }
+  95% { background-color: var(--color-orange); color: #fff; scale: 1; box-shadow: 0 0 0 10px rgb(247 124 39 / 0); }
+  100% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; box-shadow: 0 0 0 0 rgb(247 124 39 / 0); }
+}
+
 /* ---------- Photos: image wipes up over its colour block and settles from a zoom ---------- */
 .js .photo img {
   clip-path: inset(100% 0 0 0);
@@ -208,6 +254,24 @@
 @media (max-width: 1023px) {
   .hero-scrim { background: color-mix(in srgb, var(--color-fg) 76%, transparent); }
 }
+
+/* Home hero carousel (home/hero-carousel.tsx). Slides are stacked; the new one ("active") wipes in over the
+   one it replaces ("leaving", still fully visible underneath) while its photo settles from a zoom. The rest are
+   hidden. Keyframes (not transitions) so each wipe starts from its own first frame, in either direction.
+   Nothing animates until the first change (data-moved), so the first photo paints as plain HTML. The Ken Burns
+   zoom sits on .hero-slide-img, never on .parallax-img, because both use the individual `scale` property. */
+.hero-slide { position: absolute; inset: 0; visibility: hidden; }
+.hero-slide[data-state="leaving"] { visibility: visible; z-index: 1; }
+.hero-slide[data-state="active"] { visibility: visible; z-index: 2; }
+.hero-slide-img { scale: 1.04; } /* where the settle ends, so a slide that is leaving doesn't jump */
+.hero-slide[data-state="active"] .hero-slide-img { animation: hero-settle 8s var(--ease-out-soft) both; }
+.hero-carousel[data-moved="true"] .hero-slide[data-state="active"] { animation: hero-wipe-fwd 1.15s var(--ease-out-strong) both; }
+.hero-carousel[data-moved="true"][data-dir="back"] .hero-slide[data-state="active"] { animation-name: hero-wipe-back; }
+.hero-progress-fill { display: block; height: 100%; width: 100%; transform-origin: left; animation: hero-progress linear both; }
+@keyframes hero-settle { from { scale: 1.18; } to { scale: 1.04; } }
+@keyframes hero-wipe-fwd { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hero-wipe-back { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 /* Full-width bands: soft glows in two diagonally opposite corners, layered over the band's bg-* colour.
    The diagonals mirror each other so the two bands read as a pair. Orange runs dark-to-light from the top left,
@@ -651,10 +715,16 @@ details.faq[open]::details-content { block-size: auto; }
   .js .photo img { clip-path: none; transform: none; }
   /* Scroll-linked motion ignores animation-duration, so it has to be switched off by name */
   .parallax-img, .photo img, .drift-up, .closing-card, .bob { animation: none !important; scale: none; translate: none; }
+  /* Claim tracker: show the finished claim (the base styles) instead of freezing at the loop's first, empty frame */
+  .claim-line, .claim-node { animation: none !important; }
+  .benefit:hover, .benefit:hover .benefit-dot { translate: none; scale: none; rotate: none; }
   .scroll-progress { display: none !important; }
   .hl, .js [data-words] .hl { animation: none !important; background-size: 100% 100% !important; }
   .words-view .w, .words-load .w { animation: none !important; opacity: 1; transform: none; }
   .marquee-track { animation: none !important; }
+  /* Hero carousel: slides swap instantly, no wipe or zoom (autoplay is also off in hero-carousel.tsx) */
+  .hero-slide, .hero-slide-img, .hero-progress-fill { animation: none !important; }
+  .hero-slide-img { scale: 1; }
   /* Its delay isn't covered by the rule above, so links would otherwise wait hidden */
   .nav-item-in { animation: none !important; }
   .statement-word { animation: none !important; color: var(--color-fg); }

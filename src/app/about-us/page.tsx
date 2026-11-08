@@ -40,7 +40,7 @@ export default function AboutPage() {
           <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgb(47_51_54/0.35))]" />
           <div className="absolute inset-x-3 bottom-3 rounded-[20px] bg-white/95 p-5 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
             <p className="flex items-center gap-2 text-sm text-muted"><LogoMark className="h-4 w-4" /> Our promise</p>
-            <p className="mt-1.5 text-[1.45rem] font-medium leading-tight tracking-[-0.03em]">{company.tagline}.</p>
+            <p className="mt-1.5 text-[1.45rem] font-semibold leading-tight tracking-[-0.04em]">{company.tagline}.</p>
             <p className="mt-2 text-sm text-muted">Every application and claim is checked before it goes out, and every status is reported back to you.</p>
           </div>
         </div>

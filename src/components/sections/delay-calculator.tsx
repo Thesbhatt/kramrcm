@@ -79,7 +79,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
         {/* Phones: the result card sits below, so keep a live total in view while dragging */}
         <p className="flex items-baseline justify-between gap-4 border-t border-line pt-5 lg:hidden" aria-hidden="true">
           <span className="text-sm text-muted">{delayCost.resultLabel}</span>
-          <span className="text-2xl font-medium tracking-[-0.03em] tabular-nums">{usd.format(Math.round(total))}</span>
+          <span className="text-2xl font-semibold tracking-[-0.04em] tabular-nums">{usd.format(Math.round(total))}</span>
         </p>
       </div>
 
@@ -91,7 +91,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
         </p>
         <div className="relative flex flex-col gap-3" aria-hidden="true">
           <p className="text-sm text-orange-soft">{delayCost.resultLabel}</p>
-          <p className="text-[clamp(2.6rem,6vw,4.4rem)] font-medium leading-none tracking-[-0.045em] tabular-nums">
+          <p className="text-[clamp(2.6rem,6vw,4.4rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums">
             {usd.format(Math.round(total))}
           </p>
           <p className="text-on-ink">

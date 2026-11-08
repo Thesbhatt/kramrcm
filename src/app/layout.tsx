@@ -6,9 +6,9 @@ import "./globals.css";
 
 // Self-hosted (src/fonts, Latin subset, OFL licence): no build-time or runtime call to Google.
 const sans = localFont({
-  src: "../fonts/PublicSans-latin-var.woff2", // Public Sans variable, weights 400–700
-  weight: "400 700",
-  variable: "--font-public-sans",
+  src: "../fonts/Geist-latin-var.woff2", // Geist variable, weights 100–900 (OFL)
+  weight: "100 900",
+  variable: "--font-geist-sans",
   display: "swap",
   fallback: ["system-ui", "-apple-system", "Segoe UI", "Arial", "sans-serif"],
 });

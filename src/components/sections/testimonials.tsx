@@ -27,14 +27,14 @@ export function Testimonials() {
           <figure className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-[32px] bg-peach-2 p-7 sm:p-10" {...reveal()}>
             <LogoMark className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 opacity-[0.07]" />
             <QuoteMark />
-            <blockquote className="relative max-w-[34ch] text-[clamp(1.4rem,2.4vw,1.9rem)] font-medium leading-[1.3] tracking-[-0.02em]">
+            <blockquote className="relative max-w-[34ch] text-[clamp(1.4rem,2.4vw,1.9rem)] font-semibold leading-[1.3] tracking-[-0.02em]">
               {featured.quote}
             </blockquote>
             <div className="relative flex flex-wrap items-end justify-between gap-6 border-t border-peach-line pt-6">
               <Person t={featured} />
               {featured.metric && (
                 <p className="flex flex-col text-right">
-                  <span className="text-[clamp(2rem,3.6vw,2.8rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{featured.metric.value}</span>
+                  <span className="text-[clamp(2rem,3.6vw,2.8rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{featured.metric.value}</span>
                   <span className="mt-1 text-sm text-muted">{featured.metric.label}</span>
                 </p>
               )}

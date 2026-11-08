@@ -29,7 +29,7 @@ export function Results() {
               <div key={`${m.label}-${i}`} className="flex flex-col gap-2 rounded-[24px] bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
                 {/* dt first in the DOM (valid dl), big number shown above it */}
                 <dt className="order-2 font-medium">{m.label}</dt>
-                <dd className="order-1 text-[clamp(2.2rem,4vw,3.2rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{m.value}</dd>
+                <dd className="order-1 text-[clamp(2.2rem,4vw,3.2rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{m.value}</dd>
                 <dd className="order-3 text-sm text-muted">{m.definition}</dd>
                 <dd className="order-4 text-sm font-medium text-graphite">As of {m.asOf}</dd>
               </div>
@@ -42,7 +42,7 @@ export function Results() {
             {caseStudies.map((c, i) => (
               <article key={`${c.practice}-${i}`} className="flex flex-col gap-5 rounded-[28px] bg-stone p-7 sm:p-9" {...reveal(i * 90)}>
                 <p className="flex flex-col">
-                  <span className="text-[clamp(2.4rem,4.6vw,3.6rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{c.metric.value}</span>
+                  <span className="text-[clamp(2.4rem,4.6vw,3.6rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{c.metric.value}</span>
                   <span className="mt-2 text-sm text-muted">{c.metric.label}</span>
                 </p>
                 <p className="text-lg font-medium leading-snug">{c.problem}</p>

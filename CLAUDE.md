@@ -34,7 +34,7 @@ Task shortcuts:
 - Respect `prefers-reduced-motion`. Motion: 150 ms hover, 250 ms UI, Bold, Knack-style entrances: 850-950 ms reveal, 40-72px block travel, words rise from a mask, ease `cubic-bezier(.16,1,.3,1)` (see `docs/design-system.md`). Section entrances follow scroll position both ways (reverse on scroll up), so never wrap a `[data-reveal]` in `overflow-hidden`/`overflow-auto`; use `overflow-clip` (see `docs/architecture.md`).
 - No animation library. `<MotionObserver />` goes at the END of every page, never in the layout.
 - No `new Date()` / `Math.random()` in prerendered server components (use constants like `company.copyrightYear`).
-- Font: Public Sans via `next/font/local`; never `next/font/google`.
+- Font: Geist via `next/font/local`; never `next/font/google`.
 - WCAG 2.1 AA: visible focus rings, labels on every input, alt text, 16px+ body.
 - US English and US formats ("Orthopedics", "(213) 832-7088").
 - Never say "HIPAA certified". No Meta Pixel or ad trackers. Every form shows the "no patient information" notice.
