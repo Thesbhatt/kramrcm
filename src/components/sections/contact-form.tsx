@@ -47,7 +47,7 @@ export function ContactForm() {
 
   if (state.status === "success") {
     return (
-      <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-[28px] bg-stone p-8 animate-rise">
+      <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-[28px] bg-stone p-8">
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-peach-2 text-orange-ink">
           <svg viewBox="0 0 16 16" className="h-6 w-6" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </span>

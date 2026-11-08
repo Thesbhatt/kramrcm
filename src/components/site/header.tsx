@@ -1,42 +1,23 @@
 import Link from "next/link";
-import { company, cta } from "@/content/site";
+import { cta } from "@/content/site";
 import { Logo } from "../ui/logo";
-import { ButtonLink, Icon } from "../ui/primitives";
+import { ButtonLink } from "../ui/primitives";
 import { DesktopNav, MobileMenu } from "./nav";
 
+/** White bar, about 97px tall on desktop, 1px bottom border, centered links and one small CTA at the right. */
 export function Header() {
   return (
-    <header className="animate-drop sticky top-0 z-40">
-      <div className="site-header-bar relative bg-white">
-        {/* Three children + justify-between keeps the links centred between logo and actions */}
-        <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:px-10">
-          <Link href="/" aria-label="Kram Healthcare home" className="logo-link rounded-lg">
-            <Logo size="sm" />
-          </Link>
-          <DesktopNav />
-
-          <div className="flex items-center gap-2">
-            <a
-              href={company.phoneHref}
-              aria-label={`Call ${company.phoneDisplay}`}
-              title={company.phoneDisplay}
-              className="call-pill flex h-11 w-11 items-center justify-center rounded-full bg-stone ring-1 ring-line xl:w-auto xl:gap-2 xl:px-4"
-            >
-              <Icon name="phone" className="h-[18px] w-[18px]" />
-              <span className="relative z-[1] hidden text-sm font-medium tabular-nums xl:inline">{company.phoneDisplay}</span>
-            </a>
-            {/* Wrappers own visibility: `hidden` on the link itself would lose to its own `inline-flex`.
-                Icon circle from sm to below xl; text CTA from xl up. */}
-            <span className="hidden sm:block xl:hidden">
-              <ButtonLink href={cta.href} variant="soft" size="icon" className="cta-shine" aria-label={cta.header} title={cta.header}>
-                <Icon name="mail" className="h-[18px] w-[18px]" />
-              </ButtonLink>
-            </span>
-            <span className="hidden xl:block">
-              <ButtonLink href={cta.href} variant="soft">{cta.header}</ButtonLink>
-            </span>
-            <MobileMenu />
-          </div>
+    <header className="sticky top-0 z-40 border-b border-line bg-white">
+      <div className="relative mx-auto grid h-[72px] w-full max-w-[1200px] grid-cols-[1fr_auto] items-center gap-4 px-5 sm:px-8 lg:h-[97px] lg:grid-cols-[1fr_auto_1fr] lg:px-10">
+        <Link href="/" aria-label="Kram Healthcare home" className="justify-self-start">
+          <Logo size="sm" />
+        </Link>
+        <DesktopNav />
+        <div className="flex items-center justify-self-end gap-3">
+          <span className="hidden sm:block">
+            <ButtonLink href={cta.href}>{cta.header}</ButtonLink>
+          </span>
+          <MobileMenu />
         </div>
       </div>
     </header>

@@ -4,11 +4,19 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import "./globals.css";
 
-// Self-hosted (src/fonts, Latin subset, OFL licence): no build-time or runtime call to Google.
+// Self-hosted (src/fonts, Latin subset, both OFL): no build-time or runtime call to Google.
 const sans = localFont({
-  src: "../fonts/Geist-latin-var.woff2", // Geist variable, weights 100–900 (OFL)
+  src: "../fonts/Inter-latin-var.woff2", // Inter variable, weights 100–900
   weight: "100 900",
-  variable: "--font-geist-sans",
+  variable: "--font-inter",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "Arial", "sans-serif"],
+});
+
+const display = localFont({
+  src: "../fonts/SpaceGrotesk-latin-var.woff2", // Space Grotesk variable, weights 300–700
+  weight: "300 700",
+  variable: "--font-space-grotesk",
   display: "swap",
   fallback: ["system-ui", "-apple-system", "Segoe UI", "Arial", "sans-serif"],
 });
@@ -35,16 +43,15 @@ export const viewport: Viewport = { themeColor: "#FFFFFF" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={sans.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${display.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        {/* Enables scroll-reveal styles only when JS runs, so no-JS visitors and crawlers see everything. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2">
           Skip to content
         </a>
-        {/* Full-bleed page. clip, not hidden: trims wide marquees/glows without breaking the sticky header */}
+        {/* clip, not hidden: keeps the sticky header working */}
         <div className="[overflow:clip]">
           <Header />
           <main id="main">{children}</main>

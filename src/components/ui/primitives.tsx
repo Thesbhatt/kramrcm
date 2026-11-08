@@ -2,33 +2,29 @@ import Link from "next/link";
 import type { ComponentProps, CSSProperties, ReactNode } from "react";
 
 export function Container({ className = "", children }: { className?: string; children: ReactNode }) {
-  return <div className={`mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-10 ${className}`}>{children}</div>;
 }
 
-/** Small rounded label above headings: "● Services" */
+/** Small sentence-case label above a heading. Use sparingly: only where it names something the heading doesn't. */
 export function Eyebrow({ children, tone = "light" }: { children: ReactNode; tone?: "light" | "dark" }) {
-  const c = tone === "dark" ? "bg-white/8 text-on-ink ring-white/15" : "bg-white text-graphite ring-line";
-  return (
-    <span className={`inline-flex items-center gap-2 self-start rounded-full px-3.5 py-1.5 text-[0.82rem] font-medium ring-1 ${c}`}>
-      <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />
-      {children}
-    </span>
-  );
+  return <span className={`self-start text-sm ${tone === "dark" ? "text-on-ink" : "text-muted"}`}>{children}</span>;
 }
 
 type Variant = "dark" | "soft" | "white" | "ghost-dark";
 type ButtonProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?: Variant; size?: "md" | "lg" | "icon" };
 
+// Medallion-style buttons: 4px radius, small uppercase label. `dark` and `soft` are both the filled ink button
+// (two names kept so older call sites still work); `white` is the 1px outline; `ghost-dark` is the outline on ink.
 const base =
-  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[transform,box-shadow,background-color,color] duration-200 ease-[var(--ease-out-soft)] active:translate-y-0";
+  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-[0.6875rem] font-semibold uppercase tracking-[0.04em] transition-colors duration-150 ease-[var(--ease-out-soft)]";
 
-const sizes = { md: "px-5 py-2.5 text-[0.95rem]", lg: "px-6 py-3.5 text-base", icon: "h-11 w-11" };
+const sizes = { md: "px-[22px] py-[13px]", lg: "px-[22px] py-[13px]", icon: "h-11 w-11" };
 
 const variants: Record<Variant, string> = {
-  dark: "bg-ink text-white hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)]",
-  soft: "bg-orange text-white hover:-translate-y-0.5 hover:bg-orange-ink",
-  white: "bg-white text-fg ring-1 ring-line hover:ring-graphite/40",
-  "ghost-dark": "text-white ring-1 ring-inset ring-white/25 hover:bg-white/8 hover:ring-white/60",
+  dark: "bg-ink text-white hover:bg-graphite",
+  soft: "bg-ink text-white hover:bg-graphite",
+  white: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-ink hover:text-white",
+  "ghost-dark": "text-white ring-1 ring-inset ring-white/60 hover:bg-white hover:text-ink",
 };
 
 /** Internal hrefs ("/…") use next/link for client navigation + prefetch; others are plain anchors. */
@@ -42,7 +38,7 @@ export function ButtonLink({ variant = "dark", size = "md", className = "", href
 
 export function Arrow({ className = "h-4 w-4" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 16 16" className={`${className} transition-transform duration-200 group-hover:translate-x-0.5`} aria-hidden="true">
+    <svg viewBox="0 0 16 16" className={`${className} transition-transform duration-150 group-hover:translate-x-0.5`} aria-hidden="true">
       <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -58,48 +54,22 @@ export function Check({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 /**
- * Marks an element for scroll reveal. Visible by default; hidden only once JS has loaded.
- * `--stagger` is the same delay without a unit: scroll-linked browsers turn it into a scroll distance (see globals.css).
+ * Kept as a no-op: this design has no scroll reveals (calm, sparse motion). Call sites still spread it,
+ * so nothing else has to change when a reveal is wanted again.
  */
-export function reveal(delayMs = 0): { "data-reveal": true; style?: CSSProperties } {
-  return delayMs
-    ? { "data-reveal": true, style: { ["--reveal-delay" as string]: `${delayMs}ms`, ["--stagger" as string]: delayMs } }
-    : { "data-reveal": true };
+export function reveal(delayMs = 0): { style?: CSSProperties } {
+  void delayMs;
+  return {};
 }
 
-/**
- * Splits plain text into per-word spans so CSS can stagger them in (Enima-style headline reveal).
- * Words are inline-block spans separated by real spaces, so copy, selection and screen readers
- * behave as normal text. `from` continues the stagger index across several calls in one headline.
- */
-export function Words({ text, from = 0 }: { text: string; from?: number }) {
-  const words = text.split(" ").filter(Boolean);
-  return (
-    <>
-      {words.map((w, i) => (
-        <span key={`${w}-${i}`}>
-          <span className="w-mask"><span className="w" style={{ ["--i" as string]: from + i }}>{w}</span></span>
-          {i < words.length - 1 && " "}
-        </span>
-      ))}
-    </>
-  );
+/** Plain text. (Per-word headline masks were removed with the old motion system.) */
+export function Words({ text }: { text: string; from?: number }) {
+  return <>{text}</>;
 }
 
-const wordCount = (t?: string) => (t ? t.split(" ").filter(Boolean).length : 0);
-
-/** Headline with one highlighted keyword, the signature type treatment of the site. Words stagger in. */
+/** Headline pieces joined as ordinary text: no highlight pill, no accent on a single word. */
 export function Highlight({ start, word, end }: { start?: string; word: string; end?: string }) {
-  const a = wordCount(start);
-  const b = wordCount(word);
-  return (
-    <>
-      {start && <><Words text={start} /> </>}
-      {/* --i lets the peach marker sweep in right after its own word lands (see .hl in globals.css) */}
-      <span className="hl" style={{ ["--i" as string]: a + b }}><Words text={word} from={a} /></span>
-      {end && <> <Words text={end} from={a + b} /></>}
-    </>
-  );
+  return <>{[start, word, end].filter(Boolean).join(" ")}</>;
 }
 
 export function SectionHeading({
@@ -107,17 +77,13 @@ export function SectionHeading({
 }: {
   eyebrow?: string; title: ReactNode; body?: ReactNode; tone?: "light" | "dark" | "orange"; align?: "left" | "center"; as?: "h1" | "h2";
 }) {
-  const titleColor = tone === "dark" || tone === "orange" ? "text-white" : "text-fg";
-  // Text on solid orange is white (client direction, Nov 8 2026)
-  const bodyColor = tone === "dark" ? "text-on-ink" : tone === "orange" ? "text-white" : "text-muted";
+  const dark = tone === "dark" || tone === "orange";
   const a = align === "center" ? "mx-auto items-center text-center" : "";
   return (
-    <div className={`flex max-w-[46rem] flex-col gap-5 ${a}`}>
-      {eyebrow && <div {...reveal()}><Eyebrow tone={tone === "dark" ? "dark" : "light"}>{eyebrow}</Eyebrow></div>}
-      <H data-words="" className={`text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.06] ${titleColor} ${align === "center" ? "self-center" : ""}`}>
-        {typeof title === "string" ? <Words text={title} /> : title}
-      </H>
-      {body && <p className={`max-w-[58ch] text-lg ${bodyColor}`} {...reveal(260)}>{body}</p>}
+    <div className={`flex max-w-[46rem] flex-col gap-4 ${a}`}>
+      {eyebrow && <Eyebrow tone={dark ? "dark" : "light"}>{eyebrow}</Eyebrow>}
+      <H className={dark ? "text-white" : "text-fg"}>{title}</H>
+      {body && <p className={`max-w-[58ch] ${dark ? "text-on-ink" : "text-muted"}`}>{body}</p>}
     </div>
   );
 }

@@ -1,459 +1,91 @@
 @import "tailwindcss";
 
-/* Kram Healthcare tokens — see docs/design-system.md. Colours sampled from the client logo. */
+/* Kram Healthcare tokens (Medallion-style revamp, branch design/medallion-style). See docs/design-system.md. */
 @theme {
-  --color-orange: #f77c27;
-  --color-orange-ink: #b84a0c;
-  --color-orange-soft: #ffa366;
-  --color-peach: #ffc999;      /* saturated tint: icon discs, photo placeholders */
-  --color-peach-2: #ffe7d2;    /* soft card fill */
-  --color-peach-line: #ffcfa6; /* hairlines on peach-2 */
-  --color-graphite: #414546;   /* exact logo X */
-  --color-ink: #2f3336;        /* logo charcoal, deepened: primary pill buttons, dark bands */
-  --color-ink-2: #414546;
-  --color-ink-line: #5a5f62;
-  --color-fg: #1f2224;
-  --color-muted: #5b6063;
-  --color-on-ink: #d6d8d9;
-  --color-stone: #f2f2f0;
-  --color-stone-2: #e6e6e3;
-  --color-line: #dcdcd9;
+  --color-ink: #040810;          /* text, filled buttons, footer */
+  --color-ink-2: #0e1420;        /* raised surface on ink */
+  --color-ink-line: #262d3a;     /* hairlines on ink */
+  --color-on-ink: #c9ced6;       /* body text on ink (11:1) */
+  --color-fg: #040810;
+  --color-muted: rgb(4 8 16 / 0.64); /* ink at 64%: about 6:1 on white */
+  --color-graphite: #3a404b;     /* icons on light */
+  --color-line: #d1d5d6;         /* 1px hairlines */
+  --color-tint: #eff2f3;         /* the one pale band (closing CTA) and the product frame fill */
+  --color-tint-2: #e1e6e8;
+  --color-stone: var(--color-tint);   /* legacy names, kept so inner pages inherit the palette */
+  --color-stone-2: var(--color-tint-2);
+  --color-orange: #f77c27;       /* logo orange, the single accent. White on it is 2.67:1 (client decision): keep it to dots, tracks and fills */
+  --color-orange-ink: #b84a0c;   /* orange text on light (5.2:1 on white); fill for "Approved/Paid" pills with white text */
+  --color-orange-soft: #ffa366;  /* small orange text on ink */
+  --color-peach: #ffc999;
+  --color-peach-2: #ffe7d2;
+  --color-peach-line: #ffcfa6;
   --color-success: #b84a0c;
 
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 
   --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);  /* entrances: fast start, long glide */
-  --ease-back: cubic-bezier(0.22, 1.3, 0.36, 1);     /* slight overshoot: words, pops */
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-rise: rise 0.85s var(--ease-out-strong) both;
-  --animate-fade: fade 0.9s var(--ease-out-soft) both;
-  --animate-drop: drop 0.5s var(--ease-out-soft) both;
-  --animate-expand: expand 1.2s var(--ease-out-strong) both;
-  --animate-settle: settle 2s var(--ease-out-strong) both;
-  --animate-marquee: marquee 60s linear infinite;
-
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(32px); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes marquee {
-    to { transform: translateX(-50%); }
-  }
-  @keyframes drop {
-    from { opacity: 0; transform: translateY(-16px); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes expand {
-    from { opacity: 0; clip-path: inset(16% 12% round 28px); }
-    to { opacity: 1; clip-path: inset(0% 0% round 28px); }
-  }
-  @keyframes settle {
-    from { transform: scale(1.3); }
-    to { transform: scale(1); }
-  }
-  @keyframes word-in {
-    from { opacity: 0; transform: translateY(115%); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes grow {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
+  @keyframes st-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes st-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes fill-1 { from { transform: scaleX(0); } to { transform: scaleX(0.5); } }
+  @keyframes fill-2 { from { transform: scaleX(0.5); } to { transform: scaleX(1); } }
+  @keyframes dot-on { from { background-color: #fff; border-color: var(--color-line); } to { background-color: var(--color-orange); border-color: var(--color-orange); } }
+  @keyframes board-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 110px;
     -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-white text-fg font-sans antialiased;
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 1rem;      /* 16px */
+    line-height: 1.6;
+    font-weight: 400;
   }
-  h1, h2, h3 {
-    @apply text-balance;
-    font-weight: 600;
-    letter-spacing: -0.04em;
+  h1, h2, h3, h4 {
+    @apply text-balance font-display;
+    letter-spacing: -0.02em;
   }
+  h1 { font-size: clamp(2.125rem, 5.2vw, 3rem); font-weight: 400; line-height: 1.08; }      /* 48px */
+  h2 { font-size: clamp(2rem, 4.4vw, 2.75rem); font-weight: 300; line-height: 1.1; }        /* 44px */
+  h3 { font-weight: 400; line-height: 1.2; letter-spacing: -0.01em; }
   :focus-visible {
-    /* Orange on white is only 2.67:1, so the ring is ink on light and orange on dark surfaces */
-    outline: 3px solid var(--color-ink);
+    outline: 2px solid var(--color-ink);
     outline-offset: 3px;
-    border-radius: 8px;
+    border-radius: 4px;
   }
   .bg-ink :focus-visible { outline-color: var(--color-orange); }
   ::selection { background: var(--color-peach); color: var(--color-fg); }
 }
 
-/* Keyword highlight pill inside headlines ("credentialed", "revenue"…) */
-.hl {
-  color: #fff;
-  /* Drawn as a background image (not a colour) so it can sweep in like a marker pen */
-  background: linear-gradient(var(--color-orange), var(--color-orange)) no-repeat 0 0 / 100% 100%;
-  border-radius: 0.28em;
-  padding: 0 0.16em;
-  margin: 0 -0.04em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-@keyframes hl-sweep {
-  from { background-size: 0% 100%; }
-  to { background-size: 100% 100%; }
-}
-/* Hero headlines: the marker sweeps as its word lands (word stagger + 240 ms) */
-.words-load .hl {
-  animation: hl-sweep 0.6s var(--ease-out-soft) both;
-  animation-delay: calc(460ms + min(var(--i, 0), 14) * 45ms);
-}
-/* Section headlines: same sweep, triggered with the words by MotionObserver */
-.js [data-words] .hl {
-  background-size: 0% 100%;
-  transition: background-size 0.75s var(--ease-out-soft);
-  transition-delay: calc(250ms + min(var(--i, 0), 14) * 55ms);
-}
-.js [data-words][data-shown] .hl { background-size: 100% 100%; }
+/* ---------- Hero status board: the page's one orchestrated moment ----------
+   Plays once on load (about 5 s) and holds. Each row waits --t1, then moves Submitted -> In review; rows marked
+   data-end="done" move on to Approved/Paid at --t2. Pure CSS, so it needs no JS. The base styles are the START
+   state; the reduced-motion block at the end swaps in the END state without animating. */
+.board-row { --t1: calc(0.9s + var(--i, 0) * 0.45s); --t2: calc(var(--t1) + 1.6s); }
+.board { animation: board-in 0.9s var(--ease-out-strong) 0.1s both; }
 
-/* ---------- Scroll reveal (progressive: visible without JS) ---------- */
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(var(--rise, 40px));
-  /* This rule is unlayered, so it beats Tailwind's transition utilities: hover properties must be listed
-     here too (undelayed), or card lifts on revealed elements snap instead of easing. */
-  transition: opacity 0.85s var(--ease-out-strong), transform 0.95s var(--ease-out-strong),
-    translate 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft);
-  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0ms, 0ms, 0ms;
+.pill { display: inline-grid; min-width: 6.25rem; font-size: 0.75rem; font-weight: 500; line-height: 1; }
+.pill > span {
+  grid-area: 1 / 1; display: flex; align-items: center; justify-content: center;
+  padding: 0.5rem 0.75rem; border-radius: 999px; white-space: nowrap;
 }
-.js [data-reveal][data-shown] { opacity: 1; transform: none; }
-.rise-lg { --rise: 72px; }
+.st-1 { color: var(--color-muted); box-shadow: inset 0 0 0 1px var(--color-line); background: #fff; animation: st-out 0.3s var(--ease-out-soft) var(--t1) forwards; }
+.st-2 { color: var(--color-ink); background: var(--color-tint-2); opacity: 0; animation: st-in 0.4s var(--ease-out-soft) calc(var(--t1) + 0.1s) forwards; }
+.st-3 { color: #fff; background: var(--color-orange-ink); opacity: 0; }
+.board-row[data-end="done"] .st-2 { animation: st-in 0.4s var(--ease-out-soft) calc(var(--t1) + 0.1s) forwards, st-out 0.3s var(--ease-out-soft) var(--t2) forwards; }
+.board-row[data-end="done"] .st-3 { animation: st-in 0.4s var(--ease-out-soft) calc(var(--t2) + 0.1s) forwards; }
 
-/* ---------- Word-by-word headline reveal: each word rises from behind its own mask ---------- */
-.w { display: inline-block; }
-/* clip-path rather than overflow:clip so the inline-block keeps its text baseline; negative insets spare descenders */
-.w-mask { display: inline-block; clip-path: inset(-0.08em -0.12em -0.2em -0.12em); }
-/* Hero headlines: play on load, fast (whole headline in by ~0.9s) so the first screen is never empty.
-   Needs no JS (the animation ends visible). */
-/* Hero words tip up in 3D as they land; perspective() lives in the transform because .w sits inside wrapper spans */
-.words-load .w {
-  transform-origin: 50% 100%;
-  animation: word-in-3d 0.9s var(--ease-back) both;
-  animation-delay: calc(60ms + min(var(--i), 14) * 45ms);
-}
-@keyframes word-in-3d {
-  from { opacity: 0; transform: perspective(700px) translateY(120%) rotateX(-55deg); }
-  to { opacity: 1; transform: perspective(700px) translateY(0) rotateX(0); }
-}
-/* Section headlines: wait for the observer to add [data-shown]. Visible by default without JS. */
-.js [data-words] .w {
-  opacity: 0; transform: translateY(115%);
-  transition: opacity 0.6s var(--ease-out-strong), transform 0.95s var(--ease-out-strong);
-  transition-delay: calc(min(var(--i), 14) * 55ms);
-}
-.js [data-words][data-shown] .w { opacity: 1; transform: none; }
-
-/* ---------- Inside a revealed block: list rows cascade, ticks draw, icon tiles pop ---------- */
-.cascade {
-  transition: opacity 0.7s var(--ease-out-strong), transform 0.8s var(--ease-out-strong);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 200ms + var(--i, 0) * 65ms);
-}
-.js [data-reveal]:not([data-shown]) .cascade { opacity: 0; transform: translateY(28px); }
-
-.tick path {
-  stroke-dasharray: 1 2;
-  transition: stroke-dashoffset 0.6s var(--ease-out-soft);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 320ms + var(--i, 0) * 55ms);
-}
-.js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 1; }
-
-.pop {
-  transition: scale 0.8s var(--ease-back), opacity 0.5s var(--ease-out-soft);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 140ms);
-}
-.js [data-reveal]:not([data-shown]) .pop { scale: 0.3; opacity: 0; }
-
-/* Benefit chips (BillingWhy): cascade in, then lift on hover. Hover properties are listed undelayed so the lift
-   isn't held back by the cascade's stagger delay (same reason as the [data-reveal] rule). */
-.benefit {
-  transition: opacity 0.7s var(--ease-out-strong), transform 0.8s var(--ease-out-strong),
-    translate 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 200ms + var(--i, 0) * 65ms), calc(var(--reveal-delay, 0ms) + 200ms + var(--i, 0) * 65ms), 0ms, 0ms, 0ms;
-}
-.benefit:hover {
-  translate: 0 -3px;
-  background-color: var(--color-peach);
-  box-shadow: 0 14px 24px -16px rgb(184 74 12 / 0.55);
-}
-.benefit-dot { transition: scale 0.35s var(--ease-back), rotate 0.5s var(--ease-back); }
-.benefit:hover .benefit-dot { scale: 1.18; rotate: 12deg; }
-
-/* Claim tracker card (BillingWhy): a 7 s loop. The line fills, the three steps light up in turn, the last one pulses,
-   then it all fades and starts over. The base styles are the finished state, so reduced motion (animation off) and
-   no-JS show a completed claim. */
-.claim-line { animation: claim-line 7s var(--ease-out-soft) infinite; }
-.claim-node { animation: 7s var(--ease-out-soft) infinite; }
-.claim-node-1 { animation-name: claim-node-1; }
-.claim-node-2 { animation-name: claim-node-2; }
-.claim-node-3 { animation-name: claim-node-3; }
-@keyframes claim-line {
-  0%, 8% { transform: scaleX(0); opacity: 1; }
-  44%, 52% { transform: scaleX(0.5); }
-  84%, 95% { transform: scaleX(1); opacity: 1; }
-  100% { transform: scaleX(1); opacity: 0; }
-}
-@keyframes claim-node-1 {
-  0%, 2% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
-  8%, 95% { background-color: var(--color-orange); color: #fff; scale: 1; }
-  100% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
-}
-@keyframes claim-node-2 {
-  0%, 46% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
-  54%, 95% { background-color: var(--color-orange); color: #fff; scale: 1; }
-  100% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; }
-}
-@keyframes claim-node-3 {
-  0%, 86% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; box-shadow: 0 0 0 0 rgb(247 124 39 / 0); }
-  90% { background-color: var(--color-orange); color: #fff; scale: 1.2; box-shadow: 0 0 0 0 rgb(247 124 39 / 0.55); }
-  95% { background-color: var(--color-orange); color: #fff; scale: 1; box-shadow: 0 0 0 10px rgb(247 124 39 / 0); }
-  100% { background-color: var(--color-stone-2); color: transparent; scale: 0.85; box-shadow: 0 0 0 0 rgb(247 124 39 / 0); }
-}
-
-/* ---------- Photos: image wipes up over its colour block and settles from a zoom ---------- */
-.js .photo img {
-  clip-path: inset(100% 0 0 0);
-  transform: scale(1.3);
-  transition: clip-path 1.3s var(--ease-out-strong), transform 2s var(--ease-out-strong);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-.js .photo[data-shown] img { clip-path: inset(0 0 0 0); transform: none; }
-
-/* ---------- Top progress bar (home) ---------- */
-.scroll-progress { display: none; }
-
-/* ---------- Ambient: gentle hover in place (.bob; unused since the static hero, kept for reuse) ---------- */
-.bob { animation: bob 6s ease-in-out var(--bob-d, 0s) infinite alternate; }
-@keyframes bob { to { translate: 0 -14px; } }
-
-/* ---------- Home hero: scrim over the photo ---------- */
-/* Keeps white copy legible over the brightest photo: at least 72% charcoal behind the text column */
-.hero-scrim {
-  --scrim: var(--color-fg);
-  background:
-    linear-gradient(0deg, color-mix(in srgb, var(--scrim) 82%, transparent), transparent 36%),
-    linear-gradient(90deg,
-      color-mix(in srgb, var(--scrim) 90%, transparent) 0%,
-      color-mix(in srgb, var(--scrim) 74%, transparent) 42%,
-      color-mix(in srgb, var(--scrim) 26%, transparent) 72%,
-      color-mix(in srgb, var(--scrim) 14%, transparent) 100%);
-}
-@media (max-width: 1023px) {
-  .hero-scrim { background: color-mix(in srgb, var(--color-fg) 76%, transparent); }
-}
-
-/* Home hero carousel (home/hero-carousel.tsx). Slides are stacked; the new one ("active") wipes in over the
-   one it replaces ("leaving", still fully visible underneath) while its photo settles from a zoom. The rest are
-   hidden. Keyframes (not transitions) so each wipe starts from its own first frame, in either direction.
-   Nothing animates until the first change (data-moved), so the first photo paints as plain HTML. The Ken Burns
-   zoom sits on .hero-slide-img, never on .parallax-img, because both use the individual `scale` property. */
-.hero-slide { position: absolute; inset: 0; visibility: hidden; }
-.hero-slide[data-state="leaving"] { visibility: visible; z-index: 1; }
-.hero-slide[data-state="active"] { visibility: visible; z-index: 2; }
-.hero-slide-img { scale: 1.04; } /* where the settle ends, so a slide that is leaving doesn't jump */
-.hero-slide[data-state="active"] .hero-slide-img { animation: hero-settle 8s var(--ease-out-soft) both; }
-.hero-carousel[data-moved="true"] .hero-slide[data-state="active"] { animation: hero-wipe-fwd 1.15s var(--ease-out-strong) both; }
-.hero-carousel[data-moved="true"][data-dir="back"] .hero-slide[data-state="active"] { animation-name: hero-wipe-back; }
-.hero-progress-fill { display: block; height: 100%; width: 100%; transform-origin: left; animation: hero-progress linear both; }
-@keyframes hero-settle { from { scale: 1.18; } to { scale: 1.04; } }
-@keyframes hero-wipe-fwd { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
-@keyframes hero-wipe-back { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-
-/* Full-width bands: soft glows in two diagonally opposite corners, layered over the band's bg-* colour.
-   The diagonals mirror each other so the two bands read as a pair. Orange runs dark-to-light from the top left,
-   so the white heading sits on the deeper end. Glow height follows viewport width, not band height: stacked phone
-   layouts make these bands very tall, and a percentage would stretch each glow into a stripe down the side.
-   Keep it a plain calc(): a min() containing a percentage is rejected here and voids the whole background. */
-.band-corners-orange, .band-corners-ink { --glow-h: calc(40vw + 200px); }
-.band-corners-orange {
-  background-image:
-    radial-gradient(70% var(--glow-h) at 0% 0%, color-mix(in srgb, var(--color-orange-ink) 72%, transparent), transparent 72%),
-    radial-gradient(60% var(--glow-h) at 100% 100%, color-mix(in srgb, var(--color-peach) 78%, transparent), transparent 72%);
-}
-.band-corners-ink {
-  background-image:
-    radial-gradient(60% var(--glow-h) at 100% 0%, color-mix(in srgb, var(--color-orange) 46%, transparent), transparent 72%),
-    radial-gradient(55% var(--glow-h) at 0% 100%, color-mix(in srgb, var(--color-orange-soft) 30%, transparent), transparent 72%);
-}
-
-/* Marquee leans into fast scrolling; MotionObserver sets --skew from scroll velocity */
-.marquee { transform: skewX(var(--skew, 0deg)); }
-
-/* ---------- Scroll-linked depth (CSS only, static where unsupported) ----------
-   Frames are overflow:hidden, which makes them scroll containers: a child's plain view() would track
-   the frame and never move. So the frame publishes a named timeline and its children read that.
-   Parallax uses the individual `translate`/`scale` properties so it composes with `transform` reveals. */
-@supports (animation-timeline: view()) {
-  .scroll-frame, .photo { view-timeline-name: --frame; }
-
-  .photo img { --drift: 9%; scale: 1.22; }
-  .parallax-img, .photo img {
-    animation-name: img-drift;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: --frame;
-    animation-range: cover;
-  }
-  .parallax-img { scale: 1.14; }
-  .drift-up {
-    animation: drift-up linear both;
-    animation-timeline: view();
-    animation-range: cover;
-  }
-
-  .closing-card {
-    view-timeline-name: --closing;
-    transform-origin: 50% 100%;
-    animation: closing-lift linear both;
-    animation-timeline: --closing;
-    animation-range: entry 0% entry 70%;
-  }
-  /* Footer CTA: words rise as the card scrolls in (the card clips, so read its named timeline) */
-  .words-view .w {
-    animation: word-in linear both;
-    animation-timeline: --closing;
-    animation-range: entry calc(20% + var(--i) * 3%) entry calc(65% + var(--i) * 3%);
-  }
-}
-@supports (animation-timeline: scroll()) {
-  .scroll-progress {
-    display: block; position: fixed; inset: 0 0 auto; z-index: 60; height: 3px;
-    background: linear-gradient(90deg, var(--color-orange), var(--color-orange-soft));
-    transform-origin: 0 50%;
-    animation: progress-grow linear both;
-    animation-timeline: scroll(root);
-  }
-}
-@keyframes progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes img-drift { from { translate: 0 calc(var(--drift, 6%) * -1); } to { translate: 0 var(--drift, 6%); } }
-@keyframes drift-up { from { translate: 0 60px; } to { translate: 0 -60px; } }
-@keyframes closing-lift { from { scale: 0.9; translate: 0 70px; } to { scale: 1; translate: 0 0; } }
-
-/* ---------- Statement: words darken as they scroll into view (CSS only) ---------- */
-.statement-word { color: var(--color-fg); }
-@supports (animation-timeline: view()) {
-  .statement-word {
-    animation: word-ink linear both;
-    animation-timeline: view();
-    animation-range: entry 60% cover 42%;
-  }
-}
-@keyframes word-ink {
-  from { color: #b9bbbc; }
-  to { color: var(--color-fg); }
-}
-
-/* ---------- Header gains a surface on scroll: CSS scroll-driven, zero JS ---------- */
-@supports (animation-timeline: scroll()) {
-  .site-header-bar {
-    animation: header-compact linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 120px;
-  }
-}
-@keyframes header-compact {
-  to { box-shadow: 0 1px 0 var(--color-line), 0 14px 30px -26px rgb(47 51 54 / 0.45); }
-}
-
-/* ---------- Process timeline: node pops → card rises → line travels to the next node → repeat ----------
-   Each step's clock is --reveal-delay. On desktop the row plays as one sequence (--step × 900ms); on phones the
-   steps are stacked, so the delay is 0 and each one plays as it scrolls in. Within a step: node 0ms, card +180ms,
-   line +420ms to +1000ms, so the next node lands just as the line reaches it. */
-.flow-step { --reveal-delay: 0ms; }
-@media (min-width: 64rem) { .flow-step { --reveal-delay: calc(var(--step, 0) * 900ms); } }
-/* The li is only the scroll trigger; its children do the moving */
-.js .flow-step[data-reveal] { opacity: 1; transform: none; transition: none; }
-
-.flow-node { transition-delay: var(--reveal-delay, 0ms); }
-/* One soft ripple as the node lands: sits above the node's fill, below its number */
-.flow-node::after {
-  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
-  background-color: inherit; opacity: 0; pointer-events: none;
-}
-@supports not (animation-timeline: view()) {
-  .js [data-shown] > .flow-node::after { animation: flow-ripple 1.1s var(--ease-out-soft) var(--reveal-delay, 0ms) forwards; }
-}
-@keyframes flow-ripple {
-  0% { transform: scale(1); opacity: 0.45; }
-  100% { transform: scale(2.2); opacity: 0; }
-}
-
-/* Clipped track + sliding fill: unlike scaleX, the travelling head at the fill's end keeps its shape */
-.flow-line { overflow: hidden; pointer-events: none; }
-.flow-line-end { mask-image: linear-gradient(90deg, #000 15%, transparent 95%); }
-.flow-fill {
-  position: absolute; inset: 0;
-  background: linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
-  transition: transform 0.58s cubic-bezier(.65,0,.35,1);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 420ms);
-}
-.flow-fill::after {
-  content: ""; position: absolute; left: 50%; bottom: 0; width: 8px; height: 8px; margin-left: -4px;
-  border-radius: 999px; background: currentColor; box-shadow: 0 0 12px 3px currentColor; opacity: 0;
-  transition: opacity 0.25s var(--ease-out-soft);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 860ms);
-}
-/* The extra 24px parks the head's glow fully outside the track until it sets off */
-.js [data-reveal]:not([data-shown]) .flow-fill { transform: translateY(calc(-100% - 24px)); }
-.js [data-reveal]:not([data-shown]) .flow-fill::after { opacity: 1; }
-@media (min-width: 64rem) {
-  .flow-fill { background-size: 100% 2px; }
-  .flow-fill::after { left: auto; right: 0; bottom: 50%; margin: 0 0 -4px; }
-  .js [data-reveal]:not([data-shown]) .flow-fill { transform: translateX(calc(-100% - 24px)); }
-}
-
-/* The card grows out of its node. Hover properties are listed undelayed (see the [data-reveal] note above). */
-.flow-card {
-  transform-origin: 22px 0;
-  transition: opacity 0.85s var(--ease-out-strong), transform 0.95s var(--ease-out-strong),
-    translate 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft);
-  transition-delay: calc(var(--reveal-delay, 0ms) + 180ms), calc(var(--reveal-delay, 0ms) + 180ms), 0ms, 0ms;
-}
-.js [data-reveal]:not([data-shown]) .flow-card { opacity: 0; transform: translateY(40px) scale(0.97); }
-.flow-card .pop { transition-delay: calc(var(--reveal-delay, 0ms) + 420ms); }
-.flow-card .cascade { transition-delay: calc(var(--reveal-delay, 0ms) + 360ms + var(--i, 0) * 70ms); }
-
-/* ---------- Bars ---------- */
-.js .bar-fill { transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--ease-out-soft); transition-delay: var(--reveal-delay, 0ms); }
-.js [data-shown] .bar-fill { transform: scaleX(1); }
-
-/* ---------- Range sliders (cost calculator): filled track via --p, ink thumb ---------- */
-.range {
-  appearance: none; -webkit-appearance: none;
-  width: 100%; height: 6px; border-radius: 999px; cursor: pointer; background:
-    linear-gradient(90deg, var(--color-orange) var(--p, 50%), var(--color-stone-2) var(--p, 50%));
-}
-.range::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none;
-  width: 24px; height: 24px; border-radius: 999px; background: #fff;
-  border: 2px solid var(--color-ink); box-shadow: 0 4px 12px -4px rgb(47 51 54 / 0.45);
-  transition: transform 0.15s var(--ease-out-soft);
-}
-.range::-moz-range-thumb {
-  width: 20px; height: 20px; border-radius: 999px; background: #fff;
-  border: 2px solid var(--color-ink); box-shadow: 0 4px 12px -4px rgb(47 51 54 / 0.45);
-}
-.range:hover::-webkit-slider-thumb, .range:active::-webkit-slider-thumb { transform: scale(1.12); }
-.range:focus-visible { outline-offset: 8px; }
-
-/* ---------- Marquee pauses on hover / focus ---------- */
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track { animation-play-state: paused; }
-.marquee[data-paused] .marquee-track { animation-play-state: paused; }
+.board-fill { transform-origin: left; transform: scaleX(0); animation: fill-1 0.7s var(--ease-out-strong) var(--t1) forwards; }
+.board-row[data-end="done"] .board-fill { animation: fill-1 0.7s var(--ease-out-strong) var(--t1) forwards, fill-2 0.7s var(--ease-out-strong) var(--t2) forwards; }
+.board-dot-2 { animation: dot-on 0.3s var(--ease-out-soft) calc(var(--t1) + 0.45s) forwards; }
+.board-row[data-end="done"] .board-dot-3 { animation: dot-on 0.3s var(--ease-out-soft) calc(var(--t2) + 0.45s) forwards; }
 
 /* ---------- FAQ disclosure ---------- */
 details > summary { list-style: none; }
@@ -462,270 +94,49 @@ details .faq-icon { transition: transform 0.25s var(--ease-out-soft); }
 details[open] .faq-icon { transform: rotate(45deg); }
 details.faq::details-content {
   block-size: 0; overflow: hidden;
-  transition: block-size 0.35s var(--ease-out-soft), content-visibility 0.35s allow-discrete;
+  transition: block-size 0.25s var(--ease-out-soft), content-visibility 0.25s allow-discrete;
 }
 details.faq[open]::details-content { block-size: auto; }
 @supports (interpolate-size: allow-keywords) { :root { interpolate-size: allow-keywords; } }
 
+/* ---------- Range sliders (cost calculator): filled track via --p, ink thumb ---------- */
+.range {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: 4px; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(90deg, var(--color-ink) var(--p, 50%), var(--color-tint-2) var(--p, 50%));
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 22px; height: 22px; border-radius: 999px; background: #fff;
+  border: 2px solid var(--color-ink);
+}
+.range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 999px; background: #fff; border: 2px solid var(--color-ink); }
+.range:focus-visible { outline-offset: 8px; }
+
 /* ---------- Mobile menu panel ---------- */
-.menu-panel { transition: opacity 0.25s var(--ease-out-soft), transform 0.25s var(--ease-out-soft), visibility 0.25s; }
-.menu-panel[data-open="false"] { opacity: 0; transform: translateY(-8px); visibility: hidden; }
+.menu-panel { transition: opacity 0.2s var(--ease-out-soft), visibility 0.2s; }
+.menu-panel[data-open="false"] { opacity: 0; visibility: hidden; }
 
-/* ---------- Mobile menu rows step in one after another; closing is instant so the panel can fade cleanly ---------- */
-.menu-panel li {
-  transition: opacity 0.3s var(--ease-out-soft), transform 0.4s var(--ease-out-strong);
-  transition-delay: calc(var(--i, 0) * 35ms + 40ms);
-}
-.menu-panel[data-open="false"] li { opacity: 0; transform: translateY(10px); transition-delay: 0ms; }
+/* ---------- Legacy motion hooks: inert in this design (no reveals, no parallax). Kept so inner pages still render. ---------- */
+.bar-fill { transform-origin: left; }
+@keyframes claim-line { to { transform: scaleX(1); } }
 
-/* ---------- Header nav ---------- */
-/* One pill for the whole list: rests on the current page, glides to the hovered link. Positioned from nav.tsx. */
-.nav-glider {
-  position: absolute; inset-block: 0; left: 0; width: 0; opacity: 0;
-  border-radius: 999px; background: var(--color-peach-2); pointer-events: none;
-  transition: opacity 0.25s var(--ease-out-soft);
-}
-.nav-glider[data-ready] {
-  transition: opacity 0.25s var(--ease-out-soft), transform 0.35s var(--ease-out-strong), width 0.35s var(--ease-out-strong);
-}
-
-/* Links arrive one by one on first load. The header lives in the layout, so this does not replay on navigation. */
-.nav-item-in { animation: nav-in 0.6s var(--ease-out-strong) calc(var(--i, 0) * 50ms + 120ms) both; }
-@keyframes nav-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
-
-/* Icons keep their slot but only show on the current, hovered or focused link: calm at rest, no layout shift */
-.nav-icon { opacity: 0; transition: color 0.15s var(--ease-out-soft), opacity 0.15s var(--ease-out-soft); }
-.nav-link[aria-current] .nav-icon { opacity: 1; }
-.nav-link:focus-visible .nav-icon { opacity: 1; color: var(--color-orange-ink); animation: nav-icon-pop 0.45s var(--ease-back); }
-.nav-link:focus-visible .nav-icon path { animation: nav-icon-draw 0.55s var(--ease-out-soft); }
-/* Dash values live only in the keyframes, so the icon at rest is a normal unbroken stroke */
-@keyframes nav-icon-draw {
-  from { stroke-dasharray: 1; stroke-dashoffset: 1; }
-  to { stroke-dasharray: 1; stroke-dashoffset: 0; }
-}
-@keyframes nav-icon-pop { from { scale: 0.72; rotate: -10deg; } }
-
-/* Phone button: charcoal fills outward from the handset icon */
-.call-pill {
-  position: relative; isolation: isolate; overflow: hidden;
-  transition: color 0.15s var(--ease-out-soft);
-}
-.call-pill::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--color-ink);
-  clip-path: circle(0 at 50% 50%);
-  transition: clip-path 0.4s var(--ease-out-strong);
-}
-.call-pill:focus-visible { color: #fff; }
-.call-pill:focus-visible::before { clip-path: circle(150% at 50% 50%); }
-@keyframes phone-ring {
-  20% { rotate: -14deg; } 40% { rotate: 11deg; } 60% { rotate: -7deg; } 80% { rotate: 4deg; }
-}
-
-/* Header CTA: a band of light crosses the circle and the icon leaves right, returning from the left */
-.cta-shine { position: relative; overflow: hidden; }
-.cta-shine::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.32) 50%, transparent 70%);
-  transform: translateX(-110%);
-}
-.cta-shine:focus-visible::after { transform: translateX(110%); transition: transform 0.7s var(--ease-out-soft); }
-.cta-shine:focus-visible svg { animation: arrow-through 0.45s var(--ease-out-soft); }
-@keyframes arrow-through {
-  45% { transform: translateX(16px); opacity: 0; }
-  46% { transform: translateX(-16px); opacity: 0; }
-}
-
-.logo-link svg { transition: scale 0.3s var(--ease-back); }
-
-/* Touch screens keep :hover after a tap, so pointer effects only apply where hover is real */
-@media (hover: hover) {
-  .nav-link:hover .nav-icon { opacity: 1; color: var(--color-orange-ink); animation: nav-icon-pop 0.45s var(--ease-back); }
-  .nav-link:hover .nav-icon path { animation: nav-icon-draw 0.55s var(--ease-out-soft); }
-  .call-pill:hover { color: #fff; }
-  .call-pill:hover::before { clip-path: circle(150% at 50% 50%); }
-  .call-pill:hover svg { animation: phone-ring 0.6s var(--ease-out-soft); }
-  .cta-shine:hover::after { transform: translateX(110%); transition: transform 0.7s var(--ease-out-soft); }
-  .cta-shine:hover svg { animation: arrow-through 0.45s var(--ease-out-soft); }
-  .logo-link:hover svg { scale: 1.1; }
-}
-
-/* ---------- Two-way entrances: every reveal follows the scroll position, like the footer card ----------
-   Scrolling down plays an entrance forward, scrolling up plays it backward, and stopping holds it mid-way.
-   Ranges are measured from the moment a block's top touches the bottom of the viewport. They use vh so the
-   distance feels the same on a phone and a desktop whatever the block's height.
-
-   A block's own timeline is view(); its children read the block's named timeline (--block), and a stagger is
-   a scroll distance: --stagger (unitless, from reveal()) × --scrub-unit.
-
-   Two rules keep this safe:
-   - An ancestor with overflow hidden/auto is a scroll container, so the block would track it and never appear.
-     Clip with overflow-clip around any [data-reveal] (.photo and friends are the subject itself, so they're fine).
-   - Transitions outrank animations in the cascade, so MotionObserver must not toggle [data-shown] where this block
-     applies. It only does that in browsers without scroll timelines, which keep the transitions above, reversed. */
-:root { --scrub-unit: 0.012vh; }
-@media (min-width: 48rem) { :root { --scrub-unit: 0.03vh; } }
-
-@supports (animation-timeline: view()) {
-  /* :where() keeps this at zero specificity so .photo keeps publishing --frame */
-  :where(.js) :where([data-reveal], [data-words]) { view-timeline-name: --block; }
-
-  .js [data-reveal]:not(.flow-step) {
-    --from: calc(min(var(--stagger, 0), 420) * var(--scrub-unit));
-    animation: scrub-rise linear both;
-    animation-timeline: view();
-    animation-range: entry var(--from) entry calc(var(--from) + 16vh);
-  }
-
-  /* Headlines: one word at a time, then the marker sweeps */
-  .js [data-words] .w {
-    --w: calc(min(var(--i), 14) * 1.2vh);
-    animation: scrub-word linear both;
-    animation-timeline: --block;
-    animation-range: entry var(--w) entry calc(var(--w) + 14vh);
-  }
-  .js [data-words] .hl {
-    --w: calc(min(var(--i, 0), 14) * 1.2vh + 8vh);
-    animation: hl-sweep linear both;
-    animation-timeline: --block;
-    animation-range: entry var(--w) entry calc(var(--w) + 10vh);
-  }
-
-  /* Inside a revealed block */
-  .js [data-reveal]:not(.flow-step) .cascade {
-    --c: calc(var(--from, 0vh) + 4vh + var(--i, 0) * 2vh);
-    animation: scrub-cascade linear both;
-    animation-timeline: --block;
-    animation-range: entry var(--c) entry calc(var(--c) + 12vh);
-  }
-  .js [data-reveal]:not(.flow-step) .tick path {
-    --c: calc(var(--from, 0vh) + 8vh + var(--i, 0) * 2vh);
-    animation: scrub-draw linear both;
-    animation-timeline: --block;
-    animation-range: entry var(--c) entry calc(var(--c) + 8vh);
-  }
-  .js [data-reveal]:not(.flow-step) .pop {
-    animation: scrub-pop var(--ease-back) both;
-    animation-timeline: --block;
-    animation-range: entry calc(var(--from, 0vh) + 3vh) entry calc(var(--from, 0vh) + 15vh);
-  }
-  /* Each bar tracks its own row, not the card: stacked on a phone the card is taller than the screen,
-     so the card's timeline would finish the lower bars before they scroll into view */
-  .bar-row { view-timeline-name: --bar; }
-  .js .bar-fill {
-    animation: grow-bar linear both;
-    animation-timeline: --bar;
-    animation-range: entry 0% entry 22vh;
-  }
-
-  /* Photos keep their drift (first animation) and gain the wipe, both on the frame's timeline */
-  .js .photo img {
-    animation-name: img-drift, scrub-photo;
-    animation-timing-function: linear, linear;
-    animation-fill-mode: both, both;
-    animation-timeline: --frame, --frame;
-    animation-range: cover, entry var(--from, 0vh) entry calc(var(--from, 0vh) + 34vh);
-  }
-
-  /* Process timeline: on desktop the row plays left to right as you scroll (--at = 11vh per step); on phones
-     the steps are stacked, so each plays as it arrives and its line draws across the step's own height. */
-  .js .flow-step { view-timeline-name: --flow; --at: 0vh; }
-  .js .flow-node {
-    animation: scrub-pop var(--ease-back) both;
-    animation-timeline: --flow;
-    animation-range: entry var(--at) entry calc(var(--at) + 8vh);
-  }
-  .js .flow-node::after {
-    animation: flow-ripple linear both;
-    animation-timeline: --flow;
-    animation-range: entry calc(var(--at) + 3vh) entry calc(var(--at) + 10vh);
-  }
-  .js .flow-card {
-    animation: scrub-card linear both;
-    animation-timeline: --flow;
-    animation-range: entry calc(var(--at) + 2vh) entry calc(var(--at) + 12vh);
-  }
-  .js .flow-card .pop {
-    animation: scrub-pop var(--ease-back) both;
-    animation-timeline: --flow;
-    animation-range: entry calc(var(--at) + 5vh) entry calc(var(--at) + 13vh);
-  }
-  .js .flow-card .cascade {
-    --c: calc(var(--at) + 4vh + var(--i, 0) * 1.2vh);
-    animation: scrub-cascade linear both;
-    animation-timeline: --flow;
-    animation-range: entry var(--c) entry calc(var(--c) + 8vh);
-  }
-  .js .flow-fill, .js .flow-fill::after {
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: --flow;
-    animation-range: entry 25% entry 100%;
-  }
-  .js .flow-fill { animation-name: scrub-line-y; }
-  .js .flow-fill::after { animation-name: scrub-head; }
-  @media (min-width: 64rem) {
-    .js .flow-step { --at: calc(var(--step, 0) * 11vh); }
-    .js .flow-fill { animation-name: scrub-line-x; }
-    .js .flow-fill, .js .flow-fill::after {
-      animation-range: entry calc(var(--at) + 5vh) entry calc(var(--at) + 12vh);
-    }
-  }
-}
-@keyframes scrub-rise { from { opacity: 0; transform: translateY(var(--rise, 40px)); } to { opacity: 1; transform: none; } }
-@keyframes scrub-word { from { opacity: 0; transform: translateY(115%); } to { opacity: 1; transform: none; } }
-@keyframes scrub-cascade { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-@keyframes scrub-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-@keyframes scrub-pop { from { scale: 0.3; opacity: 0; } to { scale: 1; opacity: 1; } }
-@keyframes scrub-photo { from { clip-path: inset(100% 0 0 0); transform: scale(1.3); } to { clip-path: inset(0 0 0 0); transform: none; } }
-@keyframes scrub-card { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: none; } }
-@keyframes scrub-line-y { from { transform: translateY(calc(-100% - 24px)); } to { transform: none; } }
-@keyframes scrub-line-x { from { transform: translateX(calc(-100% - 24px)); } to { transform: none; } }
-@keyframes scrub-head { 0%, 88% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes grow-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-
-/* Browsers without scroll timelines: leaving should be quicker than arriving, so reversals drop their stagger */
-@supports not (animation-timeline: view()) {
-  .js [data-reveal]:not([data-shown]), .js [data-reveal]:not([data-shown]) *,
-  .js [data-reveal]:not([data-shown]) .flow-fill::after,
-  .js [data-words]:not([data-shown]) * { transition-delay: 0ms; }
-}
-
-/* ---------- Reduced motion: everything visible, nothing moves ---------- */
+/* ---------- Reduced motion: the board shows its end state, nothing moves ---------- */
 @media (prefers-reduced-motion: reduce) {
-  /* Scroll-linked, so animation-duration can't stop them: off by name, then the rules below show the end state */
-  .js [data-reveal], .js [data-words] .w, .js [data-words] .hl, .cascade, .tick path, .pop, .bar-fill,
-  .flow-node, .flow-node::after, .flow-card, .flow-fill, .flow-fill::after { animation: none !important; }
-  .js .pop { scale: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-  .js [data-reveal] { opacity: 1; transform: none; }
-  .js [data-words] .w { opacity: 1; transform: none; }
-  .js [data-reveal]:not([data-shown]) .cascade,
-  .js [data-reveal]:not([data-shown]) .pop { opacity: 1; transform: none; scale: none; }
-  .js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 0; }
-  .js [data-reveal]:not([data-shown]) .flow-card,
-  .js [data-reveal]:not([data-shown]) .flow-fill { opacity: 1; transform: none; }
-  .flow-fill::after { display: none; }
-  .js [data-shown] > .flow-node::after { animation: none !important; }
-  .js .photo img { clip-path: none; transform: none; }
-  /* Scroll-linked motion ignores animation-duration, so it has to be switched off by name */
-  .parallax-img, .photo img, .drift-up, .closing-card, .bob { animation: none !important; scale: none; translate: none; }
-  /* Claim tracker: show the finished claim (the base styles) instead of freezing at the loop's first, empty frame */
-  .claim-line, .claim-node { animation: none !important; }
-  .benefit:hover, .benefit:hover .benefit-dot { translate: none; scale: none; rotate: none; }
-  .scroll-progress { display: none !important; }
-  .hl, .js [data-words] .hl { animation: none !important; background-size: 100% 100% !important; }
-  .words-view .w, .words-load .w { animation: none !important; opacity: 1; transform: none; }
-  .marquee-track { animation: none !important; }
-  /* Hero carousel: slides swap instantly, no wipe or zoom (autoplay is also off in hero-carousel.tsx) */
-  .hero-slide, .hero-slide-img, .hero-progress-fill { animation: none !important; }
-  .hero-slide-img { scale: 1; }
-  /* Its delay isn't covered by the rule above, so links would otherwise wait hidden */
-  .nav-item-in { animation: none !important; }
-  .statement-word { animation: none !important; color: var(--color-fg); }
+  .board { animation: none; }
+  .board-row .st-1 { opacity: 0; animation: none; }
+  .board-row .st-2 { opacity: 1; animation: none; }
+  .board-row[data-end="done"] .st-2 { opacity: 0; }
+  .board-row[data-end="done"] .st-3 { opacity: 1; animation: none; }
+  .board-row .board-fill { animation: none; transform: scaleX(0.5); }
+  .board-row[data-end="done"] .board-fill { transform: scaleX(1); }
+  .board-row .board-dot-2, .board-row[data-end="done"] .board-dot-3 { animation: none; background-color: var(--color-orange); border-color: var(--color-orange); }
 }

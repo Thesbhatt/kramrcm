@@ -8,7 +8,7 @@ export function Deadlines() {
       <Container className="flex flex-col gap-12">
         <SectionHeading
           eyebrow={deadlines.eyebrow}
-          title={<>{deadlines.titleStart} <span className="hl">{deadlines.titleHighlight}</span></>}
+          title={<>{deadlines.titleStart} <span>{deadlines.titleHighlight}</span></>}
           body={deadlines.body}
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
