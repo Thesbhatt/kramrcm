@@ -11,7 +11,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [x] Logo mark (PNG, 1024px): received Nov 7 2026 → `design/client-logo/`
 - [ ] Logo as **vector** (SVG / AI / PDF), mark + "KRAM HEALTHCARE" wordmark + tagline. We currently use our own SVG trace of the mark.
 - [ ] Confirm tagline: "Accuracy you can count on"
-- [ ] Approval of colours (orange #F77C27, graphite #414546) and font (Geist; the current live site uses Manrope, so mention the change)
+- [ ] Approval of colours (orange #F77C27, graphite #414546) and font (Space Grotesk + Inter on the Medallion-style branch, Geist on `main`; the current live site uses Manrope, so mention the change)
 
 ## Proof and claims
 - [ ] Confirm stats and how each is measured, with an "as of" date: 10+ years, 5,000+ providers, 120,000+ applications, 99% first-time submission success
@@ -24,7 +24,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [ ] Explain "RMI" and confirm "Angioplasty" and "Eye Care" belong on the specialties list
 - [ ] Compliance facts that are TRUE today: sign BAAs with clients? SOC 2 / ISO 27001 / HITRUST? AAPC- or AHIMA-certified staff? Cyber insurance?
 - [ ] 2–3 testimonials: quote, full name, title, practice, state, written permission. On receipt: add to `testimonials` in `site.ts` and set `proof.enabled = true` (section is hidden until then)
-- [ ] Client or payer logos we may show (written permission)
+- [ ] Client or payer logos we may show (written permission). On receipt: add to `trust.logos` in `site.ts`; the "Trusted by" strip on the home page appears automatically
 - [ ] 1–2 short case studies: before/after numbers (e.g. days to enroll, denial rate, A/R days)
 
 ## Company

@@ -27,7 +27,7 @@ export function Why() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-8 rounded-[24px] bg-ink-2 p-7 ring-1 ring-ink-line sm:p-9 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14" {...reveal(150)}>
+        <div className="grid grid-cols-1 gap-8 rounded-xl bg-ink-2 p-7 ring-1 ring-ink-line sm:p-9 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14" {...reveal(150)}>
           <div>
             <p className="text-sm text-orange-soft">Typical timelines</p>
             <h3 className="mt-2 text-2xl">What to expect after a complete application</h3>

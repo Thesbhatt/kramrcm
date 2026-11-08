@@ -38,13 +38,13 @@ export default function ContactPage() {
                 </>
               );
               return c.href ? (
-                <a key={c.label} href={c.href} className="flex items-center gap-4 rounded-[24px] bg-stone p-5 transition-colors hover:bg-peach-2">{inner}</a>
+                <a key={c.label} href={c.href} className="flex items-center gap-4 rounded-xl bg-stone p-5 transition-colors hover:bg-peach-2">{inner}</a>
               ) : (
-                <div key={c.label} className="flex items-center gap-4 rounded-[24px] bg-stone p-5">{inner}</div>
+                <div key={c.label} className="flex items-center gap-4 rounded-xl bg-stone p-5">{inner}</div>
               );
             })}
 
-            <div className="mt-1 rounded-[24px] bg-ink p-6 text-white sm:p-7">
+            <div className="mt-1 rounded-xl bg-ink p-6 text-white sm:p-7">
               <p className="text-sm text-orange-soft">What happens next</p>
               <ol className="mt-4 flex flex-col gap-4 text-[0.97rem] text-on-ink">
                 {[

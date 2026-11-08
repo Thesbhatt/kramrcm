@@ -13,7 +13,7 @@ export function Deadlines() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {deadlines.items.map((d, i) => (
-            <div key={d.title} className="flex flex-col gap-3 rounded-[28px] bg-stone p-7 sm:p-8" {...reveal(i * 80)}>
+            <div key={d.title} className="flex flex-col gap-3 rounded-2xl bg-stone p-7 sm:p-8" {...reveal(i * 80)}>
               <p className="text-[clamp(2.2rem,4vw,3.2rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{d.value}</p>
               <h3 className="text-[1.3rem] leading-tight">{d.title}</h3>
               <p className="text-[0.97rem] text-muted">{d.body}</p>

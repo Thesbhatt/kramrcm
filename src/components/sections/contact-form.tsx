@@ -47,7 +47,7 @@ export function ContactForm() {
 
   if (state.status === "success") {
     return (
-      <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-[28px] bg-stone p-8">
+      <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-2xl bg-stone p-8">
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-peach-2 text-orange-ink">
           <svg viewBox="0 0 16 16" className="h-6 w-6" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </span>
@@ -60,7 +60,7 @@ export function ContactForm() {
   }
 
   return (
-    <form ref={formRef} action={action} noValidate className="relative flex flex-col gap-5 rounded-[28px] bg-stone p-5 sm:p-8">
+    <form ref={formRef} action={action} noValidate className="relative flex flex-col gap-5 rounded-2xl bg-stone p-5 sm:p-8">
       {/* Honeypot */}
       <div className="absolute -left-[9999px]" aria-hidden="true">
         <label htmlFor="company_website">Website</label>
@@ -135,7 +135,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="group inline-flex items-center justify-center gap-2 self-start rounded-full bg-ink px-7 py-3.5 font-medium text-white transition-[transform,box-shadow,opacity] duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)] disabled:opacity-70 disabled:hover:translate-y-0"
+        className="group inline-flex items-center justify-center gap-2 self-start rounded-full bg-ink px-7 py-3.5 font-medium text-white transition-[transform,box-shadow,opacity] duration-200 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)] disabled:opacity-70 disabled:hover:translate-y-0"
       >
         {pending ? (
           <>

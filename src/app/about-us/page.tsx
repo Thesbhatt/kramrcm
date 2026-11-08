@@ -25,7 +25,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero crumb="About Us" start={about.titleStart} word={about.titleHighlight} end={about.titleEnd} body={about.body}>
-        <div className="relative min-h-[380px] overflow-hidden rounded-[28px] bg-peach sm:min-h-[440px]">
+        <div className="relative min-h-[380px] overflow-hidden rounded-2xl bg-peach sm:min-h-[440px]">
           {/* TODO(client): replace with the client's own photography (src/assets/photos/CREDITS.md) */}
           <Image
             src={patientPhoto}
@@ -38,7 +38,7 @@ export default function AboutPage() {
             className="object-cover object-[40%_center]"
           />
           <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgb(47_51_54/0.35))]" />
-          <div className="absolute inset-x-3 bottom-3 rounded-[20px] bg-white/95 p-5 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
+          <div className="absolute inset-x-3 bottom-3 rounded-xl bg-white/95 p-5 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
             <p className="flex items-center gap-2 text-sm text-muted"><LogoMark className="h-4 w-4" /> Our promise</p>
             <p className="mt-1.5 text-[1.45rem] font-semibold leading-tight tracking-[-0.04em]">{company.tagline}.</p>
             <p className="mt-2 text-sm text-muted">Every application and claim is checked before it goes out, and every status is reported back to you.</p>
@@ -53,7 +53,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-5 text-lg text-muted lg:pt-14" {...reveal(100)}>
             {about.mission.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
           </div>
-          <div className="relative aspect-[16/9] overflow-hidden rounded-[28px] bg-stone lg:col-span-2 lg:aspect-[21/9]" {...reveal()}>
+          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-stone lg:col-span-2 lg:aspect-[21/9]" {...reveal()}>
             <Image
               src={teamPhoto}
               alt="Two colleagues celebrating at a desk covered with reports and a laptop"
@@ -79,7 +79,7 @@ export default function AboutPage() {
           <SectionHeading eyebrow="How we work" title="Four commitments on every account" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {about.values.map((v, i) => (
-              <div key={v.title} className="flex flex-col gap-4 rounded-[24px] bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
+              <div key={v.title} className="flex flex-col gap-4 rounded-xl bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
                 <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-orange-ink">
                   <Icon name={valueIcons[i]} className="h-6 w-6" />
                 </span>

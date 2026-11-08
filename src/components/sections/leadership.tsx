@@ -20,7 +20,7 @@ export function Leadership() {
         <SectionHeading eyebrow={trust.leadersEyebrow} title={trust.leadersTitle} />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((l, i) => (
-            <div key={`${l.name}-${i}`} className="flex flex-col gap-3 rounded-[24px] bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
+            <div key={`${l.name}-${i}`} className="flex flex-col gap-3 rounded-xl bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
               <h3 className="text-[1.3rem] leading-tight">{l.name}</h3>
               <p className="text-sm font-medium text-orange-ink">{l.title}</p>
               <p className="text-[0.97rem] text-muted">{l.bio}</p>

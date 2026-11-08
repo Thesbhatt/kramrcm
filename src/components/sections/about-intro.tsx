@@ -39,7 +39,7 @@ export function AboutIntro() {
         {/* Main photo with an inset photo overlapping its bottom-right corner (as on the live site) */}
         <div className="relative pb-12 pr-6 sm:pb-14 sm:pr-8">
           {/* Keep the photo's own 19:16 shape: stretching it to the column height crops one of the two people out. */}
-          <div className="photo relative aspect-[19/16] overflow-hidden rounded-[28px] bg-peach" {...reveal(100)}>
+          <div className="photo relative aspect-[19/16] overflow-hidden rounded-2xl bg-peach" {...reveal(100)}>
             <Image
               src={mainPhoto}
               alt={aboutIntro.photoMainAlt}
@@ -52,7 +52,7 @@ export function AboutIntro() {
           </div>
           {/* Outer div drifts against the main photo on scroll; inner div is the delayed entrance. */}
           <div className="drift-up absolute bottom-0 right-0 w-[32%]">
-            <div className="photo overflow-hidden rounded-[22px] bg-white p-1.5 shadow-[0_24px_48px_-24px_rgb(47_51_54/0.45)]" {...reveal(420)}>
+            <div className="photo overflow-hidden rounded-xl bg-white p-1.5 shadow-[0_24px_48px_-24px_rgb(47_51_54/0.45)]" {...reveal(420)}>
             <div className="relative aspect-[517/542] overflow-hidden rounded-[17px]">
               <Image
                 src={insetPhoto}

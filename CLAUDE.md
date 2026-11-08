@@ -2,7 +2,7 @@
 
 # Kram Healthcare website
 
-Marketing site for **Kram Healthcare**, a US provider-credentialing, medical-billing (RCM) and licensing company. Audience: US practice owners, practice managers, billing leads. Revamp of https://kramhealthcare.com. Goal: a top-tier US health-tech look (calm, fast, subtle motion); also a portfolio piece.
+Marketing site for **Kram Healthcare**, a US provider-credentialing, medical-billing (RCM) and licensing company. Audience: US practice owners, practice managers, billing leads. Revamp of https://kramhealthcare.com. Goal: a top-tier US health-tech look (calm, fast, sparse motion); also a portfolio piece. **This branch (`design/medallion-style`) is the Medallion-style revamp; `main` keeps the video-hero / Geist version as the fallback.**
 
 Stack in one line: Next.js 16 App Router + TypeScript + Tailwind v4 (CSS-first) + Cache Components, no animation library.
 
@@ -28,13 +28,13 @@ Task shortcuts:
 
 ## Hard rules (always apply)
 - Server Components by default; `"use client"` only for real interactivity.
-- Colours only via tokens (`bg-ink`, `text-orange-ink`, …). Logo orange `#F77C27` is 2.67:1 on light, so orange text on light uses `orange-ink`. Text on orange surfaces is white (client decision, Nov 8 2026: keep the logo orange despite 2.67:1). Primary buttons are `ink` pills.
+- Colours only via tokens (`bg-ink`, `text-orange-ink`, …). Logo orange `#F77C27` is 2.67:1 on light, so orange text on light uses `orange-ink`. Text on orange surfaces is white (client decision, Nov 8 2026: keep the logo orange despite 2.67:1). Primary buttons are filled `ink`, 4px radius, small uppercase labels; secondary is a 1px ink outline.
 - Copy lives in `src/content/site.ts`, not in components. Never invent stats, testimonials, certifications or addresses: leave `TODO(client)`.
-- Content must render without JS (stats are real numbers in HTML; reveal starts visible).
-- Respect `prefers-reduced-motion`. Motion: 150 ms hover, 250 ms UI, Bold, Knack-style entrances: 850-950 ms reveal, 40-72px block travel, words rise from a mask, ease `cubic-bezier(.16,1,.3,1)` (see `docs/design-system.md`). Section entrances follow scroll position both ways (reverse on scroll up), so never wrap a `[data-reveal]` in `overflow-hidden`/`overflow-auto`; use `overflow-clip` (see `docs/architecture.md`).
+- Content must render without JS (stats are real numbers in HTML; the status board plays on load without JS).
+- Respect `prefers-reduced-motion`. Motion is calm and sparse: 150 ms hover, 250 ms UI, and ONE orchestrated moment (the hero status board's pills updating, pure CSS). No scroll reveals, parallax, marquees or count-ups. Details in `docs/design-system.md`.
 - No animation library. `<MotionObserver />` goes at the END of every page, never in the layout.
 - No `new Date()` / `Math.random()` in prerendered server components (use constants like `company.copyrightYear`).
-- Font: Geist via `next/font/local`; never `next/font/google`.
+- Fonts: Space Grotesk (headlines) + Inter (everything else), both self-hosted woff2 in `src/fonts` via `next/font/local` (OFL); never `next/font/google`. No Geist on this branch.
 - WCAG 2.1 AA: visible focus rings, labels on every input, alt text, 16px+ body.
 - US English and US formats ("Orthopedics", "(213) 832-7088").
 - Never say "HIPAA certified". No Meta Pixel or ad trackers. Every form shows the "no patient information" notice.

@@ -7,24 +7,25 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `company` | name, tagline, `copyrightYear`, phone, email, `address` (null, TODO), hours (TODO), social links | header, footer, contact, about, specialties |
 | `nav` | header/footer links | `site/nav.tsx`, footer |
 | `cta` | the one primary CTA label and header label | buttons everywhere |
-| `hero` | homepage hero copy, CTAs, reassurance checks, carousel slides (alt text, crop `focus`, `flip`) and control labels (`slides`, `carousel`) | `home/hero.tsx`, `home/hero-carousel.tsx` |
+| `hero` | homepage hero: headline parts (rendered as one plain sentence), body, CTA label, `reassurance` (three short sentences shown as one muted line) | `home/hero.tsx` |
+| `statusBoard` | hero visual: SAMPLE practice rows (generic labels only; `end: "done"` or `"review"`), column and stage labels, "Sample practice, illustrative" | `home/status-board.tsx` |
 | `stats` | the 4 headline numbers (client must confirm, see checklist) | `sections/stats.tsx` |
 | `services` | the 3 services; `items` are short labels only (matches the live site; no per-item explanations) | service cards, `/services` |
-| `aboutIntro` | home "About us" block (live-site copy, tightened) | `sections/about-intro.tsx` |
+| `aboutIntro` | former home "About us" block (live-site copy, tightened). **Not on the home page on this branch** | `sections/about-intro.tsx` (unused) |
 | `billingWhy` | "Why choose Kram for medical billing?" (live-site copy, tightened) | `sections/billing-why.tsx` (home + About) |
-| `closing` | footer closing CTA headline + line | `site/footer.tsx` |
+| `closing` | closing CTA band (pale tint, above the footer on every page) headline + line | `site/footer.tsx` |
 | `process` | step list | `sections/process.tsx` |
 | `specialties`, `featuredSpecialties`, `specialtyGroups` | the 50 specialties, featured subset, groups | specialties preview and page |
 | `reasons`, `timelines` | "why choose us" cards; timeline bars (CAQH, PECOS, commercial; TODO(client)) | `sections/why.tsx` (home + about) |
 | `faqs` | FAQ items | `sections/faq.tsx` |
 | `contact` | contact page copy, form labels, consent line, `formTitle`/`submit`, optional `responseTime` and `bookingUrl` (both `null` until the client confirms) | contact page, `sections/contact-form.tsx` |
-| `statement` | scroll-darkening statement | `sections/statement.tsx` |
+| `statement` | scroll-darkening statement; its wording is reused as `servicesSection.title`. **Unused on this branch** | `sections/statement.tsx` (unused) |
 | `about` | about page copy | `/about-us` |
-| `trust` | credentials, billing metrics, case studies, EHR/PM systems, leaders: **all empty until the client supplies real, approved data**; `preview` flag (dev only) and `placeholders` | `sections/credentials-row.tsx`, `results.tsx`, `systems.tsx`, `leadership.tsx` |
-| `deadlines` | CAQH / Medicare / DMEPOS renewal cards (public CMS and CAQH rules) | `sections/deadlines.tsx` |
-| `calculatorPromo` | home band that links to the calculator | `sections/calculator-promo.tsx` |
+| `trust` | logos (`trust.logos`, feeds the "Trusted by" strip), credentials, billing metrics, case studies, EHR/PM systems, leaders: **all empty until the client supplies real, approved data**; `preview` flag (dev only) and `placeholders` | `sections/credentials-row.tsx`, `results.tsx`, `systems.tsx`, `leadership.tsx` |
+| `deadlines` | CAQH / Medicare / DMEPOS renewal cards (public CMS and CAQH rules). **Not on the home page on this branch** | `sections/deadlines.tsx` (unused) |
+| `calculatorPromo` | band that links to the calculator. **Not on the home page on this branch** (the calculator stays in the nav) | `sections/calculator-promo.tsx` (unused) |
 | `notFound` | 404 page copy | `app/not-found.tsx` |
-| `marquee` | pause/play labels for the specialty marquee | `ui/marquee-toggle.tsx` |
+| `servicesSection`, `processSection`, `productSection`, `specialtiesSection`, `faqSection` | home section titles and copy; `productSection.report` is the SAMPLE weekly report (TODO(client) confirm weekly reports) | `sections/service-list.tsx`, `process.tsx`, `product-preview.tsx`, `specialties-preview.tsx`, `faq.tsx` |
 | `testimonials`, `proof` | client quotes (empty, TODO(client)); section copy, placeholders and the `enabled` switch (currently `false`, section hidden) | `sections/testimonials.tsx` (home) |
 
 ## Rules for content

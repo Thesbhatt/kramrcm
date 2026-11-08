@@ -5,14 +5,14 @@ Use this to find the right file without opening the whole `src/` tree.
 ## Routes (`src/app/`, same URLs as the live site except the new `/cost-calculator`)
 | URL | File | Sections it renders |
 |---|---|---|
-| `/` | `page.tsx` | HomeHero (static photo + stats bar), CredentialsRow, Statement, AboutIntro, ServiceCards, Results, Testimonials (hidden, see below), Process (orange band), Deadlines, CalculatorPromo, BillingWhy, Systems, SpecialtiesPreview, Why, Faq (4). CredentialsRow, Results and Systems render nothing until `trust` has real data |
-| `/about-us` | `about-us/page.tsx` | PageHero, mission (inline), Leadership (hidden until `trust.leaders` has data), Stats, BillingWhy, values (inline), Why (uses `about` in content) |
+| `/` | `page.tsx` | HomeHero (centered copy + StatusBoard), TrustedBy (renders nothing until `trust.logos` has real logos), ServiceList, Stats, Process (01 to 04), ProductPreview (weekly report), SpecialtiesPreview, Faq (4). The closing CTA band and footer come from the layout |
+| `/about-us` | `about-us/page.tsx` | PageHero, mission (inline), Leadership (hidden until `trust.leaders` has data), Stats, BillingWhy, values (inline), Why |
 | `/services` | `services/page.tsx` | PageHero, one compact card per service (photo + title + one sentence + checklist; anchors `#credentialing #billing #licensing`), Process, Faq |
 | `/specialties` | `specialties/page.tsx` | PageHero, featured + grouped specialties |
 | `/cost-calculator` | `cost-calculator/page.tsx` | PageHero, DelayCost |
 | `/contact-us` | `contact-us/page.tsx` | PageHero, ContactForm, Faq |
 | any unknown URL | `not-found.tsx` | branded 404 on white (copy in `notFound`); Next adds the 404 status and noindex |
-| n/a | `layout.tsx` | font, metadata template, full-bleed page wrapper, header, footer |
+| n/a | `layout.tsx` | fonts (Space Grotesk + Inter), metadata template, header, page wrapper, footer |
 | n/a | `sitemap.ts`, `icon.svg`, `globals.css`, `actions/contact.ts` | |
 
 Every page ends with `<MotionObserver />`.
@@ -20,31 +20,31 @@ Every page ends with `<MotionObserver />`.
 ## Shared pieces (`src/components/`)
 | File | What it is |
 |---|---|
-| `ui/primitives.tsx` | `Container`, `Eyebrow`, `ButtonLink` (variants `dark` `soft` `white` `ghost-dark`; `/…` hrefs use next/link), `Highlight`, `SectionHeading`, `Icon` (+ `IconName`), `Arrow`, `Check`, `reveal()` |
+| `ui/primitives.tsx` | `Container` (1200px), `Eyebrow` (plain small text), `ButtonLink` (variants `dark`/`soft` = filled ink, `white` = outline, `ghost-dark` = outline on ink; `/…` hrefs use next/link), `SectionHeading`, `Icon` (+ `IconName`), `Arrow`, `Check`. `reveal()`, `Words` and `Highlight` are inert shims (no motion, no highlight pill) so older call sites compile |
 | `ui/logo.tsx` | `LogoMark` (our SVG trace of the client mark; no vector from client yet) |
-| `ui/motion-observer.tsx` | the only motion JS (count-up, marquee speed, and two-way reveal for browsers without scroll timelines) |
-| `site/header.tsx`, `site/nav.tsx` | header; nav is client (active link, gliding pill, mobile menu). Nav icons are set per item in `nav` in `site.ts` |
-| `site/footer.tsx` | footer with the closing CTA |
-| `home/hero.tsx` | `HomeHero` (homepage only), a Server Component: passes the poster photo (`hero.slides[0]`), the video path, the copy (two buttons, reassurance checks) and `<Stats tone="hero" />` into `HeroVideo` |
-| `home/hero-video.tsx` | client: the hero shell. Poster photo (LCP) + looping `<video>` (`public/video/hero-loop.mp4`, mounted after hydration, only on 768px+ with motion allowed and no Data Saver), `.hero-scrim`, the `children` copy, a pause/play button and the `footer` slot. Pauses when off screen. Build scripts: `design/hero-video/` |
-| `home/hero-carousel.tsx` | **unused** (superseded by the video; delete with its `globals.css` block if the video stays). client: the old hero shell. Five stacked photos (wipe + zoom-settle, CSS `.hero-slide*`), `.hero-scrim`, the `children` copy, slideshow controls (prev, progress segments that are also the autoplay clock, next, pause/play, counter) and the `footer` slot. Slide 1 is server-rendered; the rest mount after load + idle |
-| `ui/marquee-toggle.tsx` | client: pause/play button for the specialty marquee (sets `data-paused` on every `.marquee`); shown only with JS and not under reduced motion. Labels in `marquee` |
-| `sections/page-hero.tsx` | hero for inner pages |
-| `sections/statement.tsx` | scroll-darkening statement |
-| `sections/stats.tsx` | `tone="hero"` charcoal bar at the bottom of the home hero (no reveal, so it is never half faded at the fold); `peach`/`stone` filled panel (About); `strip` standalone bar (currently unused) |
-| `sections/process.tsx` | full-width orange band (home + `/services`) with white numbered timeline that plays as a node → card → line sequence (horizontal desktop, vertical phone); `band={false}` for plain white |
-| `sections/service-cards.tsx` | 3 image-free service cards with full item lists (home); exports `serviceIcons`, `servicePhotos` (photos are rendered only on `/services`) |
-| `sections/process.tsx`, `stats.tsx`, `why.tsx`, `specialties-preview.tsx`, `faq.tsx` | reusable sections; read their data from `src/content/site.ts` |
-| `sections/about-intro.tsx` | home "About us": one-sentence story, 3 icon pillars, overlapping client photos (main photo keeps its 19:16 shape so both people stay in frame). Copy in `aboutIntro` |
-| `sections/billing-why.tsx` | "Why choose Kram for medical billing?": photo + copy + benefit chips (home + About), plus an offset ring and a floating looping "claim status" card on the photo. Copy in `billingWhy` (`tracker`) |
-| `sections/delay-cost.tsx` + `delay-calculator.tsx` | "cost of waiting" calculator (`/cost-calculator` only): server wrapper + small client island (sliders, tweened result). Copy in `delayCost` |
-| `sections/testimonials.tsx` | client quotes from `testimonials` in `site.ts`. **Currently OFF** (`proof.enabled = false`, renders nothing in dev or prod). Once on: hidden in production while `testimonials` is empty; `npm run dev` shows labelled placeholders (`proof.placeholders`). Never invent quotes |
-| `sections/credentials-row.tsx`, `results.tsx`, `systems.tsx`, `leadership.tsx` | trust sections, all read `trust` in `site.ts`. Each renders nothing while its list is empty. `trust.preview = true` shows labelled placeholders in `npm run dev` only. Never invent entries |
-| `sections/deadlines.tsx` | CAQH / Medicare / DMEPOS renewal cards (public rules; no client data needed). Copy in `deadlines` |
-| `sections/calculator-promo.tsx` | stone band linking to `/cost-calculator`. Copy in `calculatorPromo` |
+| `ui/motion-observer.tsx` | client; holds the status board until it is on screen (sets `data-play`). The only page-level script |
+| `site/header.tsx`, `site/nav.tsx` | white 97px header, centered links with underline on the current page, one CTA. `nav.tsx` is client (active link, mobile menu) |
+| `site/footer.tsx` | closing CTA band (pale tint) + ink footer; on every page |
+| `home/hero.tsx` | `HomeHero`: centered headline, sentence, one button, muted trust line, `StatusBoard` |
+| `home/status-board.tsx` | the framed "Practice status board" of a SAMPLE practice; CSS-only sequence (see `docs/architecture.md`). Data: `statusBoard` in `site.ts` |
+| `home/status-pill.tsx` | static `StatusPill` (Submitted / In review / Approved / Paid) used by the weekly report |
+| `sections/trusted-by.tsx` | "Trusted by" logo strip; renders nothing while `trust.logos` is empty (TODO(client)) |
+| `sections/service-list.tsx` | home services as hairline rows with "Learn more →" (links to `/services#id`). Copy: `servicesSection` + `services` |
+| `sections/stats.tsx` | stats band: 4 hairline-separated cells, real numbers from `stats` (no count-up). No props |
+| `sections/process.tsx` | numbered 01 to 04 "How we work" (home + `/services`). Copy: `processSection` + `process` |
+| `sections/product-preview.tsx` | framed weekly status report for a SAMPLE practice (real `<table>`). Copy: `productSection` |
+| `sections/specialties-preview.tsx` | home: six featured specialties in hairline cells + link to `/specialties`. Also exports `featuredIcons` / `groupIcons` used by the specialties page |
+| `sections/faq.tsx` | hairline accordion (`<details>`); copy: `faqSection` + `faqs` |
+| `sections/page-hero.tsx` | hero for inner pages (left-aligned h1, breadcrumb) |
+| `sections/service-cards.tsx` | cards with photos used on `/services`; exports `serviceIcons`, `servicePhotos` |
+| `sections/why.tsx`, `billing-why.tsx`, `leadership.tsx` | About-page sections (inherit the new tokens; not redesigned) |
+| `sections/delay-cost.tsx` + `delay-calculator.tsx` | "cost of waiting" calculator (`/cost-calculator` only): server wrapper + small client island. Copy: `delayCost` |
+| `sections/testimonials.tsx` | client quotes from `testimonials`. **Currently OFF** (`proof.enabled = false`). Never invent quotes |
+| `sections/credentials-row.tsx`, `results.tsx`, `systems.tsx` | trust sections reading `trust` in `site.ts`; render nothing while empty. **Not on the home page on this branch** |
+| `sections/statement.tsx`, `about-intro.tsx`, `deadlines.tsx`, `calculator-promo.tsx` | **unused on this branch** (home-only sections dropped from the new rhythm; still on `main`). Delete or re-use as needed |
 | `sections/contact-form.tsx` | the only form. Consent line links to the Privacy Policy only once `legal` has its `href` |
 
 ## Styling hooks in `src/app/globals.css`
-`@theme` tokens (colours, radii, easing) · `.hl` keyword highlight · `.statement-word` + `word-ink` · `header-compact` · `.hero-scrim` (home hero) · `.band-corners-orange` / `.band-corners-ink` (diagonal corner glows on the Process and Why bands) · `hl-sweep` (highlight marker) · `.range` (calculator sliders) · `.menu-panel` · header nav: `.nav-glider`, `.nav-item-in`, `.nav-link` + `.nav-icon`, `.call-pill`, `.cta-shine`, `.logo-link` · motion hooks: `.photo` (on a `[data-reveal]` frame: wipe, zoom, parallax), `.scroll-frame` + `.parallax-img`, `.drift-up`, `.cascade` (needs `--i`), `.tick`, `.pop`, `.bob` (unused, kept), `.marquee[data-paused]`, `.closing-card`, `.scroll-progress`, `.benefit` (chip hover lift) / `.claim-line` + `.claim-node-1..3` (looping claim tracker card), `.flow-step` / `.flow-node` / `.flow-line` / `.flow-fill` / `.flow-card` (process timeline sequence) · reduced-motion block at the end (scroll-linked hooks must be listed there by name).
+`@theme` tokens (colours, fonts, easing) · base layer (body 16px/1.6 Inter, h1 400 / h2 300 Space Grotesk, focus rings) · status board: `.board`, `.board-row` (`--i`, `data-end`), `.pill` + `.st-1` `.st-2` `.st-3`, `.board-fill`, `.board-dot-2` `.board-dot-3`, `.js .board:not([data-play])` hold · `details.faq` accordion · `.range` (calculator sliders) · `.menu-panel` · reduced-motion block at the end (the board's end state lives there).
 
-When adding a section: put copy in `src/content/site.ts` (see `docs/content-guide.md`), build the component in `sections/`, use tokens only, wrap in `reveal()`.
+When adding a section: put copy in `src/content/site.ts` (see `docs/content-guide.md`), build the component in `sections/`, use tokens only, hairline rows instead of cards.

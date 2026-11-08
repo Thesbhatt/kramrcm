@@ -39,7 +39,7 @@ export function ServiceCards({ heading = true }: { heading?: boolean }) {
               <Link
                 key={s.id}
                 href={`/services#${s.id}`}
-                className={`rise-lg group flex flex-col gap-6 rounded-[24px] p-7 ring-1 ring-inset transition-[translate,box-shadow,background-color] duration-300 hover:-translate-y-1 sm:p-8 ${
+                className={`rise-lg group flex flex-col gap-6 rounded-xl p-7 ring-1 ring-inset transition-[translate,box-shadow,background-color] duration-300 sm:p-8 ${
                   dark
                     ? "bg-ink text-white ring-transparent hover:shadow-[0_30px_60px_-30px_rgb(47_51_54/0.8)] hover:ring-orange/40"
                     : "bg-stone ring-transparent hover:bg-white hover:shadow-[0_30px_60px_-36px_rgb(47_51_54/0.45)] hover:ring-orange/45"

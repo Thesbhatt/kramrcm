@@ -45,7 +45,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr]">
-      <div className="flex flex-col gap-8 rounded-[28px] bg-stone p-6 sm:p-9">
+      <div className="flex flex-col gap-8 rounded-2xl bg-stone p-6 sm:p-9">
         {keys.map((k) => {
           const f = delayCost.inputs[k];
           const pct = ((vals[k] - f.min) / (f.max - f.min)) * 100;
@@ -83,7 +83,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
         </p>
       </div>
 
-      <div className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-[28px] bg-ink p-7 text-white sm:p-10">
+      <div className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl bg-ink p-7 text-white sm:p-10">
         <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-28 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.45),transparent_65%)]" />
         {/* Screen readers get the final figures once; the tweening numbers below are visual only */}
         <p className="sr-only" aria-live="polite">

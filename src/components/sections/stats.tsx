@@ -17,7 +17,7 @@ export function Stats() {
           {stats.map((s, i) => (
             <div
               key={s.label}
-              className={`flex flex-col gap-3 px-5 py-10 md:py-14 ${i < 2 ? "border-b border-line lg:border-b-0" : ""} ${i % 2 === 1 ? "border-l border-line" : ""} lg:border-l lg:border-line lg:first:border-l-0 lg:px-8 lg:first:pl-0`}
+              className={`flex flex-col gap-3 py-10 md:py-14 ${i % 2 === 0 ? "pl-0 pr-5" : "px-5"} ${i < 2 ? "border-b border-line lg:border-b-0" : ""} ${i % 2 === 1 ? "border-l border-line" : ""} lg:border-l lg:border-line lg:first:border-l-0 lg:px-8 lg:first:pl-0 sm:px-8 sm:first:pl-0`}
             >
               <dd className="order-1 whitespace-nowrap font-display text-[clamp(2.25rem,4.4vw,3.5rem)] font-light leading-none tracking-[-0.02em] tabular-nums">
                 {display(s.value, s.suffix)}

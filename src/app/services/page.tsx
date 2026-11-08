@@ -48,10 +48,10 @@ export default function ServicesPage() {
             <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`}>
               <Container>
                 <div
-                  className={`grid grid-cols-1 gap-8 rounded-[32px] p-4 sm:p-6 lg:grid-cols-[5fr_7fr] lg:items-stretch lg:gap-12 lg:p-6 ${dark ? "bg-ink text-white" : "bg-stone"}`}
+                  className={`grid grid-cols-1 gap-8 rounded-2xl p-4 sm:p-6 lg:grid-cols-[5fr_7fr] lg:items-stretch lg:gap-12 lg:p-6 ${dark ? "bg-ink text-white" : "bg-stone"}`}
                   {...reveal()}
                 >
-                  <div className={`relative aspect-[3/2] overflow-hidden rounded-[24px] lg:aspect-auto lg:min-h-[320px] ${flip ? "lg:order-last" : ""}`}>
+                  <div className={`relative aspect-[3/2] overflow-hidden rounded-xl lg:aspect-auto lg:min-h-[320px] ${flip ? "lg:order-last" : ""}`}>
                     <Image
                       src={servicePhotos[s.id].src}
                       alt={servicePhotos[s.id].alt}

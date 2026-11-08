@@ -70,6 +70,8 @@
    state; the reduced-motion block at the end swaps in the END state without animating. */
 .board-row { --t1: calc(0.9s + var(--i, 0) * 0.45s); --t2: calc(var(--t1) + 1.6s); }
 .board { animation: board-in 0.9s var(--ease-out-strong) 0.1s both; }
+/* With JS, MotionObserver holds the board until it is on screen (a phone shows it below the fold) */
+.js .board:not([data-play]), .js .board:not([data-play]) * { animation-play-state: paused !important; }
 
 .pill { display: inline-grid; min-width: 6.25rem; font-size: 0.75rem; font-weight: 500; line-height: 1; }
 .pill > span {

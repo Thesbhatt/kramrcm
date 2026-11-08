@@ -26,7 +26,7 @@ export function Results() {
         {metrics.length > 0 && (
           <dl className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${metricCols[Math.min(metrics.length, 4)]}`}>
             {metrics.map((m, i) => (
-              <div key={`${m.label}-${i}`} className="flex flex-col gap-2 rounded-[24px] bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
+              <div key={`${m.label}-${i}`} className="flex flex-col gap-2 rounded-xl bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
                 {/* dt first in the DOM (valid dl), big number shown above it */}
                 <dt className="order-2 font-medium">{m.label}</dt>
                 <dd className="order-1 text-[clamp(2.2rem,4vw,3.2rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{m.value}</dd>
@@ -40,7 +40,7 @@ export function Results() {
         {caseStudies.length > 0 && (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {caseStudies.map((c, i) => (
-              <article key={`${c.practice}-${i}`} className="flex flex-col gap-5 rounded-[28px] bg-stone p-7 sm:p-9" {...reveal(i * 90)}>
+              <article key={`${c.practice}-${i}`} className="flex flex-col gap-5 rounded-2xl bg-stone p-7 sm:p-9" {...reveal(i * 90)}>
                 <p className="flex flex-col">
                   <span className="text-[clamp(2.4rem,4.6vw,3.6rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums text-orange-ink">{c.metric.value}</span>
                   <span className="mt-2 text-sm text-muted">{c.metric.label}</span>

@@ -24,7 +24,7 @@ export function Testimonials() {
         <SectionHeading eyebrow={proof.eyebrow} title={proof.title} />
 
         <div className={`grid grid-cols-1 gap-4 ${rest.length ? "lg:grid-cols-[1.35fr_1fr]" : ""}`}>
-          <figure className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-[32px] bg-peach-2 p-7 sm:p-10" {...reveal()}>
+          <figure className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-2xl bg-peach-2 p-7 sm:p-10" {...reveal()}>
             <LogoMark className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 opacity-[0.07]" />
             <QuoteMark />
             <blockquote className="relative max-w-[34ch] text-[clamp(1.4rem,2.4vw,1.9rem)] font-semibold leading-[1.3] tracking-[-0.02em]">
@@ -44,7 +44,7 @@ export function Testimonials() {
           {rest.length > 0 && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {rest.slice(0, 2).map((t, i) => (
-                <figure key={`${t.name}-${i}`} className="flex flex-col justify-between gap-8 rounded-[28px] bg-stone p-7" {...reveal(120 + i * 100)}>
+                <figure key={`${t.name}-${i}`} className="flex flex-col justify-between gap-8 rounded-2xl bg-stone p-7" {...reveal(120 + i * 100)}>
                   <blockquote className="text-[1.08rem] leading-relaxed">{t.quote}</blockquote>
                   <Person t={t} />
                 </figure>

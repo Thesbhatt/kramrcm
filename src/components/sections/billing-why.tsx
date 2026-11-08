@@ -13,10 +13,10 @@ export function BillingWhy() {
         <div className="relative order-2 mb-8 lg:order-1 lg:mb-0 lg:min-h-[440px]">
           <span
             aria-hidden="true"
-            className="bob pointer-events-none absolute inset-0 -translate-x-3 -translate-y-3 rounded-[28px] border-2 border-orange/45"
+            className="bob pointer-events-none absolute inset-0 -translate-x-3 -translate-y-3 rounded-2xl border-2 border-orange/45"
             style={{ ["--bob-d" as string]: "-2s" }}
           />
-          <div className="photo relative aspect-[804/701] overflow-hidden rounded-[28px] bg-peach lg:aspect-auto lg:h-full" {...reveal()}>
+          <div className="photo relative aspect-[804/701] overflow-hidden rounded-2xl bg-peach lg:aspect-auto lg:h-full" {...reveal()}>
             <Image
               src={teamPhoto}
               alt={billingWhy.photoAlt}
