@@ -1,22 +1,23 @@
 import teamPhoto from "@/assets/photos/hero-slide-team.jpg";
-import tabletPhoto from "@/assets/photos/hero-slide-tablet.jpg";
-import phonePhoto from "@/assets/photos/hero-slide-phone.jpg";
-import huddlePhoto from "@/assets/photos/hero-slide-huddle.jpg";
-import deskPhoto from "@/assets/photos/hero-slide-desk.jpg";
 import { cta, hero } from "@/content/site";
 import { Stats } from "../sections/stats";
 import { Arrow, ButtonLink, Check, Eyebrow, Highlight } from "../ui/primitives";
-import { HeroCarousel, type HeroSlide } from "./hero-carousel";
+import { HeroVideo } from "./hero-video";
 
-const photos = { team: teamPhoto, tablet: tabletPhoto, phone: phonePhoto, huddle: huddlePhoto, desk: deskPhoto };
+// TODO(client): replace the video and its poster with the client's own footage/photography (src/assets/photos/CREDITS.md)
+const first = hero.slides[0];
 
-// TODO(client): replace with the client's own photography (src/assets/photos/CREDITS.md)
-const slides: HeroSlide[] = hero.slides.map((s) => ({ ...s, src: photos[s.id] }));
-
-/** Homepage hero. Copy and stats stay Server Components; only the photo carousel and its controls are client code. */
+/** Homepage hero. Copy and stats stay Server Components; only the video layer and its pause button are client code. */
 export function HomeHero() {
   return (
-    <HeroCarousel slides={slides} labels={hero.carousel} footer={<Stats tone="hero" />}>
+    <HeroVideo
+      poster={teamPhoto}
+      posterAlt={first.alt}
+      focus={first.focus}
+      videoSrc={hero.video.src}
+      labels={hero.video}
+      footer={<Stats tone="hero" />}
+    >
       <div className="flex max-w-[640px] flex-col gap-6 xl:max-w-[680px]">
         <div className="animate-rise flex"><Eyebrow tone="dark">{hero.kicker}</Eyebrow></div>
         <h1 className="words-load text-[clamp(2.75rem,6vw,5rem)] leading-[1.02]">
@@ -33,6 +34,6 @@ export function HomeHero() {
           ))}
         </ul>
       </div>
-    </HeroCarousel>
+    </HeroVideo>
   );
 }

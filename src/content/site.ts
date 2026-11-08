@@ -68,6 +68,13 @@ export const hero = {
     play: "Play slideshow",
     goTo: "Show photo",
   },
+  // Looping background video (public/video/hero-loop.mp4, built from the slide photos). The first slide above is its
+  // poster. Decorative, so no captions; the chips inside it are generic process states, not client claims.
+  video: {
+    src: "/video/hero-loop.mp4",
+    pause: "Pause background video",
+    play: "Play background video",
+  },
 };
 
 // TODO(client): confirm each figure and its "as of" date

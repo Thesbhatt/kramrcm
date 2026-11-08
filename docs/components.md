@@ -25,8 +25,9 @@ Every page ends with `<MotionObserver />`.
 | `ui/motion-observer.tsx` | the only motion JS (count-up, marquee speed, and two-way reveal for browsers without scroll timelines) |
 | `site/header.tsx`, `site/nav.tsx` | header; nav is client (active link, gliding pill, mobile menu). Nav icons are set per item in `nav` in `site.ts` |
 | `site/footer.tsx` | footer with the closing CTA |
-| `home/hero.tsx` | `HomeHero` (homepage only), a Server Component: maps `hero.slides` ids to photos and passes the copy (two buttons, reassurance checks) and `<Stats tone="hero" />` into `HeroCarousel` |
-| `home/hero-carousel.tsx` | client: the hero shell. Five stacked photos (wipe + zoom-settle, CSS `.hero-slide*`), `.hero-scrim`, the `children` copy, slideshow controls (prev, progress segments that are also the autoplay clock, next, pause/play, counter) and the `footer` slot. Slide 1 is server-rendered; the rest mount after load + idle |
+| `home/hero.tsx` | `HomeHero` (homepage only), a Server Component: passes the poster photo (`hero.slides[0]`), the video path, the copy (two buttons, reassurance checks) and `<Stats tone="hero" />` into `HeroVideo` |
+| `home/hero-video.tsx` | client: the hero shell. Poster photo (LCP) + looping `<video>` (`public/video/hero-loop.mp4`, mounted after hydration, only on 768px+ with motion allowed and no Data Saver), `.hero-scrim`, the `children` copy, a pause/play button and the `footer` slot. Pauses when off screen. Build scripts: `design/hero-video/` |
+| `home/hero-carousel.tsx` | **unused** (superseded by the video; delete with its `globals.css` block if the video stays). client: the old hero shell. Five stacked photos (wipe + zoom-settle, CSS `.hero-slide*`), `.hero-scrim`, the `children` copy, slideshow controls (prev, progress segments that are also the autoplay clock, next, pause/play, counter) and the `footer` slot. Slide 1 is server-rendered; the rest mount after load + idle |
 | `ui/marquee-toggle.tsx` | client: pause/play button for the specialty marquee (sets `data-paused` on every `.marquee`); shown only with JS and not under reduced motion. Labels in `marquee` |
 | `sections/page-hero.tsx` | hero for inner pages |
 | `sections/statement.tsx` | scroll-darkening statement |

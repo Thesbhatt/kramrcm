@@ -30,3 +30,6 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 | service-credentialing.jpg | s1.jpg | Service card + /services, credentialing |
 | service-billing.jpg | s2.jpg | Service card + /services, billing |
 | service-support.jpg | s3.jpg | Service card + /services, licensing & support |
+
+## Hero video
+`public/video/hero-loop.mp4` is generated from the hero-slide photos above (they are no longer imported by the site, only used as video source frames): see `design/hero-video/README.md`. No third-party footage.
