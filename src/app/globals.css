@@ -121,9 +121,30 @@ details.faq[open]::details-content { block-size: auto; }
 .range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 999px; background: #fff; border: 2px solid var(--color-ink); }
 .range:focus-visible { outline-offset: 8px; }
 
-/* ---------- Mobile menu panel ---------- */
+/* ---------- Mobile menu panel: fades in, rows step in one after another ---------- */
 .menu-panel { transition: opacity 0.2s var(--ease-out-soft), visibility 0.2s; }
 .menu-panel[data-open="false"] { opacity: 0; visibility: hidden; }
+.menu-panel li { transition: opacity 0.35s var(--ease-out-soft), transform 0.45s var(--ease-out-strong); transition-delay: calc(var(--i, 0) * 40ms + 60ms); }
+.menu-panel[data-open="false"] li { opacity: 0; transform: translateY(10px); transition-delay: 0ms; }
+
+/* ---------- Header nav ---------- */
+/* One pill for the whole list: rests on the current page, glides to the hovered or focused link. Positioned from nav.tsx.
+   The orange bar along its base is the "you are here" mark. */
+.nav-glider {
+  position: absolute; inset-block: 0; left: 0; width: 0; opacity: 0;
+  border-radius: 6px; background: var(--color-tint); pointer-events: none;
+  transition: opacity 0.25s var(--ease-out-soft);
+}
+.nav-glider::after {
+  content: ""; position: absolute; inset-inline: 16px; bottom: 0; height: 2px; border-radius: 2px;
+  background: var(--color-orange);
+}
+.nav-glider[data-ready] {
+  transition: opacity 0.25s var(--ease-out-soft), transform 0.4s var(--ease-out-strong), width 0.4s var(--ease-out-strong);
+}
+/* Links drop in one by one on first load (the header lives in the layout, so this does not replay on navigation) */
+.nav-item-in { animation: nav-in 0.7s var(--ease-out-strong) calc(var(--i, 0) * 60ms + 150ms) both; }
+@keyframes nav-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Hero entrance (CSS only, plays on load; the animations end visible, so no-JS is fine) ---------- */
 .hero-in { animation: hero-rise 0.9s var(--ease-out-strong) both; animation-delay: calc(var(--h, 0) * 120ms + 350ms); }
@@ -181,7 +202,7 @@ details.faq[open]::details-content { block-size: auto; }
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-  .board, .hero-in, .w, .hero-photo, .hero-photo img, .hero-parallax { animation: none !important; }
+  .nav-item-in, .board, .hero-in, .w, .hero-photo, .hero-photo img, .hero-parallax { animation: none !important; }
   .js [data-reveal], .js [data-stagger] > *, .js [data-reveal]:not([data-shown]) .cascade, .js [data-reveal]:not([data-shown]) .pop { opacity: 1; transform: none; scale: none; }
   .js [data-stagger] .rule, .js [data-reveal] .rule { transform: none; }
   .js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 0; }

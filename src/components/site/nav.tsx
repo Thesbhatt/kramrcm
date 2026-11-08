@@ -2,27 +2,75 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { type SyntheticEvent, useEffect, useRef, useState } from "react";
 import { company, cta, nav } from "@/content/site";
 
 const isActive = (path: string, href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 
-/** Desktop links: plain text, an ink underline marks the current page. No mega-menus. */
+/** Moves the highlight onto a list item (or hides it). Written straight to the DOM so hovering never re-renders the nav. */
+function place(glider: HTMLElement | null, item: HTMLElement | null) {
+  if (!glider) return;
+  if (!item) {
+    glider.style.opacity = "0";
+    return;
+  }
+  // offsetLeft/offsetWidth are layout values, so the links' entrance transforms can't skew them
+  glider.style.opacity = "1";
+  glider.style.width = `${item.offsetWidth}px`;
+  glider.style.transform = `translateX(${item.offsetLeft}px)`;
+}
+
+const current = (list: HTMLElement | null) => list?.querySelector<HTMLElement>('li:has([aria-current="page"])') ?? null;
+
+/**
+ * Desktop links. One tint pill with an orange base bar rests behind the current page and glides to whichever link
+ * is hovered or focused, then returns. The current page is also marked with aria-current and full-ink text.
+ * No mega-menus.
+ */
 export function DesktopNav() {
   const path = usePathname();
+  const listRef = useRef<HTMLUListElement>(null);
+  const gliderRef = useRef<HTMLSpanElement>(null);
+
+  // ResizeObserver reports once on observe, then again if fonts or the viewport change the link widths
+  useEffect(() => {
+    const list = listRef.current;
+    const glider = gliderRef.current;
+    if (!list || !glider) return;
+    const observer = new ResizeObserver(() => {
+      place(glider, current(list));
+      // Transitions switch on a frame later, so the pill fades in where it belongs instead of sliding in from the left
+      requestAnimationFrame(() => glider.setAttribute("data-ready", ""));
+    });
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [path]);
+
+  const toTarget = (e: SyntheticEvent<HTMLUListElement>) => {
+    const item = (e.target as Element).closest("li");
+    if (item) place(gliderRef.current, item);
+  };
+  const home = () => place(gliderRef.current, current(listRef.current));
+
   return (
-    <nav aria-label="Main" className="hidden lg:block">
-      <ul className="flex items-center gap-8 font-display text-base tracking-[-0.01em]">
-        {nav.map((item) => {
+    <nav aria-label="Main" className="relative hidden lg:block">
+      <span ref={gliderRef} className="nav-glider" aria-hidden="true" />
+      <ul
+        ref={listRef}
+        onPointerOver={toTarget}
+        onPointerLeave={home}
+        onFocus={toTarget}
+        onBlur={home}
+        className="relative flex items-center gap-1 font-display text-base tracking-[-0.01em]"
+      >
+        {nav.map((item, i) => {
           const active = isActive(path, item.href);
           return (
-            <li key={item.href}>
+            <li key={item.href} className="nav-item-in" style={{ ["--i" as string]: i }}>
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`whitespace-nowrap border-b border-transparent py-1.5 transition-colors duration-150 ${
-                  active ? "border-ink text-fg" : "text-muted hover:text-fg"
-                }`}
+                className={`block whitespace-nowrap px-4 py-2.5 transition-colors duration-150 ${active ? "text-fg" : "text-muted hover:text-fg focus-visible:text-fg"}`}
               >
                 {item.label}
               </Link>
@@ -83,16 +131,17 @@ export function MobileMenu() {
         className="menu-panel absolute inset-x-0 top-full border-b border-line bg-white px-5 pb-5 pt-2 sm:left-auto sm:right-8 sm:w-[340px] sm:border sm:px-3 sm:pb-3"
       >
         <ul className="flex flex-col">
-          {nav.map((item) => {
+          {nav.map((item, i) => {
             const active = isActive(path, item.href);
             return (
-              <li key={item.href}>
+              <li key={item.href} style={{ ["--i" as string]: i }}>
                 <Link
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   tabIndex={open ? undefined : -1}
-                  className={`flex items-center justify-between border-b border-line px-2 py-3.5 font-display text-lg tracking-[-0.01em] ${active ? "text-fg" : "text-muted"}`}
+                  className={`relative flex items-center justify-between border-b border-line px-3 py-3.5 font-display text-lg tracking-[-0.01em] transition-colors duration-150 ${active ? "bg-tint text-fg" : "text-muted hover:bg-tint/60 hover:text-fg"}`}
                 >
+                  {active && <span className="absolute inset-y-0 left-0 w-[3px] bg-orange" aria-hidden="true" />}
                   {item.label}
                   {active && <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />}
                 </Link>
