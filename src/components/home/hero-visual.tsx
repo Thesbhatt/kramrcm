@@ -47,12 +47,14 @@ export function HeroVisual({ slides, labels, chips }: { slides: Slide[]; labels:
   const [active, setActive] = useState(0);
   const n = chips.length;
   return (
-    <div className="relative">
+    <div className="hero-tilt relative">
+      {/* Glowing conic rim behind the photo: it blooms in once, then the whole frame tilts toward the pointer */}
+      <span aria-hidden="true" className="hero-rim absolute -inset-[6px] rounded-[34px]" />
       <div className="hero-photo relative aspect-[4/3] overflow-clip rounded-[28px] bg-tint sm:aspect-[16/10] lg:aspect-[1/1.04]">
         <HeroCarousel slides={slides} labels={labels} onSlide={setActive} />
       </div>
-      <Chip slide={active} chip={chips[active % n]} className="bottom-20 left-3 sm:-left-6" />
-      <Chip slide={active} chip={chips[(active + 2) % n]} className="right-3 top-6 sm:-right-4 sm:top-8" />
+      <Chip slide={active} chip={chips[active % n]} className="chip-depth-a bottom-20 left-3 sm:-left-6" />
+      <Chip slide={active} chip={chips[(active + 2) % n]} className="chip-depth-b right-3 top-6 sm:-right-4 sm:top-8" />
     </div>
   );
 }

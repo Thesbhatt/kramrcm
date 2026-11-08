@@ -31,9 +31,6 @@ export function ServiceList() {
             <li key={s.id} className="group row-link spot relative rounded-xl border-b border-line px-5 py-7 last:border-b-0 hover:bg-tint sm:px-7" {...reveal(n * 140)}>
               {/* Orange bar grows down the left edge on hover; the big number warms up with it */}
               <span aria-hidden="true" className="svc-bar absolute bottom-7 left-0 top-7 w-[3px] rounded-full bg-orange" />
-              <span aria-hidden="true" className="svc-num absolute bottom-5 right-6 hidden font-display text-6xl font-light leading-none tracking-[-0.04em] sm:block">
-                {String(n + 1).padStart(2, "0")}
-              </span>
               <div className="flex items-start gap-4">
                 <span className="svc-icon relative flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-orange text-white">
                   <Icon name={serviceIcons[s.id]} className="h-5 w-5" />
@@ -51,12 +48,17 @@ export function ServiceList() {
                   </li>
                 ))}
               </ul>
+              <div className="mt-5 flex items-end justify-between gap-4 sm:pl-[3.75rem]">
               <Link
                 href={`/services#${s.id}`}
-                className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.04em] text-orange-ink after:absolute after:inset-0 group-hover:underline group-hover:underline-offset-4 sm:ml-[3.75rem]"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.04em] text-orange-ink after:absolute after:inset-0 group-hover:underline group-hover:underline-offset-4 "
               >
                 {servicesSection.learnMore}<span className="sr-only"> about {s.title}</span> <span className="row-arrow inline-flex"><Arrow /></span>
               </Link>
+                <span aria-hidden="true" className="svc-num hidden font-display text-6xl font-light leading-none tracking-[-0.04em] sm:block">
+                  {String(n + 1).padStart(2, "0")}
+                </span>
+              </div>
             </li>
           ))}
         </ul>

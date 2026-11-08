@@ -70,6 +70,8 @@ export const hero = {
     slide: "Photo",
     of: "of",
   },
+  // Hero pipeline under the button: generic stages of the work, lit one after another on load. Not client claims.
+  pipeline: ["Enrolled", "Credentialed", "Billed", "Paid"],
   // Shown as one muted line under the button: each item is a sentence.
   reassurance: ["Free practice review.", "Written quote.", "No commitment until you sign."],
 };

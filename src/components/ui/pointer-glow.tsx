@@ -24,13 +24,20 @@ export function PointerGlow() {
     const paint = () => {
       frame = 0;
       const next = target;
-      if (active && active !== next) active.style.setProperty("--ga", "0");
+      if (active && active !== next) {
+        active.style.setProperty("--ga", "0");
+        active.style.setProperty("--px", "0");
+        active.style.setProperty("--py", "0");
+      }
       active = next;
       if (!next) return;
       const r = next.getBoundingClientRect();
       next.style.setProperty("--mx", `${x - r.left}px`);
       next.style.setProperty("--my", `${y - r.top}px`);
       next.style.setProperty("--ga", "1");
+      // -1..1 from the element's centre: depth effects (hero orbs, photo tilt) read these
+      next.style.setProperty("--px", String(Math.max(-1, Math.min(1, ((x - r.left) / r.width) * 2 - 1))));
+      next.style.setProperty("--py", String(Math.max(-1, Math.min(1, ((y - r.top) / r.height) * 2 - 1))));
     };
     const onMove = (e: PointerEvent) => {
       x = e.clientX;

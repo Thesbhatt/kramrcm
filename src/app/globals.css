@@ -249,10 +249,12 @@ details.faq[open]::details-content { block-size: auto; }
 @property --mx { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --my { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --ga { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --px { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --py { syntax: "<number>"; inherits: true; initial-value: 0; }
 .hero-diag, .band-glow, .band-glow-ink, .spot {
   --follow-orange: radial-gradient(480px circle at var(--mx) var(--my), rgb(247 124 39 / calc(var(--ga) * 0.26)), transparent 70%);
   --follow-light: radial-gradient(520px circle at var(--mx) var(--my), rgb(255 255 255 / calc(var(--ga) * 0.3)), transparent 70%);
-  transition: --mx 0.45s var(--ease-out-soft), --my 0.45s var(--ease-out-soft), --ga 0.6s var(--ease-out-soft);
+  transition: --mx 0.45s var(--ease-out-soft), --my 0.45s var(--ease-out-soft), --ga 0.6s var(--ease-out-soft), --px 0.9s var(--ease-out-soft), --py 0.9s var(--ease-out-soft);
 }
 
 /* Service rows: pointer light, a left bar, a warming number and a one-time ring out of the icon */
@@ -274,6 +276,31 @@ details.faq[open]::details-content { block-size: auto; }
 
 /* Hero: a soft diagonal sweep of peach into orange, bottom-right to top-left, behind the copy and photo */
 .hero-diag { background-image: var(--follow-orange), linear-gradient(118deg, #fff 0%, #fff 34%, var(--color-peach-2) 62%, var(--color-peach) 100%); }
+
+/* Hero atmosphere: pointer-lit dot grid, parallax orbs, tilting photo with a conic rim, chips at different depths, lighting pipeline */
+.hero-stage { overflow: clip; }
+.hero-grid {
+  background-image: radial-gradient(circle, rgb(184 74 12 / 0.55) 1.2px, transparent 1.6px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(260px circle at var(--mx) var(--my), rgb(0 0 0 / calc(var(--ga) * 0.9)), transparent 100%);
+  mask-image: radial-gradient(260px circle at var(--mx) var(--my), rgb(0 0 0 / calc(var(--ga) * 0.9)), transparent 100%);
+}
+.hero-orb { animation: orb-in 1.8s var(--ease-out-strong) 0.2s both; filter: blur(8px); }
+.hero-orb-a { background: radial-gradient(circle, rgb(247 124 39 / 0.38), rgb(247 124 39 / 0) 68%); translate: calc(var(--px) * -40px) calc(var(--py) * -30px); }
+.hero-orb-b { background: radial-gradient(circle, rgb(255 201 153 / 0.7), rgb(255 201 153 / 0) 68%); translate: calc(var(--px) * 50px) calc(var(--py) * 36px); }
+@keyframes orb-in { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
+
+.hero-tilt { transform: perspective(1400px) rotateY(calc(var(--px) * -5deg)) rotateX(calc(var(--py) * 4deg)); transform-style: preserve-3d; }
+.hero-rim { background: conic-gradient(from 200deg, var(--color-orange), #ffd9b8, #fff, var(--color-orange-ink), var(--color-orange)); filter: blur(14px); opacity: 0.85; animation: rim-in 1.6s var(--ease-out-soft) 0.6s both; }
+@keyframes rim-in { from { opacity: 0; scale: 0.94; } to { opacity: 0.85; scale: 1; } }
+.chip-depth-a { translate: calc(var(--px) * -22px) calc(var(--py) * -14px); }
+.chip-depth-b { translate: calc(var(--px) * 18px) calc(var(--py) * 12px); }
+
+.pipe-dot { animation: pipe-on 0.5s var(--ease-out-soft) calc(1.4s + var(--i, 0) * 0.75s) both; }
+.pipe-fill { animation: pipe-fill 0.75s var(--ease-out-strong) calc(1.55s + var(--i, 0) * 0.75s) both; box-shadow: 0 0 10px rgb(247 124 39 / 0.7); }
+@keyframes pipe-on { from { background-color: #fff; border-color: var(--color-line); box-shadow: none; } to { background-color: var(--color-orange); border-color: var(--color-orange); box-shadow: 0 0 0 4px rgb(247 124 39 / 0.2); } }
+@keyframes pipe-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .hero-orb, .hero-rim, .pipe-dot, .pipe-fill { animation: none; } .hero-tilt, .hero-orb, .chip-depth-a, .chip-depth-b { transform: none; translate: none; } }
 
 /* Journey track (How we work): base = end state; before first view dots are gray and fills empty, then they light in turn */
 .journey { grid-template-columns: repeat(4, 1fr); }
