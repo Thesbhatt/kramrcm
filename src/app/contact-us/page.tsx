@@ -3,9 +3,10 @@ import Image from "next/image";
 import { MotionObserver } from "@/components/ui/motion-observer";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Faq } from "@/components/sections/faq";
-import { PageHero } from "@/components/sections/page-hero";
-import { Arrow, ButtonLink, Container, Icon, reveal, type IconName } from "@/components/ui/primitives";
-import { company, contact } from "@/content/site";
+import { PageStage } from "@/components/sections/page-stage";
+import { ReviewCard } from "@/components/sections/stage-visuals";
+import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal, stagger, type IconName } from "@/components/ui/primitives";
+import { company, contact, contactPage } from "@/content/site";
 import doctor from "@/assets/photos/contact-doctor.webp";
 
 export const metadata: Metadata = {
@@ -21,55 +22,73 @@ const channels: { icon: IconName; label: string; value: string; href?: string }[
   ...(company.hours ? [{ icon: "clock" as IconName, label: "Hours", value: company.hours }] : []),
 ];
 
-const steps = [
-  "We get back to you to set up a free consultation.",
-  "We look at your payers, providers and open A/R, and show you where revenue is stuck.",
-  "You get a written quote. No commitment until you sign.",
-];
-
 export default function ContactPage() {
   return (
     <>
-      <PageHero crumb="Contact Us" start="Tell us where revenue is" word="stuck" body={contact.body} />
+      <PageStage
+        crumb="Contact Us"
+        title="Tell us where revenue is stuck"
+        mark="stuck"
+        body={contact.body}
+        actions={
+          <>
+            <ButtonLink href={company.phoneHref}>Call {company.phoneDisplay}</ButtonLink>
+            <ButtonLink href="#connect-title" variant="white">Send a message <Arrow /></ButtonLink>
+          </>
+        }
+        visual={<ReviewCard />}
+      />
 
-      {/* Ways to reach us + what happens next */}
-      <section className="pb-14 md:pb-20">
-        <Container className="grid grid-cols-1 gap-3 lg:grid-cols-[1fr_1fr_1.7fr]">
-          {channels.map((c) => {
-            const inner = (
-              <>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange text-white"><Icon name={c.icon} /></span>
-                <span className="min-w-0">
-                  <span className="block text-sm text-muted">{c.label}</span>
-                  <span className="block break-words text-[1.08rem] font-medium tabular-nums">{c.value}</span>
-                </span>
-              </>
-            );
-            return c.href ? (
-              <a key={c.label} href={c.href} className="flex items-center gap-4 rounded-xl bg-tint p-5 transition-colors hover:bg-peach-2" {...reveal()}>{inner}</a>
-            ) : (
-              <div key={c.label} className="flex items-center gap-4 rounded-xl bg-tint p-5" {...reveal()}>{inner}</div>
-            );
-          })}
-
-          <div className="rounded-xl bg-peach-2 p-6 sm:p-7 lg:row-span-1" {...reveal(80)}>
-            <p className="text-sm font-medium text-orange-ink">What happens next</p>
-            <ol className="mt-4 flex flex-col gap-3 text-[0.97rem]">
-              {steps.map((t, i) => (
-                <li key={t} className="flex gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange text-xs font-semibold tabular-nums text-white">{i + 1}</span>
-                  {t}
-                </li>
-              ))}
-            </ol>
-            {contact.responseTime && <p className="mt-4 border-t border-peach-line pt-3 text-[0.97rem]">{contact.responseTime}</p>}
-            {contact.bookingUrl && (
-              <div className="mt-4">
-                <ButtonLink href={contact.bookingUrl}>{contact.bookingLabel} <Arrow /></ButtonLink>
-              </div>
-            )}
+      {/* Ways to reach us */}
+      <section className="py-16 md:py-24">
+        <Container className="flex flex-col gap-10">
+          <SectionHeading title={contactPage.channelsTitle} />
+          <div className={`grid grid-cols-1 gap-4 ${channels.length > 2 ? "lg:grid-cols-3" : "sm:grid-cols-2"}`} {...stagger}>
+            {channels.map((c, i) => {
+              const inner = (
+                <>
+                  <Icon name={c.icon} className="pointer-events-none absolute -bottom-8 -right-6 h-44 w-44 text-orange/15 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105" />
+                  <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-orange text-white shadow-[0_14px_30px_-12px_rgb(247_124_39/0.9)]"><Icon name={c.icon} className="h-6 w-6" /></span>
+                  <span className="relative mt-10 block min-w-0">
+                    <span className="block text-sm text-muted">{c.label}</span>
+                    <span className="mt-1 block break-words font-display text-[clamp(1.35rem,2.2vw,1.7rem)] tabular-nums leading-tight">{c.value}</span>
+                  </span>
+                </>
+              );
+              const cls = `group spot relative block overflow-hidden rounded-2xl p-7 transition-colors duration-300 ${i === 0 ? "bg-peach-2" : "bg-tint"} hover:bg-peach`;
+              return c.href ? (
+                <a key={c.label} href={c.href} className={cls}>{inner}</a>
+              ) : (
+                <div key={c.label} className={cls}>{inner}</div>
+              );
+            })}
           </div>
           {/* TODO(client): US business address + map once provided */}
+        </Container>
+      </section>
+
+      {/* What happens next: three steps on a glowing track */}
+      <section className="bg-tint py-16 md:py-24" aria-labelledby="next-title">
+        <Container className="flex flex-col gap-12">
+          <div className="flex flex-col gap-4" {...reveal()}>
+            <h2 id="next-title" className="max-w-[18ch]">{contactPage.nextTitle}</h2>
+            {contact.responseTime && <p className="text-muted">{contact.responseTime}</p>}
+          </div>
+          <ol className="relative grid grid-cols-1 gap-4 md:grid-cols-3" {...stagger}>
+            {contactPage.steps.map((st, i) => (
+              <li key={st.title} className="group spot relative flex flex-col gap-4 overflow-hidden rounded-2xl bg-white p-7 ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_24px_50px_-28px_rgb(247_124_39/0.8)]">
+                <span aria-hidden="true" className="absolute -right-2 -top-4 select-none font-display text-[7rem] font-light leading-none text-tint-2 transition-colors duration-300 group-hover:text-peach">{i + 1}</span>
+                <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-orange text-white shadow-[0_12px_26px_-10px_rgb(247_124_39/0.8)]">
+                  <Icon name={(["phone", "chart", "file"] as IconName[])[i]} className="h-5 w-5" />
+                </span>
+                <h3 className="relative mt-4 font-display text-xl">{st.title}</h3>
+                <p className="relative text-muted">{st.body}</p>
+              </li>
+            ))}
+          </ol>
+          {contact.bookingUrl && (
+            <div><ButtonLink href={contact.bookingUrl}>{contact.bookingLabel} <Arrow /></ButtonLink></div>
+          )}
         </Container>
       </section>
 

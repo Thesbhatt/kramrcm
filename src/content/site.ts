@@ -621,3 +621,42 @@ export const claimAnatomy = {
   link: "See our billing service",
   href: "/services#billing",
 };
+
+/* ---------------- Calculator + Contact showpieces ---------------- */
+// Sample data only. Never add real payers, clients, people or amounts.
+
+export const calculatorPage = {
+  chart: {
+    title: "Unbilled revenue by days waiting",
+    tag: "Sample, illustrative",
+    bars: [
+      { label: "0–30 days", h: 30 },
+      { label: "31–60", h: 52 },
+      { label: "61–90", h: 78 },
+      { label: "90+", h: 100 },
+    ],
+    callout: "Can't bill until enrolled",
+    caption: "Every day out of network adds to the stack.",
+  },
+  daysTrack: { title: "Time out of network", marks: ["0", "90", "180"] },
+  timelinesTitle: "How long enrollment usually takes",
+  timelinesBody: "Typical timelines after a complete application. Payer processing varies by state and plan.",
+  timelinesNote: "We send a status report every week until each one is approved.",
+};
+
+export const contactPage = {
+  card: {
+    title: "Free practice review",
+    tag: "What we look at",
+    rows: ["Your payers", "Your providers", "Open A/R and denials"],
+    result: "Where revenue is stuck",
+    footer: "Written quote. No commitment until you sign.",
+  },
+  channelsTitle: "Reach us your way",
+  nextTitle: "What happens next",
+  steps: [
+    { title: "We get back to you", body: "We set up a free consultation at a time that suits you." },
+    { title: "We review your practice", body: "We look at your payers, providers and open A/R, and show you where revenue is stuck." },
+    { title: "You get a written quote", body: "No commitment until you sign." },
+  ],
+};

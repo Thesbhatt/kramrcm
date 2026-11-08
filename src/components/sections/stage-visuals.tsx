@@ -1,4 +1,4 @@
-import { aboutPage, servicesPage, specialties, specialtyGroups, specialtiesPage } from "@/content/site";
+import { aboutPage, calculatorPage, contactPage, servicesPage, specialties, specialtyGroups, specialtiesPage } from "@/content/site";
 import { LogoMark } from "../ui/logo";
 import { Check, Icon } from "../ui/primitives";
 import { groupIcons } from "./specialties-preview";
@@ -119,6 +119,76 @@ export function SpecialtyDial() {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+/** Calculator: an A/R-aging style chart whose last bar glows, because unbilled revenue piles up the longer a provider waits. */
+export function AgingChart() {
+  const c = calculatorPage.chart;
+  return (
+    <div className="relative mx-auto w-full max-w-[470px] pb-4 pt-2" role="img" aria-label={`${c.title}. ${c.caption}`}>
+      <span aria-hidden="true" className="hero-rim absolute inset-4 rounded-[28px]" />
+      <div aria-hidden="true" className="hero-tilt relative rounded-[26px] bg-white p-6 shadow-[0_40px_80px_-40px_rgb(184_74_12/0.55)] ring-1 ring-line sm:p-7">
+        <div className="flex items-start justify-between gap-3 border-b border-line pb-4">
+          <p className="font-display text-lg leading-tight">{c.title}</p>
+          <span className="shrink-0 rounded-full bg-tint px-3 py-1 text-xs text-muted">{c.tag}</span>
+        </div>
+        <div className="relative mt-6 flex h-52 items-end gap-3 border-b border-line">
+          {[25, 50, 75].map((g) => <span key={g} className="absolute inset-x-0 border-t border-dashed border-line" style={{ bottom: `${g}%` }} />)}
+          {c.bars.map((b, i) => {
+            const hot = i === c.bars.length - 1;
+            return (
+              <div key={b.label} className="relative flex h-full flex-1 items-end">
+                <span
+                  className={`age-bar block w-full rounded-t-lg ${hot ? "age-hot bg-gradient-to-t from-orange to-orange-soft" : "bg-gradient-to-t from-tint-2 to-peach-2"}`}
+                  style={{ height: `${b.h}%`, ["--i" as string]: i }}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-2 flex gap-3 text-center text-xs text-muted">
+          {c.bars.map((b) => <span key={b.label} className="flex-1">{b.label}</span>)}
+        </div>
+        <p className="mt-5 text-sm text-muted">{c.caption}</p>
+      </div>
+      <div aria-hidden="true" className="age-call chip-depth-b absolute right-2 top-[26%] flex items-center gap-2.5 rounded-2xl bg-white px-4 py-2.5 shadow-[0_20px_40px_-20px_rgb(47_51_54/0.5)] ring-1 ring-line sm:-right-4">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-orange text-white"><Icon name="clock" className="h-4 w-4" /></span>
+        <span className="text-sm font-medium">{c.callout}</span>
+      </div>
+    </div>
+  );
+}
+
+/** Contact: the free practice review as a checklist card that ticks through what we look at, then names the result. */
+export function ReviewCard() {
+  const c = contactPage.card;
+  return (
+    <div className="relative mx-auto w-full max-w-[440px] pb-6 pt-2" role="img" aria-label={`${c.title}: ${c.rows.join(", ")}. ${c.result}. ${c.footer}`}>
+      <span aria-hidden="true" className="hero-rim absolute inset-4 rounded-[28px]" />
+      <div aria-hidden="true" className="hero-tilt relative rounded-[26px] bg-white p-6 shadow-[0_40px_80px_-40px_rgb(184_74_12/0.55)] ring-1 ring-line sm:p-8">
+        <div className="flex items-center justify-between border-b border-line pb-4">
+          <span className="flex items-center gap-2 font-display text-lg"><LogoMark className="h-5 w-5" /> {c.title}</span>
+          <span className="rounded-full bg-tint px-3 py-1 text-xs text-muted">{c.tag}</span>
+        </div>
+        <ol className="mt-6 flex flex-col gap-4">
+          {c.rows.map((r, i) => (
+            <li key={r} className="sheet-row flex items-center gap-3" style={{ ["--i" as string]: i }}>
+              <span className="sheet-dot flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-orange bg-orange text-white" style={{ ["--i" as string]: i }}>
+                <Check className="h-3.5 w-3.5" />
+              </span>
+              <span className="font-medium">{r}</span>
+              <span className="ml-auto h-px flex-1 bg-line" />
+            </li>
+          ))}
+        </ol>
+        <div className="sheet-row band-glow mt-7 rounded-2xl bg-orange p-5 text-white" style={{ ["--i" as string]: 3 }}>
+          <p className="text-xs">Result</p>
+          <p className="font-display text-xl leading-tight">{c.result}</p>
+        </div>
+        <p className="mt-4 text-sm text-muted">{c.footer}</p>
+      </div>
     </div>
   );
 }
