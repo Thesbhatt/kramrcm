@@ -3,7 +3,7 @@ import { MotionObserver } from "@/components/ui/motion-observer";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Faq } from "@/components/sections/faq";
 import { PageHero } from "@/components/sections/page-hero";
-import { Container, Icon, type IconName } from "@/components/ui/primitives";
+import { Arrow, ButtonLink, Container, Icon, type IconName } from "@/components/ui/primitives";
 import { company, contact } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -58,12 +58,18 @@ export default function ContactPage() {
                   </li>
                 ))}
               </ol>
+              {contact.responseTime && <p className="mt-5 border-t border-ink-line pt-4 text-[0.97rem] text-white">{contact.responseTime}</p>}
+              {contact.bookingUrl && (
+                <div className="mt-5">
+                  <ButtonLink href={contact.bookingUrl} variant="soft">{contact.bookingLabel} <Arrow /></ButtonLink>
+                </div>
+              )}
             </div>
             {/* TODO(client): US business address + map once provided */}
           </div>
 
           <div>
-            <h2 className="sr-only">Send us a message</h2>
+            <h2 className="sr-only">{contact.formTitle}</h2>
             <ContactForm />
           </div>
         </Container>

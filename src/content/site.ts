@@ -43,10 +43,13 @@ export const hero = {
   titleEnd: "on the first pass",
   // TODO(client): approve. Replaces the live site's sentence ("KRAM Healthcare simplifies your practice management,
   // with accurate billing, faster credentialing, and compliant revenue cycle solutions built for modern healthcare providers.")
+  // TODO(client): confirm before launch
   body: "Provider enrollment, medical billing and multi-state licensing for US practices, run by one accountable team that shows you every status, every week.",
   primaryCta: "Book a free practice review",
   secondaryCta: "Explore services",
-  carousel: { group: "Kram Healthcare services", pause: "Pause slideshow", play: "Play slideshow" },
+  reassurance: ["Free practice review", "Written quote", "No commitment until you sign"],
+  photoAlt: "A physician in a white coat with arms crossed, holding a red stethoscope",
+  photoFocus: "88% 45%", // keeps the red stethoscope in frame on phones (portrait crop); barely moves the desktop crop
 };
 
 // TODO(client): confirm each figure and its "as of" date
@@ -83,10 +86,13 @@ export const services: {
   },
   {
     id: "billing",
-    eyebrow: "Middle and back of the cycle",
+    eyebrow: "Across the claim cycle",
     title: "Medical billing & revenue cycle",
+    // TODO(client): confirm before launch
     body: "Clean claims out the door, denials worked fast, and payments posted and reconciled every day.",
     items: [
+      "Insurance verification & eligibility checks",
+      "Prior authorization management",
       "Claim submission & follow-up",
       "Denial management & appeals",
       "Accounts receivable (A/R) management",
@@ -102,8 +108,6 @@ export const services: {
     body: "Expand into new states and telehealth, and keep the day-to-day paperwork from slowing your team down.",
     items: [
       "Multi-state & telehealth licensing",
-      "Insurance verification & eligibility checks",
-      "Prior authorization management",
       "Credentialing database management (CAQH, Modio, etc.)",
       "Compliance & audit support",
       "Ongoing payer maintenance",
@@ -111,31 +115,12 @@ export const services: {
   },
 ];
 
-// Home hero photo carousel: one slide per service, plus specialties. `focus` is the photo's object-position.
-export const heroSlides = [
-  { id: "credentialing", tab: "Credentialing", title: services[0].title, body: services[0].body, href: "/services#credentialing", alt: "A physician in a white coat with arms crossed, holding a red stethoscope", focus: "70% 40%" },
-  { id: "billing", tab: "Medical billing", title: services[1].title, body: services[1].body, href: "/services#billing", alt: "Hands typing on a laptop with a stethoscope resting beside it", focus: "70% 60%" },
-  { id: "licensing", tab: "Licensing", title: services[2].title, body: services[2].body, href: "/services#licensing", alt: "A large brick medical center under a clear sky", focus: "75% 55%" },
-  { id: "specialties", tab: "Specialties", title: "Built for your specialty", body: "More than 45 specialties, from primary care and behavioral health to DME, pharmacy and skilled nursing.", href: "/specialties", alt: "Anatomical model of a human heart", focus: "70% 45%" },
-] as const;
-
-// Floating icons in the home hero. Names match `specialties` and the service titles. Placement is in home/hero.tsx.
-export const heroIcons = [
-  { label: "Cardiology", icon: "heartPulse", tone: "orange" },
-  { label: "Neurology", icon: "brain", tone: "glass" },
-  { label: "Credentialing", icon: "shield", tone: "white" },
-  { label: "Orthopedics", icon: "bone", tone: "glass" },
-  { label: "Pharmacy", icon: "pill", tone: "white" },
-  { label: "Medical billing", icon: "receipt", tone: "orange" },
-  { label: "Primary Care", icon: "stethoscope", tone: "glass" },
-  { label: "Licensing", icon: "map", tone: "white" },
-  { label: "Telehealth", icon: "video", tone: "glass" },
-] as const;
-
 export const process = [
   { title: "Free practice review", body: "A free consultation. We look at your payers, providers and open A/R and tell you where revenue is stuck.", time: "Day 1" },
+  // TODO(client): confirm before launch
   { title: "Onboarding & BAA", body: "We sign a Business Associate Agreement, collect documents once, and set up secure access.", time: "Week 1" },
   { title: "We file and follow up", body: "Applications, claims and appeals go out. We chase every payer until each item is closed.", time: "Ongoing" },
+  // TODO(client): confirm before launch
   { title: "You see every status", body: "A weekly report shows each enrollment, claim batch and denial, with the next step and owner.", time: "Every week" },
 ];
 
@@ -197,6 +182,67 @@ export const proof = {
   ] satisfies Testimonial[],
 };
 
+/* ---------------- Trust: stays hidden until the client supplies real, approved data ---------------- */
+
+export type Credential = { label: string; detail?: string };
+export type CaseStudy = { practice: string; state: string; problem: string; metric: { value: string; label: string }; summary: string };
+export type BillingMetric = { value: string; label: string; definition: string; asOf: string };
+export type Leader = { name: string; title: string; bio: string };
+
+// TODO(client): every list below stays empty until the client supplies real, approved data. Never invent entries.
+export const trust = {
+  preview: false, // true shows labelled placeholders in `npm run dev` only, never in production
+  previewNote: "Design preview (development only): add real, approved data to `trust` in src/content/site.ts to publish this section.",
+  credentials: [] as Credential[], // only what is TRUE today, e.g. a real SOC 2 report or AAPC-certified staff
+  credentialsLabel: "Security and credentials",
+  metrics: [] as BillingMetric[],
+  caseStudies: [] as CaseStudy[],
+  resultsEyebrow: "Results",
+  resultsTitle: "Measured, dated and defined",
+  systems: [] as string[], // EHR and practice-management names the client confirms
+  systemsEyebrow: "Systems",
+  systemsTitle: "We work inside the systems you already use",
+  leaders: [] as Leader[],
+  leadersEyebrow: "Leadership",
+  leadersTitle: "The people accountable for your account",
+  placeholders: {
+    credentials: [{ label: "[Credential]" }, { label: "[Credential]" }, { label: "[Credential]" }] as Credential[],
+    metrics: [{ value: "[##%]", label: "[Net collection rate]", definition: "[How it is measured]", asOf: "[Date]" }, { value: "[## days]", label: "[Days in A/R]", definition: "[How it is measured]", asOf: "[Date]" }, { value: "[##%]", label: "[Denial rate]", definition: "[How it is measured]", asOf: "[Date]" }] as BillingMetric[],
+    caseStudies: [{ practice: "[Practice type]", state: "[ST]", problem: "[The problem]", metric: { value: "[##]", label: "[Before/after result]" }, summary: "[What changed]" }] as CaseStudy[],
+    systems: ["[EHR name]", "[PM system]", "[EHR name]"],
+    leaders: [{ name: "[Full name]", title: "[Title]", bio: "[One-sentence background]" }] as Leader[],
+  },
+};
+
+// Deadlines are public CMS / CAQH rules, not Kram claims, so this section needs no client data.
+export const deadlines = {
+  eyebrow: "What we track",
+  titleStart: "The deadlines that quietly",
+  titleHighlight: "stop payment",
+  body: "Miss one and applications stall or billing privileges can lapse. We keep them on the calendar for you.",
+  items: [
+    { value: "120 days", title: "CAQH re-attestation", body: "Most commercial payers rely on your CAQH ProView profile. If it lapses, applications stall." },
+    { value: "5 years", title: "Medicare revalidation", body: "Most providers revalidate on a set cycle. Miss it and you risk a payment hold or deactivation." },
+    { value: "3 years", title: "DMEPOS revalidation", body: "DME suppliers revalidate on a shorter cycle than other Medicare providers." },
+  ],
+  note: "Medicare revalidation cycles per CMS.",
+};
+
+export const calculatorPromo = {
+  title: "What is a delayed enrollment costing you?",
+  body: "Enter your providers, collections and days out of network to see the revenue on hold.",
+  cta: "Try the calculator",
+};
+
+export const notFound = {
+  title: "We can't find that page",
+  body: "The link may be old or mistyped. Head back to the homepage, or tell us what you were looking for.",
+  home: "Back to the homepage",
+  contact: "Contact us",
+};
+
+export const marquee = { pause: "Pause scrolling specialties", play: "Play scrolling specialties" };
+
 export const legal = [
   // TODO(client): legal pages (lawyer's text). Items render as plain text until an href is set.
   { label: "Privacy Policy", href: null as string | null },
@@ -218,7 +264,7 @@ export const specialties = [
 ];
 
 export const featuredSpecialties = [
-  { name: "Primary & Family Care", note: "High-volume E/M coding and fast panel growth" },
+  { name: "Primary & Family Care", note: "High-volume visits and fast panel growth" },
   { name: "Behavioral Health", note: "Telehealth, multi-state licensing, and carve-out payers" },
   { name: "Cardiology", note: "Prior auths for imaging and procedures" },
   { name: "Home Health & Hospice", note: "Medicare enrollment and revalidations" },
@@ -227,9 +273,12 @@ export const featuredSpecialties = [
 ];
 
 export const reasons = [
+  // TODO(client): confirm before launch
   { title: "One owner for your account", body: "A named account manager who knows your providers, payers and deadlines, not a ticket queue." },
+  // TODO(client): confirm before launch
   { title: "Status you can see", body: "Weekly reports on every application and claim batch. No chasing us for updates." },
   { title: "All 50 states and telehealth", body: "Multi-state licensing and payer enrollment for practices growing across state lines." },
+  // TODO(client): confirm before launch
   { title: "Built around compliance", body: "Minimum-necessary access, signed BAAs and audit-ready records for every engagement." },
 ];
 
@@ -245,10 +294,11 @@ export const faqs = [
   { q: "How long does provider credentialing take?", a: "Most commercial payers take 60 to 120 days from a complete application. Medicare usually takes 30 to 60 days. We start with the slowest payers first and send you a status report every week." },
   { q: "What's the difference between credentialing and enrollment?", a: "Credentialing verifies a provider's education, licenses, training and work history. Enrollment is the application that adds the provider to a payer's network so claims can be paid. A payer needs both before it will reimburse you, and we handle both." },
   { q: "Can you take over from our current biller?", a: "Yes. We audit your open A/R and pending applications, then run a planned handover so no claims or deadlines are dropped." },
-  { q: "Which specialties do you work with?", a: "More than 45, from primary care and behavioral health to DME, pharmacy and skilled nursing. If yours isn't listed, ask us." },
+  { q: "Which specialties do you work with?", a: "We work with 50 specialties, from primary care and behavioral health to DME, pharmacy and skilled nursing. If yours isn't listed, ask us." },
   { q: "What is CAQH, and why does it matter?", a: "CAQH ProView is the shared database most commercial payers use to check a provider's credentials. The profile must be complete and re-attested every 120 days, or applications stall. We set it up and keep it current for you." },
   { q: "Do you handle DME billing?", a: "Yes. DME billing is one of our specialties, from supplier enrollment and revalidation to claims with the documentation and modifiers durable medical equipment requires." },
   { q: "How often does Medicare enrollment need to be revalidated?", a: "Most providers revalidate every 5 years, and DME suppliers every 3 years. Medicare posts due dates in advance; we track them so billing privileges don't lapse." },
+  // TODO(client): confirm before launch
   { q: "Do you sign a Business Associate Agreement (BAA)?", a: "Yes. Every engagement that involves protected health information starts with a signed BAA, and access is limited to what the work requires." },
   { q: "How is pricing structured?", a: "Credentialing is priced per provider and payer. Billing is usually a percentage of collections. You get a written quote after the free review." },
   { q: "Do you work with practices in every state?", a: "Yes. We enroll and license providers in all 50 states, including telehealth providers who see patients across state lines." },
@@ -260,6 +310,12 @@ export const contact = {
   phiNotice: "Please don't include patient names or other health information in this form.",
   providerOptions: ["1", "2–5", "6–20", "21–50", "50+"],
   needs: ["Credentialing", "Medical billing", "Licensing", "Not sure yet"],
+  consent: { lead: "I agree to", privacyLabel: "the Privacy Policy", join: "and to", body: "Kram Healthcare contacting me about this request by phone or email." },
+  formTitle: "Request your free practice review",
+  submit: "Request my free review",
+  responseTime: null as string | null, // TODO(client): e.g. "We reply within one business day"
+  bookingUrl: null as string | null, // TODO(client): calendar link
+  bookingLabel: "Pick a time",
 };
 
 /* ---------------- Home ---------------- */
@@ -334,6 +390,7 @@ export const about = {
   values: [
     { title: "Accuracy first", body: "Applications and claims are checked before they go out, because a clean first submission is the fastest path to approval and payment." },
     { title: "Open status", body: "You always know where each enrollment and claim batch stands, who owns the next step, and when it is due." },
+    // TODO(client): confirm before launch
     { title: "Compliance by default", body: "Signed BAAs, minimum-necessary access and audit-ready records on every engagement." },
     { title: "Long-term partnership", body: "We stay after go-live: re-attestations, revalidations and payer changes are tracked for as long as you work with us." },
   ],

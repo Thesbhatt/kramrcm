@@ -10,10 +10,34 @@ function display(value: number, suffixIn: string) {
 
 /**
  * Real numbers in the HTML; [data-count] only animates toward them. TODO(client): confirm figures.
- * `strip`: charcoal proof bar with orange numbers, used right under the home hero.
+ * `hero`: charcoal proof bar at the bottom of the home hero (no scroll reveal, so it is never half faded at the fold).
+ * `strip`: standalone charcoal proof bar with orange numbers (currently unused).
  * `peach` / `stone`: filled rounded panel (About page).
  */
-export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" }) {
+export function Stats({ tone = "peach" }: { tone?: "peach" | "stone" | "strip" | "hero" }) {
+  // Bottom of the home hero. No reveal(): a scroll-linked reveal would leave it half faded at the fold.
+  if (tone === "hero") {
+    return (
+      <section className="relative z-[4] bg-ink" aria-label="Kram Healthcare in numbers">
+        <Container>
+          <dl className="grid grid-cols-2 gap-y-6 border-t border-white/15 py-6 lg:grid-cols-4 lg:py-7">
+            {stats.map((s, i) => {
+              const { n, suffix } = display(s.value, s.suffix);
+              return (
+                <div key={s.label} className={`flex flex-col gap-1 pr-4 lg:px-8 lg:first:pl-0 ${i > 0 ? "lg:border-l lg:border-ink-line" : ""} ${i % 2 === 1 ? "border-l border-ink-line pl-5 lg:pl-8" : ""}`}>
+                  <dt className="order-2 max-w-[26ch] text-[0.9rem] leading-snug text-on-ink">{s.label}</dt>
+                  <dd className="order-1 whitespace-nowrap text-[clamp(1.75rem,3vw,2.3rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-orange">
+                    <span data-count={n} data-suffix={suffix}>{n.toLocaleString("en-US")}{suffix}</span>
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </Container>
+      </section>
+    );
+  }
+
   if (tone === "strip") {
     return (
       <section className="py-6 md:py-8" aria-label="Kram Healthcare in numbers">

@@ -189,20 +189,11 @@
 /* ---------- Top progress bar (home) ---------- */
 .scroll-progress { display: none; }
 
-/* ---------- Ambient: hero icons hover in place ---------- */
+/* ---------- Ambient: gentle hover in place (.bob; unused since the static hero, kept for reuse) ---------- */
 .bob { animation: bob 6s ease-in-out var(--bob-d, 0s) infinite alternate; }
 @keyframes bob { to { translate: 0 -14px; } }
 
-/* ---------- Home hero: photo carousel ---------- */
-/* The outgoing photo stays solid underneath while the new one wipes over it, so nothing dips to the backdrop */
-.hero-slide { opacity: 0; }
-.hero-slide[data-leaving] { opacity: 1; z-index: 1; }
-.hero-slide[data-active] { opacity: 1; z-index: 2; }
-.hero-slide[data-wipe] { animation: hero-wipe 1.25s var(--ease-out-strong) both; }
-.hero-slide:is([data-active], [data-leaving]) .hero-slide-img { animation: hero-zoom 10s ease-out both; }
-@keyframes hero-wipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0); } }
-@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.09); } }
-
+/* ---------- Home hero: scrim over the photo ---------- */
 /* Keeps white copy legible over the brightest photo: at least 72% charcoal behind the text column */
 .hero-scrim {
   --scrim: var(--color-fg);
@@ -217,59 +208,6 @@
 @media (max-width: 1023px) {
   .hero-scrim { background: color-mix(in srgb, var(--color-fg) 76%, transparent); }
 }
-
-/* The active tab's bar is the slide timer: HeroCarousel advances on its animationend */
-.hero-progress-fill { transform: scaleX(0); transform-origin: 0 50%; }
-.hero-tab[aria-current] .hero-progress-fill { animation: hero-progress 7s linear both; }
-@keyframes hero-progress { to { transform: scaleX(1); } }
-
-/* ---------- Home hero: cursor-reactive icons (positions driven by hero-pointer.tsx) ---------- */
-.hero-float {
-  position: absolute;
-  width: var(--s, 72px); height: var(--s, 72px);
-  margin: calc(var(--s, 72px) / -2) 0 0 calc(var(--s, 72px) / -2);
-  will-change: transform;
-}
-.hero-chip {
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  width: 100%; height: 100%;
-  border-radius: 28%;
-  color: #fff;
-  background: color-mix(in srgb, var(--color-ink) 64%, transparent);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.24), 0 24px 40px -22px rgb(31 34 36 / 0.85);
-  transition: background-color 0.25s var(--ease-out-soft), color 0.25s var(--ease-out-soft);
-  animation: chip-in 0.9s var(--ease-back) var(--d, 500ms) both;
-}
-.hero-chip[data-tone="white"] { background: #fff; color: var(--color-fg); }
-.hero-chip[data-tone="orange"] { background: var(--color-orange); }
-[data-near] .hero-chip { background: var(--color-orange); color: #fff; }
-[data-near] .hero-chip[data-tone="orange"] { background: #fff; color: var(--color-orange-ink); }
-@keyframes chip-in { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
-
-.hero-chip-label {
-  position: absolute; top: calc(100% + 8px); left: 50%;
-  translate: -50% 6px;
-  padding: 3px 11px;
-  border-radius: 999px;
-  background: #fff; color: var(--color-fg);
-  font-size: 0.8rem; font-weight: 500; line-height: 1.5; white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s var(--ease-out-soft), translate 0.25s var(--ease-out-soft);
-}
-[data-near] .hero-chip-label { opacity: 1; translate: -50% 0; }
-
-/* A fixed-size gradient moved with transform: compositor only, no repaint per frame */
-.hero-spot {
-  position: absolute; left: 0; top: 0;
-  width: 760px; height: 760px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-orange) 34%, transparent), transparent);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out-soft);
-  will-change: transform;
-}
-[data-pointer] > .hero-spot { opacity: 1; }
 
 /* Full-width bands: soft glows in two diagonally opposite corners, layered over the band's bg-* colour.
    The diagonals mirror each other so the two bands read as a pair. Orange runs dark-to-light from the top left,
@@ -364,7 +302,7 @@
   }
 }
 @keyframes header-compact {
-  to { background-color: rgb(255 255 255 / 0.86); box-shadow: 0 1px 0 var(--color-line), 0 14px 30px -26px rgb(47 51 54 / 0.45); }
+  to { box-shadow: 0 1px 0 var(--color-line), 0 14px 30px -26px rgb(47 51 54 / 0.45); }
 }
 
 /* ---------- Process timeline: node pops → card rises → line travels to the next node → repeat ----------
@@ -451,6 +389,7 @@
 /* ---------- Marquee pauses on hover / focus ---------- */
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
+.marquee[data-paused] .marquee-track { animation-play-state: paused; }
 
 /* ---------- FAQ disclosure ---------- */
 details > summary { list-style: none; }
@@ -570,7 +509,7 @@ details.faq[open]::details-content { block-size: auto; }
     --from: calc(min(var(--stagger, 0), 420) * var(--scrub-unit));
     animation: scrub-rise linear both;
     animation-timeline: view();
-    animation-range: entry var(--from) entry calc(var(--from) + 26vh);
+    animation-range: entry var(--from) entry calc(var(--from) + 16vh);
   }
 
   /* Headlines: one word at a time, then the marker sweeps */
@@ -712,9 +651,6 @@ details.faq[open]::details-content { block-size: auto; }
   .js .photo img { clip-path: none; transform: none; }
   /* Scroll-linked motion ignores animation-duration, so it has to be switched off by name */
   .parallax-img, .photo img, .drift-up, .closing-card, .bob { animation: none !important; scale: none; translate: none; }
-  .hero-slide[data-wipe], .hero-slide .hero-slide-img, .hero-chip { animation: none !important; }
-  /* No progress animation means no animationend, so the slideshow never auto-advances */
-  .hero-tab[aria-current] .hero-progress-fill { animation: none !important; transform: none; }
   .scroll-progress { display: none !important; }
   .hl, .js [data-words] .hl { animation: none !important; background-size: 100% 100% !important; }
   .words-view .w, .words-load .w { animation: none !important; opacity: 1; transform: none; }

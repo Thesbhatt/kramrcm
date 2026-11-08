@@ -1,4 +1,5 @@
-import { featuredSpecialties, specialties, specialtyGroups } from "@/content/site";
+import { featuredSpecialties, marquee, specialties, specialtyGroups } from "@/content/site";
+import { MarqueeToggle } from "../ui/marquee-toggle";
 import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal, type IconName } from "../ui/primitives";
 
 /** Icons for the featured specialties (same order as `featuredSpecialties`) and the category groups. */
@@ -69,6 +70,10 @@ export function SpecialtiesPreview() {
           </div>
         ))}
       </div>
+      {/* Outside the aria-hidden marquee so assistive tech and keyboards can reach it */}
+      <Container className="mt-3 flex justify-end">
+        <MarqueeToggle pauseLabel={marquee.pause} playLabel={marquee.play} />
+      </Container>
     </section>
   );
 }

@@ -4,6 +4,7 @@ import patientPhoto from "@/assets/photos/clinician-patient.jpg";
 import teamPhoto from "@/assets/photos/practice-team.jpg";
 import { MotionObserver } from "@/components/ui/motion-observer";
 import { BillingWhy } from "@/components/sections/billing-why";
+import { Leadership } from "@/components/sections/leadership";
 import { PageHero } from "@/components/sections/page-hero";
 import { Stats } from "@/components/sections/stats";
 import { Why } from "@/components/sections/why";
@@ -65,6 +66,8 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+
+      <Leadership />
 
       <Stats />
 

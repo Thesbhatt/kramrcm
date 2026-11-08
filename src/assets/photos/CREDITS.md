@@ -6,10 +6,10 @@ Downloaded Nov 7 2026. Replace with real client/team photos when available.
 
 | File | Unsplash photo | Used on |
 |---|---|---|
-| hero-credentialing.jpg | https://unsplash.com/photos/photo-1532938911079-1b06ac7ceec7 | Home hero carousel (added Nov 8 2026) |
-| hero-billing.jpg | https://unsplash.com/photos/photo-1576091160550-2173dba999ef | Home hero carousel (added Nov 8 2026) |
-| hero-licensing.jpg | https://unsplash.com/photos/photo-1586773860418-d37222d8fce3 | Home hero carousel (added Nov 8 2026) |
-| hero-specialties.jpg | https://unsplash.com/photos/photo-1530026405186-ed1f139313f8 | Home hero carousel (added Nov 8 2026; cropped) |
+| hero-credentialing.jpg | https://unsplash.com/photos/photo-1532938911079-1b06ac7ceec7 | Home hero (static photo since the Nov 8 2026 hero rebuild) |
+| hero-billing.jpg | https://unsplash.com/photos/photo-1576091160550-2173dba999ef | Unused since the Nov 8 2026 hero rebuild (fallback for the hero if the main photo crops badly) |
+| hero-licensing.jpg | https://unsplash.com/photos/photo-1586773860418-d37222d8fce3 | Unused since the Nov 8 2026 hero rebuild |
+| hero-specialties.jpg | https://unsplash.com/photos/photo-1530026405186-ed1f139313f8 | Unused since the Nov 8 2026 hero rebuild |
 | clinician-workstation.jpg | https://unsplash.com/photos/photo-1666214280557-f1b5022eb634 | Unused since the Nov 8 2026 hero revamp |
 | clinician-patient.jpg | https://unsplash.com/photos/photo-1631217868264-e5b90bb7e133 | About hero |
 | practice-team.jpg | https://unsplash.com/photos/photo-1600880292203-757bb62b4baf | About mission |

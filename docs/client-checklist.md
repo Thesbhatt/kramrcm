@@ -1,5 +1,10 @@
 # What we need from the client
 
+## LAUNCH BLOCKERS
+- [ ] Privacy Policy, Terms of Use, HIPAA Notice and Accessibility pages (lawyer's text). The footer and the contact form consent line link to them once `legal` has an `href`
+- [ ] US business address (footer, contact page, Google Business)
+- [ ] BAA confirmation: do they sign Business Associate Agreements with clients? (stated as fact in the process steps, reasons, FAQ and About values)
+
 Send this list to the client. Anything unchecked stays as `TODO(client)` in `src/content/site.ts`. Do not invent any of it.
 
 ## Brand
@@ -10,6 +15,13 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 
 ## Proof and claims
 - [ ] Confirm stats and how each is measured, with an "as of" date: 10+ years, 5,000+ providers, 120,000+ applications, 99% first-time submission success
+- [ ] Confirm the weekly-report promise and the named account manager, both stated as fact on the site
+- [ ] Say what the 99% "first-time submission success" measures, and whether "combined" years can be replaced with years in business
+- [ ] Billing metrics with definitions and an as-of date: net collection rate, days in A/R, denial rate, clean claim rate (goes in `trust.metrics`)
+- [ ] Does the team offer medical coding? If yes, add it to the services list
+- [ ] Reply-time promise, and a calendar link for booking (`contact.responseTime`, `contact.bookingUrl`)
+- [ ] Medicare moratoriums: CMS froze new enrollment for certain DME medical supply companies from Feb 27 2026 and for hospices from May 13 2026. Confirm current status at cms.gov and whether the DME and hospice wording needs a qualifier
+- [ ] Explain "RMI" and confirm "Angioplasty" and "Eye Care" belong on the specialties list
 - [ ] Compliance facts that are TRUE today: sign BAAs with clients? SOC 2 / ISO 27001 / HITRUST? AAPC- or AHIMA-certified staff? Cyber insurance?
 - [ ] 2–3 testimonials: quote, full name, title, practice, state, written permission. On receipt: add to `testimonials` in `site.ts` and set `proof.enabled = true` (section is hidden until then)
 - [ ] Client or payer logos we may show (written permission)

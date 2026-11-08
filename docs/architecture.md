@@ -9,7 +9,7 @@ Read this before touching build config, motion, the contact form or anything cac
 
 ## Cache Components
 - `new Date()` and `Math.random()` are forbidden in prerendered server components. Use constants, e.g. `company.copyrightYear`.
-- Server Components by default; `"use client"` only for real interactivity (today: `site/nav.tsx`, `ui/motion-observer.tsx`, `sections/contact-form.tsx`, `sections/delay-calculator.tsx`, `home/hero-carousel.tsx`, `home/hero-pointer.tsx`).
+- Server Components by default; `"use client"` only for real interactivity (today: `site/nav.tsx`, `ui/motion-observer.tsx`, `sections/contact-form.tsx`, `sections/delay-calculator.tsx`, `ui/marquee-toggle.tsx`).
 
 ## Motion (no animation library, keep it that way)
 - CSS plus one tiny client component, `src/components/ui/motion-observer.tsx`:

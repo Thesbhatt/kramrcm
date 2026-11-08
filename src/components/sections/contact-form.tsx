@@ -1,8 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useEffect, useRef } from "react";
 import { submitContact, type ContactState } from "@/app/actions/contact";
-import { company, contact } from "@/content/site";
+import { company, contact, legal } from "@/content/site";
+
+// The consent line links to the Privacy Policy only once that page exists (an href is set in `legal`).
+const privacyHref = legal.find((l) => l.label === "Privacy Policy")?.href ?? null;
 
 const input =
   "w-full rounded-xl bg-white px-4 py-3 text-[0.97rem] text-fg ring-1 ring-line transition-[box-shadow] duration-200 placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-orange aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[#B42318]";
@@ -48,7 +52,9 @@ export function ContactForm() {
           <svg viewBox="0 0 16 16" className="h-6 w-6" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </span>
         <h3 className="text-2xl">Thanks{state.name ? `, ${state.name}` : ""}. Your message is in.</h3>
-        <p className="text-muted">Our team will get back to you. Need us sooner? Call {company.phoneDisplay}.</p>
+        <p className="text-muted">
+          Our team will get back to you.{contact.responseTime ? ` ${contact.responseTime}.` : ""} Need us sooner? Call {company.phoneDisplay}.
+        </p>
       </div>
     );
   }
@@ -108,7 +114,16 @@ export function ContactForm() {
       <div className="flex flex-col gap-1.5">
         <label className="flex items-start gap-3 text-sm text-muted">
           <input type="checkbox" name="consent" defaultChecked={v?.consent} className="mt-0.5 h-4 w-4 shrink-0 accent-orange" {...err("consent")} />
-          <span>I agree to the Privacy Policy and to Kram Healthcare contacting me about this request by phone or email.</span>
+          <span>
+            {contact.consent.lead}{" "}
+            {privacyHref && (
+              <>
+                <Link href={privacyHref} className="underline underline-offset-2 hover:text-fg">{contact.consent.privacyLabel}</Link>{" "}
+                {contact.consent.join}{" "}
+              </>
+            )}
+            {contact.consent.body}
+          </span>
         </label>
         {fe.consent && <p id="f-consent-error" className="text-sm text-[#B42318]">{fe.consent}</p>}
       </div>
@@ -127,7 +142,7 @@ export function ContactForm() {
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" aria-hidden="true" /> Sending…
           </>
         ) : (
-          "Send message"
+          contact.submit
         )}
       </button>
       <p className="sr-only" aria-live="polite">{state.status === "error" ? state.message : ""}</p>
