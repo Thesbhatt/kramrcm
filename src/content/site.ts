@@ -45,8 +45,23 @@ export const hero = {
   // TODO(client): confirm before launch
   body: "Provider enrollment, medical billing and multi-state licensing for US practices, run by one accountable team that shows you every status, every week.",
   primaryCta: "Book a free practice review",
-  // TODO(client): replace the stock photo with the team's own photography (src/assets/photos/CREDITS.md).
-  photo: { alt: "Two doctors in white coats reviewing information together on a tablet", focus: "62% 40%" },
+  // TODO(client): replace the stock photos with the practice's own photography (src/assets/photos/CREDITS.md).
+  // `id` maps to an image in `home/hero.tsx`; `focus` is the object-position crop (keeps the people in frame).
+  // Order matters: the first slide is the one painted before JS loads.
+  slides: [
+    { id: "tablet", alt: "Two doctors in white coats reviewing information together on a tablet", focus: "62% 40%" },
+    { id: "team", alt: "A team of healthcare colleagues gathered around a laptop in a bright office", focus: "55% 40%" },
+    { id: "phone", alt: "A doctor in a white coat on the phone while working at her laptop", focus: "45% 40%" },
+    { id: "huddle", alt: "Colleagues collaborating around a table with laptops and notebooks", focus: "70% 45%" },
+    { id: "desk", alt: "Two colleagues talking at a desk, with a dashboard open on a laptop between them", focus: "65% 40%" },
+  ] as { id: "tablet" | "team" | "phone" | "huddle" | "desk"; alt: string; focus: string }[],
+  carousel: {
+    label: "Photos of healthcare teams at work",
+    pause: "Pause photo slideshow",
+    play: "Play photo slideshow",
+    slide: "Photo",
+    of: "of",
+  },
   // Shown as one muted line under the button: each item is a sentence.
   reassurance: ["Free practice review.", "Written quote.", "No commitment until you sign."],
 };

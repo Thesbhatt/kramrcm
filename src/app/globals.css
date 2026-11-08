@@ -36,7 +36,6 @@
   @keyframes hero-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
   @keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
   @keyframes photo-in { from { clip-path: inset(12% 7% round 28px); opacity: 0.4; } to { clip-path: inset(0% 0% round 28px); opacity: 1; } }
-  @keyframes photo-settle { from { scale: 1.16; } to { scale: 1; } }
   @keyframes photo-drift { from { translate: 0 -5%; } to { translate: 0 5%; } }
   @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
@@ -150,7 +149,14 @@ details.faq[open]::details-content { block-size: auto; }
 .w { display: inline-block; animation: word-up 0.95s var(--ease-out-strong) both; animation-delay: calc(var(--i, 0) * 70ms + 80ms); }
 
 .hero-photo { animation: photo-in 1.3s var(--ease-out-strong) 0.45s both; }
-.hero-photo img { animation: photo-settle 2.2s var(--ease-out-strong) 0.45s both; }
+/* Carousel slides: the incoming photo fades in and settles from a slight zoom over the outgoing one, which stays fully
+   opaque underneath (so the frame never dips to the background). Idle slides snap back to hidden with no transition. */
+.hero-slide { opacity: 0; scale: 1.07; z-index: 0; }
+.hero-slide[data-state="prev"] { opacity: 1; scale: 1; z-index: 1; }
+.hero-slide[data-state="active"] {
+  opacity: 1; scale: 1; z-index: 2;
+  transition: opacity 0.85s var(--ease-out-soft), scale 1.9s var(--ease-out-strong);
+}
 @supports (animation-timeline: view()) {
   .hero-parallax { animation: photo-drift linear both; animation-timeline: view(); animation-range: cover; }
 }
@@ -200,7 +206,8 @@ details.faq[open]::details-content { block-size: auto; }
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
-  .nav-item-in, .board, .hero-in, .w, .hero-photo, .hero-photo img, .hero-parallax { animation: none !important; }
+  .nav-item-in, .board, .hero-in, .w, .hero-photo, .hero-parallax { animation: none !important; }
+  .hero-slide, .hero-slide[data-state="active"] { transition: none; scale: 1; }
   .js [data-reveal], .js [data-stagger] > *, .js [data-reveal]:not([data-shown]) .cascade, .js [data-reveal]:not([data-shown]) .pop { opacity: 1; transform: none; scale: none; }
   .js [data-stagger] .rule, .js [data-reveal] .rule { transform: none; }
   .js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 0; }

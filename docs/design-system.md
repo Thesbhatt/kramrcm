@@ -46,7 +46,7 @@ Avoid: tracked-caps eyebrows over every heading, "A · B · C" dot strings, a si
 - **Closing CTA**: pale tint band, centered, rendered by the footer so every page ends with it.
 
 ## Hero
-Split layout (Nov 8 2026): on the left, one outcome headline (the existing copy, no highlight; words rise from a mask on load), one sentence, ONE button and one muted trust line (`hero.reassurance` joined); on the right, a near-square rounded photo of two doctors reviewing a tablet. On phones everything stacks. The photo is a placeholder stock image (`hero.photo` in `site.ts`; TODO(client): their own photography).
+Split layout (Nov 8 2026): on the left, one outcome headline (the existing copy, no highlight; words rise from a mask on load), one sentence, ONE button and one muted trust line (`hero.reassurance` joined); on the right, a near-square rounded photo carousel. On phones everything stacks. The photos are placeholder stock images (`hero.slides` in `site.ts`; TODO(client): their own photography).
 
 The animated **status board** of a SAMPLE practice ("Sample practice, illustrative") is NOT in the hero any more: it is the right-hand visual of the "Every status, every week, in one report" section (`sections/product-preview.tsx`), where it plays once as it scrolls into view. Row labels are generic ("Provider A", "Claim batch"); never add real payer or client names, people, counts or amounts.
 
@@ -56,7 +56,8 @@ Home order: hero, "Trusted by" strip (hidden until real logos), stats band, serv
 
 ## Motion
 - Hover 150 ms, UI 250 ms, easing `--ease-out-soft`; entrances 0.85-1.1 s with `--ease-out-strong` `cubic-bezier(.16,1,.3,1)`.
-- **Hero load sequence (CSS only, no JS)**: headline words rise from a mask (70 ms apart), then the sentence, button and trust line rise (120 ms apart), the photo opens from an inset clip while it settles from a 1.16 zoom (1.3 s / 2.2 s) and drifts slightly on scroll (`animation-timeline: view()` where supported), (the status board is further down the page and plays when it scrolls into view).
+- **Hero load sequence (CSS only, no JS)**: headline words rise from a mask (70 ms apart), then the sentence, button and trust line rise (120 ms apart), the photo frame opens from an inset clip (1.3 s) and drifts slightly on scroll (`animation-timeline: view()` where supported), (the status board is further down the page and plays when it scrolls into view).
+- **Hero photo carousel** (`home/hero-carousel.tsx`, client): five photos change every 1.5 s (`INTERVAL_MS`). The incoming photo fades in over 0.85 s while it settles from a 1.07 zoom (1.9 s); the outgoing one stays fully opaque underneath, so the frame never dips to the background. Slide 1 is in the server HTML. Autoplay stops for reduced motion (then no controls), a hidden tab, the hero off screen, and the Pause button (WCAG 2.2.2). Dots show position (decorative); the Pause/Play button is the only control.
 - **Status board** (in the "Every status, every week" section; it rises in with the section's reveal): each row, 0.45 s apart, moves its pill Submitted → In review and fills its track; `done` rows continue to Approved/Paid 1.6 s later. Once, then it holds. Held until a third of it is on screen, so it starts when the visitor reaches it.
 - **Scroll reveals**: `reveal(delayMs)` on a block, `stagger` on a list/grid (children rise 90 ms apart, `--i` set by `MotionObserver`). Each plays once, 28 px rise + fade. Process steps also draw a hairline across the top of each column. Service rows shift and tint on hover; their arrow nudges.
 - **Count-up** (`data-count`, plus `data-suffix`): stats band, About stats, specialties page aside, About timelines (`~45 days`). 1.7 s ease-out quart from 0; the real number is in the HTML.

@@ -1,16 +1,23 @@
-import Image from "next/image";
-import doctorsPhoto from "@/assets/photos/hero-slide-tablet.jpg";
+import deskPhoto from "@/assets/photos/hero-slide-desk.jpg";
+import huddlePhoto from "@/assets/photos/hero-slide-huddle.jpg";
+import phonePhoto from "@/assets/photos/hero-slide-phone.jpg";
+import teamPhoto from "@/assets/photos/hero-slide-team.jpg";
+import tabletPhoto from "@/assets/photos/hero-slide-tablet.jpg";
 import { cta, hero } from "@/content/site";
 import { ButtonLink, Container, Words } from "../ui/primitives";
+import { HeroCarousel } from "./hero-carousel";
 
 const hi = (n: number) => ({ ["--h" as string]: n });
 
+// TODO(client): replace these stock photos with the practice's own photography (src/assets/photos/CREDITS.md)
+const photos = { tablet: tabletPhoto, team: teamPhoto, phone: phonePhoto, huddle: huddlePhoto, desk: deskPhoto };
+
 /**
- * Split hero: headline, one sentence, one button and one muted trust line on the left, a photo on the right.
- * Everything plays on load with CSS only. (The animated status board lives in the "Every status, every week" section.)
- * TODO(client): replace the stock photo with the practice's own photography.
+ * Split hero: headline, one sentence, one button and one muted trust line on the left, a crossfading photo carousel
+ * on the right. Copy and layout are a Server Component; only the carousel is client code.
  */
 export function HomeHero() {
+  const slides = hero.slides.map((s) => ({ src: photos[s.id], alt: s.alt, focus: s.focus }));
   return (
     <section className="pb-20 pt-10 md:pb-28 md:pt-16">
       <Container>
@@ -27,21 +34,9 @@ export function HomeHero() {
           </div>
 
           <div className="hero-photo relative aspect-[4/3] overflow-clip rounded-[28px] bg-tint sm:aspect-[16/10] lg:aspect-[1/1.04]">
-            <div className="hero-parallax absolute inset-x-0 -inset-y-[6%]">
-              <Image
-                src={doctorsPhoto}
-                alt={hero.photo.alt}
-                fill
-                priority
-                quality={70}
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="object-cover"
-                style={{ objectPosition: hero.photo.focus }}
-              />
-            </div>
+            <HeroCarousel slides={slides} labels={hero.carousel} />
           </div>
         </div>
-
       </Container>
     </section>
   );

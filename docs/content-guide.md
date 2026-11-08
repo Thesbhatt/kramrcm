@@ -7,7 +7,7 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `company` | name, tagline, `copyrightYear`, phone, email, `address` (null, TODO), hours (TODO), social links | header, footer, contact, about, specialties |
 | `nav` | header/footer links | `site/nav.tsx`, footer |
 | `cta` | the one primary CTA label and header label | buttons everywhere |
-| `hero` | homepage hero: headline parts (rendered as one plain sentence), body, CTA label, `reassurance` (three short sentences shown as one muted line) | `home/hero.tsx` |
+| `hero` | homepage hero: headline parts (rendered as one plain sentence), body, CTA label, `slides` (carousel photos: alt text + crop) and `carousel` (labels), `reassurance` (three short sentences shown as one muted line) | `home/hero.tsx` |
 | `statusBoard` | status board visual (in the "Every status, every week" section): SAMPLE practice rows (generic labels only; `end: "done"` or `"review"`), column and stage labels, "Sample practice, illustrative" | `home/status-board.tsx` |
 | `stats` | the 4 headline numbers (client must confirm, see checklist) | `sections/stats.tsx` |
 | `services` | the 3 services; `items` are short labels only (matches the live site; no per-item explanations) | service cards, `/services` |
