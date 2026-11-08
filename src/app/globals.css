@@ -33,7 +33,6 @@
   @keyframes fill-1 { from { transform: scaleX(0); } to { transform: scaleX(0.5); } }
   @keyframes fill-2 { from { transform: scaleX(0.5); } to { transform: scaleX(1); } }
   @keyframes dot-on { from { background-color: #fff; border-color: var(--color-line); } to { background-color: var(--color-orange); border-color: var(--color-orange); } }
-  @keyframes board-in { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
   @keyframes hero-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
   @keyframes word-up { from { transform: translateY(110%); } to { transform: none; } }
   @keyframes photo-in { from { clip-path: inset(12% 7% round 28px); opacity: 0.4; } to { clip-path: inset(0% 0% round 28px); opacity: 1; } }
@@ -70,12 +69,11 @@
   ::selection { background: var(--color-peach); color: var(--color-fg); }
 }
 
-/* ---------- Hero status board: the page's one orchestrated moment ----------
-   Plays once on load (about 5 s) and holds. Each row waits --t1, then moves Submitted -> In review; rows marked
+/* ---------- Status board ("Every status, every week" section) ----------
+   Plays once when it scrolls into view (about 4 s) and holds. Each row waits --t1, then moves Submitted -> In review; rows marked
    data-end="done" move on to Approved/Paid at --t2. Pure CSS, so it needs no JS. The base styles are the START
    state; the reduced-motion block at the end swaps in the END state without animating. */
-.board-row { --t1: calc(1.7s + var(--i, 0) * 0.45s); --t2: calc(var(--t1) + 1.6s); }
-.board { animation: board-in 1s var(--ease-out-strong) 0.8s both; }
+.board-row { --t1: calc(0.6s + var(--i, 0) * 0.45s); --t2: calc(var(--t1) + 1.6s); }
 /* With JS, MotionObserver holds the board until it is on screen (a phone shows it below the fold) */
 .js .board:not([data-play]), .js .board:not([data-play]) * { animation-play-state: paused !important; }
 

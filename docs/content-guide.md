@@ -25,7 +25,7 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `deadlines` | CAQH / Medicare / DMEPOS renewal cards (public CMS and CAQH rules). **Not on the home page on this branch** | `sections/deadlines.tsx` (unused) |
 | `calculatorPromo` | band that links to the calculator. **Not on the home page on this branch** (the calculator stays in the nav) | `sections/calculator-promo.tsx` (unused) |
 | `notFound` | 404 page copy | `app/not-found.tsx` |
-| `servicesSection`, `processSection`, `productSection`, `specialtiesSection`, `faqSection` | home section titles and copy; `productSection.report` is the SAMPLE weekly report (TODO(client) confirm weekly reports) | `sections/service-list.tsx`, `process.tsx`, `product-preview.tsx`, `specialties-preview.tsx`, `faq.tsx` |
+| `servicesSection`, `processSection`, `productSection`, `specialtiesSection`, `faqSection` | home section titles and copy; `productSection` copy is TODO(client) (weekly report, named owner); the board data is `statusBoard` | `sections/service-list.tsx`, `process.tsx`, `product-preview.tsx`, `specialties-preview.tsx`, `faq.tsx` |
 | `testimonials`, `proof` | client quotes (empty, TODO(client)); section copy, placeholders and the `enabled` switch (currently `false`, section hidden) | `sections/testimonials.tsx` (home) |
 
 ## Rules for content

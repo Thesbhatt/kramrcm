@@ -456,21 +456,9 @@ export const processSection = {
 // TODO(client): confirm before launch (weekly report, named owner per item)
 export const productSection = {
   title: "Every status, every week, in one report",
-  body: "A weekly report shows each enrollment, claim batch and denial, with the next step and who owns it. You never have to ask where something stands.",
+  body: "Every enrollment, claim batch and denial has a status you can see, from submitted to approved or paid. A weekly report adds the next step and who owns it, so you never have to ask where something stands.",
   link: "See how we work",
   linkHref: "/services",
-  report: {
-    title: "Weekly status report",
-    sample: "Sample practice, illustrative",
-    columns: { item: "Item", status: "Status", next: "Next step", owner: "Owner" },
-    rows: [
-      { item: "Provider A, Medicare enrollment", status: "Approved", next: "Complete", owner: "Kram" },
-      { item: "Provider B, commercial enrollment", status: "In review", next: "Follow up with payer", owner: "Kram" },
-      { item: "Claim batch, primary care", status: "Paid", next: "Post and reconcile", owner: "Kram" },
-      { item: "Claim batch, behavioral health", status: "In review", next: "Await payer response", owner: "Payer" },
-      { item: "Denial appeal, DME", status: "Submitted", next: "Send missing records", owner: "Practice" },
-    ],
-  },
 };
 
 export const specialtiesSection = {
