@@ -30,6 +30,7 @@ Page rhythm: white everywhere, hairlines between sections, one tint band (closin
 | Section titles (H2) | Space Grotesk 300 | 44px (clamp from 32px), tracking −0.02em, line-height 1.1 |
 | H3, row titles, step titles | Space Grotesk 300 or 400 | 20–24px |
 | Big numbers (stats, 01–04) | Space Grotesk 300 | `tabular-nums` |
+| Header nav links, mobile menu, logo wordmark, footer column titles | Space Grotesk 400 (logo 600/700) | 16–18px, tracking −0.01em |
 | Body | Inter 400 | 16px, line-height 1.6; muted text is `text-muted` |
 | Buttons | Inter 600 | 11px, uppercase, tracking 0.04em |
 

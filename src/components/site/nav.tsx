@@ -12,7 +12,7 @@ export function DesktopNav() {
   const path = usePathname();
   return (
     <nav aria-label="Main" className="hidden lg:block">
-      <ul className="flex items-center gap-8 text-[0.9375rem]">
+      <ul className="flex items-center gap-8 font-display text-base tracking-[-0.01em]">
         {nav.map((item) => {
           const active = isActive(path, item.href);
           return (
@@ -91,7 +91,7 @@ export function MobileMenu() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   tabIndex={open ? undefined : -1}
-                  className={`flex items-center justify-between border-b border-line px-2 py-3.5 text-base ${active ? "font-medium" : "text-muted"}`}
+                  className={`flex items-center justify-between border-b border-line px-2 py-3.5 font-display text-lg tracking-[-0.01em] ${active ? "text-fg" : "text-muted"}`}
                 >
                   {item.label}
                   {active && <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />}

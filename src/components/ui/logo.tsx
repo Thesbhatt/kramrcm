@@ -32,8 +32,8 @@ export function Logo({ tone = "light", size = "md" }: { tone?: "light" | "dark";
     <span className={`flex items-center ${sm ? "gap-2" : "gap-2.5"}`}>
       <LogoMark className={`${sm ? "h-8 w-8" : "h-10 w-10"} shrink-0`} reversed={tone === "dark"} />
       <span className="flex flex-col leading-none">
-        <span className={`${sm ? "text-[1.1rem]" : "text-[1.3rem]"} font-bold tracking-[0.16em] ${tone === "dark" ? "text-orange" : "text-orange-ink"}`}>KRAM</span>
-        <span className={`mt-1 ${sm ? "text-[0.475rem]" : "text-[0.56rem]"} font-semibold tracking-[0.32em] ${sub}`}>HEALTHCARE</span>
+        <span className={`${sm ? "text-[1.1rem]" : "text-[1.3rem]"} font-display font-bold tracking-[0.16em] ${tone === "dark" ? "text-orange" : "text-orange-ink"}`}>KRAM</span>
+        <span className={`mt-1 ${sm ? "text-[0.475rem]" : "text-[0.56rem]"} font-display font-semibold tracking-[0.32em] ${sub}`}>HEALTHCARE</span>
       </span>
     </span>
   );
