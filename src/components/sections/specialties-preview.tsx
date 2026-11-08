@@ -22,7 +22,7 @@ const iconFor = new Map<string, IconName>(
 /** Home: headline with an orange "50" and six featured specialty cards (ported from the main-branch design). Full list lives on /specialties. */
 export function SpecialtiesPreview() {
   return (
-    <section className="border-t border-line py-20 md:py-28">
+    <section className="py-20 md:py-28">
       <Container className="flex flex-col gap-12">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end" {...reveal()}>
           <div className="flex max-w-[40rem] flex-col gap-4">

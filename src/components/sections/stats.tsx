@@ -26,6 +26,8 @@ export function Stats() {
                 {/* Real number in the HTML; MotionObserver counts up to it when it scrolls into view */}
                 <span data-count={d.n} data-suffix={d.suffix}>{d.text}</span>
               </dd>
+              {/* Glowing fill line, drawn once on view: the status board's progress track, reused */}
+              <span aria-hidden="true" className="rule order-3 h-[2px] w-16 bg-white shadow-[0_0_10px_rgb(255_255_255/0.8)]" />
               <dt className="order-2 max-w-[22ch] text-sm text-white">{s.label}</dt>
             </div>
             );

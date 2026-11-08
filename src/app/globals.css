@@ -244,9 +244,39 @@ details.faq[open]::details-content { block-size: auto; }
 .cutout-glow { transition: opacity 1.4s var(--ease-out-soft) var(--d, 0ms), scale 1.8s var(--ease-out-strong) var(--d, 0ms); }
 .js .cutout:not([data-shown]) .cutout-glow { opacity: 0; scale: 0.55; }
 
+/* Mouse-following light (PointerGlow sets --mx/--my on the section under the cursor, --ga fades it in and out). The registered
+   properties let the position and fade glide, so the light trails the pointer instead of snapping to it. */
+@property --mx { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --my { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --ga { syntax: "<number>"; inherits: true; initial-value: 0; }
+.hero-diag, .band-glow, .band-glow-ink {
+  --follow-orange: radial-gradient(480px circle at var(--mx) var(--my), rgb(247 124 39 / calc(var(--ga) * 0.26)), transparent 70%);
+  --follow-light: radial-gradient(520px circle at var(--mx) var(--my), rgb(255 255 255 / calc(var(--ga) * 0.3)), transparent 70%);
+  transition: --mx 0.45s var(--ease-out-soft), --my 0.45s var(--ease-out-soft), --ga 0.6s var(--ease-out-soft);
+}
+
 /* Corner glows that give flat bands depth: light + deep orange on orange bands, orange on gray ones (as on the calculator card) */
-.band-glow { background-image: radial-gradient(60% 90% at 92% 0%, rgb(255 255 255 / 0.24), transparent 62%), radial-gradient(55% 80% at 0% 100%, rgb(184 74 12 / 0.34), transparent 66%); }
-.band-glow-ink { background-image: radial-gradient(45% 80% at 100% 0%, rgb(247 124 39 / 0.4), transparent 65%), radial-gradient(40% 70% at 0% 100%, rgb(247 124 39 / 0.2), transparent 65%); }
+.band-glow { background-image: var(--follow-light), radial-gradient(60% 90% at 92% 0%, rgb(255 255 255 / 0.24), transparent 62%), radial-gradient(55% 80% at 0% 100%, rgb(184 74 12 / 0.34), transparent 66%); }
+.band-glow-ink { background-image: var(--follow-orange), radial-gradient(45% 80% at 100% 0%, rgb(247 124 39 / 0.4), transparent 65%), radial-gradient(40% 70% at 0% 100%, rgb(247 124 39 / 0.2), transparent 65%); }
+
+/* Hero: a soft diagonal sweep of peach into orange, bottom-right to top-left, behind the copy and photo */
+.hero-diag { background-image: var(--follow-orange), linear-gradient(118deg, #fff 0%, #fff 34%, var(--color-peach-2) 62%, var(--color-peach) 100%); }
+
+/* Journey track (How we work): base = end state; before first view dots are gray and fills empty, then they light in turn */
+.journey { grid-template-columns: repeat(4, 1fr); }
+.journey > div { padding-right: 0; }
+.journey-dot { border-color: var(--color-orange); background: var(--color-orange); box-shadow: 0 0 0 4px rgb(247 124 39 / 0.18); transition: background-color 0.3s var(--ease-out-soft), border-color 0.3s var(--ease-out-soft), box-shadow 0.6s var(--ease-out-soft); transition-delay: calc(var(--i, 0) * 0.7s); }
+.journey-fill { box-shadow: 0 0 10px rgb(247 124 39 / 0.7); transition: transform 0.7s var(--ease-out-strong); transition-delay: calc(var(--i, 0) * 0.7s + 0.2s); }
+.js .journey:not([data-shown]) .journey-dot { border-color: var(--color-line); background: #fff; box-shadow: none; }
+.js .journey:not([data-shown]) .journey-fill { transform: scaleX(0); }
+@media (prefers-reduced-motion: reduce) { .journey-dot, .journey-fill { transition: none; } }
+
+/* Calculator showcase: the ring glides as the sliders move, a halo breathes in once when the card is first seen */
+.calc-ring { transition: stroke-dashoffset 0.5s var(--ease-out-strong); filter: drop-shadow(0 0 6px rgb(247 124 39 / 0.55)); }
+.calc-halo { background: radial-gradient(circle, rgb(247 124 39 / 0.22), transparent 68%); transition: opacity 1.4s var(--ease-out-soft), scale 1.8s var(--ease-out-strong); }
+.calc-halo[data-lit="false"] { opacity: 0; scale: 0.5; }
+.calc-card { box-shadow: 0 40px 90px -40px rgb(247 124 39 / 0.5); }
+@media (prefers-reduced-motion: reduce) { .calc-ring, .calc-halo { transition: none; } }
 
 /* Calm hover details (no layout movement) */
 .row-link .row-arrow { transition: transform 0.25s var(--ease-out-soft); }

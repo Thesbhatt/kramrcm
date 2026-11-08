@@ -5,7 +5,7 @@ Use this to find the right file without opening the whole `src/` tree.
 ## Routes (`src/app/`, same URLs as the live site except the new `/cost-calculator`)
 | URL | File | Sections it renders |
 |---|---|---|
-| `/` | `page.tsx` | HomeHero (split copy/photo + floating status chips), SpecialtyMarquee, TrustedBy (renders nothing until `trust.logos` has real logos), Stats, ServiceList, SpecialtiesPreview, Process (01 to 04), ProductPreview (copy + animated status board), Faq (4). The closing CTA band and footer come from the layout |
+| `/` | `page.tsx` | HomeHero (split copy/photo + floating status chips), SpecialtyMarquee, TrustedBy (renders nothing until `trust.logos` has real logos), Stats, ServiceList, CalculatorShowcase (live mini calculator), SpecialtiesPreview, Process (01 to 04), ProductPreview (copy + animated status board), Faq (4). The closing CTA band and footer come from the layout |
 | `/about-us` | `about-us/page.tsx` | PageHero, mission (inline), Leadership (hidden until `trust.leaders` has data), Stats, BillingWhy, values (inline), Why |
 | `/services` | `services/page.tsx` | PageHero, one compact card per service (photo + title + one sentence + checklist; anchors `#credentialing #billing #licensing`), Process, Faq |
 | `/specialties` | `specialties/page.tsx` | PageHero, featured + grouped specialties |
@@ -21,7 +21,8 @@ Every page ends with `<MotionObserver />`.
 | File | What it is |
 |---|---|
 | `ui/primitives.tsx` | `Container` (1200px), `Eyebrow` (plain small text), `ButtonLink` (variants `dark`/`soft` = filled ink, `white` = outline, `ghost-dark` = outline on ink; `/…` hrefs use next/link), `SectionHeading`, `Icon` (+ `IconName`), `Arrow`, `Check`. `reveal(delayMs)` (scroll reveal attrs), `stagger` (list stagger attrs), `Words` (masked word rise, hero h1 only) and `Highlight` (plain text, no pill) |
-| `ui/cutout.tsx` | `Cutout`: a transparent-WebP clinician that rises into place and blooms a soft light behind it once on first view. Used on orange bands: home services (duo, pinned to the screen bottom on desktop), closing CTA (glasses + pair, `xl` only), specialties banner (phone doctor, head pops above the banner), calculator hero (desk). The contact band uses a plain `Image` of `contact-doctor.webp`. Cutouts were lifted from the stock photos with macOS Vision (see CREDITS.md) |
+| `ui/pointer-glow.tsx` | client, rendered once in the layout (the footer bands live there): a soft light follows the mouse inside `.hero-diag`, `.band-glow` and `.band-glow-ink` sections via `--mx/--my/--ga`; fine pointers only, off under reduced motion |
+| `ui/cutout.tsx` | `Cutout`: a transparent-WebP clinician that rises into place and blooms a soft light behind it once on first view. Used on orange bands: home services (duo, pinned to the screen bottom on desktop), closing CTA (glasses only, `xl` only; the right-hand pair was removed), specialties banner (phone doctor, head pops above the banner), calculator hero (desk). The contact band uses a plain `Image` of `contact-doctor.webp`. Cutouts were lifted from the stock photos with macOS Vision (see CREDITS.md) |
 | `ui/logo.tsx` | `LogoMark` (our SVG trace of the client mark; no vector from client yet) |
 | `ui/motion-observer.tsx` | client; the only page-level script: scroll reveals (`data-shown`), stagger index, count-up (`data-count`), and holds the status board until visible (`data-play`) |
 | `site/header.tsx`, `site/nav.tsx` | white 97px header, centered links, one CTA. `nav.tsx` is client: sliding `.nav-glider` orange bar (no fill) under the current/hovered link, mobile menu with active-row bar |

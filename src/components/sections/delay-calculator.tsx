@@ -6,11 +6,11 @@ import { delayCost } from "@/content/site";
 type Key = keyof typeof delayCost.inputs;
 const keys = Object.keys(delayCost.inputs) as Key[];
 
-const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+export const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 const fmt = (k: Key, v: number) => (k === "monthly" ? usd.format(v) : k === "days" ? `${v} days` : `${v}`);
 
 /** Tweens a displayed number toward `target` (~350 ms). Jumps straight there with reduced motion. */
-function useTween(target: number) {
+export function useTween(target: number) {
   const [shown, setShown] = useState(target);
   const from = useRef(target);
   useEffect(() => {

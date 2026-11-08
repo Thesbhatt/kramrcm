@@ -1,6 +1,5 @@
 import Link from "next/link";
 import glassesCutout from "@/assets/photos/cutout-glasses.webp";
-import pairCutout from "@/assets/photos/cutout-pair.webp";
 import { closing, company, cta, legal, nav, services } from "@/content/site";
 import { Cutout } from "../ui/cutout";
 import { Logo } from "../ui/logo";
@@ -11,9 +10,8 @@ export function Footer() {
   return (
     <footer>
       <section className="band-glow relative bg-orange py-20 md:py-28" aria-labelledby="closing-title">
-        {/* Decorative clinicians standing on the band's bottom edge, one each side (wide screens only, so they never touch the text) */}
+        {/* Decorative clinician standing on the band's bottom edge (wide screens only, so it never touches the text) */}
         <Cutout src={glassesCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
-        <Cutout src={pairCutout} sizes="340px" flip delay={150} imgClassName="[mask-image:linear-gradient(90deg,transparent,black_22%)]" className="absolute bottom-0 right-[max(1.5rem,calc(50%-37.5rem))] hidden w-[340px] xl:block" />
         <Container className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-6" {...reveal()}>
           <h2 id="closing-title" className="max-w-[22ch] font-normal text-white">{closing.titleStart} {closing.titleHighlight}</h2>

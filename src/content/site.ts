@@ -276,6 +276,16 @@ export const calculatorPromo = {
   cta: "Try the calculator",
 };
 
+// Home showcase of the calculator: a live mini version of /cost-calculator (inputs and defaults come from `delayCost`).
+export const calculatorShowcase = {
+  title: "Every day out of network has a price",
+  body: "Our free cost-of-delay calculator turns your providers, collections and days waiting on a payer into the revenue on hold. Drag the sliders and watch it move.",
+  points: ["Free, no sign-up", "Runs in your browser", "Takes 10 seconds"],
+  cta: "Open the full calculator",
+  tryLabel: "Try it right here",
+  ringLabel: "days out of network",
+};
+
 export const notFound = {
   title: "We can't find that page",
   body: "The link may be old or mistyped. Head back to the homepage, or tell us what you were looking for.",

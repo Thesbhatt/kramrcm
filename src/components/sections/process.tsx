@@ -1,16 +1,27 @@
 import { process, processSection } from "@/content/site";
 import { Container, reveal, stagger } from "../ui/primitives";
 
-/** "How we work": a numbered 01 to 04 sequence (it really is one, so the numbers carry information). */
-export function Process() {
+/** "How we work": a numbered 01 to 04 sequence (it really is one, so the numbers carry information). `flush` drops the top padding when the section below a white one already supplies the gap (home). */
+export function Process({ flush = false }: { flush?: boolean }) {
   return (
-    <section id="process" className="py-20 md:py-28">
+    <section id="process" className={flush ? "pb-20 md:pb-28" : "py-20 md:py-28"}>
       <Container>
         <div className="grid gap-5 lg:grid-cols-2 lg:gap-20" {...reveal()}>
           <h2>{processSection.title}</h2>
           <p className="max-w-[48ch] text-muted lg:self-end">{processSection.body}</p>
         </div>
-        <ol className="mt-12 grid border-b border-line md:mt-16 md:grid-cols-2 lg:grid-cols-4" {...stagger}>
+        {/* Journey track (the status board's dots and glowing fill): lights up step by step when it scrolls in, large screens only */}
+        <div className="journey mt-12 hidden lg:grid md:mt-16" data-reveal aria-hidden="true">
+          {process.map((step, i) => (
+            <div key={step.title} className="flex items-center" style={{ ["--i" as string]: i }}>
+              <span className="journey-dot h-3 w-3 shrink-0 rounded-full border" />
+              {i < process.length - 1 && (
+                <span className="relative mx-2 h-[2px] flex-1 bg-line"><span className="journey-fill absolute inset-0 origin-left bg-orange" /></span>
+              )}
+            </div>
+          ))}
+        </div>
+        <ol className="mt-12 grid border-b border-line md:mt-16 lg:mt-3 md:grid-cols-2 lg:grid-cols-4" {...stagger}>
           {process.map((step, i) => (
             <li
               key={step.title}

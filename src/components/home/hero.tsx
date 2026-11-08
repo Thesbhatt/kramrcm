@@ -19,7 +19,7 @@ const photos = { tablet: tabletPhoto, team: teamPhoto, phone: phonePhoto, huddle
 export function HomeHero() {
   const slides = hero.slides.map((s) => ({ src: photos[s.id], alt: s.alt, focus: s.focus }));
   return (
-    <section className="pb-20 pt-10 md:pb-28 md:pt-16">
+    <section className="hero-diag pb-20 pt-10 md:pb-28 md:pt-16">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <div className="flex flex-col items-start">

@@ -1,5 +1,6 @@
 import { MotionObserver } from "@/components/ui/motion-observer";
 import { HomeHero } from "@/components/home/hero";
+import { CalculatorShowcase } from "@/components/sections/calculator-showcase";
 import { Faq } from "@/components/sections/faq";
 import { ProductPreview } from "@/components/sections/product-preview";
 import { Process } from "@/components/sections/process";
@@ -17,8 +18,9 @@ export default function Home() {
       <TrustedBy />
       <Stats />
       <ServiceList />
+      <CalculatorShowcase />
       <SpecialtiesPreview />
-      <Process />
+      <Process flush />
       <ProductPreview />
       <Faq limit={4} />
       <MotionObserver />

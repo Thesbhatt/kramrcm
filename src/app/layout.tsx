@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
+import { PointerGlow } from "@/components/ui/pointer-glow";
 import "./globals.css";
 
 // Self-hosted (src/fonts, Latin subset, both OFL): no build-time or runtime call to Google.
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <main id="main">{children}</main>
         </div>
         <Footer />
+        <PointerGlow />
       </body>
     </html>
   );
