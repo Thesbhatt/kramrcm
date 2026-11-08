@@ -61,17 +61,14 @@ export const stats = [
   { value: 99, suffix: "%", label: "First-time submission success rate" },
 ];
 
-// Item names follow the live site's service lists; `detail` is a one-line plain-English explanation
-// (shown on /services). Facts in details are standard US payer rules (CAQH 120-day re-attestation,
-// Medicare revalidation every 5 years / 3 for DME suppliers), not claims about Kram's results.
-export type ServiceItem = { name: string; detail: string };
+// Item names follow the live site's service lists: short labels only, no per-item explanations.
 
 export const services: {
   id: "credentialing" | "billing" | "licensing";
   eyebrow: string;
   title: string;
   body: string;
-  items: ServiceItem[];
+  items: string[];
 }[] = [
   {
     id: "credentialing",
@@ -79,13 +76,13 @@ export const services: {
     title: "Provider enrollment & credentialing",
     body: "Get every provider in network and keep them there, with one team tracking every payer and deadline.",
     items: [
-      { name: "Commercial & government payer enrollment", detail: "Applications to Medicare, Medicaid and commercial health plans, followed up until each provider is approved and loaded in the payer's system." },
-      { name: "CAQH registration & maintenance", detail: "We build your CAQH ProView profile, upload your documents and re-attest every 120 days, so payers can always pull a current record." },
-      { name: "NPI registration (Type 1 & Type 2)", detail: "Individual (Type 1) and group or facility (Type 2) NPIs, with taxonomy codes that match how you actually bill." },
-      { name: "Medicare & Medicaid enrollment", detail: "Medicare enrollment through PECOS and state Medicaid applications, including reassigning benefits to your group." },
-      { name: "Facility & group enrollment", detail: "Group, clinic and facility applications, plus linking each new provider to the group so claims pay to the right tax ID." },
-      { name: "Revalidations & demographic updates", detail: "Medicare revalidations on time, and address, tax ID or ownership changes reported to every payer before they cause denials." },
-      { name: "Provider onboarding support", detail: "One checklist for each new provider: licenses, DEA, malpractice, CV and references collected once and reused for every payer." },
+      "Commercial & government payer enrollment",
+      "CAQH registration & maintenance",
+      "NPI registration (Type 1 & Type 2)",
+      "Medicare & Medicaid enrollment",
+      "Facility & group enrollment",
+      "Revalidations & demographic updates",
+      "Provider onboarding support",
     ],
   },
   {
@@ -94,12 +91,12 @@ export const services: {
     title: "Medical billing & revenue cycle",
     body: "Clean claims out the door, denials worked fast, and payments posted and reconciled every day.",
     items: [
-      { name: "Claim submission & follow-up", detail: "Claims checked for coding and eligibility errors before they go out, then tracked with the payer until each one is paid." },
-      { name: "Denial management & appeals", detail: "We find out why each claim was denied, correct and resubmit or appeal it, and fix the root cause so it doesn't happen again." },
-      { name: "Accounts receivable (A/R) management", detail: "Unpaid claims worked by age and dollar value, with payers contacted well before balances pass 90 days." },
-      { name: "Payment posting & reconciliation", detail: "Payments from ERAs and EOBs posted and matched to your deposits, so underpayments and missing payments are caught early." },
-      { name: "Patient statements & billing support", detail: "Clear, accurate patient statements sent on schedule, with support for patient balance questions." },
-      { name: "DME billing", detail: "Billing for durable medical equipment suppliers, including the documentation and modifiers DME claims need to get paid." },
+      "Claim submission & follow-up",
+      "Denial management & appeals",
+      "Accounts receivable (A/R) management",
+      "Payment posting & reconciliation",
+      "Patient statements & billing support",
+      "DME billing",
     ],
   },
   {
@@ -108,12 +105,12 @@ export const services: {
     title: "Licensing & practice support",
     body: "Expand into new states and telehealth, and keep the day-to-day paperwork from slowing your team down.",
     items: [
-      { name: "Multi-state & telehealth licensing", detail: "State license applications and renewals for providers who move, expand, or see patients in other states by telehealth." },
-      { name: "Insurance verification & eligibility checks", detail: "Coverage, copays and deductibles confirmed before the visit, so fewer claims come back unpaid." },
-      { name: "Prior authorization management", detail: "Authorization requests sent with the right clinical documents and tracked to approval before the date of service." },
-      { name: "Credentialing database management (CAQH, Modio, etc.)", detail: "Provider records kept current in CAQH, Modio and similar platforms, with expiring licenses and certificates flagged early." },
-      { name: "Compliance & audit support", detail: "Organized, audit-ready records, and help preparing for payer audits and record requests." },
-      { name: "Ongoing payer maintenance", detail: "Re-credentialing cycles, payer roster updates and contract changes tracked for as long as you work with us." },
+      "Multi-state & telehealth licensing",
+      "Insurance verification & eligibility checks",
+      "Prior authorization management",
+      "Credentialing database management (CAQH, Modio, etc.)",
+      "Compliance & audit support",
+      "Ongoing payer maintenance",
     ],
   },
 ];
@@ -304,24 +301,6 @@ export const closing = {
   titleStart: "Ready to get your providers enrolled and",
   titleHighlight: "paid?",
   body: "Talk to us about credentialing, enrollment or billing. We'll make onboarding simple and efficient.",
-};
-
-/* ---------------- Services page ---------------- */
-
-// Extra detail per service, keyed by services[].id
-export const serviceDetail: Record<string, { outcome: string; forWho: string }> = {
-  credentialing: {
-    outcome: "Providers in network sooner, with every payer, CAQH attestation and revalidation date tracked for you.",
-    forWho: "New practices, groups adding providers, and facilities expanding payer mix.",
-  },
-  billing: {
-    outcome: "Cleaner claims, faster denials work, and A/R that stops aging past 90 days.",
-    forWho: "Practices replacing an in-house biller or an outside vendor that isn't following up.",
-  },
-  licensing: {
-    outcome: "New states and telehealth opened without your team chasing boards and portals.",
-    forWho: "Telehealth groups, multi-state practices and providers relocating.",
-  },
 };
 
 /* ---------------- About page ---------------- */

@@ -7,7 +7,7 @@ Use this to find the right file without opening the whole `src/` tree.
 |---|---|---|
 | `/` | `page.tsx` | HomeHero, Stats (`tone="strip"`), Statement, AboutIntro, ServiceCards, Process (peach band), BillingWhy, DelayCost, Testimonials (hidden, see below), SpecialtiesPreview, Why, Faq |
 | `/about-us` | `about-us/page.tsx` | PageHero, mission (inline), Stats, BillingWhy, values (inline), Why (uses `about` in content) |
-| `/services` | `services/page.tsx` | PageHero, per-service blocks (anchors `#credentialing #billing #licensing`), Process, Faq |
+| `/services` | `services/page.tsx` | PageHero, one compact card per service (photo + title + one sentence + checklist; anchors `#credentialing #billing #licensing`), Process, Faq |
 | `/specialties` | `specialties/page.tsx` | PageHero, featured + grouped specialties |
 | `/contact-us` | `contact-us/page.tsx` | PageHero, ContactForm, Faq |
 | n/a | `layout.tsx` | font, metadata template, white page frame, header, footer |

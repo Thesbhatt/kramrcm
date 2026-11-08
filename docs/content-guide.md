@@ -9,7 +9,7 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `cta` | the one primary CTA label and header label | buttons everywhere |
 | `hero` | homepage hero copy, CTAs, `trust` claims (TODO(client)) | `home/hero.tsx` |
 | `stats` | the 4 headline numbers (client must confirm, see checklist) | `sections/stats.tsx` |
-| `services`, `serviceDetail` | the 3 services; each item is `{ name, detail }` (name on cards, detail on `/services`); per-service outcome and "for who" | service cards, `/services` |
+| `services` | the 3 services; `items` are short labels only (matches the live site; no per-item explanations) | service cards, `/services` |
 | `aboutIntro` | home "About us" block (live-site copy, tightened) | `sections/about-intro.tsx` |
 | `billingWhy` | "Why choose Kram for medical billing?" (live-site copy, tightened) | `sections/billing-why.tsx` (home + About) |
 | `closing` | footer closing CTA headline + line | `site/footer.tsx` |

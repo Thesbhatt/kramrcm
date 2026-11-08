@@ -74,8 +74,8 @@ export function ServiceCards({ heading = true }: { heading?: boolean }) {
                   </div>
                   <ul className={`mt-auto flex flex-col border-t text-[0.95rem] ${dark ? "border-ink-line" : "border-line"}`}>
                     {s.items.map((it) => (
-                      <li key={it.name} className={`flex items-start gap-2.5 border-b py-2.5 last:border-b-0 last:pb-0 ${dark ? "border-ink-line" : "border-line"}`}>
-                        <Check className={`mt-1 h-4 w-4 shrink-0 ${dark ? "text-orange-soft" : "text-orange-ink"}`} /> {it.name}
+                      <li key={it} className={`flex items-start gap-2.5 border-b py-2.5 last:border-b-0 last:pb-0 ${dark ? "border-ink-line" : "border-line"}`}>
+                        <Check className={`mt-1 h-4 w-4 shrink-0 ${dark ? "text-orange-soft" : "text-orange-ink"}`} /> {it}
                       </li>
                     ))}
                   </ul>
