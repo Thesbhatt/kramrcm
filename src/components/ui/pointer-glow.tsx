@@ -8,7 +8,7 @@ import { useEffect } from "react";
  * a soft radial light there (globals.css). Fine pointers only (no touch), off under `prefers-reduced-motion`. Decorative:
  * with no JS the bands keep their static gradients. Rendered once in the layout because the footer bands live there.
  */
-const SELECTOR = ".hero-diag, .band-glow, .band-glow-ink";
+const SELECTOR = ".hero-diag, .band-glow, .band-glow-ink, .spot";
 
 export function PointerGlow() {
   useEffect(() => {

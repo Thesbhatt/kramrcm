@@ -249,11 +249,24 @@ details.faq[open]::details-content { block-size: auto; }
 @property --mx { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --my { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --ga { syntax: "<number>"; inherits: true; initial-value: 0; }
-.hero-diag, .band-glow, .band-glow-ink {
+.hero-diag, .band-glow, .band-glow-ink, .spot {
   --follow-orange: radial-gradient(480px circle at var(--mx) var(--my), rgb(247 124 39 / calc(var(--ga) * 0.26)), transparent 70%);
   --follow-light: radial-gradient(520px circle at var(--mx) var(--my), rgb(255 255 255 / calc(var(--ga) * 0.3)), transparent 70%);
   transition: --mx 0.45s var(--ease-out-soft), --my 0.45s var(--ease-out-soft), --ga 0.6s var(--ease-out-soft);
 }
+
+/* Service rows: pointer light, a left bar, a warming number and a one-time ring out of the icon */
+.spot { background-image: radial-gradient(340px circle at var(--mx) var(--my), rgb(247 124 39 / calc(var(--ga) * 0.13)), transparent 70%); }
+.svc-bar { transform: scaleY(0); transform-origin: top; box-shadow: 0 0 12px rgb(247 124 39 / 0.7); transition: transform 0.45s var(--ease-out-strong); }
+.row-link:hover .svc-bar, .row-link:focus-within .svc-bar { transform: scaleY(1); }
+.svc-num { color: var(--color-tint-2); transition: color 0.3s var(--ease-out-soft), transform 0.5s var(--ease-out-strong); }
+.row-link:hover .svc-num { color: var(--color-peach); transform: translateX(-4px); }
+.svc-icon { transition: transform 0.35s var(--ease-out-strong), box-shadow 0.35s var(--ease-out-soft); }
+.row-link:hover .svc-icon { transform: scale(1.08) rotate(-4deg); box-shadow: 0 8px 22px -6px rgb(247 124 39 / 0.8); }
+.svc-icon::after { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid var(--color-orange); opacity: 0; pointer-events: none; }
+[data-shown] .svc-icon::after { animation: svc-ring 1.5s var(--ease-out-soft) 0.5s 1 both; }
+@keyframes svc-ring { 0% { opacity: 0.85; scale: 1; } 100% { opacity: 0; scale: 1.9; } }
+@media (prefers-reduced-motion: reduce) { .svc-bar, .svc-num, .svc-icon { transition: none; } [data-shown] .svc-icon::after { animation: none; } .row-link:hover .svc-icon { transform: none; } }
 
 /* Corner glows that give flat bands depth: light + deep orange on orange bands, orange on gray ones (as on the calculator card) */
 .band-glow { background-image: var(--follow-light), radial-gradient(60% 90% at 92% 0%, rgb(255 255 255 / 0.24), transparent 62%), radial-gradient(55% 80% at 0% 100%, rgb(184 74 12 / 0.34), transparent 66%); }
