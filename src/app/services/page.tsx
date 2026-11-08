@@ -65,7 +65,7 @@ export default function ServicesPage() {
 
                   <div className="flex flex-col gap-5 px-2 pb-4 sm:px-2 lg:py-6 lg:pr-6">
                     <div className="flex items-center gap-3">
-                      <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${dark ? "bg-orange text-fg" : "bg-white text-orange-ink"}`}>
+                      <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${"bg-orange text-white"}`}>
                         <Icon name={serviceIcons[s.id]} className="h-5 w-5" />
                       </span>
                       <span className={`text-sm ${dark ? "text-orange-soft" : "text-orange-ink"}`}>0{i + 1} · {s.eyebrow}</span>

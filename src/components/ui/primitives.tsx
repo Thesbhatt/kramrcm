@@ -17,16 +17,16 @@ export function Eyebrow({ children, tone = "light" }: { children: ReactNode; ton
 }
 
 type Variant = "dark" | "soft" | "white" | "ghost-dark";
-type ButtonProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?: Variant; size?: "md" | "lg" };
+type ButtonProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?: Variant; size?: "md" | "lg" | "icon" };
 
 const base =
   "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[transform,box-shadow,background-color,color] duration-200 ease-[var(--ease-out-soft)] active:translate-y-0";
 
-const sizes = { md: "px-5 py-2.5 text-[0.95rem]", lg: "px-6 py-3.5 text-base" };
+const sizes = { md: "px-5 py-2.5 text-[0.95rem]", lg: "px-6 py-3.5 text-base", icon: "h-11 w-11" };
 
 const variants: Record<Variant, string> = {
-  dark: "bg-ink text-white hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(29_33_36/0.7)]",
-  soft: "bg-peach text-fg hover:bg-[#fcd9bd]",
+  dark: "bg-ink text-white hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)]",
+  soft: "bg-orange text-white hover:-translate-y-0.5 hover:bg-orange-ink",
   white: "bg-white text-fg ring-1 ring-line hover:ring-graphite/40",
   "ghost-dark": "text-white ring-1 ring-inset ring-white/25 hover:bg-white/8 hover:ring-white/60",
 };
@@ -51,15 +51,19 @@ export function Arrow({ className = "h-4 w-4" }: { className?: string }) {
 export function Check({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-      <path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      {/* pathLength={1} lets `.tick` draw the stroke in with a plain dash offset */}
+      <path pathLength={1} d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-/** Marks an element for scroll reveal. Visible by default; hidden only once JS has loaded. */
+/**
+ * Marks an element for scroll reveal. Visible by default; hidden only once JS has loaded.
+ * `--stagger` is the same delay without a unit: scroll-linked browsers turn it into a scroll distance (see globals.css).
+ */
 export function reveal(delayMs = 0): { "data-reveal": true; style?: CSSProperties } {
   return delayMs
-    ? { "data-reveal": true, style: { ["--reveal-delay" as string]: `${delayMs}ms` } }
+    ? { "data-reveal": true, style: { ["--reveal-delay" as string]: `${delayMs}ms`, ["--stagger" as string]: delayMs } }
     : { "data-reveal": true };
 }
 
@@ -74,7 +78,7 @@ export function Words({ text, from = 0 }: { text: string; from?: number }) {
     <>
       {words.map((w, i) => (
         <span key={`${w}-${i}`}>
-          <span className="w" style={{ ["--i" as string]: from + i }}>{w}</span>
+          <span className="w-mask"><span className="w" style={{ ["--i" as string]: from + i }}>{w}</span></span>
           {i < words.length - 1 && " "}
         </span>
       ))}
@@ -101,14 +105,15 @@ export function Highlight({ start, word, end }: { start?: string; word: string; 
 export function SectionHeading({
   eyebrow, title, body, tone = "light", align = "left", as: H = "h2",
 }: {
-  eyebrow?: string; title: ReactNode; body?: ReactNode; tone?: "light" | "dark"; align?: "left" | "center"; as?: "h1" | "h2";
+  eyebrow?: string; title: ReactNode; body?: ReactNode; tone?: "light" | "dark" | "orange"; align?: "left" | "center"; as?: "h1" | "h2";
 }) {
-  const titleColor = tone === "dark" ? "text-white" : "text-fg";
-  const bodyColor = tone === "dark" ? "text-on-ink" : "text-muted";
+  const titleColor = tone === "dark" || tone === "orange" ? "text-white" : "text-fg";
+  // Text on solid orange is white (client direction, Nov 8 2026)
+  const bodyColor = tone === "dark" ? "text-on-ink" : tone === "orange" ? "text-white" : "text-muted";
   const a = align === "center" ? "mx-auto items-center text-center" : "";
   return (
     <div className={`flex max-w-[46rem] flex-col gap-5 ${a}`}>
-      {eyebrow && <div {...reveal()}><Eyebrow tone={tone}>{eyebrow}</Eyebrow></div>}
+      {eyebrow && <div {...reveal()}><Eyebrow tone={tone === "dark" ? "dark" : "light"}>{eyebrow}</Eyebrow></div>}
       <H data-words="" className={`text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.06] ${titleColor} ${align === "center" ? "self-center" : ""}`}>
         {typeof title === "string" ? <Words text={title} /> : title}
       </H>
@@ -137,6 +142,14 @@ const icons = {
   pill: "M9.6 20.4a4.6 4.6 0 0 1-3.2-7.9l6.1-6.1a4.6 4.6 0 0 1 6.5 6.5l-6.1 6.1a4.6 4.6 0 0 1-3.3 1.4ZM9 9l6 6",
   cross: "M9 4h6v5h5v6h-5v5H9v-5H4V9h5V4Z",
   heart: "M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20Z",
+  heartPulse: "M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20ZM7 12.2h2.6l1.3-2.5 2.1 4.6 1.3-2.1H17",
+  brain: "M12 6.5A2.5 2.5 0 0 0 9.5 4 2.5 2.5 0 0 0 7 6.6a3 3 0 0 0-2 2.9c0 .9.4 1.7 1 2.2a3 3 0 0 0 .6 4.8A3 3 0 0 0 12 18V6.5Zm0 0A2.5 2.5 0 0 1 14.5 4 2.5 2.5 0 0 1 17 6.6a3 3 0 0 1 2 2.9c0 .9-.4 1.7-1 2.2a3 3 0 0 1-.6 4.8A3 3 0 0 1 12 18M6 11.7c1.5.4 2.8-.2 3.5-1.5m8.5 1.5c-1.5.4-2.8-.2-3.5-1.5",
+  bone: "M17 10c.7-.7 1.7 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .8.7 1.8 0 2.5l-7 7c-.7.7-1.7 0-2.5 0a2.5 2.5 0 0 0 0 5c.3 0 .5.2.5.5a2.5 2.5 0 1 0 5 0c0-.8-.7-1.8 0-2.5l7-7Z",
+  video: "M3.5 7h11.5v10H3.5V7Zm11.5 3.8 5.5-3.3v9l-5.5-3.3",
+  eye: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Zm9.5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
+  target: "M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17Zm0 4.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 3.5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Z",
+  briefcase: "M4 8h16v11.5H4V8Zm5 0V5h6v3M4 13.5h16",
+  calculator: "M6 3h12v18H6V3Zm3 3.5h6v3H9v-3ZM9.5 13.5h.01m2.49 0h.01m2.49 0h.01m-5.01 3.5h.01m2.49 0h.01m2.49 0h.01",
 } as const;
 
 export type IconName = keyof typeof icons;
@@ -144,7 +157,8 @@ export type IconName = keyof typeof icons;
 export function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <path d={icons[name]} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      {/* pathLength={1} lets the header nav redraw the stroke on hover with a plain dash offset */}
+      <path pathLength={1} d={icons[name]} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

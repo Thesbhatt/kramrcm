@@ -1,6 +1,8 @@
 // Single source of truth for site copy. Edit content here, not in components.
 // Items marked TODO(client) need confirmation — see docs/client-checklist.md.
 
+import type { IconName } from "@/components/ui/primitives";
+
 export const company = {
   name: "Kram Healthcare",
   tagline: "Accuracy you can count on",
@@ -17,13 +19,14 @@ export const company = {
   },
 };
 
-// Same page structure and URLs as the live site (keeps existing links and search rankings working).
-export const nav = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
-  { label: "Services", href: "/services" },
-  { label: "Specialties", href: "/specialties" },
-  { label: "Contact Us", href: "/contact-us" },
+// Existing URLs match the live site (keeps links and search rankings working); /cost-calculator is new.
+export const nav: { label: string; href: string; icon: IconName }[] = [
+  { label: "Home", href: "/", icon: "home" },
+  { label: "About Us", href: "/about-us", icon: "user" },
+  { label: "Services", href: "/services", icon: "briefcase" },
+  { label: "Specialties", href: "/specialties", icon: "stethoscope" },
+  { label: "Calculator", href: "/cost-calculator", icon: "calculator" }, // short on purpose: keeps the header row uncluttered
+  { label: "Contact Us", href: "/contact-us", icon: "chat" },
 ];
 
 export const cta = {
@@ -43,14 +46,7 @@ export const hero = {
   body: "Provider enrollment, medical billing and multi-state licensing for US practices, run by one accountable team that shows you every status, every week.",
   primaryCta: "Book a free practice review",
   secondaryCta: "Explore services",
-  partnerPrompt: "Adding providers or switching billers?",
-  // TODO(client): keep only claims that are true today
-  // The three bullets from the live site hero
-  trust: [
-    "Comprehensive credentialing & enrollment across all specialties",
-    "Efficient revenue cycle management tailored to your needs",
-    "Multi-state licensing and telehealth licensing support",
-  ],
+  carousel: { group: "Kram Healthcare services", pause: "Pause slideshow", play: "Play slideshow" },
 };
 
 // TODO(client): confirm each figure and its "as of" date
@@ -115,6 +111,27 @@ export const services: {
   },
 ];
 
+// Home hero photo carousel: one slide per service, plus specialties. `focus` is the photo's object-position.
+export const heroSlides = [
+  { id: "credentialing", tab: "Credentialing", title: services[0].title, body: services[0].body, href: "/services#credentialing", alt: "A physician in a white coat with arms crossed, holding a red stethoscope", focus: "70% 40%" },
+  { id: "billing", tab: "Medical billing", title: services[1].title, body: services[1].body, href: "/services#billing", alt: "Hands typing on a laptop with a stethoscope resting beside it", focus: "70% 60%" },
+  { id: "licensing", tab: "Licensing", title: services[2].title, body: services[2].body, href: "/services#licensing", alt: "A large brick medical center under a clear sky", focus: "75% 55%" },
+  { id: "specialties", tab: "Specialties", title: "Built for your specialty", body: "More than 45 specialties, from primary care and behavioral health to DME, pharmacy and skilled nursing.", href: "/specialties", alt: "Anatomical model of a human heart", focus: "70% 45%" },
+] as const;
+
+// Floating icons in the home hero. Names match `specialties` and the service titles. Placement is in home/hero.tsx.
+export const heroIcons = [
+  { label: "Cardiology", icon: "heartPulse", tone: "orange" },
+  { label: "Neurology", icon: "brain", tone: "glass" },
+  { label: "Credentialing", icon: "shield", tone: "white" },
+  { label: "Orthopedics", icon: "bone", tone: "glass" },
+  { label: "Pharmacy", icon: "pill", tone: "white" },
+  { label: "Medical billing", icon: "receipt", tone: "orange" },
+  { label: "Primary Care", icon: "stethoscope", tone: "glass" },
+  { label: "Licensing", icon: "map", tone: "white" },
+  { label: "Telehealth", icon: "video", tone: "glass" },
+] as const;
+
 export const process = [
   { title: "Free practice review", body: "A free consultation. We look at your payers, providers and open A/R and tell you where revenue is stuck.", time: "Day 1" },
   { title: "Onboarding & BAA", body: "We sign a Business Associate Agreement, collect documents once, and set up secure access.", time: "Week 1" },
@@ -122,21 +139,18 @@ export const process = [
   { title: "You see every status", body: "A weekly report shows each enrollment, claim batch and denial, with the next step and owner.", time: "Every week" },
 ];
 
-export const enrollmentSample = [
-  { payer: "Medicare (PECOS)", status: "Approved", tone: "ok" },
-  { payer: "CAQH re-attestation", status: "Current", tone: "ok" },
-  // `then`: the hero tracker flips this row to its next status a few seconds after load (sample data, CSS only)
-  { payer: "Aetna · Group", status: "In review", tone: "progress", then: { status: "Approved", tone: "ok" } },
-  { payer: "BCBS · Individual", status: "Docs needed", tone: "wait" },
-] as const;
-
-/* ---------------- Home: cost-of-delay calculator ---------------- */
+/* ---------------- /cost-calculator: cost-of-delay calculator ---------------- */
 
 // Pure arithmetic on the visitor's own inputs; it makes no claim about Kram's results.
 // TODO(client): confirm the default values feel typical for your clients.
 export const delayCost = {
-  eyebrow: "The cost of waiting",
-  title: "What an out-of-network provider costs you",
+  metaTitle: "Credentialing Delay Cost Calculator",
+  metaDescription: "Estimate the revenue on hold while providers wait on payer enrollment, based on your providers, monthly collections and days out of network.",
+  crumb: "Cost Calculator",
+  // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
+  titleStart: "What an out-of-network provider",
+  titleHighlight: "costs",
+  titleEnd: "you",
   body: "Until a provider is credentialed with a payer, their visits with that payer's patients can't be billed. Move the sliders to see the revenue on hold.",
   inputs: {
     providers: { label: "Providers waiting on enrollment", min: 1, max: 20, step: 1, value: 2 },
@@ -261,16 +275,13 @@ export const aboutIntro = {
   // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
   titleStart: "Your",
   titleHighlight: "trusted partner",
-  titleEnd: "in revenue cycle & provider solutions",
-  paragraphs: [
-    "Kram Healthcare helps providers and healthcare organizations run a reliable, compliant revenue cycle. We specialize in provider enrollment, credentialing, medical billing, denial management and DME billing, and we handle every step with accuracy and care.",
-    "Complex payer rules, denied claims and uneven cash flow pull your team away from patients. We take that administrative work off your plate and stay with you for the long term, to cut errors and keep revenue steady.",
-  ],
+  titleEnd: "in revenue cycle",
+  body: "Credentialing, enrollment, medical billing and denial management, handled by one team so yours can stay with patients.",
   // From the live site: "Through transparency, dedication, and innovation…"
   pillars: [
-    { title: "Transparency", body: "A weekly status on every application, claim and denial." },
-    { title: "Dedication", body: "One accountable team that knows your providers and payers." },
-    { title: "Accuracy", body: "Every application and claim checked before it goes out." },
+    { title: "Transparency", body: "Weekly status updates" },
+    { title: "Dedication", body: "One accountable team" },
+    { title: "Accuracy", body: "Checked before sending" },
   ],
   link: "More about Kram",
   photoMainAlt: "A physician reviewing a patient file with a smiling colleague",

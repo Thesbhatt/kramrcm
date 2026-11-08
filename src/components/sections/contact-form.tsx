@@ -44,7 +44,7 @@ export function ContactForm() {
   if (state.status === "success") {
     return (
       <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-[28px] bg-stone p-8 animate-rise">
-        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DDF0EC] text-success">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-peach-2 text-orange-ink">
           <svg viewBox="0 0 16 16" className="h-6 w-6" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </span>
         <h3 className="text-2xl">Thanks{state.name ? `, ${state.name}` : ""}. Your message is in.</h3>
@@ -103,7 +103,7 @@ export function ContactForm() {
         <textarea id="f-message" name="message" rows={4} defaultValue={v?.message} className={`${input} resize-y`} placeholder="e.g. Adding two new NPs in January; need Medicare and BCBS enrollment." />
       </Field>
 
-      <p className="rounded-xl bg-peach-2 px-4 py-3 text-sm text-fg ring-1 ring-[#f7d9c2]">{contact.phiNotice}</p>
+      <p className="rounded-xl bg-peach-2 px-4 py-3 text-sm text-fg ring-1 ring-peach-line">{contact.phiNotice}</p>
 
       <div className="flex flex-col gap-1.5">
         <label className="flex items-start gap-3 text-sm text-muted">
@@ -120,7 +120,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="group inline-flex items-center justify-center gap-2 self-start rounded-full bg-ink px-7 py-3.5 font-medium text-white transition-[transform,box-shadow,opacity] duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(29_33_36/0.7)] disabled:opacity-70 disabled:hover:translate-y-0"
+        className="group inline-flex items-center justify-center gap-2 self-start rounded-full bg-ink px-7 py-3.5 font-medium text-white transition-[transform,box-shadow,opacity] duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)] disabled:opacity-70 disabled:hover:translate-y-0"
       >
         {pending ? (
           <>

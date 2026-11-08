@@ -19,7 +19,7 @@ export function Testimonials() {
     <section className="pb-20 md:pb-28">
       <Container className="flex flex-col gap-12">
         {preview && (
-          <p className="rounded-2xl bg-[#E3ECF7] px-5 py-3 text-sm text-[#1F4A80]" role="note">{proof.previewNote}</p>
+          <p className="rounded-2xl bg-stone-2 px-5 py-3 text-sm text-graphite" role="note">{proof.previewNote}</p>
         )}
         <SectionHeading eyebrow={proof.eyebrow} title={proof.title} />
 
@@ -30,7 +30,7 @@ export function Testimonials() {
             <blockquote className="relative max-w-[34ch] text-[clamp(1.4rem,2.4vw,1.9rem)] font-medium leading-[1.3] tracking-[-0.02em]">
               {featured.quote}
             </blockquote>
-            <div className="relative flex flex-wrap items-end justify-between gap-6 border-t border-[#f3d6c0] pt-6">
+            <div className="relative flex flex-wrap items-end justify-between gap-6 border-t border-peach-line pt-6">
               <Person t={featured} />
               {featured.metric && (
                 <p className="flex flex-col text-right">

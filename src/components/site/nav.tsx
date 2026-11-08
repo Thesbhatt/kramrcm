@@ -2,29 +2,76 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { type SyntheticEvent, useEffect, useRef, useState } from "react";
 import { company, cta, nav } from "@/content/site";
+import { Icon } from "../ui/primitives";
 
 const isActive = (path: string, href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 
-/** Desktop links with an active-page dot. All routes are static, so usePathname resolves at build time. */
+/** Moves the highlight pill onto a list item (or hides it). Written straight to the DOM so hovering never re-renders the nav. */
+function placeGlider(glider: HTMLElement | null, item: HTMLElement | null) {
+  if (!glider) return;
+  if (!item) {
+    glider.style.opacity = "0";
+    return;
+  }
+  // offsetLeft/offsetWidth are layout values, so the header's and links' entrance transforms can't skew them
+  glider.style.opacity = "1";
+  glider.style.width = `${item.offsetWidth}px`;
+  glider.style.transform = `translateX(${item.offsetLeft}px)`;
+}
+
+const activeItem = (list: HTMLElement | null) => list?.querySelector<HTMLElement>('li:has([aria-current="page"])') ?? null;
+
+/** Desktop links: plain text at rest. A pill and icon mark the current page; both travel to whatever is hovered or focused. */
 export function DesktopNav() {
   const path = usePathname();
+  const listRef = useRef<HTMLUListElement>(null);
+  const gliderRef = useRef<HTMLSpanElement>(null);
+
+  // ResizeObserver reports once on observe, then again if fonts or the viewport change the link widths
+  useEffect(() => {
+    const list = listRef.current;
+    const glider = gliderRef.current;
+    if (!list || !glider) return;
+    const observer = new ResizeObserver(() => {
+      placeGlider(glider, activeItem(list));
+      // Transitions switch on a frame later, so the pill fades in where it belongs instead of sliding in from the left
+      requestAnimationFrame(() => glider.setAttribute("data-ready", ""));
+    });
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [path]);
+
+  const glideToTarget = (e: SyntheticEvent<HTMLUListElement>) => {
+    const item = (e.target as Element).closest("li");
+    if (item) placeGlider(gliderRef.current, item);
+  };
+  const glideHome = () => placeGlider(gliderRef.current, activeItem(listRef.current));
+
   return (
-    <nav aria-label="Main" className="hidden lg:block">
-      <ul className="flex items-center gap-1 text-[0.95rem]">
-        {nav.map((item) => {
+    <nav aria-label="Main" className="relative hidden xl:block">
+      <span ref={gliderRef} className="nav-glider" aria-hidden="true" />
+      <ul
+        ref={listRef}
+        onPointerOver={glideToTarget}
+        onPointerLeave={glideHome}
+        onFocus={glideToTarget}
+        onBlur={glideHome}
+        className="relative flex items-center gap-1 text-[0.95rem]"
+      >
+        {nav.map((item, i) => {
           const active = isActive(path, item.href);
           return (
-            <li key={item.href}>
+            <li key={item.href} className="nav-item-in" style={{ ["--i" as string]: i }}>
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 transition-colors duration-150 ${
+                className={`nav-link flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 transition-colors duration-150 ${
                   active ? "font-medium text-fg" : "text-muted hover:text-fg"
                 }`}
               >
-                <span className={`h-1.5 w-1.5 rounded-full bg-orange transition-opacity ${active ? "opacity-100" : "opacity-0"}`} aria-hidden="true" />
+                <Icon name={item.icon} className={`nav-icon h-4 w-4 shrink-0 ${active ? "text-orange-ink" : ""}`} />
                 {item.label}
               </Link>
             </li>
@@ -63,7 +110,7 @@ export function MobileMenu() {
   }, [open]);
 
   return (
-    <div ref={ref} className="lg:hidden">
+    <div ref={ref} className="xl:hidden">
       <button
         type="button"
         aria-expanded={open}
@@ -81,20 +128,21 @@ export function MobileMenu() {
       <div
         id="mobile-menu"
         data-open={open}
-        className="menu-panel absolute inset-x-3 top-[calc(100%+6px)] rounded-3xl bg-white p-3 shadow-[0_30px_60px_-24px_rgb(29_33_36/0.35)] ring-1 ring-line sm:left-auto sm:right-4 sm:w-[340px]"
+        className="menu-panel absolute inset-x-3 top-[calc(100%+6px)] rounded-3xl bg-white p-3 shadow-[0_30px_60px_-24px_rgb(47_51_54/0.35)] ring-1 ring-line sm:left-auto sm:right-4 sm:w-[340px]"
       >
         <ul className="flex flex-col">
-          {nav.map((item) => {
+          {nav.map((item, i) => {
             const active = isActive(path, item.href);
             return (
-              <li key={item.href}>
+              <li key={item.href} style={{ ["--i" as string]: i }}>
                 <Link
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   tabIndex={open ? undefined : -1}
-                  className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-[1.05rem] ${active ? "bg-peach-2 font-medium" : "hover:bg-stone"}`}
+                  className={`flex items-center gap-3 rounded-2xl px-4 py-3.5 text-[1.05rem] ${active ? "bg-peach-2 font-medium" : "hover:bg-stone"}`}
                 >
-                  {item.label}
+                  <Icon name={item.icon} className={`h-5 w-5 shrink-0 ${active ? "text-orange-ink" : "text-graphite"}`} />
+                  <span className="flex-1">{item.label}</span>
                   {active && <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />}
                 </Link>
               </li>

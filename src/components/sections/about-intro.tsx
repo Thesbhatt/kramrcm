@@ -3,29 +3,31 @@ import Link from "next/link";
 import insetPhoto from "@/assets/photos/about-clinician.jpg";
 import mainPhoto from "@/assets/photos/about-review.jpg";
 import { aboutIntro } from "@/content/site";
-import { Arrow, Container, Highlight, SectionHeading, reveal } from "../ui/primitives";
+import { Arrow, Container, Highlight, Icon, SectionHeading, reveal, type IconName } from "../ui/primitives";
 
-/** Home "About us" block (live site's "What about us"): short story, three pillars, overlapping client photos. */
+const pillarIcons: IconName[] = ["eye", "heart", "target"];
+
+/** Home "About us" block (live site's "What about us"): one-line story, three icon pillars, overlapping client photos. */
 export function AboutIntro() {
   return (
     <section className="pb-20 md:pb-28">
-      <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-stretch lg:gap-16">
-        <div className="flex flex-col justify-center gap-8">
+      <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16">
+        <div className="flex flex-col gap-8">
           <SectionHeading
             eyebrow={aboutIntro.eyebrow}
             title={<Highlight start={aboutIntro.titleStart} word={aboutIntro.titleHighlight} end={aboutIntro.titleEnd} />}
           />
-          <div className="flex max-w-[60ch] flex-col gap-4 text-lg text-muted" {...reveal(120)}>
-            {aboutIntro.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
-          </div>
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <p className="max-w-[52ch] text-lg text-muted" {...reveal(120)}>{aboutIntro.body}</p>
+          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-4">
             {aboutIntro.pillars.map((p, i) => (
-              <li key={p.title} className="rounded-[20px] bg-stone p-5" {...reveal(180 + i * 70)}>
-                <p className="flex items-center gap-2 font-medium">
-                  <span className="h-1.5 w-1.5 rounded-full bg-orange" aria-hidden="true" />
-                  {p.title}
-                </p>
-                <p className="mt-1.5 text-[0.95rem] text-muted">{p.body}</p>
+              <li key={p.title} className="flex items-center gap-3 sm:flex-col sm:items-start" {...reveal(180 + i * 70)}>
+                <span className="pop flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-peach-2 text-orange-ink">
+                  <Icon name={pillarIcons[i]} />
+                </span>
+                <div>
+                  <p className="font-medium">{p.title}</p>
+                  <p className="text-[0.95rem] text-muted">{p.body}</p>
+                </div>
               </li>
             ))}
           </ul>
@@ -35,8 +37,9 @@ export function AboutIntro() {
         </div>
 
         {/* Main photo with an inset photo overlapping its bottom-right corner (as on the live site) */}
-        <div className="relative pb-16 pr-6 sm:pb-20 sm:pr-10" {...reveal(100)}>
-          <div className="relative aspect-[19/16] overflow-hidden rounded-[28px] bg-stone lg:aspect-auto lg:h-full lg:min-h-[420px]">
+        <div className="relative pb-12 pr-6 sm:pb-14 sm:pr-8">
+          {/* Keep the photo's own 19:16 shape: stretching it to the column height crops one of the two people out. */}
+          <div className="photo relative aspect-[19/16] overflow-hidden rounded-[28px] bg-peach" {...reveal(100)}>
             <Image
               src={mainPhoto}
               alt={aboutIntro.photoMainAlt}
@@ -47,7 +50,9 @@ export function AboutIntro() {
               className="object-cover"
             />
           </div>
-          <div className="absolute bottom-0 right-0 w-[42%] overflow-hidden rounded-[22px] bg-white p-1.5 shadow-[0_24px_48px_-24px_rgb(29_33_36/0.45)]">
+          {/* Outer div drifts against the main photo on scroll; inner div is the delayed entrance. */}
+          <div className="drift-up absolute bottom-0 right-0 w-[32%]">
+            <div className="photo overflow-hidden rounded-[22px] bg-white p-1.5 shadow-[0_24px_48px_-24px_rgb(47_51_54/0.45)]" {...reveal(420)}>
             <div className="relative aspect-[517/542] overflow-hidden rounded-[17px]">
               <Image
                 src={insetPhoto}
@@ -58,6 +63,7 @@ export function AboutIntro() {
                 placeholder="blur"
                 className="object-cover"
               />
+            </div>
             </div>
           </div>
         </div>

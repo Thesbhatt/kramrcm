@@ -9,14 +9,18 @@ Read this before touching build config, motion, the contact form or anything cac
 
 ## Cache Components
 - `new Date()` and `Math.random()` are forbidden in prerendered server components. Use constants, e.g. `company.copyrightYear`.
-- Server Components by default; `"use client"` only for real interactivity (today: `site/nav.tsx`, `ui/motion-observer.tsx`, `sections/contact-form.tsx`, `sections/delay-calculator.tsx`).
+- Server Components by default; `"use client"` only for real interactivity (today: `site/nav.tsx`, `ui/motion-observer.tsx`, `sections/contact-form.tsx`, `sections/delay-calculator.tsx`, `home/hero-carousel.tsx`, `home/hero-pointer.tsx`).
 
 ## Motion (no animation library, keep it that way)
 - CSS plus one tiny client component, `src/components/ui/motion-observer.tsx`:
-  - scroll reveal via `data-reveal` (helper `reveal()` in `ui/primitives.tsx` builds the attributes)
-  - count-up via `data-count` (stats are real numbers in the HTML; JS only animates toward them)
+  - two-way scroll reveal via `data-reveal` (helper `reveal()` in `ui/primitives.tsx` builds the attributes). Entrances follow the scroll position in both directions, like the footer card: pure CSS scroll timelines where supported ("Two-way entrances" in `globals.css`), and where they aren't (Firefox today) the observer toggles `[data-shown]` both ways. Add `data-sequence` for a multi-second sequence; it only matters in that fallback, where it waits until the block's top is past 70% of the viewport
+  - count-up via `data-count` (stats are real numbers in the HTML; JS only animates toward them). Time-based on purpose, so a stat never rests on a wrong number: it replays each time it arrives from below
+- Gotcha: never wrap a `[data-reveal]` / `[data-words]` in an `overflow-hidden` or `overflow-auto` ancestor. That ancestor becomes the block's scroll container and the block stays invisible. Use `overflow-clip`. The block itself may be `overflow-hidden`.
+- Gotcha: `MotionObserver` must not set `[data-shown]` where scroll timelines exist. Transitions outrank animations in the cascade, so the base-style change would override the scrub.
 - Render `<MotionObserver />` at the END of every page, never in the layout (a layout-level one races page hydration). Each page already does this; a new page must too.
 - Header surface compaction and the statement word-darkening are CSS scroll-driven animations (`header-compact`, `word-ink` in `globals.css`). No JS.
+- `MotionObserver` also feeds scroll velocity into the `.marquee-track` CSS animations via `playbackRate` (positive only; a negative rate can end a young animation).
+- Gotcha: `overflow: hidden` makes an element a scroll container, so a plain `view()` on anything inside it never progresses. Clipped frames publish a named timeline (`.scroll-frame`, `.photo` → `--frame`; `.closing-card` → `--closing`) and children read that. Parallax uses the individual `translate`/`scale` properties so it composes with `transform` reveals.
 - Reveal starts visible if JS is off. Everything honours `prefers-reduced-motion` (rules at the bottom of `globals.css`).
 - Numbers and easing: see "Motion" in `docs/design-system.md`.
 
@@ -29,7 +33,7 @@ Read this before touching build config, motion, the contact form or anything cac
 ## Images
 - `next/image` with static imports from `src/assets/photos/` (AVIF then WebP). Photo sources are in `src/assets/photos/CREDITS.md`. They are placeholders: `TODO(client)` for real photos.
 - Compression is configured in `next.config.ts`: AVIF then WebP, `qualities: [70]` (every `<Image>` sets `quality={70}`; Next 16 coerces anything not in the allowlist), `deviceSizes` trimmed to 640–1920, and a 1-year `minimumCacheTTL` (static imports are content-hashed, so this is safe). Every `<Image>` must set an accurate `sizes` so phones download the small variant (measured: 640w AVIF ≈ 11 KB vs 193 KB source). Add `placeholder="blur"` (automatic for static imports), `loading="eager"` + `fetchPriority="high"` only for the above-the-fold image.
-- New photo: drop a ≤1600 px-wide JPG in `src/assets/photos/`; do not commit multi-MB originals.
+- New photo: drop a ≤1600 px-wide JPG in `src/assets/photos/` (1920 px for full-bleed home hero slides); do not commit multi-MB originals.
 
 ## Performance budget
 - Keep homepage first-load JS small. After any large change run `npm run build` and compare the route table sizes.

@@ -79,7 +79,7 @@ export default function SpecialtiesPage() {
             ))}
           </div>
 
-          <div className="flex flex-col items-start justify-between gap-6 rounded-[24px] bg-peach-2 p-7 ring-1 ring-[#f7d9c2] sm:flex-row sm:items-center sm:p-9" {...reveal()}>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-[24px] bg-peach-2 p-7 ring-1 ring-peach-line sm:flex-row sm:items-center sm:p-9" {...reveal()}>
             <div>
               <h3 className="text-[1.5rem]">Don&apos;t see your specialty?</h3>
               <p className="mt-1 text-muted">Ask us. If it bills to US payers, we can most likely enroll and bill for it.</p>

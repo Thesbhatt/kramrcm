@@ -36,7 +36,7 @@ export default function AboutPage() {
             loading="eager"
             className="object-cover object-[40%_center]"
           />
-          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgb(29_33_36/0.35))]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgb(47_51_54/0.35))]" />
           <div className="absolute inset-x-3 bottom-3 rounded-[20px] bg-white/95 p-5 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
             <p className="flex items-center gap-2 text-sm text-muted"><LogoMark className="h-4 w-4" /> Our promise</p>
             <p className="mt-1.5 text-[1.45rem] font-medium leading-tight tracking-[-0.03em]">{company.tagline}.</p>

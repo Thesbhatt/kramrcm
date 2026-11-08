@@ -5,20 +5,20 @@ import { Arrow, ButtonLink, Words } from "../ui/primitives";
 
 export function Footer() {
   return (
-    <footer className="px-2 pb-2 sm:px-3 sm:pb-3">
-      <div className="overflow-hidden rounded-[28px] bg-ink text-on-ink">
+    <footer>
+      <div className="closing-card overflow-hidden bg-ink text-on-ink">
         {/* Closing CTA */}
         <div className="relative mx-auto flex max-w-[1240px] flex-col gap-8 px-6 py-16 sm:px-10 md:flex-row md:items-end md:justify-between md:py-20">
-          <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.22),transparent_65%)]" />
+          <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.45),transparent_65%)]" />
           <div className="relative flex flex-col gap-4">
             <h2 className="words-view max-w-[18ch] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05] text-white">
               <Words text={closing.titleStart} />{" "}
-              <span className="text-orange-soft"><Words text={closing.titleHighlight} from={closing.titleStart.split(" ").length} /></span>
+              <span className="text-orange"><Words text={closing.titleHighlight} from={closing.titleStart.split(" ").length} /></span>
             </h2>
             <p className="max-w-[46ch] text-lg">{closing.body}</p>
           </div>
           <div className="relative flex flex-wrap gap-3">
-            <ButtonLink href={cta.href} variant="white" size="lg" className="ring-0">
+            <ButtonLink href={cta.href} variant="soft" size="lg">
               {cta.primary} <Arrow />
             </ButtonLink>
             <ButtonLink href={company.phoneHref} variant="ghost-dark" size="lg">

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#F6ECE2" };
+export const viewport: Viewport = { themeColor: "#FFFFFF" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -44,12 +44,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">
           Skip to content
         </a>
-        {/* The page sits as a rounded white canvas on a warm backdrop */}
-        <div className="p-2 sm:p-3">
-          <div className="rounded-[28px] bg-white [overflow:clip]">
-            <Header />
-            <main id="main">{children}</main>
-          </div>
+        {/* Full-bleed page. clip, not hidden: trims wide marquees/glows without breaking the sticky header */}
+        <div className="[overflow:clip]">
+          <Header />
+          <main id="main">{children}</main>
         </div>
         <Footer />
       </body>

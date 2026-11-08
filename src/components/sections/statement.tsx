@@ -12,7 +12,7 @@ export function Statement() {
           {words.map((w, i) => (
             <span key={i} className="statement-word">{w} </span>
           ))}
-          <span className="mx-1 inline-flex h-[0.95em] w-[0.95em] translate-y-[0.12em] items-center justify-center rounded-full bg-peach align-baseline" aria-hidden="true">
+          <span className="mx-1 inline-flex h-[0.95em] w-[0.95em] translate-y-[0.12em] items-center justify-center rounded-full bg-orange align-baseline" aria-hidden="true">
             <LogoMark className="h-[0.6em] w-[0.6em]" />
           </span>{" "}
           <span className="text-fg">{statement.strong}</span>
