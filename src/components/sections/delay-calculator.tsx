@@ -45,7 +45,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_1fr]">
-      <div className="spot flex flex-col gap-8 rounded-2xl bg-stone p-6 sm:p-9">
+      <div className="spot flex flex-col justify-between gap-8 rounded-2xl bg-stone p-6 sm:p-9">
         {keys.map((k) => {
           const f = delayCost.inputs[k];
           const pct = ((vals[k] - f.min) / (f.max - f.min)) * 100;

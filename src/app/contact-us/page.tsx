@@ -47,7 +47,7 @@ export default function ContactPage() {
             {channels.map((c, i) => {
               const inner = (
                 <>
-                  <Icon name={c.icon} className="pointer-events-none absolute -bottom-8 -right-6 h-44 w-44 text-orange/15 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105" />
+                  <Icon name={c.icon} className="pointer-events-none absolute bottom-6 right-6 h-24 w-24 text-orange/20 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110" />
                   <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-orange text-white shadow-[0_14px_30px_-12px_rgb(247_124_39/0.9)]"><Icon name={c.icon} className="h-6 w-6" /></span>
                   <span className="relative mt-10 block min-w-0">
                     <span className="block text-sm text-muted">{c.label}</span>
@@ -77,7 +77,7 @@ export default function ContactPage() {
           <ol className="relative grid grid-cols-1 gap-4 md:grid-cols-3" {...stagger}>
             {contactPage.steps.map((st, i) => (
               <li key={st.title} className="group spot relative flex flex-col gap-4 overflow-hidden rounded-2xl bg-white p-7 ring-1 ring-line transition-shadow duration-300 hover:shadow-[0_24px_50px_-28px_rgb(247_124_39/0.8)]">
-                <span aria-hidden="true" className="absolute -right-2 -top-4 select-none font-display text-[7rem] font-light leading-none text-tint-2 transition-colors duration-300 group-hover:text-peach">{i + 1}</span>
+                <span aria-hidden="true" className="absolute right-6 top-5 select-none font-display text-[4.5rem] font-light leading-none text-tint-2 transition-colors duration-300 group-hover:text-peach">{i + 1}</span>
                 <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-orange text-white shadow-[0_12px_26px_-10px_rgb(247_124_39/0.8)]">
                   <Icon name={(["phone", "chart", "file"] as IconName[])[i]} className="h-5 w-5" />
                 </span>

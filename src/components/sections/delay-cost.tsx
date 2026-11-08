@@ -6,7 +6,7 @@ import { DelayCalculator } from "./delay-calculator";
 export function DelayCost() {
   return (
     <>
-      <section id="calculator" className="scroll-mt-24 pb-20 md:pb-28">
+      <section id="calculator" className="scroll-mt-24 py-20 md:py-28">
         <Container>
           <div {...reveal(120)}>
             <DelayCalculator>
