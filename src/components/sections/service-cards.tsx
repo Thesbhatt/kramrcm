@@ -24,8 +24,10 @@ export function ServiceCards({ heading = true }: { heading?: boolean }) {
               <Link
                 key={s.id}
                 href={`/services#${s.id}`}
-                className={`group flex flex-col gap-6 rounded-[24px] p-7 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 sm:p-8 ${
-                  dark ? "bg-ink text-white hover:shadow-[0_30px_60px_-30px_rgb(29_33_36/0.8)] md:col-span-2 lg:col-span-1" : "bg-stone hover:shadow-[0_30px_60px_-36px_rgb(29_33_36/0.45)]"
+                className={`group flex flex-col gap-6 rounded-[24px] p-7 ring-1 ring-inset transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-1 sm:p-8 ${
+                  dark
+                    ? "bg-ink text-white ring-transparent hover:shadow-[0_30px_60px_-30px_rgb(29_33_36/0.8)] hover:ring-orange/40 md:col-span-2 lg:col-span-1"
+                    : "bg-stone ring-transparent hover:bg-white hover:shadow-[0_30px_60px_-36px_rgb(29_33_36/0.45)] hover:ring-orange/45"
                 }`}
                 {...reveal(i * 80)}
               >

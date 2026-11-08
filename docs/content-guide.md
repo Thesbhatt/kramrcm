@@ -18,6 +18,7 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 | `contact` | contact page copy and form labels | contact page |
 | `statement` | scroll-darkening statement | `sections/statement.tsx` |
 | `about` | about page copy | `/about-us` |
+| `testimonials`, `proof` | client quotes (empty, TODO(client)); section copy, placeholders and the `enabled` switch (currently `false`, section hidden) | `sections/testimonials.tsx` (home) |
 
 ## Rules for content
 - Never invent stats, testimonials, certifications, addresses or client names. Leave `TODO(client)` and add the item to `docs/client-checklist.md`.

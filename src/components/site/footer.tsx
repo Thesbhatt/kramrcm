@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { company, cta, nav, services } from "@/content/site";
+import { company, cta, legal, nav, services } from "@/content/site";
 import { Logo } from "../ui/logo";
 import { Arrow, ButtonLink, Words } from "../ui/primitives";
-
-const legal = ["Privacy Policy", "Terms of Use", "HIPAA Notice", "Accessibility"]; // TODO(client): legal pages
 
 export function Footer() {
   return (
@@ -55,7 +53,10 @@ export function Footer() {
         <div className="mx-auto flex max-w-[1240px] flex-col gap-4 border-t border-ink-line px-6 py-6 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-10">
           <p>© {company.copyrightYear} Kram Healthcare. All rights reserved.</p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {legal.map((l) => <li key={l}><a href="#" className="hover:text-white">{l}</a></li>)}
+            {/* No dead "#" links: an item becomes a link only once its page exists */}
+            {legal.map((l) => (
+              <li key={l.label}>{l.href ? <Link href={l.href} className="hover:text-white">{l.label}</Link> : <span>{l.label}</span>}</li>
+            ))}
           </ul>
         </div>
       </div>

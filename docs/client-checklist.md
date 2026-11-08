@@ -11,7 +11,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 ## Proof and claims
 - [ ] Confirm stats and how each is measured, with an "as of" date: 10+ years, 5,000+ providers, 120,000+ applications, 99% first-time submission success
 - [ ] Compliance facts that are TRUE today: sign BAAs with clients? SOC 2 / ISO 27001 / HITRUST? AAPC- or AHIMA-certified staff? Cyber insurance?
-- [ ] 2–3 testimonials: quote, full name, title, practice, state, written permission
+- [ ] 2–3 testimonials: quote, full name, title, practice, state, written permission. On receipt: add to `testimonials` in `site.ts` and set `proof.enabled = true` (section is hidden until then)
 - [ ] Client or payer logos we may show (written permission)
 - [ ] 1–2 short case studies: before/after numbers (e.g. days to enroll, denial rate, A/R days)
 

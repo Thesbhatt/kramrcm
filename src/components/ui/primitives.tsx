@@ -91,7 +91,8 @@ export function Highlight({ start, word, end }: { start?: string; word: string; 
   return (
     <>
       {start && <><Words text={start} /> </>}
-      <span className="hl"><Words text={word} from={a} /></span>
+      {/* --i lets the peach marker sweep in right after its own word lands (see .hl in globals.css) */}
+      <span className="hl" style={{ ["--i" as string]: a + b }}><Words text={word} from={a} /></span>
       {end && <> <Words text={end} from={a + b} /></>}
     </>
   );

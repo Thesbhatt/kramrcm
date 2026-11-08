@@ -38,8 +38,9 @@ export const hero = {
   titleStart: "Get credentialed faster and",
   titleHighlight: "paid",
   titleEnd: "on the first pass",
-  // Client's own hero sentence from kramhealthcare.com
-  body: "KRAM Healthcare simplifies your practice management, with accurate billing, faster credentialing, and compliant revenue cycle solutions built for modern healthcare providers.",
+  // TODO(client): approve. Replaces the live site's sentence ("KRAM Healthcare simplifies your practice management,
+  // with accurate billing, faster credentialing, and compliant revenue cycle solutions built for modern healthcare providers.")
+  body: "Provider enrollment, medical billing and multi-state licensing for US practices, run by one accountable team that shows you every status, every week.",
   primaryCta: "Book a free practice review",
   secondaryCta: "Explore services",
   partnerPrompt: "Adding providers or switching billers?",
@@ -115,9 +116,71 @@ export const process = [
 export const enrollmentSample = [
   { payer: "Medicare (PECOS)", status: "Approved", tone: "ok" },
   { payer: "CAQH re-attestation", status: "Current", tone: "ok" },
-  { payer: "Aetna · Group", status: "In review", tone: "progress" },
+  // `then`: the hero tracker flips this row to its next status a few seconds after load (sample data, CSS only)
+  { payer: "Aetna · Group", status: "In review", tone: "progress", then: { status: "Approved", tone: "ok" } },
   { payer: "BCBS · Individual", status: "Docs needed", tone: "wait" },
 ] as const;
+
+/* ---------------- Home: cost-of-delay calculator ---------------- */
+
+// Pure arithmetic on the visitor's own inputs; it makes no claim about Kram's results.
+// TODO(client): confirm the default values feel typical for your clients.
+export const delayCost = {
+  eyebrow: "The cost of waiting",
+  title: "What an out-of-network provider costs you",
+  body: "Until a provider is credentialed with a payer, their visits with that payer's patients can't be billed. Move the sliders to see the revenue on hold.",
+  inputs: {
+    providers: { label: "Providers waiting on enrollment", min: 1, max: 20, step: 1, value: 2 },
+    monthly: { label: "Expected monthly collections per provider", min: 10000, max: 100000, step: 5000, value: 40000 },
+    days: { label: "Days out of network", min: 30, max: 180, step: 15, value: 90 },
+  },
+  resultLabel: "Revenue on hold",
+  perDayLabel: "every day they wait",
+  note: "Illustrative estimate from your inputs only. Actual impact depends on payer mix and patient volume.",
+  cta: "Get a credentialing plan",
+};
+
+/* ---------------- Home: client proof ---------------- */
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string; // e.g. "Practice Manager"
+  practice: string;
+  state: string; // US state, e.g. "TX"
+  metric?: { value: string; label: string }; // optional before/after result, e.g. { value: "38 days", label: "to full Medicare enrollment" }
+};
+
+// TODO(client): 2–3 real quotes with full name, role, practice, state and WRITTEN permission.
+// Never fill it with invented quotes.
+export const testimonials: Testimonial[] = [];
+
+export const proof = {
+  // HIDDEN for now (dev and production). To enable once real quotes are in `testimonials`: set to true.
+  // With `enabled: true` and `testimonials` still empty, production renders nothing and
+  // `npm run dev` shows the labelled placeholders below for layout review.
+  enabled: false,
+  eyebrow: "Client results",
+  title: "Practices that stopped chasing payers",
+  previewNote: "Design preview (development only): add real, approved quotes to `testimonials` in src/content/site.ts to publish this section.",
+  placeholders: [
+    {
+      quote: "[Client quote, two or three sentences, about a specific result: e.g. how fast providers were enrolled, or what happened to denials and A/R.]",
+      name: "[Full name]", role: "[Role]", practice: "[Practice name]", state: "[ST]",
+      metric: { value: "[##]", label: "[Before/after result]" },
+    },
+    { quote: "[Shorter client quote, one or two sentences.]", name: "[Full name]", role: "[Role]", practice: "[Practice name]", state: "[ST]" },
+    { quote: "[Shorter client quote, one or two sentences.]", name: "[Full name]", role: "[Role]", practice: "[Practice name]", state: "[ST]" },
+  ] satisfies Testimonial[],
+};
+
+export const legal = [
+  // TODO(client): legal pages (lawyer's text). Items render as plain text until an href is set.
+  { label: "Privacy Policy", href: null as string | null },
+  { label: "Terms of Use", href: null as string | null },
+  { label: "HIPAA Notice", href: null as string | null },
+  { label: "Accessibility", href: null as string | null },
+];
 
 export const specialties = [
   "Family Medicine", "Internal Medicine", "Primary Care", "Cardiology", "Dermatology", "Pediatrics",

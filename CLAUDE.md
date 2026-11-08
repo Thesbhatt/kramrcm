@@ -24,6 +24,7 @@ Task shortcuts:
 - New page: copy a route in `components.md`, add to `nav` and `sitemap.ts`, end it with `<MotionObserver />`.
 - New section: copy in `site.ts`, component in `src/components/sections/`, tokens only.
 - Contact form change: `src/app/actions/contact.ts` + `sections/contact-form.tsx`.
+- Testimonials: section is **hidden on purpose** (`proof.enabled = false` in `site.ts`) until the client sends real, approved quotes. Do not re-enable or delete it unless asked; to enable, fill `testimonials` and flip the flag.
 
 ## Hard rules (always apply)
 - Server Components by default; `"use client"` only for real interactivity.
