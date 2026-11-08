@@ -6,11 +6,14 @@ export function Faq({ limit }: { limit?: number }) {
   return (
     <section id="faq" className="pb-20 md:pb-28">
       <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <SectionHeading
-          eyebrow="FAQ"
-          title="Questions practices ask us first"
-          body={<>Can&apos;t find your answer? Call <a href={company.phoneHref} className="font-medium text-fg underline decoration-orange underline-offset-4">{company.phoneDisplay}</a> and we&apos;ll walk you through it.</>}
-        />
+        {/* Sticky on desktop: the heading rides alongside a long (or expanding) question list instead of leaving a gap under it. */}
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <SectionHeading
+            eyebrow="FAQ"
+            title="Questions practices ask us first"
+            body={<>Can&apos;t find your answer? Call <a href={company.phoneHref} className="font-medium text-fg underline decoration-orange underline-offset-4">{company.phoneDisplay}</a> and we&apos;ll walk you through it.</>}
+          />
+        </div>
         <div className="flex flex-col gap-3" {...reveal(100)}>
           {list.map((f) => (
             <details key={f.q} className="faq group rounded-[20px] bg-stone px-5 transition-colors open:bg-peach-2 sm:px-7">

@@ -22,6 +22,8 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [ ] Where the team works (US / offshore / mixed); how they want it described
 - [ ] Founding year, founder/leadership names, headshots (for About page)
 - [ ] Real photos (team at work, office, or partner clinics) to replace the 3 Unsplash placeholders in `src/assets/photos/` (home hero, About hero, About mission). Landscape, 1600px+ wide.
+- [ ] Confirm rights to the 6 photos reused from the live site (`about-*`, `billing-team`, `service-*` in `src/assets/photos/CREDITS.md`)
+- [ ] Approve the tightened versions of the live-site copy (`aboutIntro`, `billingWhy`, service item explanations, new FAQs on CAQH, DME and revalidation)
 - [ ] Correct social URLs (current Instagram link points to a single post)
 
 ## Content decisions

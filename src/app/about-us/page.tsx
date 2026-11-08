@@ -3,6 +3,7 @@ import Image from "next/image";
 import patientPhoto from "@/assets/photos/clinician-patient.jpg";
 import teamPhoto from "@/assets/photos/practice-team.jpg";
 import { MotionObserver } from "@/components/ui/motion-observer";
+import { BillingWhy } from "@/components/sections/billing-why";
 import { PageHero } from "@/components/sections/page-hero";
 import { Stats } from "@/components/sections/stats";
 import { Why } from "@/components/sections/why";
@@ -47,7 +48,7 @@ export default function AboutPage() {
       {/* Mission */}
       <section className="pb-20 md:pb-28">
         <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <SectionHeading eyebrow="Our mission" title={about.mission.title} />
+          <div className="lg:sticky lg:top-28 lg:self-start"><SectionHeading eyebrow="Our mission" title={about.mission.title} /></div>
           <div className="flex flex-col gap-5 text-lg text-muted lg:pt-14" {...reveal(100)}>
             {about.mission.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
           </div>
@@ -67,15 +68,7 @@ export default function AboutPage() {
 
       <Stats />
 
-      {/* Why choose us for billing (client copy) */}
-      <section className="pb-20 md:pb-28">
-        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <SectionHeading eyebrow="Why choose us" title={about.whyBilling.title} />
-          <div className="flex flex-col gap-5 text-lg text-muted lg:pt-14" {...reveal(100)}>
-            {about.whyBilling.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
-          </div>
-        </Container>
-      </section>
+      <BillingWhy />
 
       {/* Values */}
       <section className="pb-20 md:pb-28">

@@ -61,20 +61,31 @@ export const stats = [
   { value: 99, suffix: "%", label: "First-time submission success rate" },
 ];
 
-export const services = [
+// Item names follow the live site's service lists; `detail` is a one-line plain-English explanation
+// (shown on /services). Facts in details are standard US payer rules (CAQH 120-day re-attestation,
+// Medicare revalidation every 5 years / 3 for DME suppliers), not claims about Kram's results.
+export type ServiceItem = { name: string; detail: string };
+
+export const services: {
+  id: "credentialing" | "billing" | "licensing";
+  eyebrow: string;
+  title: string;
+  body: string;
+  items: ServiceItem[];
+}[] = [
   {
     id: "credentialing",
     eyebrow: "Front of the cycle",
     title: "Provider enrollment & credentialing",
     body: "Get every provider in network and keep them there, with one team tracking every payer and deadline.",
     items: [
-      "Commercial & government payer enrollment",
-      "CAQH registration and re-attestation",
-      "NPI Type 1 & Type 2 registration",
-      "Medicare (PECOS) & Medicaid enrollment",
-      "Facility & group enrollment",
-      "Revalidations & demographic updates",
-      "Provider onboarding support",
+      { name: "Commercial & government payer enrollment", detail: "Applications to Medicare, Medicaid and commercial health plans, followed up until each provider is approved and loaded in the payer's system." },
+      { name: "CAQH registration & maintenance", detail: "We build your CAQH ProView profile, upload your documents and re-attest every 120 days, so payers can always pull a current record." },
+      { name: "NPI registration (Type 1 & Type 2)", detail: "Individual (Type 1) and group or facility (Type 2) NPIs, with taxonomy codes that match how you actually bill." },
+      { name: "Medicare & Medicaid enrollment", detail: "Medicare enrollment through PECOS and state Medicaid applications, including reassigning benefits to your group." },
+      { name: "Facility & group enrollment", detail: "Group, clinic and facility applications, plus linking each new provider to the group so claims pay to the right tax ID." },
+      { name: "Revalidations & demographic updates", detail: "Medicare revalidations on time, and address, tax ID or ownership changes reported to every payer before they cause denials." },
+      { name: "Provider onboarding support", detail: "One checklist for each new provider: licenses, DEA, malpractice, CV and references collected once and reused for every payer." },
     ],
   },
   {
@@ -83,25 +94,26 @@ export const services = [
     title: "Medical billing & revenue cycle",
     body: "Clean claims out the door, denials worked fast, and payments posted and reconciled every day.",
     items: [
-      "Claim submission & follow-up",
-      "Denial management & appeals",
-      "Accounts receivable (A/R) recovery",
-      "Payment posting & reconciliation",
-      "Patient statements & billing support",
+      { name: "Claim submission & follow-up", detail: "Claims checked for coding and eligibility errors before they go out, then tracked with the payer until each one is paid." },
+      { name: "Denial management & appeals", detail: "We find out why each claim was denied, correct and resubmit or appeal it, and fix the root cause so it doesn't happen again." },
+      { name: "Accounts receivable (A/R) management", detail: "Unpaid claims worked by age and dollar value, with payers contacted well before balances pass 90 days." },
+      { name: "Payment posting & reconciliation", detail: "Payments from ERAs and EOBs posted and matched to your deposits, so underpayments and missing payments are caught early." },
+      { name: "Patient statements & billing support", detail: "Clear, accurate patient statements sent on schedule, with support for patient balance questions." },
+      { name: "DME billing", detail: "Billing for durable medical equipment suppliers, including the documentation and modifiers DME claims need to get paid." },
     ],
   },
   {
     id: "licensing",
     eyebrow: "Around the cycle",
     title: "Licensing & practice support",
-    body: "Expand into new states and telehealth without the paperwork slowing you down.",
+    body: "Expand into new states and telehealth, and keep the day-to-day paperwork from slowing your team down.",
     items: [
-      "Multi-state & telehealth licensing",
-      "Insurance verification & eligibility",
-      "Prior authorization management",
-      "Credentialing database upkeep (CAQH, Modio)",
-      "Compliance & audit support",
-      "Ongoing payer maintenance",
+      { name: "Multi-state & telehealth licensing", detail: "State license applications and renewals for providers who move, expand, or see patients in other states by telehealth." },
+      { name: "Insurance verification & eligibility checks", detail: "Coverage, copays and deductibles confirmed before the visit, so fewer claims come back unpaid." },
+      { name: "Prior authorization management", detail: "Authorization requests sent with the right clinical documents and tracked to approval before the date of service." },
+      { name: "Credentialing database management (CAQH, Modio, etc.)", detail: "Provider records kept current in CAQH, Modio and similar platforms, with expiring licenses and certificates flagged early." },
+      { name: "Compliance & audit support", detail: "Organized, audit-ready records, and help preparing for payer audits and record requests." },
+      { name: "Ongoing payer maintenance", detail: "Re-credentialing cycles, payer roster updates and contract changes tracked for as long as you work with us." },
     ],
   },
 ];
@@ -217,11 +229,16 @@ export const timelines = [
 ];
 // TODO(client): confirm typical timelines before launch
 
+// Home shows the first 4; /services and /contact-us show all.
 export const faqs = [
   { q: "How long does provider credentialing take?", a: "Most commercial payers take 60 to 120 days from a complete application. Medicare usually takes 30 to 60 days. We start with the slowest payers first and send you a status report every week." },
-  { q: "Do you sign a Business Associate Agreement (BAA)?", a: "Yes. Every engagement that involves protected health information starts with a signed BAA, and access is limited to what the work requires." },
+  { q: "What's the difference between credentialing and enrollment?", a: "Credentialing verifies a provider's education, licenses, training and work history. Enrollment is the application that adds the provider to a payer's network so claims can be paid. A payer needs both before it will reimburse you, and we handle both." },
   { q: "Can you take over from our current biller?", a: "Yes. We audit your open A/R and pending applications, then run a planned handover so no claims or deadlines are dropped." },
   { q: "Which specialties do you work with?", a: "More than 45, from primary care and behavioral health to DME, pharmacy and skilled nursing. If yours isn't listed, ask us." },
+  { q: "What is CAQH, and why does it matter?", a: "CAQH ProView is the shared database most commercial payers use to check a provider's credentials. The profile must be complete and re-attested every 120 days, or applications stall. We set it up and keep it current for you." },
+  { q: "Do you handle DME billing?", a: "Yes. DME billing is one of our specialties, from supplier enrollment and revalidation to claims with the documentation and modifiers durable medical equipment requires." },
+  { q: "How often does Medicare enrollment need to be revalidated?", a: "Most providers revalidate every 5 years, and DME suppliers every 3 years. Medicare posts due dates in advance; we track them so billing privileges don't lapse." },
+  { q: "Do you sign a Business Associate Agreement (BAA)?", a: "Yes. Every engagement that involves protected health information starts with a signed BAA, and access is limited to what the work requires." },
   { q: "How is pricing structured?", a: "Credentialing is priced per provider and payer. Billing is usually a percentage of collections. You get a written quote after the free review." },
   { q: "Do you work with practices in every state?", a: "Yes. We enroll and license providers in all 50 states, including telehealth providers who see patients across state lines." },
 ];
@@ -239,6 +256,54 @@ export const contact = {
 export const statement = {
   muted: "One partner for everything between a new provider and a",
   strong: "paid claim.",
+};
+
+// "What about us" block from the live homepage, tightened for scanning. Full mission stays on /about-us.
+export const aboutIntro = {
+  eyebrow: "About us",
+  // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
+  titleStart: "Your",
+  titleHighlight: "trusted partner",
+  titleEnd: "in revenue cycle & provider solutions",
+  paragraphs: [
+    "Kram Healthcare helps providers and healthcare organizations run a reliable, compliant revenue cycle. We specialize in provider enrollment, credentialing, medical billing, denial management and DME billing, and we handle every step with accuracy and care.",
+    "Complex payer rules, denied claims and uneven cash flow pull your team away from patients. We take that administrative work off your plate and stay with you for the long term, to cut errors and keep revenue steady.",
+  ],
+  // From the live site: "Through transparency, dedication, and innovation…"
+  pillars: [
+    { title: "Transparency", body: "A weekly status on every application, claim and denial." },
+    { title: "Dedication", body: "One accountable team that knows your providers and payers." },
+    { title: "Accuracy", body: "Every application and claim checked before it goes out." },
+  ],
+  link: "More about Kram",
+  photoMainAlt: "A physician reviewing a patient file with a smiling colleague",
+  photoInsetAlt: "A smiling clinician in a white coat with arms crossed",
+};
+
+// "Why choose KRAM for medical billing?" from the live About page, shortened. Used on home and /about-us.
+export const billingWhy = {
+  eyebrow: "Why choose us",
+  titleStart: "Why choose Kram for",
+  titleHighlight: "medical billing?",
+  paragraphs: [
+    "Accurate, on-time billing is the backbone of a healthy practice. Our team works to maximize your revenue, reduce claim denials and speed up reimbursements, across medical billing, denial management and DME billing.",
+    "We pair industry knowledge and modern tools with a client-first approach: transparent reporting, compliant processes and a focus on results, held to high standards of integrity and professionalism.",
+  ],
+  benefits: [
+    "Maximize collections",
+    "Fewer claim denials",
+    "Faster reimbursements",
+    "DME billing expertise",
+  ],
+  link: "See billing services",
+  photoAlt: "A billing team working on laptops at a shared desk",
+};
+
+// Closing CTA in the footer. Body is the live site's "Feel free to connect with us" line.
+export const closing = {
+  titleStart: "Ready to get your providers enrolled and",
+  titleHighlight: "paid?",
+  body: "Talk to us about credentialing, enrollment or billing. We'll make onboarding simple and efficient.",
 };
 
 /* ---------------- Services page ---------------- */
@@ -274,13 +339,6 @@ export const about = {
       "At KRAM Healthcare, our mission is to empower healthcare providers and organizations by delivering reliable, efficient, and compliant revenue cycle management solutions. We specialize in provider enrollment, credentialing, medical billing, denial management, and DME billing, ensuring that every step of the process is handled with accuracy and care.",
       "We understand the challenges healthcare professionals face, from navigating complex payer requirements to resolving claim denials and maintaining steady cash flow. That's why we are committed to removing administrative burdens so providers can focus on what truly matters: delivering quality care to patients.",
       "Through transparency, dedication, and innovation, we strive to become a trusted partner to providers and healthcare organizations. Our goal is not just to manage billing and credentialing, but to optimize revenue cycles, minimize errors, and build long-term success for every client we serve.",
-    ],
-  },
-  whyBilling: {
-    title: "Why choose KRAM for medical billing?",
-    paragraphs: [
-      "At KRAM Healthcare, we understand that accurate and timely billing is the backbone of a successful healthcare practice. Our team is dedicated to providing comprehensive medical billing solutions that maximize revenue, reduce claim denials, and ensure faster reimbursements. With expertise in billing, denial management, and DME billing, we handle the complexities of the revenue cycle so providers can focus entirely on patient care.",
-      "We combine industry knowledge, advanced tools, and a client-first approach to deliver transparent, compliant, and results-driven services. Whether it's minimizing errors, resolving denied claims, or streamlining billing operations, KRAM Healthcare is committed to improving your financial performance while maintaining the highest standards of integrity and professionalism.",
     ],
   },
   values: [

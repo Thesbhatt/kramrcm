@@ -3,7 +3,7 @@ import Link from "next/link";
 import heroPhoto from "@/assets/photos/clinician-workstation.jpg";
 import { cta, enrollmentSample, hero } from "@/content/site";
 import { LogoMark } from "../ui/logo";
-import { Arrow, ButtonLink, Container, Highlight, Icon } from "../ui/primitives";
+import { Arrow, ButtonLink, Check, Container, Highlight, Icon } from "../ui/primitives";
 
 export const statusTone = {
   ok: "bg-[#DDF0EC] text-[#155A52]",
@@ -23,7 +23,17 @@ export function HomeHero() {
               <Highlight start={hero.titleStart} word={hero.titleHighlight} end={hero.titleEnd} />
             </h1>
             <p className="animate-rise max-w-[44ch] text-lg text-muted [animation-delay:300ms]">{hero.body}</p>
-            <div className="animate-rise flex flex-wrap gap-3 pt-1 [animation-delay:380ms]">
+            <ul className="animate-rise flex flex-col gap-2 [animation-delay:340ms]">
+              {hero.trust.map((t) => (
+                <li key={t} className="flex items-start gap-2.5 text-[1rem]">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-peach text-orange-ink">
+                    <Check className="h-3 w-3" />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="animate-rise flex flex-wrap gap-3 pt-1 [animation-delay:420ms]">
               <ButtonLink href={cta.href} size="lg">{hero.primaryCta} <Arrow /></ButtonLink>
               <ButtonLink href="/services" variant="soft" size="lg">{hero.secondaryCta}</ButtonLink>
             </div>
