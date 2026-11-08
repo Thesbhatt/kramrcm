@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { MotionObserver } from "@/components/ui/motion-observer";
 import phoneCutout from "@/assets/photos/cutout-phone.webp";
-import { PageHero } from "@/components/sections/page-hero";
+import { PageStage } from "@/components/sections/page-stage";
+import { SpecialtyExplorer } from "@/components/sections/specialty-explorer";
+import { SpecialtyDial } from "@/components/sections/stage-visuals";
 import { featuredIcons, groupIcons } from "@/components/sections/specialties-preview";
 import { Cutout } from "@/components/ui/cutout";
 import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal } from "@/components/ui/primitives";
-import { company, cta, featuredSpecialties, specialties, specialtyGroups } from "@/content/site";
+import { company, cta, featuredSpecialties, specialties, specialtiesPage, specialtyGroups } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Specialties We Support",
@@ -14,72 +16,60 @@ export const metadata: Metadata = {
   alternates: { canonical: "/specialties" },
 };
 
+// Bento placement for the six featured cards on wide screens (6-column grid).
+const span = ["lg:col-span-3 lg:row-span-2", "lg:col-span-3", "lg:col-span-3", "lg:col-span-2", "lg:col-span-2", "lg:col-span-2"];
+
 export default function SpecialtiesPage() {
+  const groups = specialtyGroups.map((g) => ({ name: g.name, items: g.items, icon: groupIcons[g.name] ?? "stethoscope" as const }));
   return (
     <>
-      <PageHero
+      <PageStage
         crumb="Specialties"
-        start="Credentialing and billing for"
-        word={`${specialties.length} specialties`}
-        body="Each specialty has its own payers, prior authorization rules and enrollment paperwork. We already know where each one gets stuck."
-      >
-        <div className="grid grid-cols-2 gap-3">
-          {[
-            [String(specialties.length), "specialties supported"],
-            [String(specialtyGroups.length), "practice categories"],
-            ["50", "states, plus telehealth"],
-            ["1", "team for credentialing and billing"],
-          ].map(([n, l]) => (
-            <div key={l} className="rounded-xl bg-stone p-5">
-              <p className="font-display text-[2.2rem] font-light leading-none tracking-[-0.02em] tabular-nums"><span data-count={n}>{n}</span></p>
-              <p className="mt-2 text-sm text-muted">{l}</p>
-            </div>
-          ))}
-        </div>
-      </PageHero>
+        title={`Credentialing and billing for ${specialties.length} specialties`}
+        mark={String(specialties.length)}
+        body={specialtiesPage.body}
+        actions={
+          <>
+            <ButtonLink href={cta.href}>{cta.primary}</ButtonLink>
+            <ButtonLink href="#explorer" variant="white">Find your specialty <Arrow /></ButtonLink>
+          </>
+        }
+        visual={<SpecialtyDial />}
+      />
 
-      {/* Featured */}
-      <section className="pb-20 md:pb-28">
+      {/* Featured: a bento of the six we see most */}
+      <section className="py-20 md:py-28">
         <Container className="flex flex-col gap-10">
-          <SectionHeading eyebrow="Where we go deepest" title="Specialties we see most" />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredSpecialties.map((s, i) => (
-              <div key={s.name} className={`flex flex-col gap-10 rounded-xl p-7 ${i === 0 ? "bg-orange text-white" : "bg-stone"}`} {...reveal(i * 60)}>
-                <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${i === 0 ? "bg-white text-orange-ink" : "bg-white text-orange-ink"}`}>
-                  <Icon name={featuredIcons[i]} className="h-6 w-6" />
-                </span>
-                <div>
-                  <h3 className="text-[1.5rem] leading-tight">{s.name}</h3>
-                  <p className={`mt-2 ${i === 0 ? "text-white" : "text-muted"}`}>{s.note}</p>
+          <SectionHeading eyebrow={specialtiesPage.featured.label} title={specialtiesPage.featured.title} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+            {featuredSpecialties.map((s, i) => {
+              const hero = i === 0;
+              return (
+                <div
+                  key={s.name}
+                  className={`spot relative flex min-h-[220px] flex-col justify-between gap-10 overflow-hidden rounded-2xl p-7 ${span[i]} ${hero ? "band-glow bg-orange text-white" : "bg-tint"}`}
+                  {...reveal(i * 70)}
+                >
+                  <Icon name={featuredIcons[i]} className={`pointer-events-none absolute -bottom-8 -right-6 h-48 w-48 ${hero ? "text-white/20" : "text-orange/15"}`} />
+                  <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-orange-ink shadow-[0_12px_28px_-14px_rgb(47_51_54/0.5)]">
+                    <Icon name={featuredIcons[i]} className="h-6 w-6" />
+                  </span>
+                  <div className="relative">
+                    <h3 className={`leading-tight ${hero ? "text-[clamp(1.75rem,3vw,2.4rem)]" : "text-[1.5rem]"}`}>{s.name}</h3>
+                    <p className={`mt-2 max-w-[34ch] ${hero ? "text-white" : "text-muted"}`}>{s.note}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Container>
       </section>
 
-      {/* Full list by category */}
-      <section className="pb-20 md:pb-28">
+      {/* Every specialty: searchable, filterable */}
+      <section id="explorer" className="scroll-mt-24 bg-white pb-20 md:pb-28">
         <Container className="flex flex-col gap-10">
-          <SectionHeading eyebrow="Full list" title="Every specialty, by category" />
-          <div className="columns-1 gap-4 md:columns-2 xl:columns-3">
-            {specialtyGroups.map((g, i) => (
-              <div key={g.name} className="mb-4 break-inside-avoid rounded-xl bg-stone p-6 sm:p-7" {...reveal(i * 50)}>
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-orange-ink">
-                    <Icon name={groupIcons[g.name] ?? "stethoscope"} />
-                  </span>
-                  <h3 className="text-[1.2rem]">{g.name}</h3>
-                  <span className="ml-auto text-sm tabular-nums text-muted">{g.items.length}</span>
-                </div>
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {g.items.map((it) => (
-                    <li key={it} className="rounded-full bg-white px-3.5 py-1.5 text-[0.92rem] ring-1 ring-line">{it}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <SectionHeading eyebrow={specialtiesPage.explorer.label} title={specialtiesPage.explorer.title} />
+          <SpecialtyExplorer groups={groups} copy={specialtiesPage.explorer} ctaHref={cta.href} ctaLabel={cta.primary} />
 
           {/* Orange banner; on wide screens the clinician stands on its bottom edge and her head rises above the top */}
           <div className="band-glow relative mt-10 rounded-2xl bg-orange px-7 py-9 sm:px-9 md:pl-[300px]" {...reveal()}>

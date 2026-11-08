@@ -5,10 +5,10 @@ Use this to find the right file without opening the whole `src/` tree.
 ## Routes (`src/app/`, same URLs as the live site except the new `/cost-calculator`)
 | URL | File | Sections it renders |
 |---|---|---|
-| `/` | `page.tsx` | HomeHero (split copy/photo + floating status chips), SpecialtyMarquee, TrustedBy (renders nothing until `trust.logos` has real logos), Stats, ServiceList, CalculatorShowcase (live mini calculator), SpecialtiesPreview, Process (01 to 04), ProductPreview (copy + animated status board), Faq (4). The closing CTA band and footer come from the layout |
-| `/about-us` | `about-us/page.tsx` | PageHero, mission (inline), Leadership (hidden until `trust.leaders` has data), Stats, BillingWhy, values (inline), Why |
-| `/services` | `services/page.tsx` | PageHero, one compact card per service (photo + title + one sentence + checklist; anchors `#credentialing #billing #licensing`), Process, Faq |
-| `/specialties` | `specialties/page.tsx` | PageHero, featured + grouped specialties |
+| `/` | `page.tsx` | HomeHero (split copy/photo + floating status chips), SpecialtyMarquee, TrustedBy (renders nothing until `trust.logos` has real logos), Stats, ServiceList, ClaimAnatomy, CalculatorShowcase (live mini calculator), SpecialtiesPreview, Process (01 to 04), ProductPreview (copy + animated status board), Faq (4). The closing CTA band and footer come from the layout |
+| `/about-us` | `about-us/page.tsx` | PageStage + ClaimSheet, mission (lead paragraph + photo collage, inline), Stats, values bento (inline), Leadership (hidden until `trust.leaders` has data), BillingWhy, Why |
+| `/services` | `services/page.tsx` | PageStage + CycleRing, ServiceChapters (one full-width chapter per service: sticky intro, sample dashboard, capability grid; anchors `#credentialing #billing #licensing`), Process, Faq |
+| `/specialties` | `specialties/page.tsx` | PageStage + SpecialtyDial, featured bento, SpecialtyExplorer (search + category filter, `#explorer`), orange banner |
 | `/cost-calculator` | `cost-calculator/page.tsx` | PageHero, DelayCost |
 | `/contact-us` | `contact-us/page.tsx` | PageHero, call/email/next-steps cards, orange band (headline + doctor cutout `contact-doctor.webp` left, ContactForm right), Faq |
 | any unknown URL | `not-found.tsx` | branded 404 on white (copy in `notFound`); Next adds the 404 status and noindex |
@@ -34,11 +34,14 @@ Every page ends with `<MotionObserver />`.
 | `home/status-board.tsx` | the framed "Practice status board" of a SAMPLE practice, used in `product-preview.tsx`; CSS-only sequence started by `MotionObserver` when visible (see `docs/architecture.md`). Data: `statusBoard` in `site.ts` |
 | `sections/trusted-by.tsx` | "Trusted by" logo strip; renders nothing while `trust.logos` is empty (TODO(client)) |
 | `sections/service-list.tsx` | home services: orange band, headline + animated duo cutout left, white card right with the three services (icon, title, sentence, item list, "Learn more"). Was hairline rows: icon tile (`serviceIcons`), title, sentence, the service's full item list (same labels as `/services`, check marks) and "Learn more →" (links to `/services#id`). Copy: `servicesSection` + `services` |
+| `sections/claim-anatomy.tsx` | Home, after services: "Anatomy of a clean claim". A sample claim form (illustrative) beside five checks; hovering or focusing a check lights its field via CSS `:has` (`.anat*` in `globals.css`), and fields scan once on first view. Copy: `claimAnatomy` |
 | `sections/stats.tsx` | orange stats band (white numerals): 4 cells, real numbers from `stats`, counted up on first view. No props |
-| `sections/process.tsx` | numbered 01 to 04 "How we work" (home + `/services`). Copy: `processSection` + `process` |
+| `sections/process.tsx` | tinted cards (icon tile, watermark numeral) under the journey track, numbered 01 to 04 "How we work" (home + `/services`). Copy: `processSection` + `process` |
 | `sections/product-preview.tsx` | "Every status, every week, in one report": copy left, the animated `StatusBoard` right. Copy: `productSection` |
 | `sections/specialties-preview.tsx` | exports `SpecialtiesPreview` (home, after Services: "Know-how across [50] specialties", orange `.hl` number, six featured cards) and `SpecialtyMarquee` (home, right under the hero: two-row marquee of every specialty + `ui/marquee-toggle.tsx` pause button). Ported from `main`. Also exports `featuredIcons` / `groupIcons` used by the specialties page |
 | `sections/faq.tsx` | hairline accordion (`<details>`); copy: `faqSection` + `faqs` |
+| `sections/page-stage.tsx`, `stage-visuals.tsx` | `PageStage`: immersive hero for About/Services/Specialties (home hero atmosphere + a visual on the right). Visuals: `ClaimSheet` (claim form fills, ticks, stamped), `CycleRing` (revenue-cycle ring), `SpecialtyDial` (category dial + count-up). CSS one-shots (`.cyc-*`, `.dial-*`, `.sheet-*` in `globals.css`); copy in `aboutPage`/`servicesPage`/`specialtiesPage` |
+| `sections/service-chapters.tsx`, `specialty-explorer.tsx` | Services chapters with sample dashboards (generic, labeled illustrative); client search/filter for all 50 specialties (all tiles in server HTML) |
 | `sections/page-hero.tsx` | hero for inner pages (left-aligned h1, breadcrumb) |
 | `sections/service-cards.tsx` | cards with photos used on `/services`; exports `serviceIcons`, `servicePhotos` |
 | `sections/why.tsx`, `billing-why.tsx`, `leadership.tsx` | About-page sections (inherit the new tokens; not redesigned) |

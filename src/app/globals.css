@@ -354,3 +354,51 @@ details.faq[open]::details-content { block-size: auto; }
   .board-row[data-end="done"] .board-fill { transform: scaleX(1); }
   .board-row .board-dot-2, .board-row[data-end="done"] .board-dot-3 { animation: none; background-color: var(--color-orange); border-color: var(--color-orange); }
 }
+
+/* ---------- Inner-page showpieces (About claim sheet, Services cycle ring, Specialties dial) ----------
+   Everything is CSS-only one-shot entrances that END in the visible state, so no-JS and reduced-motion see the finished visual. */
+@keyframes node-in { from { opacity: 0; scale: 0.4; } to { opacity: 1; scale: 1; } }
+@keyframes node-lit { from { background-color: #fff; color: var(--color-orange-ink); box-shadow: 0 0 0 0 rgb(247 124 39 / 0); } to { background-color: var(--color-orange); color: #fff; box-shadow: 0 10px 28px -6px rgb(247 124 39 / 0.75); } }
+@keyframes ring-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes dial-in { from { opacity: 0; rotate: -70deg; scale: 0.8; } to { opacity: 1; rotate: 0deg; scale: 1; } }
+@keyframes stamp-in { 0% { opacity: 0; scale: 2.2; rotate: -22deg; } 60% { opacity: 1; scale: 0.94; rotate: -6deg; } 100% { opacity: 1; scale: 1; rotate: -8deg; } }
+@keyframes tile-in { from { opacity: 0; scale: 0.92; } to { opacity: 1; scale: 1; } }
+
+.cyc-arc { stroke-dasharray: 1; animation: ring-draw 2.8s var(--ease-out-soft) 0.5s both; filter: drop-shadow(0 0 3px rgb(247 124 39 / 0.7)); }
+.cyc-node { animation: node-in 0.6s var(--ease-out-strong) calc(0.5s + var(--i, 0) * 0.46s) both; }
+.cyc-node .cyc-tile { animation: node-lit 0.6s var(--ease-out-soft) calc(0.7s + var(--i, 0) * 0.46s) both; }
+.cyc-halo { background: radial-gradient(circle, rgb(247 124 39 / 0.22), transparent 66%); animation: orb-in 1.8s var(--ease-out-strong) 0.3s both; }
+.dial-rings { transform-origin: 50% 50%; animation: dial-in 1.7s var(--ease-out-strong) 0.4s both; }
+.dial-node { animation: node-in 0.55s var(--ease-out-strong) calc(0.9s + var(--i, 0) * 0.12s) both; }
+
+.sheet-bar { transform-origin: left; animation: rule-draw 0.9s var(--ease-out-strong) calc(0.7s + var(--i, 0) * 0.14s) both; }
+.sheet-dot { animation: pipe-on 0.45s var(--ease-out-soft) calc(1.2s + var(--i, 0) * 0.55s) both; }
+.sheet-row { animation: chip-in 0.6s var(--ease-out-strong) calc(1s + var(--i, 0) * 0.55s) both; }
+.sheet-stamp { animation: stamp-in 0.7s var(--ease-out-strong) 4.1s both; }
+.sheet-chip { animation: chip-in 0.8s var(--ease-out-strong) 4.6s both; }
+
+.tile-in { animation: tile-in 0.35s var(--ease-out-soft) both; }
+.cap-card { transition: box-shadow 0.25s var(--ease-out-soft), border-color 0.25s var(--ease-out-soft); }
+.cap-card:hover { border-color: var(--color-orange); box-shadow: 0 14px 34px -18px rgb(247 124 39 / 0.65); }
+.mark-orbit { stroke-dasharray: 0.6 1.4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cyc-arc, .cyc-node, .cyc-node .cyc-tile, .cyc-halo, .dial-rings, .dial-node, .sheet-bar, .sheet-dot, .sheet-row, .sheet-stamp, .sheet-chip, .tile-in { animation: none !important; }
+  .cyc-arc { stroke-dashoffset: 0; }
+  .cyc-node .cyc-tile { background-color: var(--color-orange); color: #fff; }
+  .sheet-dot { background-color: var(--color-orange); border-color: var(--color-orange); }
+  .sheet-stamp { rotate: -8deg; }
+}
+
+/* Home "Anatomy of a clean claim": hovering/focusing a check lights its field (pure CSS), and the fields scan once on first view */
+@keyframes field-scan { 0%, 45% { background-color: var(--color-peach-2); box-shadow: 0 0 0 2px var(--color-orange); } 100% { background-color: var(--color-tint); box-shadow: 0 0 0 0 transparent; } }
+.anat-field { transition: background-color 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft); }
+[data-shown] .anat-field[data-f] { animation: field-scan 1.5s var(--ease-out-soft) calc(0.6s + var(--i, 0) * 0.45s) both; }
+.anat-check { cursor: default; transition: border-color 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft), translate 0.3s var(--ease-out-strong); }
+.anat-check:hover, .anat-check:focus-visible { border-color: var(--color-orange); box-shadow: 0 16px 36px -20px rgb(247 124 39 / 0.7); translate: 6px 0; }
+.anat:has([data-k="1"]:is(:hover, :focus-visible)) [data-f="1"],
+.anat:has([data-k="2"]:is(:hover, :focus-visible)) [data-f="2"],
+.anat:has([data-k="3"]:is(:hover, :focus-visible)) [data-f="3"],
+.anat:has([data-k="4"]:is(:hover, :focus-visible)) [data-f="4"],
+.anat:has([data-k="5"]:is(:hover, :focus-visible)) [data-f="5"] { animation: none; background-color: var(--color-peach-2); box-shadow: 0 0 0 2px var(--color-orange); }
+@media (prefers-reduced-motion: reduce) { [data-shown] .anat-field[data-f] { animation: none; } .anat-check:hover, .anat-check:focus-visible { translate: none; } }

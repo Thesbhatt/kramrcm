@@ -519,3 +519,105 @@ export const faqSection = {
   bodyLead: "Can't find your answer? Call",
   bodyTail: "and we'll walk you through it.",
 };
+
+/* ---------------- Inner-page showpieces (About, Services, Specialties) ---------------- */
+// Sample data in the visuals is generic and labeled "Sample, illustrative": never add real payers, clients, people or counts.
+
+export const aboutPage = {
+  sheet: {
+    title: "Claim review",
+    tag: "Sample, illustrative",
+    fields: ["Provider", "Payer", "Service", "Amount"],
+    steps: ["Provider enrolled", "Eligibility verified", "Claim scrubbed", "Submitted to payer", "Payment posted"],
+    stamp: "Clean claim",
+    chip: "Weekly status report",
+    chipState: "Sent",
+  },
+  missionLabel: "Our mission",
+  missionBadge: "first-time submission success rate",
+  valuesTitle: "Four commitments on every account",
+  valuesLabel: "How we work",
+};
+
+export const servicesPage = {
+  titleStart: "Everything from enrollment to",
+  titleMark: "payment",
+  body: "Three services that cover the full revenue cycle. Use one, or hand us all three and work with a single accountable team.",
+  cycle: [
+    { label: "Enroll", icon: "file" },
+    { label: "Verify", icon: "shield" },
+    { label: "Submit", icon: "receipt" },
+    { label: "Follow up", icon: "phone" },
+    { label: "Post", icon: "chart" },
+    { label: "Reconcile", icon: "calculator" },
+  ] as { label: string; icon: IconName }[],
+  cycleCenter: { top: "Revenue cycle", main: "One team", sub: "for every step" },
+  cycleAria: "The revenue cycle: enroll, verify, submit, follow up, post, reconcile",
+  sample: "Sample, illustrative",
+  tracker: {
+    title: "Enrollment tracker",
+    rows: [
+      { label: "CAQH profile", status: "Attested", pct: 100, tone: "done" },
+      { label: "Medicare enrollment", status: "In review", pct: 60, tone: "review" },
+      { label: "Commercial payer", status: "Submitted", pct: 30, tone: "sent" },
+      { label: "Medicaid enrollment", status: "Approved", pct: 100, tone: "done" },
+    ] as { label: string; status: string; pct: number; tone: "done" | "review" | "sent" }[],
+  },
+  claimLane: {
+    title: "Claim lane",
+    steps: ["Eligibility checked", "Claim scrubbed", "Submitted", "Paid"],
+    denial: ["Denial received", "Appeal filed", "Paid on appeal"],
+    denialLabel: "If a claim is denied",
+  },
+  licenseLane: {
+    title: "State license",
+    steps: ["Application prepared", "Primary-source verification", "Board review", "License issued"],
+  },
+  capabilities: "capabilities",
+};
+
+export const specialtiesPage = {
+  body: "Each specialty has its own payers, prior authorization rules and enrollment paperwork. We already know where each one gets stuck.",
+  dialCenter: "specialties",
+  featured: { title: "Specialties we see most", label: "Where we go deepest" },
+  explorer: {
+    label: "Every specialty",
+    title: "Find your specialty",
+    search: "Search specialties",
+    placeholder: "Try “Cardiology” or “DME”",
+    all: "All",
+    showing: "Showing",
+    of: "of",
+    empty: "No match for that search.",
+    emptyHelp: "If it bills to US payers, we can most likely enroll and bill for it. Ask us.",
+  },
+};
+
+/* ---------------- Home: "Anatomy of a clean claim" ---------------- */
+// Illustrative claim form (no real data). Each field's `k` ties it to the check with the same number; 0 = no check.
+export const claimAnatomy = {
+  title: "Anatomy of a clean claim",
+  body: "Denials are cheaper to prevent than to appeal. Here is what we check before a claim goes to the payer.",
+  hint: "Hover or focus a check to see where it applies on the form.",
+  formTitle: "Claim form",
+  sample: "Sample, illustrative",
+  fields: [
+    { label: "Patient", k: 0, w: 70 },
+    { label: "Insured ID", k: 1, w: 58 },
+    { label: "Rendering provider NPI", k: 2, w: 64 },
+    { label: "Place of service", k: 0, w: 40 },
+    { label: "Diagnosis (ICD-10)", k: 3, w: 52 },
+    { label: "Procedure (CPT)", k: 3, w: 44 },
+    { label: "Prior authorization", k: 4, w: 60 },
+    { label: "Charges", k: 5, w: 36 },
+  ],
+  checks: [
+    { title: "Eligibility confirmed", body: "Coverage and benefits are verified before the visit is billed." },
+    { title: "Provider matches enrollment", body: "The rendering provider is enrolled with that payer and the NPI lines up." },
+    { title: "Diagnosis supports the procedure", body: "Codes are checked against each other before anything is submitted." },
+    { title: "Prior authorization on file", body: "Required approvals are in place and attached to the claim." },
+    { title: "Charges and modifiers verified", body: "Units, modifiers and amounts are checked so the claim pays right the first time." },
+  ],
+  link: "See our billing service",
+  href: "/services#billing",
+};

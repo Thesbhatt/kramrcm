@@ -5,12 +5,12 @@ import teamPhoto from "@/assets/photos/practice-team.jpg";
 import { MotionObserver } from "@/components/ui/motion-observer";
 import { BillingWhy } from "@/components/sections/billing-why";
 import { Leadership } from "@/components/sections/leadership";
-import { PageHero } from "@/components/sections/page-hero";
+import { PageStage } from "@/components/sections/page-stage";
 import { Stats } from "@/components/sections/stats";
+import { ClaimSheet } from "@/components/sections/stage-visuals";
 import { Why } from "@/components/sections/why";
-import { LogoMark } from "@/components/ui/logo";
-import { Container, Icon, SectionHeading, reveal, type IconName } from "@/components/ui/primitives";
-import { about, company } from "@/content/site";
+import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal, stagger, type IconName } from "@/components/ui/primitives";
+import { about, aboutPage, cta, stats } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -20,77 +20,104 @@ export const metadata: Metadata = {
 };
 
 const valueIcons: IconName[] = ["file", "chart", "shield", "user"];
+// Bento placement on wide screens (12-column grid): one wide feature card, then three.
+const valueSpan = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7"];
 
 export default function AboutPage() {
+  const [lead, ...rest] = about.mission.paragraphs;
+  const accuracy = stats[stats.length - 1];
   return (
     <>
-      <PageHero crumb="About Us" start={about.titleStart} word={about.titleHighlight} end={about.titleEnd} body={about.body}>
-        <div className="relative min-h-[380px] overflow-hidden rounded-2xl bg-peach sm:min-h-[440px]">
-          {/* TODO(client): replace with the client's own photography (src/assets/photos/CREDITS.md) */}
-          <Image
-            src={patientPhoto}
-            alt="A physician talking with a patient in an exam room"
-            fill
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            quality={70}
-            placeholder="blur"
-            loading="eager"
-            className="object-cover object-[40%_center]"
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgb(47_51_54/0.35))]" />
-          <div className="absolute inset-x-3 bottom-3 rounded-xl bg-white/95 p-5 backdrop-blur sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-[320px]">
-            <p className="flex items-center gap-2 text-sm text-muted"><LogoMark className="h-4 w-4" /> Our promise</p>
-            <p className="mt-1.5 text-[1.45rem] font-semibold leading-tight tracking-[-0.04em]">{company.tagline}.</p>
-            <p className="mt-2 text-sm text-muted">Every application and claim is checked before it goes out, and every status is reported back to you.</p>
-          </div>
-        </div>
-      </PageHero>
+      <PageStage
+        crumb="About Us"
+        title={`${about.titleStart} ${about.titleHighlight} ${about.titleEnd}`}
+        mark={about.titleHighlight}
+        body={about.body}
+        actions={
+          <>
+            <ButtonLink href={cta.href}>{cta.primary}</ButtonLink>
+            <ButtonLink href="/services" variant="white">Our services <Arrow /></ButtonLink>
+          </>
+        }
+        visual={<ClaimSheet />}
+      />
 
-      {/* Mission */}
-      <section className="pb-20 md:pb-28">
-        <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start"><SectionHeading eyebrow="Our mission" title={about.mission.title} /></div>
-          <div className="flex flex-col gap-5 text-lg text-muted lg:pt-14" {...reveal(100)}>
-            {about.mission.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+      {/* Mission: a big lead paragraph beside an overlapping photo collage */}
+      <section className="py-20 md:py-28">
+        <Container className="grid grid-cols-1 gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20">
+          <div className="flex flex-col gap-8">
+            <SectionHeading eyebrow={aboutPage.missionLabel} title={about.mission.title} />
+            <p className="font-display text-[clamp(1.25rem,2.1vw,1.6rem)] font-light leading-[1.4] tracking-[-0.01em]" {...reveal(80)}>{lead}</p>
+            <div className="flex flex-col gap-4 border-l-2 border-orange pl-6 text-muted" {...reveal(160)}>
+              {rest.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+            </div>
           </div>
-          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-stone lg:col-span-2 lg:aspect-[21/9]" {...reveal()}>
-            <Image
-              src={teamPhoto}
-              alt="Two colleagues celebrating at a desk covered with reports and a laptop"
-              fill
-              sizes="(min-width: 1240px) 1160px, 100vw"
-              quality={70}
-              placeholder="blur"
-              className="object-cover object-[center_40%]"
-            />
+
+          <div className="relative mx-auto w-full max-w-[560px] pb-16 pr-8 lg:mx-0" {...reveal(120)}>
+            <span aria-hidden="true" className="absolute -left-4 -top-4 h-full w-full rounded-[28px] border-2 border-orange/40" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] bg-tint">
+              <Image
+                src={patientPhoto}
+                alt="A physician talking with a patient in an exam room"
+                fill
+                sizes="(min-width: 1024px) 480px, 100vw"
+                quality={70}
+                placeholder="blur"
+                className="object-cover object-[40%_center]"
+              />
+            </div>
+            <div className="absolute -bottom-0 right-0 w-[56%] overflow-hidden rounded-2xl bg-tint shadow-[0_30px_60px_-30px_rgb(47_51_54/0.6)] ring-4 ring-white">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src={teamPhoto}
+                  alt="Two colleagues celebrating at a desk covered with reports and a laptop"
+                  fill
+                  sizes="280px"
+                  quality={70}
+                  placeholder="blur"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="band-glow absolute -left-3 bottom-6 rounded-2xl bg-orange px-5 py-4 text-white shadow-[0_24px_50px_-20px_rgb(247_124_39/0.9)] sm:-left-8">
+              <p className="font-display text-4xl font-light leading-none tabular-nums"><span data-count={accuracy.value} data-suffix={accuracy.suffix}>{accuracy.value}{accuracy.suffix}</span></p>
+              <p className="mt-1 max-w-[16ch] text-xs">{aboutPage.missionBadge}</p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <Stats />
+
+      {/* Values: a bento, not four identical cards */}
+      <section className="py-20 md:py-28">
+        <Container className="flex flex-col gap-12">
+          <SectionHeading eyebrow={aboutPage.valuesLabel} title={aboutPage.valuesTitle} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12" {...stagger}>
+            {about.values.map((v, i) => {
+              const feature = i === 0;
+              return (
+                <div
+                  key={v.title}
+                  className={`spot relative flex min-h-[250px] flex-col justify-between gap-12 overflow-hidden rounded-2xl p-7 sm:p-8 ${valueSpan[i]} ${feature ? "band-glow-ink bg-ink text-white" : "bg-tint"}`}
+                >
+                  <Icon name={valueIcons[i]} className={`pointer-events-none absolute -right-6 -top-6 h-44 w-44 ${feature ? "text-white/10" : "text-orange/12"}`} />
+                  <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-orange text-white shadow-[0_12px_28px_-10px_rgb(247_124_39/0.9)]">
+                    <Icon name={valueIcons[i]} className="h-6 w-6" />
+                  </span>
+                  <div className="relative">
+                    <h3 className="text-[1.5rem] leading-tight">{v.title}</h3>
+                    <p className={`mt-2 max-w-[46ch] ${feature ? "text-on-ink" : "text-muted"}`}>{v.body}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Container>
       </section>
 
       <Leadership />
-
-      <Stats />
-
       <BillingWhy />
-
-      {/* Values */}
-      <section className="pb-20 md:pb-28">
-        <Container className="flex flex-col gap-12">
-          <SectionHeading eyebrow="How we work" title="Four commitments on every account" />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {about.values.map((v, i) => (
-              <div key={v.title} className="flex flex-col gap-4 rounded-xl bg-stone p-6 sm:p-7" {...reveal(i * 70)}>
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-orange-ink">
-                  <Icon name={valueIcons[i]} className="h-6 w-6" />
-                </span>
-                <h3 className="text-[1.3rem] leading-tight">{v.title}</h3>
-                <p className="text-[0.97rem] text-muted">{v.body}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* TODO(client): leadership section (names, titles, headshots) once provided */}
       <Why />
       <MotionObserver />
