@@ -9,7 +9,7 @@ import { company, contact, legal } from "@/content/site";
 const privacyHref = legal.find((l) => l.label === "Privacy Policy")?.href ?? null;
 
 const input =
-  "w-full rounded-xl bg-white px-4 py-3 text-[0.97rem] text-fg ring-1 ring-line transition-[box-shadow] duration-200 placeholder:text-muted/70 focus:outline-none focus:ring-2 focus:ring-orange aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[#B42318]";
+  "w-full rounded-xl bg-white px-4 py-3 text-[0.97rem] text-fg ring-1 ring-line transition-[box-shadow] duration-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-orange aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[#B42318]";
 
 function Field({
   id, label, error, required, children,
@@ -69,25 +69,25 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field id="f-name" label="Full name" required error={fe.name}>
-          <input id="f-name" name="name" autoComplete="name" required defaultValue={v?.name} className={input} {...err("name")} />
+          <input id="f-name" name="name" autoComplete="name" placeholder={contact.placeholders.name} required defaultValue={v?.name} className={input} {...err("name")} />
         </Field>
         <Field id="f-email" label="Work email" required error={fe.email}>
-          <input id="f-email" name="email" type="email" autoComplete="email" required defaultValue={v?.email} className={input} {...err("email")} />
+          <input id="f-email" name="email" type="email" autoComplete="email" placeholder={contact.placeholders.email} required defaultValue={v?.email} className={input} {...err("email")} />
         </Field>
         <Field id="f-phone" label="Phone" required error={fe.phone}>
-          <input id="f-phone" name="phone" type="tel" autoComplete="tel" placeholder="(555) 555-0123" required defaultValue={v?.phone} className={input} {...err("phone")} />
+          <input id="f-phone" name="phone" type="tel" autoComplete="tel" placeholder={contact.placeholders.phone} required defaultValue={v?.phone} className={input} {...err("phone")} />
         </Field>
         <Field id="f-practice" label="Practice name" required error={fe.practice}>
-          <input id="f-practice" name="practice" autoComplete="organization" required defaultValue={v?.practice} className={input} {...err("practice")} />
+          <input id="f-practice" name="practice" autoComplete="organization" placeholder={contact.placeholders.practice} required defaultValue={v?.practice} className={input} {...err("practice")} />
         </Field>
         <Field id="f-providers" label="Number of providers">
-          <select key={v?.providers ?? "init"} id="f-providers" name="providers"className={input} defaultValue={v?.providers ?? ""}>
-            <option value="" disabled>Select</option>
+          <select key={v?.providers ?? "init"} id="f-providers" name="providers" className={input} defaultValue={v?.providers ?? ""}>
+            <option value="" disabled>{contact.placeholders.providers}</option>
             {contact.providerOptions.map((o) => <option key={o}>{o}</option>)}
           </select>
         </Field>
         <Field id="f-state" label="State(s)">
-          <input id="f-state" name="state" autoComplete="address-level1" placeholder="e.g. Texas, or multiple" defaultValue={v?.state} className={input} />
+          <input id="f-state" name="state" autoComplete="address-level1" placeholder={contact.placeholders.state} defaultValue={v?.state} className={input} />
         </Field>
       </div>
 
@@ -106,7 +106,7 @@ export function ContactForm() {
       </fieldset>
 
       <Field id="f-message" label="Anything else? (optional)">
-        <textarea id="f-message" name="message" rows={4} defaultValue={v?.message} className={`${input} resize-y`} placeholder="e.g. Adding two new NPs in January; need Medicare and BCBS enrollment." />
+        <textarea id="f-message" name="message" rows={4} defaultValue={v?.message} className={`${input} resize-y`} placeholder={contact.placeholders.message} />
       </Field>
 
       <p className="rounded-xl bg-peach-2 px-4 py-3 text-sm text-fg ring-1 ring-peach-line">{contact.phiNotice}</p>

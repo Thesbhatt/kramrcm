@@ -326,6 +326,16 @@ export const contact = {
   phiNotice: "Please don't include patient names or other health information in this form.",
   providerOptions: ["1", "2–5", "6–20", "21–50", "50+"],
   needs: ["Credentialing", "Medical billing", "Licensing", "Not sure yet"],
+  // Example text shown inside the empty fields. Generic on purpose: no real names, domains or practices.
+  placeholders: {
+    name: "First and last name",
+    email: "name@yourpractice.com",
+    phone: "(555) 555-0123",
+    practice: "Your practice or group name",
+    providers: "Select a range",
+    state: "e.g. Texas, or multiple",
+    message: "e.g. Adding two new NPs in January; need Medicare and BCBS enrollment.",
+  },
   consent: { lead: "I agree to", privacyLabel: "the Privacy Policy", join: "and to", body: "Kram Healthcare contacting me about this request by phone or email." },
   formTitle: "Request your free practice review",
   submit: "Request my free review",
