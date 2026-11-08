@@ -46,7 +46,7 @@ export const hero = {
   body: "Provider enrollment, medical billing and multi-state licensing for US practices, run by one accountable team that shows you every status, every week.",
   primaryCta: "Book a free practice review",
   // TODO(client): replace the stock photo with the team's own photography (src/assets/photos/CREDITS.md).
-  photo: { alt: "A team of colleagues gathered around a laptop in a bright office, smiling as they review something together", focus: "55% 35%" },
+  photo: { alt: "Two doctors in white coats reviewing information together on a tablet", focus: "62% 40%" },
   // Shown as one muted line under the button: each item is a sentence.
   reassurance: ["Free practice review.", "Written quote.", "No commitment until you sign."],
 };

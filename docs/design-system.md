@@ -46,7 +46,9 @@ Avoid: tracked-caps eyebrows over every heading, "A · B · C" dot strings, a si
 - **Closing CTA**: pale tint band, centered, rendered by the footer so every page ends with it.
 
 ## Hero
-Centered: one outcome headline (the existing copy, no highlight; words rise from a mask on load), one sentence, ONE button, one muted trust line (`hero.reassurance` joined), then a wide rounded team photo with the status board of a SAMPLE practice overlapping its lower edge, labelled "Sample practice, illustrative". The photo is a placeholder stock image (`hero.photo` in `site.ts`; TODO(client): their own photography). Row labels are generic ("Provider A", "Claim batch"); never add real payer or client names, people, counts or amounts.
+Split layout (Nov 8 2026, client asked for the photo on a side): on the left, one outcome headline (the existing copy, no highlight; words rise from a mask on load), one sentence, ONE button and one muted trust line (`hero.reassurance` joined); on the right, a near-square rounded photo of two doctors reviewing a tablet. The status board of a SAMPLE practice, labelled "Sample practice, illustrative", overlaps the photo's lower edge and runs full width beneath it. The text column is top-aligned on desktop so the board never reaches the trust line. On phones everything stacks (text, photo, board). The photo is a placeholder stock image (`hero.photo` in `site.ts`; TODO(client): their own photography). Row labels are generic ("Provider A", "Claim batch"); never add real payer or client names, people, counts or amounts.
+
+Home order: hero, "Trusted by" strip (hidden until real logos), stats band, services, how we work, weekly report, specialties, FAQ, closing band.
 
 (Nov 8 2026: the client first asked for no photo, then, after seeing the calm version, asked for a photo and animation across the site. The photo and the motion below are that later decision.)
 

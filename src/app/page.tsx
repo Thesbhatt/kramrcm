@@ -14,8 +14,8 @@ export default function Home() {
     <>
       <HomeHero />
       <TrustedBy />
-      <ServiceList />
       <Stats />
+      <ServiceList />
       <Process />
       <ProductPreview />
       <SpecialtiesPreview />

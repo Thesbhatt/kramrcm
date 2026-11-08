@@ -25,4 +25,4 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 | service-credentialing.jpg | s1.jpg | Service card + /services, credentialing |
 | service-billing.jpg | s2.jpg | Service card + /services, billing |
 | service-support.jpg | s3.jpg | Service card + /services, licensing & support |
-| hero-slide-team.jpg | https://unsplash.com/photos/yd_RKGH_RH4 (photo-1758691737124-05c5bffe46f0) | Home hero photo (`hero.photo`). TODO(client): replace with the practice's own photography |
+| hero-slide-tablet.jpg | photo-1758691463203-cce9d415b2b5 ("Two doctors looking at a tablet together"; page URL not recorded, search Unsplash for that title) | Home hero photo (`hero.photo`). TODO(client): replace with the practice's own photography |
