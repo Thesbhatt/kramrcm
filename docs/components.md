@@ -29,11 +29,11 @@ Every page ends with `<MotionObserver />`.
 | `home/status-board.tsx` | the framed "Practice status board" of a SAMPLE practice; CSS-only sequence (see `docs/architecture.md`). Data: `statusBoard` in `site.ts` |
 | `home/status-pill.tsx` | static `StatusPill` (Submitted / In review / Approved / Paid) used by the weekly report |
 | `sections/trusted-by.tsx` | "Trusted by" logo strip; renders nothing while `trust.logos` is empty (TODO(client)) |
-| `sections/service-list.tsx` | home services as hairline rows with "Learn more →" (links to `/services#id`). Copy: `servicesSection` + `services` |
+| `sections/service-list.tsx` | home services as hairline rows: icon tile (`serviceIcons`), title, sentence, the service's full item list (same labels as `/services`, check marks) and "Learn more →" (links to `/services#id`). Copy: `servicesSection` + `services` |
 | `sections/stats.tsx` | stats band: 4 hairline-separated cells, real numbers from `stats`, counted up on first view. No props |
 | `sections/process.tsx` | numbered 01 to 04 "How we work" (home + `/services`). Copy: `processSection` + `process` |
 | `sections/product-preview.tsx` | framed weekly status report for a SAMPLE practice (real `<table>`). Copy: `productSection` |
-| `sections/specialties-preview.tsx` | home: six featured specialties in hairline cells + link to `/specialties`. Also exports `featuredIcons` / `groupIcons` used by the specialties page |
+| `sections/specialties-preview.tsx` | home: six featured specialties in hairline cells, each with an icon tile (`featuredIcons`, same order as `featuredSpecialties`), + link to `/specialties`. Also exports `featuredIcons` / `groupIcons` used by the specialties page |
 | `sections/faq.tsx` | hairline accordion (`<details>`); copy: `faqSection` + `faqs` |
 | `sections/page-hero.tsx` | hero for inner pages (left-aligned h1, breadcrumb) |
 | `sections/service-cards.tsx` | cards with photos used on `/services`; exports `serviceIcons`, `servicePhotos` |

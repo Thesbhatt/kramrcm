@@ -1,5 +1,5 @@
 import { featuredSpecialties, specialtiesSection } from "@/content/site";
-import { ButtonLink, Container, reveal, stagger, type IconName } from "../ui/primitives";
+import { ButtonLink, Container, Icon, reveal, stagger, type IconName } from "../ui/primitives";
 
 /** Icons for the featured specialties (same order as `featuredSpecialties`) and the category groups. */
 export const featuredIcons: IconName[] = ["stethoscope", "chat", "pulse", "home", "box", "pill"];
@@ -29,10 +29,15 @@ export function SpecialtiesPreview() {
         </div>
 
         <ul className="mt-12 grid border-t border-line sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3 md:mt-16" {...stagger}>
-          {featuredSpecialties.map((s) => (
-            <li key={s.name} className="border-b border-line py-7">
-              <h3 className="font-display text-xl">{s.name}</h3>
-              <p className="mt-2 text-sm text-muted">{s.note}</p>
+          {featuredSpecialties.map((s, i) => (
+            <li key={s.name} className="group flex items-start gap-4 border-b border-line py-7">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[4px] bg-tint text-orange-ink ring-1 ring-inset ring-line transition-colors duration-200 group-hover:bg-ink group-hover:text-white group-hover:ring-ink">
+                <Icon name={featuredIcons[i]} className="h-5 w-5" />
+              </span>
+              <div>
+                <h3 className="font-display text-xl">{s.name}</h3>
+                <p className="mt-1.5 text-sm text-muted">{s.note}</p>
+              </div>
             </li>
           ))}
         </ul>
