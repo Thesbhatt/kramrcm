@@ -25,8 +25,8 @@ const base =
 const sizes = { md: "px-5 py-2.5 text-[0.95rem]", lg: "px-6 py-3.5 text-base" };
 
 const variants: Record<Variant, string> = {
-  dark: "bg-ink text-white hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(29_33_36/0.7)]",
-  soft: "bg-peach text-fg hover:bg-[#fcd9bd]",
+  dark: "bg-ink text-white hover:-translate-y-0.5 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)]",
+  soft: "bg-orange text-fg hover:-translate-y-0.5 hover:bg-orange-soft",
   white: "bg-white text-fg ring-1 ring-line hover:ring-graphite/40",
   "ghost-dark": "text-white ring-1 ring-inset ring-white/25 hover:bg-white/8 hover:ring-white/60",
 };
@@ -51,7 +51,8 @@ export function Arrow({ className = "h-4 w-4" }: { className?: string }) {
 export function Check({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-      <path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      {/* pathLength={1} lets `.tick` draw the stroke in with a plain dash offset */}
+      <path pathLength={1} d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -74,7 +75,7 @@ export function Words({ text, from = 0 }: { text: string; from?: number }) {
     <>
       {words.map((w, i) => (
         <span key={`${w}-${i}`}>
-          <span className="w" style={{ ["--i" as string]: from + i }}>{w}</span>
+          <span className="w-mask"><span className="w" style={{ ["--i" as string]: from + i }}>{w}</span></span>
           {i < words.length - 1 && " "}
         </span>
       ))}
@@ -101,14 +102,15 @@ export function Highlight({ start, word, end }: { start?: string; word: string; 
 export function SectionHeading({
   eyebrow, title, body, tone = "light", align = "left", as: H = "h2",
 }: {
-  eyebrow?: string; title: ReactNode; body?: ReactNode; tone?: "light" | "dark"; align?: "left" | "center"; as?: "h1" | "h2";
+  eyebrow?: string; title: ReactNode; body?: ReactNode; tone?: "light" | "dark" | "orange"; align?: "left" | "center"; as?: "h1" | "h2";
 }) {
   const titleColor = tone === "dark" ? "text-white" : "text-fg";
-  const bodyColor = tone === "dark" ? "text-on-ink" : "text-muted";
+  // `muted` is only 3.4:1 on solid orange, so orange bands use full-strength `fg`
+  const bodyColor = tone === "dark" ? "text-on-ink" : tone === "orange" ? "text-fg" : "text-muted";
   const a = align === "center" ? "mx-auto items-center text-center" : "";
   return (
     <div className={`flex max-w-[46rem] flex-col gap-5 ${a}`}>
-      {eyebrow && <div {...reveal()}><Eyebrow tone={tone}>{eyebrow}</Eyebrow></div>}
+      {eyebrow && <div {...reveal()}><Eyebrow tone={tone === "dark" ? "dark" : "light"}>{eyebrow}</Eyebrow></div>}
       <H data-words="" className={`text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.06] ${titleColor} ${align === "center" ? "self-center" : ""}`}>
         {typeof title === "string" ? <Words text={title} /> : title}
       </H>

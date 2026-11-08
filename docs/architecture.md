@@ -17,6 +17,8 @@ Read this before touching build config, motion, the contact form or anything cac
   - count-up via `data-count` (stats are real numbers in the HTML; JS only animates toward them)
 - Render `<MotionObserver />` at the END of every page, never in the layout (a layout-level one races page hydration). Each page already does this; a new page must too.
 - Header surface compaction and the statement word-darkening are CSS scroll-driven animations (`header-compact`, `word-ink` in `globals.css`). No JS.
+- `MotionObserver` also feeds scroll velocity into the `.marquee-track` CSS animations via `playbackRate` (positive only; a negative rate can end a young animation).
+- Gotcha: `overflow: hidden` makes an element a scroll container, so a plain `view()` on anything inside it never progresses. Clipped frames publish a named timeline (`.scroll-frame`, `.photo` → `--frame`; `.closing-card` → `--closing`) and children read that. Parallax uses the individual `translate`/`scale` properties so it composes with `transform` reveals.
 - Reveal starts visible if JS is off. Everything honours `prefers-reduced-motion` (rules at the bottom of `globals.css`).
 - Numbers and easing: see "Motion" in `docs/design-system.md`.
 

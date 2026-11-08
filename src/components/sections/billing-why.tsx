@@ -8,7 +8,7 @@ export function BillingWhy() {
   return (
     <section className="pb-20 md:pb-28">
       <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-stretch lg:gap-16">
-        <div className="relative order-2 aspect-[804/701] overflow-hidden lg:aspect-auto lg:min-h-[440px] rounded-[28px] bg-stone lg:order-1" {...reveal()}>
+        <div className="photo relative order-2 aspect-[804/701] overflow-hidden lg:aspect-auto lg:min-h-[440px] rounded-[28px] bg-peach lg:order-1" {...reveal()}>
           <Image
             src={teamPhoto}
             alt={billingWhy.photoAlt}
@@ -29,10 +29,10 @@ export function BillingWhy() {
             {billingWhy.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
           </div>
           <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2" {...reveal(200)}>
-            {billingWhy.benefits.map((b) => (
-              <li key={b} className="flex items-center gap-3 rounded-2xl bg-peach-2 px-4 py-3 font-medium">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-peach text-orange-ink">
-                  <Check className="h-3.5 w-3.5" />
+            {billingWhy.benefits.map((b, i) => (
+              <li key={b} className="cascade flex items-center gap-3 rounded-2xl bg-peach-2 px-4 py-3 font-medium" style={{ ["--i" as string]: i }}>
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange text-fg">
+                  <Check className="tick h-3.5 w-3.5" />
                 </span>
                 {b}
               </li>

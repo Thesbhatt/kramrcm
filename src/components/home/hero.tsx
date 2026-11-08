@@ -6,15 +6,20 @@ import { LogoMark } from "../ui/logo";
 import { Arrow, ButtonLink, Check, Container, Highlight, Icon } from "../ui/primitives";
 
 export const statusTone = {
-  ok: "bg-[#DDF0EC] text-[#155A52]",
-  progress: "bg-[#E3ECF7] text-[#1F4A80]",
+  ok: "bg-orange text-fg",
+  progress: "bg-stone-2 text-graphite",
   wait: "bg-[#FDEBDC] text-[#8A3D12]",
 } as const;
 
 export function HomeHero() {
   return (
-    <section className="pt-4 pb-10 md:pt-8 md:pb-14">
-      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.02fr] lg:gap-10">
+    <section className="relative overflow-clip pt-4 pb-10 md:pt-8 md:pb-14">
+      {/* Soft drifting glows behind the copy (decorative depth, CSS only) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <span className="orb absolute -left-32 -top-24 h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle,rgb(255_201_153/0.9),transparent_68%)]" />
+        <span className="orb absolute bottom-[-140px] left-[30%] h-[340px] w-[340px] rounded-full bg-[radial-gradient(circle,rgb(230_230_227/0.95),transparent_68%)] [--orb-d:-5s]" />
+      </div>
+      <Container className="relative grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.02fr] lg:gap-10">
         {/* Copy column */}
         <div className="flex flex-col justify-between gap-12 py-2 lg:py-10">
           <div className="flex flex-col gap-6">
@@ -26,7 +31,7 @@ export function HomeHero() {
             <ul className="animate-rise flex flex-col gap-2 [animation-delay:340ms]">
               {hero.trust.map((t) => (
                 <li key={t} className="flex items-start gap-2.5 text-[1rem]">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-peach text-orange-ink">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange text-fg">
                     <Check className="h-3 w-3" />
                   </span>
                   {t}
@@ -46,7 +51,7 @@ export function HomeHero() {
               className="group flex max-w-[400px] items-center justify-between gap-3 rounded-full bg-stone py-1.5 pl-5 pr-1.5 text-[0.98rem] ring-1 ring-line transition-colors hover:bg-stone-2"
             >
               {hero.partnerPrompt}
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-peach text-fg transition-colors group-hover:bg-orange">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange text-fg transition-colors group-hover:bg-ink group-hover:text-white">
                 <Arrow />
               </span>
             </Link>
@@ -63,21 +68,24 @@ export function HomeHero() {
 function HeroVisual() {
   const rows = enrollmentSample.filter((r) => r.payer !== "CAQH re-attestation"); // 3 rows keep the card compact
   return (
-    <div className="relative min-h-[460px] overflow-hidden rounded-[28px] bg-peach sm:min-h-[640px] animate-expand">
+    <div className="scroll-frame hero-shrink relative min-h-[460px] overflow-hidden rounded-[28px] bg-peach sm:min-h-[640px] animate-expand">
       {/* TODO(client): replace with the client's own photography (src/assets/photos/CREDITS.md) */}
-      <Image
-        src={heroPhoto}
-        alt="A clinician reviewing patient imaging with a colleague at a workstation"
-        fill
-        sizes="(min-width: 1240px) 610px, (min-width: 1024px) 50vw, 100vw"
-        quality={70}
-        placeholder="blur"
-        loading="eager"
-        fetchPriority="high"
-        className="animate-settle object-cover object-[74%_center]"
-      />
+      {/* Wrapper carries the always-on pan and zoom; the image itself is busy with the load-in settle and scroll parallax */}
+      <div className="ken-burns absolute inset-0">
+        <Image
+          src={heroPhoto}
+          alt="A clinician reviewing patient imaging with a colleague at a workstation"
+          fill
+          sizes="(min-width: 1240px) 610px, (min-width: 1024px) 50vw, 100vw"
+          quality={70}
+          placeholder="blur"
+          loading="eager"
+          fetchPriority="high"
+          className="parallax-img animate-settle object-cover object-[74%_center]"
+        />
+      </div>
       {/* Warm tint + bottom shade so the floating cards read cleanly over the photo */}
-      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgb(247_124_39/0.06),transparent_40%,rgb(29_33_36/0.38))]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgb(247_124_39/0.14),transparent_40%,rgb(47_51_54/0.38))]" />
 
       <span className="float-in absolute right-4 top-4 rounded-full bg-white/90 px-3.5 py-1.5 text-sm font-medium backdrop-blur sm:right-6 sm:top-6 [--d:250ms]">
         All 50 states · Telehealth
@@ -85,17 +93,18 @@ function HeroVisual() {
 
       {/* Floating cards, bottom-right as in the reference */}
       <div className="absolute inset-x-3 bottom-3 flex flex-col gap-2.5 sm:inset-x-auto sm:bottom-6 sm:right-6 sm:w-[330px]">
+        <div className="bob">
         <div className="float-in rounded-[20px] bg-white p-4 shadow-[0_24px_50px_-24px_rgb(0_0_0/0.5)] [--d:350ms]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-peach-2"><LogoMark className="h-5 w-5" /></span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-peach"><LogoMark className="h-5 w-5" /></span>
               <div className="leading-tight">
                 <p className="text-sm font-medium">Enrollment tracker</p>
                 <p className="text-xs text-muted">Dr. A. Patel, MD · Family Medicine</p>
               </div>
             </div>
             <span className="relative inline-flex items-center gap-1.5 text-xs font-medium text-success">
-              <span className="pulse-dot relative h-2 w-2 rounded-full bg-success" aria-hidden="true" /> Live
+              <span className="pulse-dot relative h-2 w-2 rounded-full bg-orange" aria-hidden="true" /> Live
             </span>
           </div>
           <ul className="mt-2.5 divide-y divide-line">
@@ -122,12 +131,15 @@ function HeroVisual() {
             ))}
           </ul>
         </div>
+        </div>
+        <div className="bob [--bob-d:-3.5s]">
         <div className="float-in flex items-center gap-3 rounded-[20px] bg-white p-3 shadow-[0_24px_50px_-24px_rgb(0_0_0/0.5)] [--d:650ms]">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-white"><Icon name="chart" /></span>
           <div className="leading-snug">
             <p className="text-[0.95rem] font-medium">Weekly status report</p>
             <p className="text-sm text-muted">Every enrollment &amp; claim batch</p>
           </div>
+        </div>
         </div>
       </div>
       <p className="sr-only">Enrollment tracker shows sample data for illustration.</p>

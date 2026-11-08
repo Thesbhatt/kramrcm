@@ -35,8 +35,8 @@ export function AboutIntro() {
         </div>
 
         {/* Main photo with an inset photo overlapping its bottom-right corner (as on the live site) */}
-        <div className="relative pb-16 pr-6 sm:pb-20 sm:pr-10" {...reveal(100)}>
-          <div className="relative aspect-[19/16] overflow-hidden rounded-[28px] bg-stone lg:aspect-auto lg:h-full lg:min-h-[420px]">
+        <div className="relative pb-16 pr-6 sm:pb-20 sm:pr-10">
+          <div className="photo relative aspect-[19/16] overflow-hidden rounded-[28px] bg-peach lg:aspect-auto lg:h-full lg:min-h-[420px]" {...reveal(100)}>
             <Image
               src={mainPhoto}
               alt={aboutIntro.photoMainAlt}
@@ -47,7 +47,9 @@ export function AboutIntro() {
               className="object-cover"
             />
           </div>
-          <div className="absolute bottom-0 right-0 w-[42%] overflow-hidden rounded-[22px] bg-white p-1.5 shadow-[0_24px_48px_-24px_rgb(29_33_36/0.45)]">
+          {/* Outer div drifts against the main photo on scroll; inner div is the delayed entrance. */}
+          <div className="drift-up absolute bottom-0 right-0 w-[42%]">
+            <div className="photo overflow-hidden rounded-[22px] bg-white p-1.5 shadow-[0_24px_48px_-24px_rgb(47_51_54/0.45)]" {...reveal(420)}>
             <div className="relative aspect-[517/542] overflow-hidden rounded-[17px]">
               <Image
                 src={insetPhoto}
@@ -58,6 +60,7 @@ export function AboutIntro() {
                 placeholder="blur"
                 className="object-cover"
               />
+            </div>
             </div>
           </div>
         </div>

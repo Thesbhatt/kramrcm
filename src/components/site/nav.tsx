@@ -81,7 +81,7 @@ export function MobileMenu() {
       <div
         id="mobile-menu"
         data-open={open}
-        className="menu-panel absolute inset-x-3 top-[calc(100%+6px)] rounded-3xl bg-white p-3 shadow-[0_30px_60px_-24px_rgb(29_33_36/0.35)] ring-1 ring-line sm:left-auto sm:right-4 sm:w-[340px]"
+        className="menu-panel absolute inset-x-3 top-[calc(100%+6px)] rounded-3xl bg-white p-3 shadow-[0_30px_60px_-24px_rgb(47_51_54/0.35)] ring-1 ring-line sm:left-auto sm:right-4 sm:w-[340px]"
       >
         <ul className="flex flex-col">
           {nav.map((item) => {

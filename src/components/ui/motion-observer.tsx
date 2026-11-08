@@ -14,9 +14,56 @@ import { useEffect } from "react";
 export function MotionObserver() {
   useEffect(() => {
     const io = observe();
-    return () => io?.disconnect();
+    const stopMarquee = reactiveMarquee();
+    return () => {
+      io?.disconnect();
+      stopMarquee();
+    };
   }, []);
   return null;
+}
+
+/**
+ * Scroll speed feeds the marquees: they rush and lean while the page moves, then ease back to cruising speed.
+ * Drives the running CSS animations through their playbackRate, so no transforms are computed here.
+ * Rate stays positive: a negative rate can run a young animation back past time 0 and end it.
+ */
+function reactiveMarquee(): () => void {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  const animations = [...document.querySelectorAll<HTMLElement>(".marquee-track")].flatMap((el) => el.getAnimations());
+  if (!animations.length) return () => {};
+
+  let lastY = window.scrollY;
+  let lastT = performance.now();
+  let rate = 1;
+  let skew = 0;
+  let frame = 0;
+  const marquee = document.querySelector<HTMLElement>(".marquee");
+
+  const settle = () => {
+    rate += (1 - rate) * 0.06;
+    if (rate < 1.01) rate = 1;
+    skew *= 0.9;
+    if (Math.abs(skew) < 0.05) skew = 0;
+    animations.forEach((a) => { a.playbackRate = rate; });
+    marquee?.style.setProperty("--skew", `${skew.toFixed(2)}deg`);
+    frame = rate === 1 && skew === 0 ? 0 : requestAnimationFrame(settle);
+  };
+  const onScroll = () => {
+    const now = performance.now();
+    const pxPerSecond = (window.scrollY - lastY) / Math.max(now - lastT, 1) * 1000;
+    lastY = window.scrollY;
+    lastT = now;
+    rate = Math.max(rate, Math.min(1 + Math.abs(pxPerSecond) / 320, 6));
+    skew = Math.max(-10, Math.min(10, pxPerSecond / -120));
+    if (!frame) frame = requestAnimationFrame(settle);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    cancelAnimationFrame(frame);
+  };
 }
 
 /** One observer for the current page: reveal on scroll, count stats up. */

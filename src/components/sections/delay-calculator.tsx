@@ -84,7 +84,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
       </div>
 
       <div className="relative flex flex-col justify-between gap-10 overflow-hidden rounded-[28px] bg-ink p-7 text-white sm:p-10">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-28 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.25),transparent_65%)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-28 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.45),transparent_65%)]" />
         {/* Screen readers get the final figures once; the tweening numbers below are visual only */}
         <p className="sr-only" aria-live="polite">
           {delayCost.resultLabel}: {usd.format(Math.round(perDay * vals.days))}, {usd.format(Math.round(perDay))} {delayCost.perDayLabel}.

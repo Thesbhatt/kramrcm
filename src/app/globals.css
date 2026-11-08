@@ -3,36 +3,39 @@
 /* Kram Healthcare tokens — see docs/design-system.md. Colours sampled from the client logo. */
 @theme {
   --color-orange: #f77c27;
-  --color-orange-ink: #a9490c;
-  --color-orange-soft: #fba066;
-  --color-peach: #fde6d3;      /* keyword highlight, soft pill buttons */
-  --color-peach-2: #fff3ea;    /* soft card fill */
-  --color-canvas: #f6ece2;     /* page backdrop around the white frame */
-  --color-graphite: #414546;
-  --color-ink: #1d2124;        /* primary pill buttons, dark bands */
-  --color-ink-2: #2a3034;
-  --color-ink-line: #3a4145;
-  --color-fg: #1c2023;
-  --color-muted: #5e6366;
-  --color-on-ink: #c7cbcd;
-  --color-stone: #f6f4f1;
-  --color-stone-2: #eeeae6;
-  --color-line: #e7e3df;
-  --color-success: #1d6f66;
+  --color-orange-ink: #a83e08;
+  --color-orange-soft: #ffa366;
+  --color-peach: #ffc999;      /* saturated tint: icon discs, photo placeholders */
+  --color-peach-2: #ffe7d2;    /* soft card fill */
+  --color-peach-line: #ffcfa6; /* hairlines on peach-2 */
+  --color-canvas: #ffdcbf;     /* page backdrop around the white frame */
+  --color-graphite: #414546;   /* exact logo X */
+  --color-ink: #2f3336;        /* logo charcoal, deepened: primary pill buttons, dark bands */
+  --color-ink-2: #414546;
+  --color-ink-line: #5a5f62;
+  --color-fg: #1f2224;
+  --color-muted: #5b6063;
+  --color-on-ink: #d6d8d9;
+  --color-stone: #f2f2f0;
+  --color-stone-2: #e6e6e3;
+  --color-line: #dcdcd9;
+  --color-success: #a83e08;
 
   --font-sans: var(--font-public-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 
   --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out-strong: cubic-bezier(0.16, 1, 0.3, 1);  /* entrances: fast start, long glide */
+  --ease-back: cubic-bezier(0.22, 1.3, 0.36, 1);     /* slight overshoot: words, pops */
 
-  --animate-rise: rise 0.55s var(--ease-out-soft) both;
+  --animate-rise: rise 0.85s var(--ease-out-strong) both;
   --animate-fade: fade 0.9s var(--ease-out-soft) both;
   --animate-drop: drop 0.5s var(--ease-out-soft) both;
-  --animate-expand: expand 0.9s var(--ease-out-soft) both;
-  --animate-settle: settle 1.8s var(--ease-out-soft) both;
+  --animate-expand: expand 1.2s var(--ease-out-strong) both;
+  --animate-settle: settle 2s var(--ease-out-strong) both;
   --animate-marquee: marquee 60s linear infinite;
 
   @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(32px); }
     to { opacity: 1; transform: none; }
   }
   @keyframes fade {
@@ -47,15 +50,15 @@
     to { opacity: 1; transform: none; }
   }
   @keyframes expand {
-    from { opacity: 0; clip-path: inset(7% 5% round 28px); }
+    from { opacity: 0; clip-path: inset(16% 12% round 28px); }
     to { opacity: 1; clip-path: inset(0% 0% round 28px); }
   }
   @keyframes settle {
-    from { transform: scale(1.14); }
+    from { transform: scale(1.3); }
     to { transform: scale(1); }
   }
   @keyframes word-in {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(115%); }
     to { opacity: 1; transform: none; }
   }
   @keyframes grow {
@@ -81,17 +84,19 @@
     letter-spacing: -0.035em;
   }
   :focus-visible {
-    outline: 3px solid var(--color-orange);
+    /* Orange on white is only 2.67:1, so the ring is ink on light and orange on dark surfaces */
+    outline: 3px solid var(--color-ink);
     outline-offset: 3px;
     border-radius: 8px;
   }
-  ::selection { background: #fbd3b4; color: var(--color-fg); }
+  .bg-ink :focus-visible { outline-color: var(--color-orange); }
+  ::selection { background: var(--color-peach); color: var(--color-fg); }
 }
 
 /* Keyword highlight pill inside headlines ("credentialed", "revenue"…) */
 .hl {
   /* Drawn as a background image (not a colour) so it can sweep in like a marker pen */
-  background: linear-gradient(var(--color-peach), var(--color-peach)) no-repeat 0 0 / 100% 100%;
+  background: linear-gradient(var(--color-orange), var(--color-orange)) no-repeat 0 0 / 100% 100%;
   border-radius: 0.28em;
   padding: 0 0.16em;
   margin: 0 -0.04em;
@@ -105,7 +110,7 @@
 /* Hero headlines: the marker sweeps as its word lands (word stagger + 240 ms) */
 .words-load .hl {
   animation: hl-sweep 0.6s var(--ease-out-soft) both;
-  animation-delay: calc(280ms + min(var(--i, 0), 14) * 30ms);
+  animation-delay: calc(460ms + min(var(--i, 0), 14) * 45ms);
 }
 /* Section headlines: same sweep, triggered with the words by MotionObserver */
 .js [data-words] .hl {
@@ -118,33 +123,168 @@
 /* ---------- Scroll reveal (progressive: visible without JS) ---------- */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
-  transition-delay: var(--reveal-delay, 0ms);
+  transform: translateY(var(--rise, 40px));
+  /* This rule is unlayered, so it beats Tailwind's transition utilities: hover properties must be listed
+     here too (undelayed), or card lifts on revealed elements snap instead of easing. */
+  transition: opacity 0.85s var(--ease-out-strong), transform 0.95s var(--ease-out-strong),
+    translate 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0ms, 0ms, 0ms;
 }
 .js [data-reveal][data-shown] { opacity: 1; transform: none; }
+.rise-lg { --rise: 72px; }
 
-/* ---------- Word-by-word headline reveal (Enima-style: 10px rise + fade, 55 ms stagger) ---------- */
+/* ---------- Word-by-word headline reveal: each word rises from behind its own mask ---------- */
 .w { display: inline-block; }
+/* clip-path rather than overflow:clip so the inline-block keeps its text baseline; negative insets spare descenders */
+.w-mask { display: inline-block; clip-path: inset(-0.08em -0.12em -0.2em -0.12em); }
 /* Hero headlines: play on load, fast (whole headline in by ~0.9s) so the first screen is never empty.
    Needs no JS (the animation ends visible). */
-.words-load .w { animation: word-in 0.5s var(--ease-out-soft) both; animation-delay: calc(40ms + min(var(--i), 14) * 30ms); }
+/* Hero words tip up in 3D as they land; perspective() lives in the transform because .w sits inside wrapper spans */
+.words-load .w {
+  transform-origin: 50% 100%;
+  animation: word-in-3d 0.9s var(--ease-back) both;
+  animation-delay: calc(60ms + min(var(--i), 14) * 45ms);
+}
+@keyframes word-in-3d {
+  from { opacity: 0; transform: perspective(700px) translateY(120%) rotateX(-55deg); }
+  to { opacity: 1; transform: perspective(700px) translateY(0) rotateX(0); }
+}
 /* Section headlines: wait for the observer to add [data-shown]. Visible by default without JS. */
 .js [data-words] .w {
-  opacity: 0; transform: translateY(10px);
-  transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
+  opacity: 0; transform: translateY(115%);
+  transition: opacity 0.6s var(--ease-out-strong), transform 0.95s var(--ease-out-strong);
   transition-delay: calc(min(var(--i), 14) * 55ms);
 }
 .js [data-words][data-shown] .w { opacity: 1; transform: none; }
 
-/* Footer CTA: words rise as the card scrolls into view (CSS scroll-driven, no JS, safe in the layout). */
+/* ---------- Inside a revealed block: list rows cascade, ticks draw, icon tiles pop ---------- */
+.cascade {
+  transition: opacity 0.7s var(--ease-out-strong), transform 0.8s var(--ease-out-strong);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 200ms + var(--i, 0) * 65ms);
+}
+.js [data-reveal]:not([data-shown]) .cascade { opacity: 0; transform: translateY(28px); }
+
+.tick path {
+  stroke-dasharray: 1 2;
+  transition: stroke-dashoffset 0.6s var(--ease-out-soft);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 320ms + var(--i, 0) * 55ms);
+}
+.js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 1; }
+
+.pop {
+  transition: scale 0.8s var(--ease-back), opacity 0.5s var(--ease-out-soft);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 140ms);
+}
+.js [data-reveal]:not([data-shown]) .pop { scale: 0.3; opacity: 0; }
+
+/* ---------- Photos: image wipes up over its colour block and settles from a zoom ---------- */
+.js .photo img {
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.3);
+  transition: clip-path 1.3s var(--ease-out-strong), transform 2s var(--ease-out-strong);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .photo[data-shown] img { clip-path: inset(0 0 0 0); transform: none; }
+
+/* ---------- Top progress bar (home) ---------- */
+.scroll-progress { display: none; }
+
+/* ---------- Ambient: hero glows drift, hero cards hover in place ---------- */
+.orb { animation: orb-drift 13s ease-in-out var(--orb-d, 0s) infinite alternate; }
+@keyframes orb-drift { to { translate: 90px 60px; } }
+.bob { animation: bob 6s ease-in-out var(--bob-d, 0s) infinite alternate; }
+@keyframes bob { to { translate: 0 -14px; } }
+
+/* Hero photo never rests: slow pan and zoom, anchored near the subject's face so it stays in frame */
+.ken-burns {
+  transform-origin: 62% 32%;
+  animation: ken-burns 14s ease-in-out infinite alternate;
+}
+@keyframes ken-burns {
+  from { transform: scale(1) translate(1.5%, 0.5%); }
+  to { transform: scale(1.1) translate(-2.5%, -1%); }
+}
+
+/* Marquee leans into fast scrolling; MotionObserver sets --skew from scroll velocity */
+.marquee { transform: skewX(var(--skew, 0deg)); }
+
+/* ---------- Scroll-linked depth (CSS only, static where unsupported) ----------
+   Frames are overflow:hidden, which makes them scroll containers: a child's plain view() would track
+   the frame and never move. So the frame publishes a named timeline and its children read that.
+   Parallax uses the individual `translate`/`scale` properties so it composes with `transform` reveals. */
 @supports (animation-timeline: view()) {
+  .scroll-frame, .photo { view-timeline-name: --frame; }
+
+  .photo img { --drift: 9%; scale: 1.22; }
+  .parallax-img, .photo img {
+    animation-name: img-drift;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --frame;
+    animation-range: cover;
+  }
+  .parallax-img { scale: 1.14; }
+  /* The hero photo also plays its load-in settle, so both animations are listed */
+  .parallax-img.animate-settle {
+    animation: var(--animate-settle), img-drift linear both;
+    animation-timeline: auto, --frame;
+    animation-range: normal, cover;
+  }
+  /* Hero frame recedes as it scrolls away; keeps its load-in expand */
+  .hero-shrink {
+    transform-origin: 50% 0%;
+    animation: var(--animate-expand), hero-shrink linear both;
+    animation-timeline: auto, --frame;
+    animation-range: normal, exit 0% exit 100%;
+  }
+  /* Large panels grow into place as they enter */
+  .band-lift {
+    transform-origin: 50% 100%;
+    animation: band-lift linear both;
+    animation-timeline: --frame;
+    animation-range: entry 0% entry 60%;
+  }
+  .glow-drift {
+    animation: glow-drift linear both;
+    animation-timeline: --frame;
+    animation-range: cover;
+  }
+  .drift-up {
+    animation: drift-up linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+
+  .closing-card {
+    view-timeline-name: --closing;
+    transform-origin: 50% 100%;
+    animation: closing-lift linear both;
+    animation-timeline: --closing;
+    animation-range: entry 0% entry 70%;
+  }
+  /* Footer CTA: words rise as the card scrolls in (the card clips, so read its named timeline) */
   .words-view .w {
     animation: word-in linear both;
-    animation-timeline: view();
-    animation-range: entry calc(var(--i) * 3%) entry calc(45% + var(--i) * 3%);
+    animation-timeline: --closing;
+    animation-range: entry calc(20% + var(--i) * 3%) entry calc(65% + var(--i) * 3%);
   }
 }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block; position: fixed; inset: 0 0 auto; z-index: 60; height: 3px;
+    background: linear-gradient(90deg, var(--color-orange), var(--color-orange-soft));
+    transform-origin: 0 50%;
+    animation: progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes img-drift { from { translate: 0 calc(var(--drift, 6%) * -1); } to { translate: 0 var(--drift, 6%); } }
+@keyframes glow-drift { from { translate: 0 -160px; } to { translate: 120px 160px; } }
+@keyframes drift-up { from { translate: 0 60px; } to { translate: 0 -60px; } }
+@keyframes closing-lift { from { scale: 0.9; translate: 0 70px; } to { scale: 1; translate: 0 0; } }
+@keyframes hero-shrink { to { scale: 0.9; } }
+@keyframes band-lift { from { scale: 0.9; translate: 0 60px; } to { scale: 1; translate: 0 0; } }
 
 /* ---------- Statement: words darken as they scroll into view (CSS only) ---------- */
 .statement-word { color: var(--color-fg); }
@@ -156,7 +296,7 @@
   }
 }
 @keyframes word-ink {
-  from { color: #b9b5b1; }
+  from { color: #b9bbbc; }
   to { color: var(--color-fg); }
 }
 
@@ -169,7 +309,7 @@
   }
 }
 @keyframes header-compact {
-  to { background-color: rgb(255 255 255 / 0.86); box-shadow: 0 1px 0 var(--color-line), 0 14px 30px -26px rgb(29 33 36 / 0.45); }
+  to { background-color: rgb(255 255 255 / 0.86); box-shadow: 0 1px 0 var(--color-line), 0 14px 30px -26px rgb(47 51 54 / 0.45); }
 }
 
 /* ---------- Process line draw ---------- */
@@ -183,7 +323,11 @@
 .js [data-shown] .bar-fill { transform: scaleX(1); }
 
 /* ---------- Hero floating cards ---------- */
-.float-in { animation: var(--animate-rise); animation-delay: var(--d, 400ms); }
+.float-in { animation: float-in 1s var(--ease-out-strong) both; animation-delay: var(--d, 400ms); }
+@keyframes float-in {
+  from { opacity: 0; transform: translateX(64px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
 .tracker-row { animation: var(--animate-rise); animation-delay: calc(450ms + var(--i) * 110ms); }
 .pulse-dot::after {
   content: ""; position: absolute; inset: -4px; border-radius: 999px;
@@ -207,7 +351,7 @@
 }
 .row-flash::before {
   content: ""; position: absolute; inset: 1px -10px; z-index: -1; border-radius: 12px;
-  background: #ddf0ec; opacity: 0;
+  background: var(--color-peach-2); opacity: 0;
   animation: row-flash 2s var(--ease-out-soft) 2.8s both;
 }
 @keyframes row-flash {
@@ -225,12 +369,12 @@
 .range::-webkit-slider-thumb {
   -webkit-appearance: none; appearance: none;
   width: 24px; height: 24px; border-radius: 999px; background: #fff;
-  border: 2px solid var(--color-ink); box-shadow: 0 4px 12px -4px rgb(29 33 36 / 0.45);
+  border: 2px solid var(--color-ink); box-shadow: 0 4px 12px -4px rgb(47 51 54 / 0.45);
   transition: transform 0.15s var(--ease-out-soft);
 }
 .range::-moz-range-thumb {
   width: 20px; height: 20px; border-radius: 999px; background: #fff;
-  border: 2px solid var(--color-ink); box-shadow: 0 4px 12px -4px rgb(29 33 36 / 0.45);
+  border: 2px solid var(--color-ink); box-shadow: 0 4px 12px -4px rgb(47 51 54 / 0.45);
 }
 .range:hover::-webkit-slider-thumb, .range:active::-webkit-slider-thumb { transform: scale(1.12); }
 .range:focus-visible { outline-offset: 8px; }
@@ -266,6 +410,13 @@ details.faq[open]::details-content { block-size: auto; }
   }
   .js [data-reveal] { opacity: 1; transform: none; }
   .js [data-words] .w { opacity: 1; transform: none; }
+  .js [data-reveal]:not([data-shown]) .cascade,
+  .js [data-reveal]:not([data-shown]) .pop { opacity: 1; transform: none; scale: none; }
+  .js [data-reveal]:not([data-shown]) .tick path { stroke-dashoffset: 0; }
+  .js .photo img { clip-path: none; transform: none; }
+  /* Scroll-linked motion ignores animation-duration, so it has to be switched off by name */
+  .parallax-img, .photo img, .glow-drift, .drift-up, .closing-card, .orb, .bob, .hero-shrink, .band-lift, .ken-burns { animation: none !important; scale: none; translate: none; }
+  .scroll-progress { display: none !important; }
   .hl, .js [data-words] .hl { animation: none !important; background-size: 100% 100% !important; }
   .status-flip > * { animation: none !important; }
   .status-flip > :first-child { opacity: 0; }

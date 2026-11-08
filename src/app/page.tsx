@@ -15,6 +15,7 @@ import { Why } from "@/components/sections/why";
 export default function Home() {
   return (
     <>
+      <div aria-hidden="true" className="scroll-progress" />
       <HomeHero />
       <Stats tone="strip" />
       <Statement />

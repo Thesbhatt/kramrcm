@@ -28,7 +28,7 @@ Every page ends with `<MotionObserver />`.
 | `sections/statement.tsx` | scroll-darkening statement |
 | `sections/stats.tsx` | `tone="strip"` hairline proof bar (home, under hero) or `peach`/`stone` filled panel (About) |
 | `sections/process.tsx` | full-width peach band with numbered timeline (horizontal desktop, vertical phone); `band={false}` for plain white |
-| `sections/service-cards.tsx` | 3 service cards with client photos and full item lists; exports `serviceIcons`, `servicePhotos` (also used by `/services`) |
+| `sections/service-cards.tsx` | 3 image-free service cards with full item lists (home); exports `serviceIcons`, `servicePhotos` (photos are rendered only on `/services`) |
 | `sections/process.tsx`, `stats.tsx`, `why.tsx`, `specialties-preview.tsx`, `faq.tsx` | reusable sections; read their data from `src/content/site.ts` |
 | `sections/about-intro.tsx` | home "About us": short story, 3 pillars, overlapping client photos. Copy in `aboutIntro` |
 | `sections/billing-why.tsx` | "Why choose Kram for medical billing?": photo + copy + benefit chips (home + About). Copy in `billingWhy` |
@@ -37,6 +37,6 @@ Every page ends with `<MotionObserver />`.
 | `sections/contact-form.tsx` | the only form |
 
 ## Styling hooks in `src/app/globals.css`
-`@theme` tokens (colours, radii, easing) · `.hl` keyword highlight · `.statement-word` + `word-ink` · `header-compact` · `.float-in`, `.tracker-row`, `ping`, `.status-flip` + `.row-flash` (hero cards) · `hl-sweep` (highlight marker) · `.range` (calculator sliders) · `.menu-panel` · reduced-motion block at the end.
+`@theme` tokens (colours, radii, easing) · `.hl` keyword highlight · `.statement-word` + `word-ink` · `header-compact` · `.float-in`, `.tracker-row`, `ping`, `.status-flip` + `.row-flash` (hero cards) · `hl-sweep` (highlight marker) · `.range` (calculator sliders) · `.menu-panel` · motion hooks: `.photo` (on a `[data-reveal]` frame: wipe, zoom, parallax), `.scroll-frame` + `.parallax-img` / `.glow-drift`, `.drift-up`, `.cascade` (needs `--i`), `.tick`, `.pop`, `.orb`, `.bob`, `.closing-card`, `.scroll-progress` · reduced-motion block at the end (scroll-linked hooks must be listed there by name).
 
 When adding a section: put copy in `src/content/site.ts` (see `docs/content-guide.md`), build the component in `sections/`, use tokens only, wrap in `reveal()`.

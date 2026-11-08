@@ -8,8 +8,8 @@ export function Why() {
   return (
     <section className="pb-20 md:pb-28">
       <Container>
-        <div className="relative overflow-hidden rounded-[32px] bg-ink px-6 py-14 text-white sm:px-10 md:py-20 lg:px-14">
-          <div aria-hidden="true" className="pointer-events-none absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.2),transparent_65%)]" />
+        <div className="scroll-frame band-lift relative overflow-hidden rounded-[32px] bg-ink px-6 py-14 text-white sm:px-10 md:py-20 lg:px-14">
+          <div aria-hidden="true" className="glow-drift pointer-events-none absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgb(247_124_39/0.4),transparent_65%)]" />
           {/* Stacked, not split: heading → reasons in one row → timelines band. Each row is full width, so no column is left short. */}
           <div className="relative flex flex-col gap-12 lg:gap-14">
             <SectionHeading
@@ -21,7 +21,7 @@ export function Why() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
               {reasons.map((r, i) => (
                 <div key={r.title} className="flex flex-col gap-2 border-t border-ink-line pt-5" {...reveal(i * 80)}>
-                  <span className="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-white/8 text-orange-soft ring-1 ring-white/10">
+                  <span className="pop mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-white/8 text-orange-soft ring-1 ring-white/10">
                     <Icon name={reasonIcons[i]} />
                   </span>
                   <h3 className="text-lg tracking-[-0.01em] text-white">{r.title}</h3>
