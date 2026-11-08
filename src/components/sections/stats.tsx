@@ -12,7 +12,7 @@ function display(value: number, suffixIn: string) {
 /** Stats band: real numbers from `stats` in site.ts, static in the HTML. TODO(client): confirm figures. */
 export function Stats() {
   return (
-    <section className="border-y border-line" aria-label="Kram Healthcare in numbers">
+    <section className="band-glow bg-orange" aria-label="Kram Healthcare in numbers">
       <Container>
         <dl className="grid grid-cols-2 lg:grid-cols-4" {...stagger}>
           {stats.map((s, i) => {
@@ -20,13 +20,13 @@ export function Stats() {
             return (
             <div
               key={s.label}
-              className={`flex flex-col gap-3 py-10 md:py-14 ${i % 2 === 0 ? "pl-0 pr-5" : "px-5"} ${i < 2 ? "border-b border-line lg:border-b-0" : ""} ${i % 2 === 1 ? "border-l border-line" : ""} lg:border-l lg:border-line lg:first:border-l-0 lg:px-8 lg:first:pl-0 sm:px-8 sm:first:pl-0`}
+              className={`flex flex-col gap-3 py-10 md:py-14 ${i % 2 === 0 ? "pl-0 pr-5" : "px-5"} ${i < 2 ? "border-b border-white/40 lg:border-b-0" : ""} ${i % 2 === 1 ? "border-l border-white/40" : ""} lg:border-l lg:border-white/40 lg:first:border-l-0 lg:px-8 lg:first:pl-0 sm:px-8 sm:first:pl-0`}
             >
-              <dd className="order-1 whitespace-nowrap font-display text-[clamp(2.25rem,4.4vw,3.5rem)] font-light leading-none tracking-[-0.02em] tabular-nums">
+              <dd className="order-1 whitespace-nowrap font-display text-[clamp(2.25rem,4.4vw,3.5rem)] font-normal text-white leading-none tracking-[-0.02em] tabular-nums">
                 {/* Real number in the HTML; MotionObserver counts up to it when it scrolls into view */}
                 <span data-count={d.n} data-suffix={d.suffix}>{d.text}</span>
               </dd>
-              <dt className="order-2 max-w-[22ch] text-sm text-muted">{s.label}</dt>
+              <dt className="order-2 max-w-[22ch] text-sm text-white">{s.label}</dt>
             </div>
             );
           })}

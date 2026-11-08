@@ -4,7 +4,7 @@ import { Faq } from "@/components/sections/faq";
 import { ProductPreview } from "@/components/sections/product-preview";
 import { Process } from "@/components/sections/process";
 import { ServiceList } from "@/components/sections/service-list";
-import { SpecialtiesPreview } from "@/components/sections/specialties-preview";
+import { SpecialtiesPreview, SpecialtyMarquee } from "@/components/sections/specialties-preview";
 import { Stats } from "@/components/sections/stats";
 import { TrustedBy } from "@/components/sections/trusted-by";
 
@@ -13,12 +13,13 @@ export default function Home() {
   return (
     <>
       <HomeHero />
+      <SpecialtyMarquee />
       <TrustedBy />
       <Stats />
       <ServiceList />
+      <SpecialtiesPreview />
       <Process />
       <ProductPreview />
-      <SpecialtiesPreview />
       <Faq limit={4} />
       <MotionObserver />
     </>

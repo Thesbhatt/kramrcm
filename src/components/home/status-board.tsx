@@ -1,14 +1,17 @@
 import { statusBoard } from "@/content/site";
+import { BoardReplay } from "./board-replay";
 
 /**
- * Hero visual: a live-style status board for a SAMPLE practice. Pure CSS motion (see .board-row in globals.css):
- * pills and the progress track update once on load, then hold. The accessible text is the end state, so the
+ * Status board for a SAMPLE practice. Pure CSS motion (see .board-row in globals.css): pills roll, tracks fill, rows flash
+ * and the footer tallies count along, once, then hold (a small client "Replay" button restarts it). The accessible text is the end state, so the
  * animated pieces are aria-hidden. Server Component, no JS.
  */
 export function StatusBoard() {
-  const { title, sample, columns, stages, rows } = statusBoard;
+  const { title, sample, columns, stages, summary, rows } = statusBoard;
+  const doneCount = rows.filter((r) => r.end === "done").length;
+  const reviewCount = rows.length - doneCount;
   return (
-    <figure className="board w-full rounded-[28px] bg-tint p-3 text-left sm:p-5" aria-label={`${title}. ${sample}.`}>
+    <figure className="board w-full rounded-[28px] bg-white/10 p-3 text-left text-fg sm:p-5" aria-label={`${title}. ${sample}.`}>
       <div className="overflow-clip rounded-2xl border border-line bg-white">
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1 border-b border-line px-5 py-4 sm:px-7">
           <p className="font-medium">{title}</p>
@@ -62,6 +65,21 @@ export function StatusBoard() {
             </li>
           ))}
         </ul>
+
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-line bg-tint/70 px-5 py-3.5 sm:px-7">
+          <p className="sr-only">{`${doneCount} ${summary.done.toLowerCase()}, ${reviewCount} ${summary.review.toLowerCase()}.`}</p>
+          <p className="flex flex-wrap gap-x-7 gap-y-1 text-sm" aria-hidden="true">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-orange-ink" />{summary.done}
+              <b className="tally font-display text-xl font-normal" />
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-orange" />{summary.review}
+              <b className="tally tally-rev font-display text-xl font-normal" />
+            </span>
+          </p>
+          <BoardReplay label={summary.replay} />
+        </div>
       </div>
     </figure>
   );

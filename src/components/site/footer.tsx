@@ -1,5 +1,8 @@
 import Link from "next/link";
+import glassesCutout from "@/assets/photos/cutout-glasses.webp";
+import pairCutout from "@/assets/photos/cutout-pair.webp";
 import { closing, company, cta, legal, nav, services } from "@/content/site";
+import { Cutout } from "../ui/cutout";
 import { Logo } from "../ui/logo";
 import { ButtonLink, Container, reveal } from "../ui/primitives";
 
@@ -7,20 +10,23 @@ import { ButtonLink, Container, reveal } from "../ui/primitives";
 export function Footer() {
   return (
     <footer>
-      <section className="bg-tint py-20 md:py-28" aria-labelledby="closing-title">
+      <section className="band-glow relative bg-orange py-20 md:py-28" aria-labelledby="closing-title">
+        {/* Decorative clinicians standing on the band's bottom edge, one each side (wide screens only, so they never touch the text) */}
+        <Cutout src={glassesCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
+        <Cutout src={pairCutout} sizes="340px" flip delay={150} imgClassName="[mask-image:linear-gradient(90deg,transparent,black_22%)]" className="absolute bottom-0 right-[max(1.5rem,calc(50%-37.5rem))] hidden w-[340px] xl:block" />
         <Container className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-6" {...reveal()}>
-          <h2 id="closing-title" className="max-w-[26ch]">{closing.titleStart} {closing.titleHighlight}</h2>
-          <p className="max-w-[46ch] text-muted">{closing.body}</p>
+          <h2 id="closing-title" className="max-w-[22ch] font-normal text-white">{closing.titleStart} {closing.titleHighlight}</h2>
+          <p className="max-w-[46ch] text-white">{closing.body}</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3 pt-2" {...reveal(160)}>
-            <ButtonLink href={cta.href}>{cta.primary}</ButtonLink>
-            <ButtonLink href={company.phoneHref} variant="white">Call {company.phoneDisplay}</ButtonLink>
+            <ButtonLink href={cta.href} variant="light">{cta.primary}</ButtonLink>
+            <ButtonLink href={company.phoneHref} variant="ghost-dark">Call {company.phoneDisplay}</ButtonLink>
           </div>
         </Container>
       </section>
 
-      <div className="bg-ink text-on-ink">
+      <div className="band-glow-ink bg-ink text-on-ink">
         <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr_1.2fr]">
           <div className="flex flex-col gap-5">
             <Logo tone="dark" />

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { MotionObserver } from "@/components/ui/motion-observer";
+import phoneCutout from "@/assets/photos/cutout-phone.webp";
 import { PageHero } from "@/components/sections/page-hero";
 import { featuredIcons, groupIcons } from "@/components/sections/specialties-preview";
+import { Cutout } from "@/components/ui/cutout";
 import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal } from "@/components/ui/primitives";
 import { company, cta, featuredSpecialties, specialties, specialtyGroups } from "@/content/site";
 
@@ -42,13 +44,13 @@ export default function SpecialtiesPage() {
           <SectionHeading eyebrow="Where we go deepest" title="Specialties we see most" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {featuredSpecialties.map((s, i) => (
-              <div key={s.name} className={`flex flex-col gap-10 rounded-xl p-7 ${i === 0 ? "bg-ink text-white" : "bg-stone"}`} {...reveal(i * 60)}>
-                <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${i === 0 ? "bg-white/10 text-orange-soft" : "bg-white text-orange-ink"}`}>
+              <div key={s.name} className={`flex flex-col gap-10 rounded-xl p-7 ${i === 0 ? "bg-orange text-white" : "bg-stone"}`} {...reveal(i * 60)}>
+                <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${i === 0 ? "bg-white text-orange-ink" : "bg-white text-orange-ink"}`}>
                   <Icon name={featuredIcons[i]} className="h-6 w-6" />
                 </span>
                 <div>
                   <h3 className="text-[1.5rem] leading-tight">{s.name}</h3>
-                  <p className={`mt-2 ${i === 0 ? "text-on-ink" : "text-muted"}`}>{s.note}</p>
+                  <p className={`mt-2 ${i === 0 ? "text-white" : "text-muted"}`}>{s.note}</p>
                 </div>
               </div>
             ))}
@@ -79,14 +81,18 @@ export default function SpecialtiesPage() {
             ))}
           </div>
 
-          <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-peach-2 p-7 ring-1 ring-peach-line sm:flex-row sm:items-center sm:p-9" {...reveal()}>
-            <div>
-              <h3 className="text-[1.5rem]">Don&apos;t see your specialty?</h3>
-              <p className="mt-1 text-muted">Ask us. If it bills to US payers, we can most likely enroll and bill for it.</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href={cta.href}>Ask about your specialty <Arrow /></ButtonLink>
-              <ButtonLink href={company.phoneHref} variant="white">{company.phoneDisplay}</ButtonLink>
+          {/* Orange banner; on wide screens the clinician stands on its bottom edge and her head rises above the top */}
+          <div className="band-glow relative mt-10 rounded-2xl bg-orange px-7 py-9 sm:px-9 md:pl-[300px]" {...reveal()}>
+            <Cutout src={phoneCutout} sizes="260px" className="absolute bottom-0 left-8 hidden w-[250px] md:block" delay={200} />
+            <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+              <div>
+                <h3 className="text-[1.75rem] font-normal text-white">Don&apos;t see your specialty?</h3>
+                <p className="mt-1 max-w-[40ch] text-white">Ask us. If it bills to US payers, we can most likely enroll and bill for it.</p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <ButtonLink href={cta.href} variant="light">Ask about your specialty <Arrow /></ButtonLink>
+                <ButtonLink href={company.phoneHref} variant="ghost-dark">{company.phoneDisplay}</ButtonLink>
+              </div>
             </div>
           </div>
         </Container>

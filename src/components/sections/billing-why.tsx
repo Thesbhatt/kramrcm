@@ -7,7 +7,7 @@ import { Arrow, ButtonLink, Check, Container, Highlight, SectionHeading, reveal 
 export function BillingWhy() {
   const { tracker } = billingWhy;
   return (
-    <section className="pb-20 md:pb-28">
+    <section className="pb-20 pt-16 md:pb-28 md:pt-24">
       <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-stretch lg:gap-16">
         {/* The wrapper is not clipped, so the offset ring and the floating card can hang outside the photo frame */}
         <div className="relative order-2 mb-8 lg:order-1 lg:mb-0 lg:min-h-[440px]">

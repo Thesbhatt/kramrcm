@@ -153,7 +153,7 @@ export function MobileMenu() {
           <a href={company.phoneHref} tabIndex={open ? undefined : -1} className="px-2 py-1 text-base font-medium tabular-nums">
             Call {company.phoneDisplay}
           </a>
-          <Link href={cta.href} tabIndex={open ? undefined : -1} className="rounded-[4px] bg-ink px-[22px] py-[13px] text-center text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-white">
+          <Link href={cta.href} tabIndex={open ? undefined : -1} className="rounded-[4px] bg-orange px-[22px] py-[13px] text-center text-xs font-semibold uppercase tracking-[0.04em] text-white">
             {cta.primary}
           </Link>
         </div>

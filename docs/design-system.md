@@ -7,21 +7,22 @@ Tokens live in `src/app/globals.css` (`@theme`).
 ## Colour
 | Token | Value | Use |
 |---|---|---|
-| `ink` / `fg` | #040810 | Text, filled buttons, footer |
-| `muted` | ink at 64% opacity | Secondary text (about 6:1 on white) |
+| `ink` | #404045 | The logo's gray (Nov 9 2026, replaced near-black navy): footer, data cards, outline buttons, gray bands |
+| `fg` | #26272B | Body text (charcoal) |
+| `muted` | fg at 70% opacity | Secondary text (about 5.7:1 on white) |
 | `line` | #D1D5D6 | Every 1px hairline and border |
 | `tint` (`stone`) | #EFF2F3 | The one pale band (closing CTA) and the fill of the two framed visuals. `stone` is a legacy alias so inner pages inherit it |
 | `tint-2` (`stone-2`) | #E1E6E8 | "In review" pill, slider track |
-| `orange` | #F77C27 | Logo orange, the single accent: dots, progress track, underline under the phone link. Never text on light (2.67:1) |
+| `orange` | #F77C27 | Logo orange, the brand colour (Nov 9 2026, client wants more orange): primary buttons, the stats band, the closing CTA band, the contact band, the `.hl` word marker, slider tracks. All text on it is white (2.67:1, client decision; black on orange was rejected). Never orange text on light |
 | `orange-ink` | #B84A0C | Orange text on light (5.2:1 on white, 4.6:1 on tint), step numerals, and the fill of "Approved/Paid" pills (white text) |
 | `orange-soft` | #FFA366 | Small orange text on ink |
-| `ink-2` / `ink-line` / `on-ink` | #0E1420 / #262D3A / #C9CED6 | Surfaces, hairlines and body text on ink (footer) |
+| `ink-2` / `ink-line` / `on-ink` | #4C4C52 / #62626A / #E6E6E9 | Surfaces, hairlines and body text on ink (footer, gray bands) |
 | `graphite` | #3A404B | Hover for filled buttons, icons on light |
 | `peach*` | legacy | Only used by inner-page leftovers |
 
 Why the tint is a cool grey: a cream or peach tint beside an orange accent is the default look of generated pages, and Kram's palette has always been orange plus grey (no blue). #EFF2F3 shares a hue with the #D1D5D6 hairline, so orange is the only warm colour on the page. Text on orange surfaces is white (client decision, Nov 8 2026), so keep orange surfaces small: dots, tracks, pills (which use `orange-ink`).
 
-Page rhythm: white everywhere, hairlines between sections, one tint band (closing CTA), ink footer.
+Page rhythm: white sections with hairlines, warm-gray cards, orange bands (stats, contact, closing CTA), gray footer. The tint is now a warm pale gray (#F6F4F1).
 
 ## Type
 | Role | Font | Spec |
@@ -39,7 +40,7 @@ Both fonts are latin-subset variable woff2 in `src/fonts` (OFL licences beside t
 Avoid: tracked-caps eyebrows over every heading, "A · B · C" dot strings, a single accented word in a headline (the old `<Highlight>` pill is now plain text), numbered markers anywhere except "How we work".
 
 ## Components
-- **Buttons** (`ButtonLink` in `ui/primitives.tsx`): 4px radius, padding 13px 22px. `dark` and `soft` both render the filled ink button; `white` is the 1px ink outline; `ghost-dark` is the outline on ink. Primary label site-wide: "Book a free practice review"; header: "Get in touch".
+- **Buttons** (`ButtonLink` in `ui/primitives.tsx`): 4px radius, padding 13px 22px. `dark` and `soft` both render the PRIMARY button, filled logo orange with white text (hover `orange-ink`); `white` is the 1px gray outline (orange fill on hover); `light` is white with an orange label, for orange bands; `ghost-dark` is the outline on ink. Primary label site-wide: "Book a free practice review"; header: "Get in touch".
 - **Header**: white, 97px tall on desktop (72px on phones), 1px bottom border, centered Space Grotesk links, one small CTA at the right. One orange bar (no background fill) rests under the current page (also `aria-current`, full-ink text) and glides (400 ms) to the hovered or focused link, then returns; links drop in 60 ms apart on first load. In the mobile menu the current page has full-ink text, an orange left bar and a dot (no fill), and rows step in 40 ms apart. Hamburger below 1024px. No mega-menus, no phone number in the bar (it is in the mobile menu, footer and closing band).
 - **Hairline rows** replace cards: services list, specialties, FAQ, stats cells, process steps. Only two things are framed: the hero status board and the weekly report (`rounded-[28px]` tint frame, white inner panel with a 1px border).
 - **Status pills**: Submitted = outline, In review = `tint-2`, Approved/Paid = `orange-ink` with white text.
@@ -61,7 +62,8 @@ Home order: hero, "Trusted by" strip (hidden until real logos), stats band, serv
 - **Status board** (in the "Every status, every week" section; it rises in with the section's reveal): each row, 0.45 s apart, moves its pill Submitted → In review and fills its track; `done` rows continue to Approved/Paid 1.6 s later. Once, then it holds. Held until a third of it is on screen, so it starts when the visitor reaches it.
 - **Scroll reveals**: `reveal(delayMs)` on a block, `stagger` on a list/grid (children rise 90 ms apart, `--i` set by `MotionObserver`). Each plays once, 28 px rise + fade. Process steps also draw a hairline across the top of each column. Service rows shift and tint on hover; their arrow nudges.
 - **Count-up** (`data-count`, plus `data-suffix`): stats band, About stats, specialties page aside, About timelines (`~45 days`). 1.7 s ease-out quart from 0; the real number is in the HTML.
-- Not used: parallax on text, marquees, looping or bouncing motion, hover lifts.
+- Cutout clinicians (`ui/cutout.tsx`): rise 120px + a white glow blooms behind them, once on first view. Corner glows (`.band-glow` on orange, `.band-glow-ink` on gray) give flat bands depth, as on the calculator card. The status board is a ~6 s one-shot: pills roll up, rows flash, tracks glow, footer tallies count; "Replay" restarts it.
+- Not used: parallax on text, looping or bouncing motion, hover lifts. One exception, added Nov 9 2026 at the client's request (ported from `main`): the home specialties marquee (two slow rows, pauses on hover/focus and via the visible pause button, off under reduced motion).
 - `prefers-reduced-motion`: everything is shown at once, nothing counts, the board shows its end state. Without JS everything is visible and the hero and board still play.
 
 ## Accessibility

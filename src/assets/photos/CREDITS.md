@@ -30,3 +30,9 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 | hero-slide-phone.jpg | https://unsplash.com/photos/egCFrNJ6Djw (photo-1758691462848-31a39258dbd8) | Home hero carousel, slide 3 |
 | hero-slide-huddle.jpg | https://unsplash.com/photos/oiqFyLx_KDU (photo-1758873269317-51888e824b28) | Home hero carousel, slide 4 |
 | hero-slide-desk.jpg | https://unsplash.com/photos/ek9VJwUNNA4 (photo-1758691737207-e75821e080cb) | Home hero carousel, slide 5 |
+| contact-doctor.webp | https://kramhealthcare.com/wp-content/uploads/2026/05/2.png (transparent cutout, cropped to waist and converted to WebP) | Contact page orange band. TODO(client): confirm rights (looks like stock) |
+| cutout-glasses.webp | about-clinician.jpg with the background removed (macOS Vision subject lift, Nov 9 2026) | Closing CTA band, left |
+| cutout-duo.webp | hero-slide-tablet.jpg, background removed | Home services band |
+| cutout-pair.webp | about-review.jpg, background removed | Closing CTA band, right |
+| cutout-desk.webp | service-credentialing.jpg, background removed | Calculator hero |
+| cutout-phone.webp | hero-slide-phone.jpg, background removed | Specialties "don't see yours" band |

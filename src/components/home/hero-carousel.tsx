@@ -17,7 +17,7 @@ const INTERVAL_MS = 1500;
  * Autoplay stops for `prefers-reduced-motion`, while the tab is hidden, while the hero is off screen, and when the
  * visitor presses Pause (WCAG 2.2.2: moving content that lasts more than 5 s needs a way to stop it).
  */
-export function HeroCarousel({ slides, labels }: { slides: Slide[]; labels: Labels }) {
+export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; labels: Labels; onSlide?: (index: number) => void }) {
   const [active, setActive] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
@@ -40,6 +40,8 @@ export function HeroCarousel({ slides, labels }: { slides: Slide[]; labels: Labe
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  useEffect(() => { onSlide?.(active); }, [active, onSlide]);
 
   const playing = canMove && !paused && inView;
   useEffect(() => {

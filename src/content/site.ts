@@ -36,7 +36,7 @@ export const cta = {
 };
 
 export const hero = {
-  // Rendered as one plain headline: {titleStart} {titleHighlight} {titleEnd} (no highlighted word in this design)
+  // Rendered as one headline: {titleStart} [orange marker: {titleHighlight}] {titleEnd}
   titleStart: "Get credentialed faster and",
   titleHighlight: "paid",
   titleEnd: "on the first pass",
@@ -55,6 +55,14 @@ export const hero = {
     { id: "huddle", alt: "Colleagues collaborating around a table with laptops and notebooks", focus: "70% 45%" },
     { id: "desk", alt: "Two colleagues talking at a desk, with a dashboard open on a laptop between them", focus: "65% 40%" },
   ] as { id: "tablet" | "team" | "phone" | "huddle" | "desk"; alt: string; focus: string }[],
+  // Floating status chips over the hero photo (from the main-branch hero). Each flips from `from` to `to` on every slide. Generic
+  // process states, not client claims. Two chips show at once: slide n uses chips[n % 4] and chips[(n + 2) % 4].
+  chips: [
+    { label: "Provider enrollment", from: "In review", to: "Approved" },
+    { label: "Claim", from: "Submitted", to: "Paid" },
+    { label: "State license", from: "Renewal filed", to: "Renewed" },
+    { label: "Weekly status report", from: "Preparing", to: "Sent to you" },
+  ],
   carousel: {
     label: "Photos of healthcare teams at work",
     pause: "Pause photo slideshow",
@@ -73,6 +81,7 @@ export const statusBoard = {
   sample: "Sample practice, illustrative",
   columns: { item: "Provider or claim batch", progress: ["Submitted", "In review", "Approved or paid"], status: "Status" },
   stages: { submitted: "Submitted", review: "In review" },
+  summary: { done: "Approved or paid", review: "In review", replay: "Replay" },
   rows: [
     { name: "Provider A", detail: "Medicare enrollment", end: "done", final: "Approved" },
     { name: "Provider B", detail: "Commercial payer enrollment", end: "review", final: "Approved" },
@@ -352,6 +361,11 @@ export const contact = {
     message: "e.g. Adding two new NPs in January; need Medicare and BCBS enrollment.",
   },
   consent: { lead: "I agree to", privacyLabel: "the Privacy Policy", join: "and to", body: "Kram Healthcare contacting me about this request by phone or email." },
+  // Orange band around the form (wording follows the live site's "Feel free to connect with us")
+  band: {
+    title: "Feel free to connect with us",
+    body: "Contact us today for all your provider credentialing and enrollment needs. We're here to make onboarding seamless and efficient.",
+  },
   formTitle: "Request your free practice review",
   submit: "Request my free review",
   responseTime: null as string | null, // TODO(client): e.g. "We reply within one business day"
@@ -460,6 +474,7 @@ export const specialtyGroups = [
 
 export const servicesSection = {
   title: "One partner for everything between a new provider and a paid claim",
+  body: "Use one service or all three. Either way you work with a single accountable team.",
   learnMore: "Learn more",
 };
 
@@ -477,10 +492,14 @@ export const productSection = {
 };
 
 export const specialtiesSection = {
-  title: `Know-how across ${specialties.length} specialties`,
+  // Rendered as: {titleStart} [orange {specialties.length}] {titleEnd}
+  titleStart: "Know-how across",
+  titleEnd: "specialties",
   body: "Every specialty has its own payers, codes and paperwork. We know where each one gets stuck.",
   link: "See all specialties",
 };
+
+export const marquee = { pause: "Pause scrolling specialties", play: "Play scrolling specialties" };
 
 export const faqSection = {
   title: "Questions practices ask us first",

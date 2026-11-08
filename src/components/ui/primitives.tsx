@@ -10,21 +10,23 @@ export function Eyebrow({ children, tone = "light" }: { children: ReactNode; ton
   return <span className={`self-start text-sm ${tone === "dark" ? "text-on-ink" : "text-muted"}`}>{children}</span>;
 }
 
-type Variant = "dark" | "soft" | "white" | "ghost-dark";
+type Variant = "dark" | "soft" | "white" | "ghost-dark" | "light";
 type ButtonProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?: Variant; size?: "md" | "lg" | "icon" };
 
-// Medallion-style buttons: 4px radius, small uppercase label. `dark` and `soft` are both the filled ink button
-// (two names kept so older call sites still work); `white` is the 1px outline; `ghost-dark` is the outline on ink.
+// Buttons: 4px radius, small uppercase label. `dark` and `soft` are both the PRIMARY button, filled logo orange with
+// white text (two names kept so older call sites still work); `white` is the 1px gray outline for light surfaces;
+// `ghost-dark` is the white outline for gray or orange surfaces; `light` is a white fill with an orange label for orange bands.
 const base =
-  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-[0.6875rem] font-semibold uppercase tracking-[0.04em] transition-colors duration-150 ease-[var(--ease-out-soft)]";
+  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-xs font-semibold uppercase tracking-[0.04em] transition-colors duration-150 ease-[var(--ease-out-soft)]";
 
 const sizes = { md: "px-[22px] py-[13px]", lg: "px-[22px] py-[13px]", icon: "h-11 w-11" };
 
 const variants: Record<Variant, string> = {
-  dark: "bg-ink text-white hover:bg-graphite",
-  soft: "bg-ink text-white hover:bg-graphite",
-  white: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-ink hover:text-white",
-  "ghost-dark": "text-white ring-1 ring-inset ring-white/60 hover:bg-white hover:text-ink",
+  dark: "bg-orange text-white hover:bg-orange-ink",
+  soft: "bg-orange text-white hover:bg-orange-ink",
+  white: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-orange hover:text-white hover:ring-orange",
+  "ghost-dark": "text-white ring-1 ring-inset ring-white/70 hover:bg-white hover:text-ink",
+  light: "bg-white text-orange-ink hover:bg-ink hover:text-white",
 };
 
 /** Internal hrefs ("/…") use next/link for client navigation + prefetch; others are plain anchors. */
@@ -68,13 +70,13 @@ export const stagger = { "data-stagger": "" } as const;
  * Splits plain text into words that rise from behind their own mask (hero headline). Words stay real text separated
  * by real spaces. The CSS animation ends visible, so the headline reads fine without JS. `from` continues the index.
  */
-export function Words({ text, from = 0 }: { text: string; from?: number }) {
+export function Words({ text, from = 0, mark }: { text: string; from?: number; mark?: string }) {
   const words = text.split(" ").filter(Boolean);
   return (
     <>
       {words.map((w, i) => (
         <span key={`${w}-${i}`}>
-          <span className="w-mask"><span className="w" style={{ ["--i" as string]: from + i }}>{w}</span></span>
+          <span className="w-mask"><span className={mark && w === mark ? "w hl" : "w"} style={{ ["--i" as string]: from + i }}>{w}</span></span>
           {i < words.length - 1 && " "}
         </span>
       ))}
@@ -82,9 +84,15 @@ export function Words({ text, from = 0 }: { text: string; from?: number }) {
   );
 }
 
-/** Headline pieces joined as ordinary text: no highlight pill, no accent on a single word. */
+/** Headline pieces with the key word on an orange marker (`.hl`: white text on the logo orange). */
 export function Highlight({ start, word, end }: { start?: string; word: string; end?: string }) {
-  return <>{[start, word, end].filter(Boolean).join(" ")}</>;
+  return (
+    <>
+      {start && <>{start} </>}
+      <span className="hl">{word}</span>
+      {end && <> {end}</>}
+    </>
+  );
 }
 
 export function SectionHeading({

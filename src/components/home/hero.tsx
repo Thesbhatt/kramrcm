@@ -5,7 +5,7 @@ import teamPhoto from "@/assets/photos/hero-slide-team.jpg";
 import tabletPhoto from "@/assets/photos/hero-slide-tablet.jpg";
 import { cta, hero } from "@/content/site";
 import { ButtonLink, Container, Words } from "../ui/primitives";
-import { HeroCarousel } from "./hero-carousel";
+import { HeroVisual } from "./hero-visual";
 
 const hi = (n: number) => ({ ["--h" as string]: n });
 
@@ -24,7 +24,7 @@ export function HomeHero() {
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <div className="flex flex-col items-start">
             <h1 className="max-w-[16ch]">
-              <Words text={`${hero.titleStart} ${hero.titleHighlight} ${hero.titleEnd}`} />
+              <Words text={`${hero.titleStart} ${hero.titleHighlight} ${hero.titleEnd}`} mark={hero.titleHighlight} />
             </h1>
             <p className="hero-in mt-6 max-w-[46ch] text-[1.0625rem] text-muted" style={hi(4)}>{hero.body}</p>
             <div className="hero-in mt-8" style={hi(5)}>
@@ -33,9 +33,7 @@ export function HomeHero() {
             <p className="hero-in mt-5 text-sm text-muted" style={hi(6)}>{hero.reassurance.join(" ")}</p>
           </div>
 
-          <div className="hero-photo relative aspect-[4/3] overflow-clip rounded-[28px] bg-tint sm:aspect-[16/10] lg:aspect-[1/1.04]">
-            <HeroCarousel slides={slides} labels={hero.carousel} />
-          </div>
+          <HeroVisual slides={slides} labels={hero.carousel} chips={hero.chips} />
         </div>
       </Container>
     </section>

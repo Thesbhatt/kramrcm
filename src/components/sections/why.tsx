@@ -6,7 +6,7 @@ const reasonIcons: IconName[] = ["user", "chart", "globe", "shield"];
 /** Full-width charcoal band with orange corner glows: heading, a row of four reasons, then a typical-timelines panel. */
 export function Why() {
   return (
-    <section className="band-corners-ink mb-20 bg-ink py-20 text-white md:mb-28 md:py-28">
+    <section className="band-glow-ink mb-20 bg-ink py-20 text-white md:mb-28 md:py-28">
       {/* Stacked, not split: heading → reasons in one row → timelines panel. Each row is full width, so no column is left short. */}
       <Container className="flex flex-col gap-12 lg:gap-14">
         <SectionHeading

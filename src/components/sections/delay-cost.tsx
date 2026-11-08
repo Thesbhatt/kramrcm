@@ -9,7 +9,7 @@ export function DelayCost() {
       <Container>
         <div {...reveal(120)}>
           <DelayCalculator>
-            <ButtonLink href={cta.href} variant="white" size="lg" className="self-start ring-0">
+            <ButtonLink href={cta.href} variant="dark" size="lg" className="self-start">
               {delayCost.cta} <Arrow />
             </ButtonLink>
           </DelayCalculator>

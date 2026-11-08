@@ -9,7 +9,7 @@ import { company, contact, legal } from "@/content/site";
 const privacyHref = legal.find((l) => l.label === "Privacy Policy")?.href ?? null;
 
 const input =
-  "w-full rounded-xl bg-white px-4 py-3 text-[0.97rem] text-fg ring-1 ring-line transition-[box-shadow] duration-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-orange aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[#B42318]";
+  "w-full rounded-xl bg-tint px-4 py-3 text-[0.97rem] text-fg ring-1 ring-line transition-[box-shadow] duration-200 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-orange aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-[#B42318]";
 
 function Field({
   id, label, error, required, children,
@@ -47,7 +47,7 @@ export function ContactForm() {
 
   if (state.status === "success") {
     return (
-      <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-2xl bg-stone p-8">
+      <div role="status" className="flex min-h-[420px] flex-col items-start justify-center gap-4 rounded-2xl bg-white p-8 shadow-[0_24px_60px_-30px_rgb(64_64_69/0.55)]">
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-peach-2 text-orange-ink">
           <svg viewBox="0 0 16 16" className="h-6 w-6" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </span>
@@ -60,7 +60,7 @@ export function ContactForm() {
   }
 
   return (
-    <form ref={formRef} action={action} noValidate className="relative flex flex-col gap-5 rounded-2xl bg-stone p-5 sm:p-8">
+    <form ref={formRef} action={action} noValidate className="relative flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-[0_24px_60px_-30px_rgb(64_64_69/0.55)] sm:p-8">
       {/* Honeypot */}
       <div className="absolute -left-[9999px]" aria-hidden="true">
         <label htmlFor="company_website">Website</label>
@@ -97,7 +97,7 @@ export function ContactForm() {
           {contact.needs.map((n) => (
             <label key={n} className="cursor-pointer">
               <input type="checkbox" name="needs" value={n} defaultChecked={v?.needs.includes(n)} className="peer sr-only" />
-              <span className="inline-block rounded-full bg-white px-4 py-2 text-sm font-medium ring-1 ring-line transition-colors duration-200 hover:ring-graphite peer-checked:bg-ink peer-checked:text-white peer-checked:ring-ink peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-orange">
+              <span className="inline-block rounded-full bg-tint px-4 py-2 text-sm font-medium ring-1 ring-line transition-colors duration-200 hover:ring-orange peer-checked:bg-orange peer-checked:text-white peer-checked:ring-orange peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-orange">
                 {n}
               </span>
             </label>
@@ -135,7 +135,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="group inline-flex items-center justify-center gap-2 self-start rounded-full bg-ink px-7 py-3.5 font-medium text-white transition-[transform,box-shadow,opacity] duration-200 hover:shadow-[0_12px_24px_-12px_rgb(47_51_54/0.7)] disabled:opacity-70 disabled:hover:translate-y-0"
+        className="group inline-flex items-center justify-center gap-2 self-start rounded-[4px] bg-orange px-[22px] py-[13px] text-xs font-semibold uppercase tracking-[0.04em] text-white transition-colors duration-150 hover:bg-orange-ink disabled:opacity-70"
       >
         {pending ? (
           <>
