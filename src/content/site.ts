@@ -36,8 +36,7 @@ export const cta = {
 };
 
 export const hero = {
-  kicker: "Credentialing · Medical billing · Licensing",
-  // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
+  // Rendered as one plain headline: {titleStart} {titleHighlight} {titleEnd} (no highlighted word in this design)
   titleStart: "Get credentialed faster and",
   titleHighlight: "paid",
   titleEnd: "on the first pass",
@@ -46,35 +45,24 @@ export const hero = {
   // TODO(client): confirm before launch
   body: "Provider enrollment, medical billing and multi-state licensing for US practices, run by one accountable team that shows you every status, every week.",
   primaryCta: "Book a free practice review",
-  secondaryCta: "Explore services",
-  reassurance: ["Free practice review", "Written quote", "No commitment until you sign"],
-  // Background carousel (Nov 8 2026). `id` maps to a photo in `home/hero.tsx`; `focus` is the object-position crop
-  // (keeps the people in frame on phones); `flip` mirrors the photo so the subject sits right of the copy.
-  // Order matters: the first slide is the one painted before JS loads.
-  slides: [
-    { id: "team", alt: "A diverse team of healthcare colleagues gathered around a laptop in a bright office", focus: "55% 40%" },
-    { id: "tablet", alt: "Two doctors in white coats reviewing information together on a tablet", focus: "60% 40%" },
-    { id: "phone", alt: "A doctor in a white coat on the phone while working at her laptop", focus: "55% 40%", flip: true },
-    { id: "huddle", alt: "Colleagues collaborating around a table with laptops and notebooks", focus: "70% 45%" },
-    { id: "desk", alt: "Two colleagues talking at a desk, with a dashboard open on a laptop between them", focus: "70% 40%" },
-  ] as { id: "team" | "tablet" | "phone" | "huddle" | "desk"; alt: string; focus: string; flip?: boolean }[],
-  carousel: {
-    label: "Photos of healthcare teams at work",
-    controls: "Photo slideshow controls",
-    slide: "Photo",
-    prev: "Previous photo",
-    next: "Next photo",
-    pause: "Pause slideshow",
-    play: "Play slideshow",
-    goTo: "Show photo",
-  },
-  // Looping background video (public/video/hero-loop.mp4, built from the slide photos). The first slide above is its
-  // poster. Decorative, so no captions; the chips inside it are generic process states, not client claims.
-  video: {
-    src: "/video/hero-loop.mp4",
-    pause: "Pause background video",
-    play: "Play background video",
-  },
+  // Shown as one muted line under the button: each item is a sentence.
+  reassurance: ["Free practice review.", "Written quote.", "No commitment until you sign."],
+};
+
+// Hero visual: a SAMPLE practice, not a client. Generic labels only; never add real names, payers, amounts or counts.
+// `end: "done"` rows move on to the final pill; `end: "review"` rows stop at In review. See globals.css (.board-row).
+export const statusBoard = {
+  title: "Practice status board",
+  sample: "Sample practice, illustrative",
+  columns: { item: "Provider or claim batch", progress: ["Submitted", "In review", "Approved or paid"], status: "Status" },
+  stages: { submitted: "Submitted", review: "In review" },
+  rows: [
+    { name: "Provider A", detail: "Medicare enrollment", end: "done", final: "Approved" },
+    { name: "Provider B", detail: "Commercial payer enrollment", end: "review", final: "Approved" },
+    { name: "Claim batch", detail: "Primary care", end: "done", final: "Paid" },
+    { name: "Claim batch", detail: "Behavioral health", end: "review", final: "Paid" },
+    { name: "Provider C", detail: "CAQH re-attestation", end: "done", final: "Approved" },
+  ] as { name: string; detail: string; end: "done" | "review"; final: "Approved" | "Paid" }[],
 };
 
 // TODO(client): confirm each figure and its "as of" date
@@ -218,6 +206,9 @@ export type Leader = { name: string; title: string; bio: string };
 export const trust = {
   preview: false, // true shows labelled placeholders in `npm run dev` only, never in production
   previewNote: "Design preview (development only): add real, approved data to `trust` in src/content/site.ts to publish this section.",
+  // TODO(client): logos of real clients, ONLY with written permission. The "Trusted by" strip renders nothing while this is empty.
+  logos: [] as { name: string; src: string; width: number; height: number }[],
+  logosLabel: "Trusted by practices across the US",
   credentials: [] as Credential[], // only what is TRUE today, e.g. a real SOC 2 report or AAPC-certified staff
   credentialsLabel: "Security and credentials",
   metrics: [] as BillingMetric[],
@@ -265,8 +256,6 @@ export const notFound = {
   home: "Back to the homepage",
   contact: "Contact us",
 };
-
-export const marquee = { pause: "Pause scrolling specialties", play: "Play scrolling specialties" };
 
 export const legal = [
   // TODO(client): legal pages (lawyer's text). Items render as plain text until an href is set.
@@ -439,3 +428,48 @@ export const specialtyGroups = [
   { name: "Post-acute & equipment", items: ["Home Health", "Hospice Care", "Skilled Nursing Facilities (SNF)", "Durable Medical Equipment (DME)"] },
   { name: "Pharmacy & dental", items: ["Pharmacy", "Retail Pharmacy", "Specialty Pharmacy", "Pharmacist Enrollment Services", "Dental Billing Support"] },
 ];
+
+/* ---------------- Home: Medallion-style section copy ---------------- */
+
+export const servicesSection = {
+  title: "One partner for everything between a new provider and a paid claim",
+  learnMore: "Learn more",
+};
+
+export const processSection = {
+  title: "How we work",
+  body: "What happens after you reach out, from the first review to a status report every week.",
+};
+
+// TODO(client): confirm before launch (weekly report, named owner per item)
+export const productSection = {
+  title: "Every status, every week, in one report",
+  body: "A weekly report shows each enrollment, claim batch and denial, with the next step and who owns it. You never have to ask where something stands.",
+  link: "See how we work",
+  linkHref: "/services",
+  report: {
+    title: "Weekly status report",
+    sample: "Sample practice, illustrative",
+    columns: { item: "Item", status: "Status", next: "Next step", owner: "Owner" },
+    rows: [
+      { item: "Provider A, Medicare enrollment", status: "Approved", next: "Complete", owner: "Kram" },
+      { item: "Provider B, commercial enrollment", status: "In review", next: "Follow up with payer", owner: "Kram" },
+      { item: "Claim batch, primary care", status: "Paid", next: "Post and reconcile", owner: "Kram" },
+      { item: "Claim batch, behavioral health", status: "In review", next: "Await payer response", owner: "Payer" },
+      { item: "Denial appeal, DME", status: "Submitted", next: "Send missing records", owner: "Practice" },
+    ],
+  },
+};
+
+export const specialtiesSection = {
+  title: `Know-how across ${specialties.length} specialties`,
+  body: "Every specialty has its own payers, codes and paperwork. We know where each one gets stuck.",
+  link: "See all specialties",
+};
+
+export const faqSection = {
+  title: "Questions practices ask us first",
+  // Rendered after the title: "Can't find your answer? Call {phone} and we'll walk you through it."
+  bodyLead: "Can't find your answer? Call",
+  bodyTail: "and we'll walk you through it.",
+};
