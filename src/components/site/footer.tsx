@@ -3,7 +3,7 @@ import glassesCutout from "@/assets/photos/cutout-glasses.webp";
 import { closing, company, cta, legal, nav, services } from "@/content/site";
 import { Cutout } from "../ui/cutout";
 import { Logo } from "../ui/logo";
-import { ButtonLink, Container, reveal } from "../ui/primitives";
+import { ButtonLink, Container, Icon, reveal } from "../ui/primitives";
 
 /** Closing CTA band (the page's pale tint) followed by the ink footer. Rendered on every page via the layout. */
 export function Footer() {
@@ -39,12 +39,13 @@ export function Footer() {
             {services.map((s) => <li key={s.id}><Link href={`/services#${s.id}`} className="inline-flex min-h-11 items-center hover:text-white">{s.title}</Link></li>)}
           </FooterCol>
           <FooterCol title="Contact">
-            <li><a href={company.phoneHref} className="inline-flex min-h-11 items-center tabular-nums hover:text-white">{company.phoneDisplay}</a></li>
-            <li><a href={`mailto:${company.email}`} className="inline-flex min-h-11 items-center hover:text-white">{company.email}</a></li>
-            {company.hours && <li>{company.hours}</li>}
+            <li><a href={company.phoneHref} className="inline-flex min-h-11 items-center gap-3 tabular-nums hover:text-white"><Icon name="phone" className="h-4 w-4 shrink-0 text-orange" />{company.phoneDisplay}</a></li>
+            <li><a href={`mailto:${company.email}`} className="inline-flex min-h-11 items-center gap-3 hover:text-white"><Icon name="mail" className="h-4 w-4 shrink-0 text-orange" />{company.email}</a></li>
+            {company.hours && <li className="inline-flex min-h-11 items-center gap-3"><Icon name="clock" className="h-4 w-4 shrink-0 text-orange" />{company.hours}</li>}
             {company.address && (
-              <li className="py-2">
-                <a href={company.addressMapHref} className="hover:text-white" rel="noopener" target="_blank">
+              <li>
+                <a href={company.addressMapHref} className="inline-flex min-h-11 items-center gap-3 py-2 hover:text-white" rel="noopener" target="_blank">
+                  <Icon name="map" className="h-4 w-4 shrink-0 text-orange" />
                   <address className="not-italic">
                     {company.addressLines.map((l) => <span key={l} className="block">{l}</span>)}
                   </address>
