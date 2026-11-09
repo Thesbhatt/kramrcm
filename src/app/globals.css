@@ -140,10 +140,10 @@ details.faq[open]::details-content { block-size: auto; }
 .marquee:focus-within .marquee-track,
 .marquee[data-paused] .marquee-track { animation-play-state: paused; }
 
-/* Orange marker behind one word of a headline (white text on the logo orange: client decision, large type only) */
+/* Marker behind one word of a headline: white on orange-ink (5.2:1) so it passes AA */
 .hl {
   color: #fff;
-  background: var(--color-orange);
+  background: var(--color-orange-ink);
   border-radius: 0.28em;
   padding: 0 0.16em;
   margin: 0 -0.04em;

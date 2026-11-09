@@ -22,9 +22,10 @@ const base =
 const sizes = { md: "px-[22px] py-[13px]", lg: "px-[22px] py-[13px]", icon: "h-11 w-11" };
 
 const variants: Record<Variant, string> = {
-  dark: "bg-orange text-white hover:bg-orange-ink",
-  soft: "bg-orange text-white hover:bg-orange-ink",
-  white: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-orange hover:text-white hover:ring-orange",
+  // Small uppercase labels need 4.5:1, so the primary fill is orange-ink (5.2:1 with white); logo orange stays on bands and marks.
+  dark: "bg-orange-ink text-white hover:bg-graphite",
+  soft: "bg-orange-ink text-white hover:bg-graphite",
+  white: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-orange-ink hover:text-white hover:ring-orange-ink",
   "ghost-dark": "text-white ring-1 ring-inset ring-white/70 hover:bg-white hover:text-ink",
   light: "bg-white text-orange-ink hover:bg-ink hover:text-white",
 };

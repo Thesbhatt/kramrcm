@@ -13,20 +13,22 @@ import { serviceIcons } from "./service-cards";
  */
 export function ServiceList() {
   return (
-    <section id="services" className="band-glow bg-orange py-20 md:py-28">
-      <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-4" {...reveal()}>
+    <section id="services" className="bg-white py-20 md:py-28">
+      <Container className="grid grid-cols-1 gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10">
+        {/* Orange panel (not a full-width band) holds the headline and the cutout inside it, so the figure can never cover the text.
+            On desktop it sticks while the list scrolls; the cutout sits at its bottom edge. */}
+        <div className="band-glow relative flex flex-col gap-8 overflow-hidden rounded-3xl bg-orange px-7 pt-9 sm:px-9 sm:pt-11 lg:sticky lg:top-28 lg:self-start lg:min-h-[min(640px,calc(100svh-8rem))]">
+          <div className="flex flex-col gap-4 pb-8 lg:pb-0" {...reveal()}>
             <h2 className="max-w-[15ch] font-bold text-white">{servicesSection.title}</h2>
             <p className="max-w-[38ch] text-white">{servicesSection.body}</p>
           </div>
-          {/* Decorative cutout: hidden on small screens, pinned to the viewport bottom on desktop, flush with the band's bottom edge at the end */}
-          <div className="mt-auto hidden lg:-mb-28 lg:sticky lg:bottom-0 lg:block">
-            <Cutout src={duoCutout} sizes="(min-width: 1024px) 440px, 0px" className="relative mx-auto w-full max-w-[460px]" delay={150} />
+          {/* Decorative cutout: desktop only, standing on the panel's bottom edge */}
+          <div className="mt-auto hidden lg:block">
+            <Cutout src={duoCutout} sizes="(min-width: 1024px) 400px, 0px" className="relative mx-auto w-full max-w-[380px]" delay={150} />
           </div>
         </div>
 
-        <ul className="rounded-2xl bg-white p-2 shadow-[0_30px_70px_-34px_rgb(64_64_69/0.6)] sm:p-3">
+        <ul className="rounded-2xl border border-line bg-white p-2 sm:p-3">
           {services.map((s, n) => (
             <li key={s.id} className="group row-link spot relative rounded-xl border-b border-line px-5 py-7 last:border-b-0 hover:bg-tint sm:px-7" {...reveal(n * 140)}>
               {/* Orange bar grows down the left edge on hover; the big number warms up with it */}
