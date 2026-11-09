@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { nav } from "@/content/site";
+import { legal, nav } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return nav.map((n) => ({ url: `https://kramhealthcare.com${n.href === "/" ? "" : n.href}` }));
+  const hrefs = [...nav.map((n) => n.href), ...legal.flatMap((l) => (l.href ? [l.href] : []))];
+  return hrefs.map((href) => ({ url: `https://kramhealthcare.com${href === "/" ? "" : href}` }));
 }

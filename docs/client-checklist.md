@@ -49,4 +49,4 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [ ] Resend account (or permission for us to create one) → `RESEND_API_KEY`
 - [ ] Where leads go: email list; CRM (HubSpot / Zoho / none)?
 - [ ] Analytics preference (we recommend Plausible or Vercel Analytics, no ad pixels)
-- [ ] Privacy Policy, Terms, HIPAA statement: their lawyer's text, or we draft for their lawyer to review
+- [ ] Privacy Policy and Terms of Use are live as a standard US draft (`src/content/legal.ts`); their attorney must review and fill the `TODO(client)` governing-law state/county and the business address. HIPAA statement and Accessibility page are still missing

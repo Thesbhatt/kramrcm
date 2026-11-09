@@ -296,9 +296,10 @@ export const notFound = {
 };
 
 export const legal = [
-  // TODO(client): legal pages (lawyer's text). Items render as plain text until an href is set.
-  { label: "Privacy Policy", href: null as string | null },
-  { label: "Terms of Use", href: null as string | null },
+  // Privacy Policy and Terms of Use are live (copy in src/content/legal.ts; attorney review pending, see client-checklist).
+  // Items render as plain text until an href is set.
+  { label: "Privacy Policy", href: "/privacy-policy" as string | null },
+  { label: "Terms of Use", href: "/terms-of-use" as string | null },
   { label: "HIPAA Notice", href: null as string | null },
   { label: "Accessibility", href: null as string | null },
 ];
