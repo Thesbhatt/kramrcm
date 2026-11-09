@@ -53,7 +53,7 @@ export function SpecialtyExplorer({ groups, copy, ctaHref, ctaLabel }: { groups:
             <li key={s.name} className="tile-in cap-card flex items-center gap-3.5 rounded-xl border border-line bg-white p-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-tint text-orange-ink"><Icon name={s.icon} className="h-5 w-5" /></span>
               <span className="min-w-0">
-                <span className="block font-display text-[1.05rem] leading-snug">{s.name}</span>
+                <span className="block font-display text-[1.05rem] leading-snug font-semibold">{s.name}</span>
                 <span className="block text-xs text-muted">{s.group}</span>
               </span>
             </li>

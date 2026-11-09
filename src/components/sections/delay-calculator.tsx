@@ -91,7 +91,7 @@ export function DelayCalculator({ children }: { children: ReactNode }) {
         </p>
         <div className="relative flex flex-col gap-3" aria-hidden="true">
           <p className="text-sm text-orange-soft">{delayCost.resultLabel}</p>
-          <p className="font-display text-[clamp(2.6rem,6vw,4.4rem)] font-normal leading-none tracking-[-0.02em] tabular-nums">
+          <p className="font-display text-[clamp(2.6rem,6vw,4.4rem)] font-semibold leading-none tracking-[-0.02em] tabular-nums">
             {usd.format(Math.round(total))}
           </p>
           <p className="text-on-ink">

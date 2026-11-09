@@ -17,7 +17,7 @@ export function ServiceList() {
       <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4" {...reveal()}>
-            <h2 className="max-w-[15ch] font-normal text-white">{servicesSection.title}</h2>
+            <h2 className="max-w-[15ch] font-bold text-white">{servicesSection.title}</h2>
             <p className="max-w-[38ch] text-white">{servicesSection.body}</p>
           </div>
           {/* Decorative cutout: hidden on small screens, pinned to the viewport bottom on desktop, flush with the band's bottom edge at the end */}
@@ -36,7 +36,7 @@ export function ServiceList() {
                   <Icon name={serviceIcons[s.id]} className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-display text-2xl font-light tracking-[-0.02em]">{s.title}</h3>
+                  <h3 className="font-display text-2xl font-semibold tracking-[-0.02em]">{s.title}</h3>
                   <p className="mt-1.5 max-w-[48ch] text-muted">{s.body}</p>
                 </div>
               </div>

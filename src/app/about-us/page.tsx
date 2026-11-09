@@ -47,7 +47,7 @@ export default function AboutPage() {
         <Container className="grid grid-cols-1 gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20">
           <div className="flex flex-col gap-8">
             <SectionHeading eyebrow={aboutPage.missionLabel} title={about.mission.title} />
-            <p className="font-display text-[clamp(1.25rem,2.1vw,1.6rem)] font-light leading-[1.4] tracking-[-0.01em]" {...reveal(80)}>{lead}</p>
+            <p className="font-display text-[clamp(1.25rem,2.1vw,1.6rem)] font-medium leading-[1.4] tracking-[-0.01em]" {...reveal(80)}>{lead}</p>
             <div className="flex flex-col gap-4 border-l-2 border-orange pl-6 text-muted" {...reveal(160)}>
               {rest.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
             </div>

@@ -97,7 +97,7 @@ export default function ContactPage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <div className="flex flex-col justify-between gap-8">
             <div className="flex flex-col gap-4" {...reveal()}>
-              <h2 id="connect-title" className="max-w-[16ch] font-normal text-white">{contact.band.title}</h2>
+              <h2 id="connect-title" className="max-w-[16ch] font-bold text-white">{contact.band.title}</h2>
               <p className="max-w-[44ch] text-white">{contact.band.body}</p>
             </div>
             {/* Decorative cutout, sits flush on the bottom edge of the band. Hidden on small screens to keep the form first. */}

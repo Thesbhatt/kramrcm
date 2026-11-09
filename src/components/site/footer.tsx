@@ -14,7 +14,7 @@ export function Footer() {
         <Cutout src={glassesCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
         <Container className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-6" {...reveal()}>
-          <h2 id="closing-title" className="max-w-[22ch] font-normal text-white">{closing.titleStart} {closing.titleHighlight}</h2>
+          <h2 id="closing-title" className="max-w-[22ch] font-bold text-white">{closing.titleStart} {closing.titleHighlight}</h2>
           <p className="max-w-[46ch] text-white">{closing.body}</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3 pt-2" {...reveal(160)}>
@@ -68,7 +68,7 @@ export function Footer() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="font-display text-base font-normal tracking-[-0.01em] text-white">{title}</h3>
+      <h3 className="font-display text-base font-semibold tracking-[-0.01em] text-white">{title}</h3>
       <ul className="mt-4 flex flex-col gap-2.5 text-sm">{children}</ul>
     </div>
   );

@@ -16,7 +16,7 @@ function ServiceVisual({ id }: { id: Service["id"] }) {
   const shell = "rounded-2xl bg-white p-5 text-fg shadow-[0_30px_70px_-40px_rgb(247_124_39/0.7)] ring-1 ring-line sm:p-6";
   const head = (title: string) => (
     <div className="flex items-center justify-between gap-3 border-b border-line pb-3.5">
-      <p className="font-display text-lg">{title}</p>
+      <p className="font-display text-lg font-semibold">{title}</p>
       <span className="rounded-full bg-tint px-3 py-1 text-xs text-muted">{sp.sample}</span>
     </div>
   );

@@ -74,7 +74,7 @@ export function CalculatorShowcase() {
           <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange text-white shadow-[0_0_30px_rgb(247_124_39/0.55)]">
             <Icon name="calculator" className="h-6 w-6" />
           </span>
-          <h2 id="calc-showcase-title" className="max-w-[16ch] font-normal">{copy.title}</h2>
+          <h2 id="calc-showcase-title" className="max-w-[16ch] font-bold">{copy.title}</h2>
           <p className="max-w-[44ch] text-on-ink">{copy.body}</p>
           <ul className="flex flex-col gap-2.5 text-sm">
             {copy.points.map((p) => (
@@ -100,7 +100,7 @@ export function CalculatorShowcase() {
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                   <span className="text-xs text-muted">{delayCost.resultLabel}</span>
-                  <span className="font-display text-[clamp(1.7rem,3.4vw,2.2rem)] font-normal leading-tight tracking-[-0.03em] tabular-nums">{usd.format(Math.round(total))}</span>
+                  <span className="font-display text-[clamp(1.7rem,3.4vw,2.2rem)] font-semibold leading-tight tracking-[-0.03em] tabular-nums">{usd.format(Math.round(total))}</span>
                   <span className="mt-1 text-xs text-orange-ink tabular-nums">{vals.days} {copy.ringLabel}</span>
                 </div>
               </div>

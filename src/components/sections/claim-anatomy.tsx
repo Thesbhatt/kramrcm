@@ -22,7 +22,7 @@ export function ClaimAnatomy() {
             {...reveal(60)}
           >
             <div aria-hidden="true" className="flex items-center justify-between gap-3 border-b border-line pb-4">
-              <p className="font-display text-xl">{c.formTitle}</p>
+              <p className="font-display text-xl font-semibold">{c.formTitle}</p>
               <span className="rounded-full bg-tint px-3 py-1 text-xs text-muted">{c.sample}</span>
             </div>
             <div aria-hidden="true" className="mt-5 grid grid-cols-2 gap-3">
@@ -51,7 +51,7 @@ export function ClaimAnatomy() {
                 >
                   <span className="anat-tick mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange text-white"><Check className="h-3.5 w-3.5" /></span>
                   <span>
-                    <span className="block font-display text-lg leading-snug">{k.title}</span>
+                    <span className="block font-display text-lg leading-snug font-semibold">{k.title}</span>
                     <span className="mt-1 block text-[0.95rem] text-muted">{k.body}</span>
                   </span>
                 </li>

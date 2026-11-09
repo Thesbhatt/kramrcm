@@ -13,7 +13,7 @@ export function ClaimSheet() {
       <span aria-hidden="true" className="hero-rim absolute inset-4 rounded-[28px]" />
       <div aria-hidden="true" className="hero-tilt relative rounded-[26px] bg-white p-6 shadow-[0_40px_80px_-40px_rgb(184_74_12/0.55)] ring-1 ring-line sm:p-7">
         <div className="flex items-center justify-between border-b border-line pb-4">
-          <span className="flex items-center gap-2 font-display text-lg"><LogoMark className="h-5 w-5" /> {s.title}</span>
+          <span className="flex items-center gap-2 font-display text-lg font-semibold"><LogoMark className="h-5 w-5" /> {s.title}</span>
           <span className="rounded-full bg-tint px-3 py-1 text-xs text-muted">{s.tag}</span>
         </div>
 
@@ -131,7 +131,7 @@ export function AgingChart() {
       <span aria-hidden="true" className="hero-rim absolute inset-4 rounded-[28px]" />
       <div aria-hidden="true" className="hero-tilt relative rounded-[26px] bg-white p-6 shadow-[0_40px_80px_-40px_rgb(184_74_12/0.55)] ring-1 ring-line sm:p-7">
         <div className="flex items-start justify-between gap-3 border-b border-line pb-4">
-          <p className="font-display text-lg leading-tight">{c.title}</p>
+          <p className="font-display text-lg leading-tight font-semibold">{c.title}</p>
           <span className="shrink-0 rounded-full bg-tint px-3 py-1 text-xs text-muted">{c.tag}</span>
         </div>
         <div className="relative mt-6 flex h-52 items-end gap-3 border-b border-line">
@@ -169,7 +169,7 @@ export function ReviewCard() {
       <span aria-hidden="true" className="hero-rim absolute inset-4 rounded-[28px]" />
       <div aria-hidden="true" className="hero-tilt relative rounded-[26px] bg-white p-6 shadow-[0_40px_80px_-40px_rgb(184_74_12/0.55)] ring-1 ring-line sm:p-8">
         <div className="flex items-center justify-between border-b border-line pb-4">
-          <span className="flex items-center gap-2 font-display text-lg"><LogoMark className="h-5 w-5" /> {c.title}</span>
+          <span className="flex items-center gap-2 font-display text-lg font-semibold"><LogoMark className="h-5 w-5" /> {c.title}</span>
           <span className="rounded-full bg-tint px-3 py-1 text-xs text-muted">{c.tag}</span>
         </div>
         <ol className="mt-6 flex flex-col gap-4">
@@ -185,7 +185,7 @@ export function ReviewCard() {
         </ol>
         <div className="sheet-row band-glow mt-7 rounded-2xl bg-orange p-5 text-white" style={{ ["--i" as string]: 3 }}>
           <p className="text-xs">Result</p>
-          <p className="font-display text-xl leading-tight">{c.result}</p>
+          <p className="font-display text-xl leading-tight font-semibold">{c.result}</p>
         </div>
         <p className="mt-4 text-sm text-muted">{c.footer}</p>
       </div>

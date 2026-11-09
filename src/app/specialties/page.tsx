@@ -76,7 +76,7 @@ export default function SpecialtiesPage() {
             <Cutout src={phoneCutout} sizes="260px" className="absolute bottom-0 left-8 hidden w-[250px] md:block" delay={200} />
             <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
               <div>
-                <h3 className="text-[1.75rem] font-normal text-white">Don&apos;t see your specialty?</h3>
+                <h3 className="text-[1.75rem] font-bold text-white">Don&apos;t see your specialty?</h3>
                 <p className="mt-1 max-w-[40ch] text-white">Ask us. If it bills to US payers, we can most likely enroll and bill for it.</p>
               </div>
               <div className="flex flex-wrap gap-3">

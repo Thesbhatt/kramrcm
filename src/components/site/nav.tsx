@@ -61,7 +61,7 @@ export function DesktopNav() {
         onPointerLeave={home}
         onFocus={toTarget}
         onBlur={home}
-        className="relative flex items-center gap-1 font-display text-base tracking-[-0.01em]"
+        className="relative flex items-center gap-1 font-display text-base font-semibold tracking-[-0.01em]"
       >
         {nav.map((item, i) => {
           const active = isActive(path, item.href);
@@ -139,7 +139,7 @@ export function MobileMenu() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   tabIndex={open ? undefined : -1}
-                  className={`relative flex items-center justify-between border-b border-line px-3 py-3.5 font-display text-lg tracking-[-0.01em] transition-colors duration-150 ${active ? "text-fg" : "text-muted hover:text-fg"}`}
+                  className={`relative flex items-center justify-between border-b border-line px-3 py-3.5 font-display text-lg font-semibold tracking-[-0.01em] transition-colors duration-150 ${active ? "text-fg" : "text-muted hover:text-fg"}`}
                 >
                   {active && <span className="absolute inset-y-0 left-0 w-[3px] bg-orange" aria-hidden="true" />}
                   {item.label}

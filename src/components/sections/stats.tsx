@@ -22,7 +22,7 @@ export function Stats() {
               key={s.label}
               className={`flex flex-col gap-3 py-10 md:py-14 ${i % 2 === 0 ? "pl-0 pr-5" : "px-5"} ${i < 2 ? "border-b border-white/40 lg:border-b-0" : ""} ${i % 2 === 1 ? "border-l border-white/40" : ""} lg:border-l lg:border-white/40 lg:first:border-l-0 lg:px-8 lg:first:pl-0 sm:px-8 sm:first:pl-0`}
             >
-              <dd className="order-1 whitespace-nowrap font-display text-[clamp(2.25rem,4.4vw,3.5rem)] font-normal text-white leading-none tracking-[-0.02em] tabular-nums">
+              <dd className="order-1 whitespace-nowrap font-display text-[clamp(2.25rem,4.4vw,3.5rem)] font-semibold text-white leading-none tracking-[-0.02em] tabular-nums">
                 {/* Real number in the HTML; MotionObserver counts up to it when it scrolls into view */}
                 <span data-count={d.n} data-suffix={d.suffix}>{d.text}</span>
               </dd>

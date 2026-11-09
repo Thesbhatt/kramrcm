@@ -26,7 +26,7 @@ export function Process({ flush = false }: { flush?: boolean }) {
         <ol className="mt-12 grid gap-4 md:mt-16 md:grid-cols-2 lg:mt-3 lg:grid-cols-4" {...stagger}>
           {process.map((step, i) => (
             <li key={step.title} className="group spot relative flex flex-col gap-4 overflow-hidden rounded-2xl bg-tint p-7 transition-colors duration-300 hover:bg-peach-2">
-              <span aria-hidden="true" className="absolute -right-2 -top-4 select-none font-display text-[7rem] font-light leading-none text-white transition-colors duration-300 group-hover:text-peach/70">
+              <span aria-hidden="true" className="absolute right-5 top-4 select-none font-display text-[4.25rem] font-semibold leading-none text-white transition-colors duration-300 group-hover:text-peach/70">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-orange text-white shadow-[0_12px_26px_-10px_rgb(247_124_39/0.8)]">
