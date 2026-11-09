@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const channels: { icon: IconName; label: string; value: string; href?: string }[] = [
   { icon: "phone", label: "Call us", value: company.phoneDisplay, href: company.phoneHref },
   { icon: "mail", label: "Email", value: company.email, href: `mailto:${company.email}` },
-  ...(company.address ? [{ icon: "map" as IconName, label: "Office", value: company.address, href: company.addressMapHref }] : []),
+  ...(company.address ? [{ icon: "pin" as IconName, label: "Office", value: company.address, href: company.addressMapHref }] : []),
   ...(company.hours ? [{ icon: "clock" as IconName, label: "Hours", value: company.hours }] : []),
 ];
 
@@ -48,11 +48,11 @@ export default function ContactPage() {
             {channels.map((c, i) => {
               const inner = (
                 <>
-                  <Icon name={c.icon} className="pointer-events-none absolute bottom-6 right-6 h-24 w-24 text-orange/20 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110" />
+                  <Icon name={c.icon} className="pointer-events-none absolute right-6 top-6 h-20 w-20 text-orange/20 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110" />
                   <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-orange text-white shadow-[0_14px_30px_-12px_rgb(247_124_39/0.9)]"><Icon name={c.icon} className="h-6 w-6" /></span>
                   <span className="relative mt-10 block min-w-0">
                     <span className="block text-sm text-muted">{c.label}</span>
-                    <span className="mt-1 block break-words font-display text-[clamp(1.35rem,2.2vw,1.7rem)] tabular-nums leading-tight">{c.value}</span>
+                    <span className="mt-1 block break-words font-display text-[clamp(1.15rem,1.7vw,1.4rem)] tabular-nums leading-tight">{c.value}</span>
                   </span>
                 </>
               );
