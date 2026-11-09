@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 const channels: { icon: IconName; label: string; value: string; href?: string }[] = [
   { icon: "phone", label: "Call us", value: company.phoneDisplay, href: company.phoneHref },
   { icon: "mail", label: "Email", value: company.email, href: `mailto:${company.email}` },
+  ...(company.address ? [{ icon: "map" as IconName, label: "Office", value: company.address, href: company.addressMapHref }] : []),
   ...(company.hours ? [{ icon: "clock" as IconName, label: "Hours", value: company.hours }] : []),
 ];
 
@@ -63,7 +64,6 @@ export default function ContactPage() {
               );
             })}
           </div>
-          {/* TODO(client): US business address + map once provided */}
         </Container>
       </section>
 

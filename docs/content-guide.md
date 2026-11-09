@@ -4,7 +4,7 @@ All copy lives in this one file (about 220 lines). Components read from it; neve
 
 | Export | Holds | Used by |
 |---|---|---|
-| `company` | name, tagline, `copyrightYear`, phone, email, `address` (null, TODO), hours (TODO), social links | header, footer, contact, about, specialties |
+| `company` | name, tagline, `copyrightYear`, phone, email, `address` + `addressLines` + `addressMapHref`, hours (TODO), social links | header, footer, contact, about, specialties |
 | `nav` | header/footer links | `site/nav.tsx`, footer |
 | `cta` | the one primary CTA label and header label | buttons everywhere |
 | `hero` | homepage hero: headline parts (rendered as one plain sentence), body, CTA label, `slides` (carousel photos: alt text + crop) and `carousel` (labels), `reassurance` (three short sentences shown as one muted line) | `home/hero.tsx` |

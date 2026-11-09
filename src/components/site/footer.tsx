@@ -42,7 +42,15 @@ export function Footer() {
             <li><a href={company.phoneHref} className="inline-flex min-h-11 items-center tabular-nums hover:text-white">{company.phoneDisplay}</a></li>
             <li><a href={`mailto:${company.email}`} className="inline-flex min-h-11 items-center hover:text-white">{company.email}</a></li>
             {company.hours && <li>{company.hours}</li>}
-            {company.address && <li>{company.address}</li>}
+            {company.address && (
+              <li className="py-2">
+                <a href={company.addressMapHref} className="hover:text-white" rel="noopener" target="_blank">
+                  <address className="not-italic">
+                    {company.addressLines.map((l) => <span key={l} className="block">{l}</span>)}
+                  </address>
+                </a>
+              </li>
+            )}
             <li className="flex flex-wrap gap-x-5">
               <a href={company.social.linkedin} className="inline-flex min-h-11 items-center hover:text-white" rel="noopener" target="_blank">LinkedIn</a>
               <a href={company.social.facebook} className="inline-flex min-h-11 items-center hover:text-white" rel="noopener" target="_blank">Facebook</a>
@@ -53,10 +61,10 @@ export function Footer() {
 
         <Container className="flex flex-col gap-4 border-t border-ink-line py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>© {company.copyrightYear} Kram Healthcare. All rights reserved.</p>
-          <ul className="flex flex-wrap gap-x-5">
-            {/* No dead "#" links: an item becomes a link only once its page exists */}
+          <ul className="flex flex-wrap items-center gap-x-5">
+            {/* No dead "#" links: an item becomes a link only once its page exists. Spans share the links' box so the row stays on one baseline. */}
             {legal.map((l) => (
-              <li key={l.label}>{l.href ? <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-white">{l.label}</Link> : <span>{l.label}</span>}</li>
+              <li key={l.label}>{l.href ? <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-white">{l.label}</Link> : <span className="inline-flex min-h-11 items-center">{l.label}</span>}</li>
             ))}
           </ul>
         </Container>

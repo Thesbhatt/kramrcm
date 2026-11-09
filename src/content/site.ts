@@ -10,7 +10,10 @@ export const company = {
   phoneDisplay: "(213) 832-7088",
   phoneHref: "tel:+12138327088",
   email: "sales@kramhealthcare.com",
-  address: null as string | null, // TODO(client): US business address
+  // Business address supplied by the client (Nov 9 2026)
+  addressLines: ["7901 4th St N, Ste 300", "St. Petersburg, FL 33702"],
+  address: "7901 4th St N, Ste 300, St. Petersburg, FL 33702" as string | null,
+  addressMapHref: "https://www.google.com/maps/search/?api=1&query=7901+4th+St+N+Ste+300+St.+Petersburg+FL+33702",
   hours: null as string | null, // TODO(client): live site lists no hours; add once confirmed
   social: {
     linkedin: "https://www.linkedin.com/company/kram-healthcare",

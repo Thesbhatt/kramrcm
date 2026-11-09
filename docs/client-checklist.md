@@ -2,7 +2,7 @@
 
 ## LAUNCH BLOCKERS
 - [ ] Privacy Policy, Terms of Use, HIPAA Notice and Accessibility pages (lawyer's text). The footer and the contact form consent line link to them once `legal` has an `href`
-- [ ] US business address (footer, contact page, Google Business)
+- [x] US business address (received Nov 9 2026: 7901 4th St N, Ste 300, St. Petersburg, FL 33702)
 - [ ] BAA confirmation: do they sign Business Associate Agreements with clients? (stated as fact in the process steps, reasons, FAQ and About values)
 
 Send this list to the client. Anything unchecked stays as `TODO(client)` in `src/content/site.ts`. Do not invent any of it.
@@ -28,7 +28,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [ ] 1–2 short case studies: before/after numbers (e.g. days to enroll, denial rate, A/R days)
 
 ## Company
-- [ ] US business address (shown in footer and contact page, used for Google Business)
+- [x] US business address (received Nov 9 2026; shown in footer, contact page and legal pages)
 - [ ] Business hours + time zone
 - [ ] Main phone (confirm (213) 832-7088) and lead email (sales@kramhealthcare.com)
 - [ ] Where the team works (US / offshore / mixed); how they want it described

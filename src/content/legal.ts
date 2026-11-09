@@ -26,7 +26,7 @@ export type LegalDoc = {
   sections: LegalSection[];
 };
 
-const contactLine = `${company.name}, email ${company.email}, phone ${company.phoneDisplay}.`;
+const contactLine = `${company.name}, ${company.address}, email ${company.email}, phone ${company.phoneDisplay}.`;
 
 export const legalMeta = {
   updatedLabel: "Last updated",
@@ -166,7 +166,6 @@ export const privacyPolicy: LegalDoc = {
       title: "13. Contact us",
       paragraphs: [
         `Questions or requests about this Policy: ${contactLine}`,
-        // TODO(client): add the registered US business address.
       ],
     },
   ],
