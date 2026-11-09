@@ -101,7 +101,7 @@ export default function AboutPage() {
                   key={v.title}
                   className={`spot relative flex min-h-[250px] flex-col justify-between gap-12 overflow-hidden rounded-2xl p-7 sm:p-8 ${valueSpan[i]} ${feature ? "band-glow-ink bg-ink text-white" : "bg-tint"}`}
                 >
-                  <Icon name={valueIcons[i]} className={`pointer-events-none absolute -right-6 -top-6 h-44 w-44 ${feature ? "text-white/10" : "text-orange/12"}`} />
+                  <Icon name={valueIcons[i]} className={`pointer-events-none absolute right-6 top-6 h-24 w-24 ${feature ? "text-white/10" : "text-orange/12"}`} />
                   <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-orange text-white shadow-[0_12px_28px_-10px_rgb(247_124_39/0.9)]">
                     <Icon name={valueIcons[i]} className="h-6 w-6" />
                   </span>

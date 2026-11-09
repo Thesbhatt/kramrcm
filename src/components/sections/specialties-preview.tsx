@@ -42,7 +42,7 @@ export function SpecialtiesPreview() {
               key={s.name}
               className={`group spot relative flex min-h-[200px] flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 transition-colors duration-300 ${i === 0 ? "band-glow bg-orange text-white" : "bg-tint hover:bg-peach-2"}`}
             >
-              <Icon name={featuredIcons[i]} className={`pointer-events-none absolute right-5 top-5 h-24 w-24 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105 ${i === 0 ? "text-white/20" : "text-orange/15"}`} />
+              <Icon name={featuredIcons[i]} className={`pointer-events-none absolute right-5 top-5 h-20 w-20 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105 ${i === 0 ? "text-white/20" : "text-orange/15"}`} />
               <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-white text-orange-ink shadow-[0_12px_26px_-14px_rgb(47_51_54/0.5)] transition-colors duration-200 group-hover:bg-orange group-hover:text-white">
                 <Icon name={featuredIcons[i]} className="h-5 w-5" />
               </span>

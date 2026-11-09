@@ -50,7 +50,7 @@ export default function SpecialtiesPage() {
                   className={`spot relative flex min-h-[220px] flex-col justify-between gap-10 overflow-hidden rounded-2xl p-7 ${span[i]} ${hero ? "band-glow bg-orange text-white" : "bg-tint"}`}
                   {...reveal(i * 70)}
                 >
-                  <Icon name={featuredIcons[i]} className={`pointer-events-none absolute right-6 top-6 h-28 w-28 ${hero ? "text-white/20" : "text-orange/15"}`} />
+                  <Icon name={featuredIcons[i]} className={`pointer-events-none absolute right-5 top-5 h-24 w-24 ${hero ? "text-white/20" : "text-orange/15"}`} />
                   <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-orange-ink shadow-[0_12px_28px_-14px_rgb(47_51_54/0.5)]">
                     <Icon name={featuredIcons[i]} className="h-6 w-6" />
                   </span>
