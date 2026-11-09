@@ -150,10 +150,10 @@ export function MobileMenu() {
           })}
         </ul>
         <div className="mt-3 flex flex-col gap-3">
-          <a href={company.phoneHref} tabIndex={open ? undefined : -1} className="px-2 py-1 text-base font-medium tabular-nums">
+          <a href={company.phoneHref} tabIndex={open ? undefined : -1} className="flex min-h-11 items-center px-2 text-base font-medium tabular-nums">
             Call {company.phoneDisplay}
           </a>
-          <Link href={cta.href} tabIndex={open ? undefined : -1} className="rounded-[4px] bg-orange px-[22px] py-[13px] text-center text-xs font-semibold uppercase tracking-[0.04em] text-white">
+          <Link href={cta.href} tabIndex={open ? undefined : -1} className="flex min-h-11 items-center justify-center rounded-[4px] bg-orange-ink px-[22px] py-[13px] text-center text-xs font-semibold uppercase tracking-[0.04em] text-white">
             {cta.primary}
           </Link>
         </div>

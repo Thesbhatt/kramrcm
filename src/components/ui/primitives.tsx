@@ -19,7 +19,7 @@ type ButtonProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?:
 const base =
   "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-xs font-semibold uppercase tracking-[0.04em] transition-[color,background-color,transform] duration-150 ease-[var(--ease-out-soft)] active:scale-[0.97] motion-reduce:active:scale-100";
 
-const sizes = { md: "px-[22px] py-[13px]", lg: "px-[22px] py-[13px]", icon: "h-11 w-11" };
+const sizes = { md: "min-h-11 px-[22px] py-[13px]", lg: "min-h-11 px-[22px] py-[13px]", icon: "h-11 w-11" };
 
 const variants: Record<Variant, string> = {
   // Small uppercase labels need 4.5:1, so the primary fill is orange-ink (5.2:1 with white); logo orange stays on bands and marks.

@@ -33,30 +33,30 @@ export function Footer() {
             </p>
           </div>
           <FooterCol title="Company">
-            {nav.map((n) => <li key={n.href}><Link href={n.href} className="hover:text-white">{n.label}</Link></li>)}
+            {nav.map((n) => <li key={n.href}><Link href={n.href} className="inline-flex min-h-11 items-center hover:text-white">{n.label}</Link></li>)}
           </FooterCol>
           <FooterCol title="Services">
-            {services.map((s) => <li key={s.id}><Link href={`/services#${s.id}`} className="hover:text-white">{s.title}</Link></li>)}
+            {services.map((s) => <li key={s.id}><Link href={`/services#${s.id}`} className="inline-flex min-h-11 items-center hover:text-white">{s.title}</Link></li>)}
           </FooterCol>
           <FooterCol title="Contact">
-            <li><a href={company.phoneHref} className="tabular-nums hover:text-white">{company.phoneDisplay}</a></li>
-            <li><a href={`mailto:${company.email}`} className="hover:text-white">{company.email}</a></li>
+            <li><a href={company.phoneHref} className="inline-flex min-h-11 items-center tabular-nums hover:text-white">{company.phoneDisplay}</a></li>
+            <li><a href={`mailto:${company.email}`} className="inline-flex min-h-11 items-center hover:text-white">{company.email}</a></li>
             {company.hours && <li>{company.hours}</li>}
             {company.address && <li>{company.address}</li>}
-            <li className="flex gap-4 pt-1">
-              <a href={company.social.linkedin} className="hover:text-white" rel="noopener" target="_blank">LinkedIn</a>
-              <a href={company.social.facebook} className="hover:text-white" rel="noopener" target="_blank">Facebook</a>
-              <a href={company.social.instagram} className="hover:text-white" rel="noopener" target="_blank">Instagram</a>
+            <li className="flex flex-wrap gap-x-5">
+              <a href={company.social.linkedin} className="inline-flex min-h-11 items-center hover:text-white" rel="noopener" target="_blank">LinkedIn</a>
+              <a href={company.social.facebook} className="inline-flex min-h-11 items-center hover:text-white" rel="noopener" target="_blank">Facebook</a>
+              <a href={company.social.instagram} className="inline-flex min-h-11 items-center hover:text-white" rel="noopener" target="_blank">Instagram</a>
             </li>
           </FooterCol>
         </Container>
 
         <Container className="flex flex-col gap-4 border-t border-ink-line py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>© {company.copyrightYear} Kram Healthcare. All rights reserved.</p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          <ul className="flex flex-wrap gap-x-5">
             {/* No dead "#" links: an item becomes a link only once its page exists */}
             {legal.map((l) => (
-              <li key={l.label}>{l.href ? <Link href={l.href} className="hover:text-white">{l.label}</Link> : <span>{l.label}</span>}</li>
+              <li key={l.label}>{l.href ? <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-white">{l.label}</Link> : <span>{l.label}</span>}</li>
             ))}
           </ul>
         </Container>
@@ -69,7 +69,7 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
   return (
     <div>
       <h3 className="font-display text-base font-semibold tracking-[-0.01em] text-white">{title}</h3>
-      <ul className="mt-4 flex flex-col gap-2.5 text-sm">{children}</ul>
+      <ul className="mt-2 flex flex-col text-sm">{children}</ul>
     </div>
   );
 }

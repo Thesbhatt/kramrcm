@@ -104,7 +104,7 @@ export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; lab
             type="button"
             onClick={() => setPaused((p) => !p)}
             aria-label={paused ? labels.play : labels.pause}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink transition-colors hover:bg-white"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-ink transition-colors hover:bg-white"
           >
             <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden="true" fill="currentColor">
               {paused ? <path d="M4.5 2.8v10.4L13 8z" /> : <path d="M4 2.5h2.8v11H4zm5.2 0H12v11H9.2z" />}
