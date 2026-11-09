@@ -260,15 +260,16 @@ details.faq[open]::details-content { block-size: auto; }
 /* Service rows: pointer light, a left bar, a warming number and a one-time ring out of the icon */
 .spot { background-image: radial-gradient(340px circle at var(--mx) var(--my), rgb(247 124 39 / calc(var(--ga) * 0.13)), transparent 70%); }
 .svc-bar { transform: scaleY(0); transform-origin: top; box-shadow: 0 0 12px rgb(247 124 39 / 0.7); transition: transform 0.45s var(--ease-out-strong); }
-.row-link:hover .svc-bar, .row-link:focus-within .svc-bar { transform: scaleY(1); }
+.row-link:focus-within .svc-bar { transform: scaleY(1); }
+@media (hover: hover) and (pointer: fine) { .row-link:hover .svc-bar { transform: scaleY(1); } }
 .svc-num { color: var(--color-tint-2); transition: color 0.3s var(--ease-out-soft), transform 0.5s var(--ease-out-strong); }
-.row-link:hover .svc-num { color: var(--color-peach); transform: translateX(-4px); }
+@media (hover: hover) and (pointer: fine) { .row-link:hover .svc-num { color: var(--color-peach); } }
 .svc-icon { transition: transform 0.35s var(--ease-out-strong), box-shadow 0.35s var(--ease-out-soft); }
-.row-link:hover .svc-icon { transform: scale(1.08) rotate(-4deg); box-shadow: 0 8px 22px -6px rgb(247 124 39 / 0.8); }
+@media (hover: hover) and (pointer: fine) { .row-link:hover .svc-icon { box-shadow: 0 8px 22px -6px rgb(247 124 39 / 0.8); } }
 .svc-icon::after { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid var(--color-orange); opacity: 0; pointer-events: none; }
 [data-shown] .svc-icon::after { animation: svc-ring 1.5s var(--ease-out-soft) 0.5s 1 both; }
 @keyframes svc-ring { 0% { opacity: 0.85; scale: 1; } 100% { opacity: 0; scale: 1.9; } }
-@media (prefers-reduced-motion: reduce) { .svc-bar, .svc-num, .svc-icon { transition: none; } [data-shown] .svc-icon::after { animation: none; } .row-link:hover .svc-icon { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .svc-bar, .svc-num, .svc-icon { transition: none; } [data-shown] .svc-icon::after { animation: none; } }
 
 /* Corner glows that give flat bands depth: light + deep orange on orange bands, orange on gray ones (as on the calculator card) */
 .band-glow { background-image: var(--follow-light), radial-gradient(60% 90% at 92% 0%, rgb(255 255 255 / 0.24), transparent 62%), radial-gradient(55% 80% at 0% 100%, rgb(184 74 12 / 0.34), transparent 66%); }
@@ -320,7 +321,8 @@ details.faq[open]::details-content { block-size: auto; }
 
 /* Calm hover details (no layout movement) */
 .row-link .row-arrow { transition: transform 0.25s var(--ease-out-soft); }
-.row-link:hover .row-arrow, .row-link:focus-within .row-arrow { transform: translateX(4px); }
+.row-link:focus-within .row-arrow { transform: translateX(4px); }
+@media (hover: hover) and (pointer: fine) { .row-link:hover .row-arrow { transform: translateX(4px); } }
 
 /* ---------- Reduced motion: the board shows its end state, nothing moves ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -379,7 +381,7 @@ details.faq[open]::details-content { block-size: auto; }
 
 .tile-in { animation: tile-in 0.35s var(--ease-out-soft) both; }
 .cap-card { transition: box-shadow 0.25s var(--ease-out-soft), border-color 0.25s var(--ease-out-soft); }
-.cap-card:hover { border-color: var(--color-orange); box-shadow: 0 14px 34px -18px rgb(247 124 39 / 0.65); }
+@media (hover: hover) and (pointer: fine) { .cap-card:hover { border-color: var(--color-orange); box-shadow: 0 14px 34px -18px rgb(247 124 39 / 0.65); } }
 .mark-orbit { stroke-dasharray: 0.6 1.4; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -395,7 +397,8 @@ details.faq[open]::details-content { block-size: auto; }
 .anat-field { transition: background-color 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft); }
 [data-shown] .anat-field[data-f] { animation: field-scan 1.5s var(--ease-out-soft) calc(0.6s + var(--i, 0) * 0.45s) both; }
 .anat-check { cursor: default; transition: border-color 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft), translate 0.3s var(--ease-out-strong); }
-.anat-check:hover, .anat-check:focus-visible { border-color: var(--color-orange); box-shadow: 0 16px 36px -20px rgb(247 124 39 / 0.7); translate: 6px 0; }
+.anat-check:focus-visible { border-color: var(--color-orange); box-shadow: 0 16px 36px -20px rgb(247 124 39 / 0.7); translate: 6px 0; }
+@media (hover: hover) and (pointer: fine) { .anat-check:hover { border-color: var(--color-orange); box-shadow: 0 16px 36px -20px rgb(247 124 39 / 0.7); translate: 6px 0; } }
 .anat:has([data-k="1"]:is(:hover, :focus-visible)) [data-f="1"],
 .anat:has([data-k="2"]:is(:hover, :focus-visible)) [data-f="2"],
 .anat:has([data-k="3"]:is(:hover, :focus-visible)) [data-f="3"],

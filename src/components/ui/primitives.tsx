@@ -17,7 +17,7 @@ type ButtonProps = Omit<ComponentProps<"a">, "href"> & { href: string; variant?:
 // white text (two names kept so older call sites still work); `white` is the 1px gray outline for light surfaces;
 // `ghost-dark` is the white outline for gray or orange surfaces; `light` is a white fill with an orange label for orange bands.
 const base =
-  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-xs font-semibold uppercase tracking-[0.04em] transition-colors duration-150 ease-[var(--ease-out-soft)]";
+  "group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-xs font-semibold uppercase tracking-[0.04em] transition-[color,background-color,transform] duration-150 ease-[var(--ease-out-soft)] active:scale-[0.97] motion-reduce:active:scale-100";
 
 const sizes = { md: "px-[22px] py-[13px]", lg: "px-[22px] py-[13px]", icon: "h-11 w-11" };
 
