@@ -16,6 +16,7 @@ Tokens live in `src/app/globals.css` (`@theme`).
 | `orange` | #F77C27 | Logo orange, the brand colour (Nov 9 2026, client wants more orange): primary buttons, the stats band, the closing CTA band, the contact band, the `.hl` word marker, slider tracks. All text on it is white (2.67:1, client decision; black on orange was rejected). Never orange text on light |
 | `orange-ink` | #B84A0C | Orange text on light (5.2:1 on white, 4.6:1 on tint), step numerals, and the fill of "Approved/Paid" pills (white text) |
 | `orange-soft` | #FFA366 | Small orange text on ink |
+| `ink-deep` | #4C4C4C | The Kram RCM logo gray (Nov 10 2026, from the on-white logo file; the logo letters in `src/assets/brand` are recolored to it): footer background only |
 | `ink-2` / `ink-line` / `on-ink` | #4C4C52 / #62626A / #E6E6E9 | Surfaces, hairlines and body text on ink (footer, gray bands) |
 | `graphite` | #3A404B | Hover for filled buttons, icons on light |
 | `peach*` | legacy | Only used by inner-page leftovers |

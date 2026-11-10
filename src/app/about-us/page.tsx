@@ -60,8 +60,8 @@ export default function AboutPage() {
                 src={patientPhoto}
                 alt="A physician talking with a patient in an exam room"
                 fill
-                sizes="(min-width: 1024px) 480px, 100vw"
-                quality={70}
+                sizes="(min-width: 1024px) 890px, min(192vw, 1020px)" /* 4:5 frame over a 3:2 photo: object-cover paints it ~1.9x the frame width */
+                quality={80}
                 placeholder="blur"
                 className="object-cover object-[40%_center]"
               />
@@ -72,8 +72,8 @@ export default function AboutPage() {
                   src={teamPhoto}
                   alt="Two colleagues celebrating at a desk covered with reports and a laptop"
                   fill
-                  sizes="280px"
-                  quality={70}
+                  sizes="320px"
+                  quality={80}
                   placeholder="blur"
                   className="object-cover"
                 />

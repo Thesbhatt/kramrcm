@@ -45,7 +45,7 @@ export function AboutIntro() {
               alt={aboutIntro.photoMainAlt}
               fill
               sizes="(min-width: 1024px) 520px, 100vw"
-              quality={70}
+              quality={80}
               placeholder="blur"
               className="object-cover"
             />
@@ -59,7 +59,7 @@ export function AboutIntro() {
                 alt={aboutIntro.photoInsetAlt}
                 fill
                 sizes="(min-width: 1024px) 220px, 42vw"
-                quality={70}
+                quality={80}
                 placeholder="blur"
                 className="object-cover"
               />

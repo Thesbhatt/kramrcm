@@ -14,7 +14,7 @@ Use this to find the right file without opening the whole `src/` tree.
 | `/privacy-policy`, `/terms-of-use` | `privacy-policy/page.tsx`, `terms-of-use/page.tsx` | `LegalPage` (PageHero + sticky contents + numbered sections). Copy: `src/content/legal.ts`; footer links come from `legal` in `site.ts` |
 | any unknown URL | `not-found.tsx` | branded 404 on white (copy in `notFound`); Next adds the 404 status and noindex |
 | n/a | `layout.tsx` | fonts (Space Grotesk + Inter), metadata template, header, page wrapper, footer |
-| n/a | `sitemap.ts`, `icon.svg`, `globals.css`, `actions/contact.ts` | |
+| n/a | `sitemap.ts`, `icon.png` (K mark), `globals.css`, `actions/contact.ts` | |
 
 Every page ends with `<MotionObserver />`.
 

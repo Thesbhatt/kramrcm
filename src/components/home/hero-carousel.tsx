@@ -41,6 +41,9 @@ export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; lab
     return () => io.disconnect();
   }, []);
 
+  // Highest slide index whose photo is mounted. The photos are sized for retina (up to 1920w), so slides further
+  // ahead download only as the slideshow nears them (two ahead, so each has 3 s to load), not all five on first paint.
+  const [reach, setReach] = useState(1);
   useEffect(() => { onSlide?.(active); }, [active, onSlide]);
 
   const playing = canMove && !paused && inView;
@@ -50,7 +53,9 @@ export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; lab
       if (document.hidden) return;
       setActive((a) => {
         setPrev(a);
-        return (a + 1) % slides.length;
+        const next = (a + 1) % slides.length;
+        setReach((r) => Math.max(r, next + 2));
+        return next;
       });
     }, INTERVAL_MS);
     return () => window.clearInterval(id);
@@ -77,16 +82,20 @@ export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; lab
               data-state={state}
               className="hero-slide absolute inset-0"
             >
-              <Image
+              {i <= reach && <Image
                 src={s.src}
                 alt={s.alt}
                 fill
-                priority={i === 0}
-                quality={70}
-                sizes="(min-width: 1024px) 560px, 100vw"
+                preload={i === 0}
+                fetchPriority={i === 0 ? "high" : "low"}
+                quality={80}
+                // The frame is narrower than the 16:9 photo (about 1:1.17 on desktop with the parallax overscan), so
+                // object-cover scales the photo to roughly 2x the frame width. sizes must say so, or retina screens get
+                // an upscaled, soft photo: desktop ~1170px, tablet 16:10 frame ~125vw, phone 4:3 frame ~150vw.
+                sizes="(min-width: 1024px) 1170px, (min-width: 640px) 125vw, 150vw"
                 className="object-cover"
                 style={{ objectPosition: s.focus }}
-              />
+              />}
             </div>
           );
         })}

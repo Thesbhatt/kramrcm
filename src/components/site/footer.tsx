@@ -1,5 +1,5 @@
 import Link from "next/link";
-import glassesCutout from "@/assets/photos/cutout-glasses.webp";
+import clinicianCutout from "@/assets/photos/cutout-clinician.webp";
 import { closing, company, cta, legal, nav, services } from "@/content/site";
 import { Cutout } from "../ui/cutout";
 import { Logo } from "../ui/logo";
@@ -11,7 +11,7 @@ export function Footer() {
     <footer>
       <section className="band-glow relative bg-orange py-20 md:py-28" aria-labelledby="closing-title">
         {/* Decorative clinician standing on the band's bottom edge (wide screens only, so it never touches the text) */}
-        <Cutout src={glassesCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
+        <Cutout src={clinicianCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
         <Container className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-6" {...reveal()}>
           <h2 id="closing-title" className="max-w-[22ch] font-bold text-white">{closing.titleStart} {closing.titleHighlight}</h2>
@@ -24,7 +24,8 @@ export function Footer() {
         </Container>
       </section>
 
-      <div className="band-glow-ink bg-ink text-on-ink">
+      {/* Flat logo gray, no orange glow: the client wants the footer to match the logo exactly */}
+      <div className="bg-ink-deep text-on-ink">
         <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr_1.2fr]">
           <div className="flex flex-col gap-5">
             <Logo tone="dark" />

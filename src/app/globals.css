@@ -3,6 +3,7 @@
 /* Kram Healthcare tokens (Medallion-style revamp, branch design/medallion-style). See docs/design-system.md. */
 @theme {
   --color-ink: #404045;          /* the logo's gray: the dark surface (footer, data cards, outlines). Replaced near-black navy so the site reads warmer */
+  --color-ink-deep: #4c4c4c;     /* the Kram RCM logo gray (sampled from the on-white logo file, Nov 10 2026; the logo letters are recolored to match): footer background */
   --color-ink-2: #4c4c52;        /* raised surface on ink */
   --color-ink-line: #62626a;     /* hairlines on ink */
   --color-on-ink: #e6e6e9;       /* body text on ink (about 8:1) */

@@ -21,7 +21,6 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 |---|---|---|
 | about-review.jpg | 2.jpg | Home "About us" (main photo) |
 | about-clinician.jpg | 7.jpg | Home "About us" (inset photo) |
-| billing-team.jpg | why.png (converted to JPEG) | "Why choose Kram for medical billing?" (home + About) |
 | service-credentialing.jpg | s1.jpg | Service card + /services, credentialing |
 | service-billing.jpg | s2.jpg | Service card + /services, billing |
 | service-support.jpg | s3.jpg | Service card + /services, licensing & support |
@@ -31,8 +30,15 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 | hero-slide-huddle.jpg | https://unsplash.com/photos/oiqFyLx_KDU (photo-1758873269317-51888e824b28) | Home hero carousel, slide 4 |
 | hero-slide-desk.jpg | https://unsplash.com/photos/ek9VJwUNNA4 (photo-1758691737207-e75821e080cb) | Home hero carousel, slide 5 |
 | contact-doctor.webp | https://kramhealthcare.com/wp-content/uploads/2026/05/2.png (transparent cutout, cropped to waist and converted to WebP) | Contact page orange band. TODO(client): confirm rights (looks like stock) |
-| cutout-glasses.webp | about-clinician.jpg with the background removed (macOS Vision subject lift, Nov 9 2026) | Closing CTA band, left |
 | cutout-duo.webp | hero-slide-tablet.jpg, background removed | Home services band |
 | cutout-pair.webp | about-review.jpg, background removed | Closing CTA band, right |
 | cutout-desk.webp | service-credentialing.jpg, background removed | Calculator hero |
 | cutout-phone.webp | hero-slide-phone.jpg, background removed | Specialties "don't see yours" band |
+
+## Nov 10 2026 sharpness pass (client: photos looked blurry and dull on a laptop)
+Hero slides, clinician-patient and practice-team were re-downloaded from the same Unsplash photos at 2400/2000px, quality 88 (the old files were smaller, re-compressed copies). Two replacements, both Unsplash License:
+
+| File | Unsplash photo | Used on |
+|---|---|---|
+| billing-team.jpg | photo-1590650516494-0c8e4a4dd67e (two women reviewing a screen in a medical office) | "Why choose Kram for medical billing?" (About). Replaced the client's 804px why.png |
+| cutout-clinician.webp | photo-1594824476967-48c8b964273f (clinician in teal scrubs, arms crossed), background removed with macOS Vision, embroidered name and clinic logo retouched out; hair edges defringed and the wall gap behind the neck painted dark (white wall showed through the curls) | Closing CTA band, left (every page). Replaced the 359px cutout-glasses.webp |

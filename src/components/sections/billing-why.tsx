@@ -16,15 +16,15 @@ export function BillingWhy() {
             className="bob pointer-events-none absolute inset-0 -translate-x-3 -translate-y-3 rounded-2xl border-2 border-orange/45"
             style={{ ["--bob-d" as string]: "-2s" }}
           />
-          <div className="photo relative aspect-[804/701] overflow-hidden rounded-2xl bg-peach lg:aspect-auto lg:h-full" {...reveal()}>
+          <div className="photo relative aspect-[4/3] overflow-hidden rounded-2xl bg-peach lg:aspect-auto lg:h-full" {...reveal()}>
             <Image
               src={teamPhoto}
               alt={billingWhy.photoAlt}
               fill
-              sizes="(min-width: 1024px) 540px, 100vw"
-              quality={70}
+              sizes="(min-width: 1024px) 1060px, 113vw" /* the frame is taller than the 3:2 photo (column height on desktop, 4:3 on phones), so cover scaling widens it */
+              quality={80}
               placeholder="blur"
-              className="object-cover"
+              className="object-cover object-[70%_center]"
             />
           </div>
 

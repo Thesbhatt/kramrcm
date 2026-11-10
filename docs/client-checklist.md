@@ -9,7 +9,8 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 
 ## Brand
 - [x] Logo mark (PNG, 1024px): received Nov 7 2026 → `design/client-logo/`
-- [ ] Logo as **vector** (SVG / AI / PDF), mark + "KRAM HEALTHCARE" wordmark + tagline. We currently use our own SVG trace of the mark.
+- [x] New "Kram RCM" logo (transparent raster): received Nov 10 2026 → `design/client-logo/2026-11/`; cut into `src/assets/brand/` (lockup, white lockup for the footer, K mark, favicon)
+- [ ] Logo as **vector** (SVG / AI / PDF) of the Kram RCM logo, so the header and footer can use crisp SVG instead of WebP. Also confirm the brand name: the logo says "Kram RCM" while site copy says "Kram Healthcare".
 - [ ] Confirm tagline: "Accuracy you can count on"
 - [ ] Approval of colours (orange #F77C27, graphite #414546) and font (Space Grotesk + Inter on the Medallion-style branch, Geist on `main`; the current live site uses Manrope, so mention the change)
 
