@@ -15,7 +15,7 @@ import { about, aboutPage, cta, stats } from "@/content/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Kram Healthcare is a credentialing and revenue cycle partner for US practices: provider enrollment, credentialing, medical billing, denial management and DME billing.",
+    "Kram RCM is a credentialing and revenue cycle partner for US practices: provider enrollment, credentialing, medical billing, denial management and DME billing.",
   alternates: { canonical: "/about-us" },
 };
 

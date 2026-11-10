@@ -43,16 +43,16 @@ export const privacyPolicy: LegalDoc = {
   heroStart: "Your",
   heroWord: "privacy",
   heroEnd: "matters to us",
-  intro: "How Kram Healthcare collects, uses and protects information when you visit our website or contact us.",
+  intro: "How Kram RCM collects, uses and protects information when you visit our website or contact us.",
   metaDescription:
-    "Privacy Policy for Kram Healthcare: what we collect on kramhealthcare.com, how we use it, how we protect it, and your privacy choices under US law.",
+    "Privacy Policy for Kram RCM: what we collect on kramhealthcare.com, how we use it, how we protect it, and your privacy choices under US law.",
   updated: "November 9, 2026",
   sections: [
     {
       id: "overview",
       title: "1. Overview",
       paragraphs: [
-        `This Privacy Policy explains how ${company.name} ("Kram Healthcare," "we," "us") handles information collected through kramhealthcare.com (the "Site") and through related communications such as emails and phone calls with prospective clients. We provide provider credentialing, payer enrollment, medical billing (revenue cycle management) and licensing services to healthcare practices in the United States.`,
+        `This Privacy Policy explains how ${company.name} ("Kram RCM," "we," "us") handles information collected through kramhealthcare.com (the "Site") and through related communications such as emails and phone calls with prospective clients. We provide provider credentialing, payer enrollment, medical billing (revenue cycle management) and licensing services to healthcare practices in the United States.`,
         "By using the Site you agree to this Policy. If you do not agree, please do not use the Site.",
       ],
     },
@@ -177,7 +177,7 @@ export const termsOfUse: LegalDoc = {
   crumb: "Terms of Use",
   heroStart: "Terms of",
   heroWord: "use",
-  intro: "The rules for using the Kram Healthcare website and how it relates to our services.",
+  intro: "The rules for using the Kram RCM website and how it relates to our services.",
   metaDescription:
     "Terms of Use for kramhealthcare.com: acceptable use, no PHI through the Site, service disclaimers, limitation of liability and governing law.",
   updated: "November 9, 2026",
@@ -186,7 +186,7 @@ export const termsOfUse: LegalDoc = {
       id: "acceptance",
       title: "1. Acceptance of these Terms",
       paragraphs: [
-        `These Terms of Use ("Terms") govern your access to and use of kramhealthcare.com (the "Site"), operated by ${company.name} ("Kram Healthcare," "we," "us"). By using the Site you agree to these Terms and to our Privacy Policy. If you use the Site on behalf of a practice or other organization, you confirm that you have authority to bind it. If you do not agree, do not use the Site.`,
+        `These Terms of Use ("Terms") govern your access to and use of kramhealthcare.com (the "Site"), operated by ${company.name} ("Kram RCM," "we," "us"). By using the Site you agree to these Terms and to our Privacy Policy. If you use the Site on behalf of a practice or other organization, you confirm that you have authority to bind it. If you do not agree, do not use the Site.`,
       ],
     },
     {
@@ -194,7 +194,7 @@ export const termsOfUse: LegalDoc = {
       title: "2. The Site and our services",
       paragraphs: [
         "The Site describes our provider credentialing, payer enrollment, medical billing (revenue cycle management) and licensing services. Information on the Site is general and for informational purposes only.",
-        "Our services are provided only under a separate written agreement between you and Kram Healthcare (a \"Services Agreement\"), which may include a Business Associate Agreement. If these Terms conflict with a signed Services Agreement, the Services Agreement controls for those services.",
+        "Our services are provided only under a separate written agreement between you and Kram RCM (a \"Services Agreement\"), which may include a Business Associate Agreement. If these Terms conflict with a signed Services Agreement, the Services Agreement controls for those services.",
       ],
     },
     {
@@ -215,7 +215,7 @@ export const termsOfUse: LegalDoc = {
       id: "estimates",
       title: "5. Estimates, timelines and results",
       paragraphs: [
-        "The cost calculator, sample dashboards, timelines and examples on the Site are illustrative only. Actual results depend on your practice, payers, documentation and other factors outside our control. Credentialing, enrollment and licensing decisions and timelines are made by payers and licensing boards, not by Kram Healthcare, and we do not guarantee approval, effective dates, payment amounts or reimbursement outcomes.",
+        "The cost calculator, sample dashboards, timelines and examples on the Site are illustrative only. Actual results depend on your practice, payers, documentation and other factors outside our control. Credentialing, enrollment and licensing decisions and timelines are made by payers and licensing boards, not by Kram RCM, and we do not guarantee approval, effective dates, payment amounts or reimbursement outcomes.",
       ],
     },
     {
@@ -234,7 +234,7 @@ export const termsOfUse: LegalDoc = {
       id: "ip",
       title: "7. Intellectual property",
       paragraphs: [
-        "The Site and its content, including text, graphics, logos, layout and software, are owned by Kram Healthcare or its licensors and are protected by US and international intellectual property laws. \"Kram Healthcare\" and our logo are our marks. We grant you a limited, revocable, non-exclusive, non-transferable license to view the Site for your own business use. No other rights are granted.",
+        "The Site and its content, including text, graphics, logos, layout and software, are owned by Kram RCM or its licensors and are protected by US and international intellectual property laws. \"Kram RCM\" and our logo are our marks. We grant you a limited, revocable, non-exclusive, non-transferable license to view the Site for your own business use. No other rights are granted.",
       ],
     },
     {
@@ -262,14 +262,14 @@ export const termsOfUse: LegalDoc = {
       id: "liability",
       title: "11. Limitation of liability",
       paragraphs: [
-        "TO THE FULLEST EXTENT PERMITTED BY LAW, KRAM HEALTHCARE AND ITS OWNERS, OFFICERS, EMPLOYEES AND CONTRACTORS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, REIMBURSEMENT OR DATA, ARISING FROM YOUR USE OF OR INABILITY TO USE THE SITE, EVEN IF ADVISED OF THE POSSIBILITY. OUR TOTAL LIABILITY FOR ANY CLAIM RELATING TO THE SITE WILL NOT EXCEED ONE HUNDRED US DOLLARS ($100). Some states do not allow certain limitations, so parts of this section may not apply to you.",
+        "TO THE FULLEST EXTENT PERMITTED BY LAW, KRAM RCM AND ITS OWNERS, OFFICERS, EMPLOYEES AND CONTRACTORS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, REIMBURSEMENT OR DATA, ARISING FROM YOUR USE OF OR INABILITY TO USE THE SITE, EVEN IF ADVISED OF THE POSSIBILITY. OUR TOTAL LIABILITY FOR ANY CLAIM RELATING TO THE SITE WILL NOT EXCEED ONE HUNDRED US DOLLARS ($100). Some states do not allow certain limitations, so parts of this section may not apply to you.",
       ],
     },
     {
       id: "indemnity",
       title: "12. Indemnification",
       paragraphs: [
-        "You agree to indemnify and hold harmless Kram Healthcare and its owners, officers, employees and contractors from claims, damages and expenses (including reasonable attorneys' fees) arising from your violation of these Terms or applicable law, or your misuse of the Site.",
+        "You agree to indemnify and hold harmless Kram RCM and its owners, officers, employees and contractors from claims, damages and expenses (including reasonable attorneys' fees) arising from your violation of these Terms or applicable law, or your misuse of the Site.",
       ],
     },
     {

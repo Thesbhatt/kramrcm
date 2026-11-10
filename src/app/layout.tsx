@@ -25,16 +25,16 @@ const display = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kramhealthcare.com"),
   title: {
-    default: "Kram Healthcare | Provider Credentialing & Medical Billing Services",
-    template: "%s | Kram Healthcare",
+    default: "Kram RCM | Provider Credentialing & Medical Billing Services",
+    template: "%s | Kram RCM",
   },
   description:
     "Provider enrollment, credentialing, medical billing and multi-state licensing for US practices. Faster payer approvals and cleaner claims, with weekly status reports.",
   openGraph: {
-    title: "Kram Healthcare | Credentialing & Medical Billing",
+    title: "Kram RCM | Credentialing & Medical Billing",
     description: "Get credentialed faster and paid on the first pass.",
     url: "https://kramhealthcare.com",
-    siteName: "Kram Healthcare",
+    siteName: "Kram RCM",
     locale: "en_US",
     type: "website",
   },

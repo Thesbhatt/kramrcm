@@ -77,7 +77,7 @@ export async function submitContact(_prev: ContactState, fd: FormData): Promise<
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: process.env.CONTACT_FROM_EMAIL ?? "Kram Healthcare <website@kramhealthcare.com>",
+        from: process.env.CONTACT_FROM_EMAIL ?? "Kram RCM <website@kramhealthcare.com>",
         to: (process.env.CONTACT_TO_EMAIL ?? "sales@kramhealthcare.com").split(","),
         reply_to: data.email,
         subject: `New inquiry: ${data.practice} (${data.needs || "general"})`,

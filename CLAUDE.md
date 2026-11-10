@@ -2,7 +2,7 @@
 
 # Kram Healthcare website
 
-Marketing site for **Kram Healthcare**, a US provider-credentialing, medical-billing (RCM) and licensing company. Audience: US practice owners, practice managers, billing leads. Revamp of https://kramhealthcare.com. Goal: a top-tier US health-tech look (calm, fast, sparse motion); also a portfolio piece. **This branch (`design/medallion-style`) is the Medallion-style revamp; `main` keeps the video-hero / Geist version as the fallback.**
+Marketing site for **Kram RCM** (renamed from Kram Healthcare, Nov 10 2026; the domain and emails stay kramhealthcare.com), a US provider-credentialing, medical-billing (RCM) and licensing company. Audience: US practice owners, practice managers, billing leads. Revamp of https://kramhealthcare.com. Goal: a top-tier US health-tech look (calm, fast, sparse motion); also a portfolio piece. **This branch (`design/medallion-style`) is the Medallion-style revamp; `main` keeps the video-hero / Geist version as the fallback.**
 
 Stack in one line: Next.js 16 App Router + TypeScript + Tailwind v4 (CSS-first) + Cache Components, no animation library.
 

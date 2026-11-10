@@ -12,7 +12,7 @@ function display(value: number, suffixIn: string) {
 /** Stats band: real numbers from `stats` in site.ts, static in the HTML. TODO(client): confirm figures. */
 export function Stats() {
   return (
-    <section className="band-glow bg-orange" aria-label="Kram Healthcare in numbers">
+    <section className="band-glow bg-orange" aria-label="Kram RCM in numbers">
       <Container>
         <dl className="grid grid-cols-2 lg:grid-cols-4" {...stagger}>
           {stats.map((s, i) => {

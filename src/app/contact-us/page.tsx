@@ -12,7 +12,7 @@ import doctor from "@/assets/photos/contact-doctor.webp";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Book a free practice review with Kram Healthcare. Call (213) 832-7088 or send a message and our team will get back to you.",
+    "Book a free practice review with Kram RCM. Call (213) 832-7088 or send a message and our team will get back to you.",
   alternates: { canonical: "/contact-us" },
 };
 

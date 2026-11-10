@@ -62,7 +62,7 @@ export function Footer() {
         </Container>
 
         <Container className="flex flex-col gap-4 border-t border-ink-line py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
-          <p>© {company.copyrightYear} Kram Healthcare. All rights reserved.</p>
+          <p>© {company.copyrightYear} Kram RCM. All rights reserved.</p>
           <ul className="flex flex-wrap items-center gap-x-5">
             {/* No dead "#" links: an item becomes a link only once its page exists. Spans share the links' box so the row stays on one baseline. */}
             {legal.map((l) => (

@@ -4,7 +4,7 @@
 import type { IconName } from "@/components/ui/primitives";
 
 export const company = {
-  name: "Kram Healthcare",
+  name: "Kram RCM",
   tagline: "Accuracy you can count on",
   copyrightYear: 2026, // static: Cache Components disallows new Date() in prerendered pages
   phoneDisplay: "(213) 832-7088",
@@ -376,7 +376,7 @@ export const contact = {
     state: "e.g. Texas, or multiple",
     message: "e.g. Adding two new NPs in January; need Medicare and BCBS enrollment.",
   },
-  consent: { lead: "I agree to", privacyLabel: "the Privacy Policy", join: "and to", body: "Kram Healthcare contacting me about this request by phone or email." },
+  consent: { lead: "I agree to", privacyLabel: "the Privacy Policy", join: "and to", body: "Kram RCM contacting me about this request by phone or email." },
   // Orange band around the form (wording follows the live site's "Feel free to connect with us")
   band: {
     title: "Feel free to connect with us",
@@ -450,7 +450,7 @@ export const closing = {
 /* ---------------- About page ---------------- */
 
 export const about = {
-  kicker: "About Kram Healthcare",
+  kicker: "About Kram RCM",
   titleStart: "Your",
   titleHighlight: "partner",
   titleEnd: "in credentialing and revenue cycle",
@@ -459,7 +459,7 @@ export const about = {
     title: "Why we exist",
     // Client copy from kramhealthcare.com/about-us
     paragraphs: [
-      "At KRAM Healthcare, our mission is to empower healthcare providers and organizations by delivering reliable, efficient, and compliant revenue cycle management solutions. We specialize in provider enrollment, credentialing, medical billing, denial management, and DME billing, ensuring that every step of the process is handled with accuracy and care.",
+      "At Kram RCM, our mission is to empower healthcare providers and organizations by delivering reliable, efficient, and compliant revenue cycle management solutions. We specialize in provider enrollment, credentialing, medical billing, denial management, and DME billing, ensuring that every step of the process is handled with accuracy and care.",
       "We understand the challenges healthcare professionals face, from navigating complex payer requirements to resolving claim denials and maintaining steady cash flow. That's why we are committed to removing administrative burdens so providers can focus on what truly matters: delivering quality care to patients.",
       "Through transparency, dedication, and innovation, we strive to become a trusted partner to providers and healthcare organizations. Our goal is not just to manage billing and credentialing, but to optimize revenue cycles, minimize errors, and build long-term success for every client we serve.",
     ],
