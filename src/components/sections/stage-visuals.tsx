@@ -184,7 +184,7 @@ export function ReviewCard() {
           ))}
         </ol>
         <div className="sheet-row band-glow mt-7 rounded-2xl bg-orange p-5 text-white" style={{ ["--i" as string]: 3 }}>
-          <p className="text-xs">Result</p>
+          <p className="text-xs">{c.resultLabel}</p>
           <p className="font-display text-xl leading-tight font-semibold">{c.result}</p>
         </div>
         <p className="mt-4 text-sm text-muted">{c.footer}</p>

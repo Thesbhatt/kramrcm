@@ -28,8 +28,8 @@ export default function ContactPage() {
     <>
       <PageStage
         crumb="Contact Us"
-        title="Tell us where revenue is stuck"
-        mark="stuck"
+        title={contact.title}
+        mark={contact.titleHighlight}
         body={contact.body}
         actions={
           <>

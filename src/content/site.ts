@@ -9,7 +9,7 @@ export const company = {
   copyrightYear: 2026, // static: Cache Components disallows new Date() in prerendered pages
   phoneDisplay: "(213) 832-7088",
   phoneHref: "tel:+12138327088",
-  email: "sales@kramhealthcare.com",
+  email: "info@kramrcm.com", // client, Nov 12 2026
   // Business address supplied by the client (Nov 9 2026)
   addressLines: ["7901 4th St N, Ste 300", "St. Petersburg, FL 33702"],
   address: "7901 4th St N, Ste 300, St. Petersburg, FL 33702" as string | null,
@@ -40,7 +40,8 @@ export const cta = {
 
 export const hero = {
   // Rendered as one headline: {titleStart} [orange marker: {titleHighlight}] {titleEnd}
-  titleStart: "Get credentialed faster and",
+  // Client wording (Nov 12 2026): "Get credentialed faster and get paid on the first pass."
+  titleStart: "Get credentialed faster and get",
   titleHighlight: "paid",
   titleEnd: "on the first pass",
   // TODO(client): approve. Replaces the live site's sentence ("KRAM Healthcare simplifies your practice management,
@@ -100,11 +101,12 @@ export const statusBoard = {
 export const stats = [
   { value: 10, suffix: "+", label: "Years of combined industry expertise" },
   { value: 5000, suffix: "+", label: "Providers served across all 50 states" },
-  { value: 120000, suffix: "+", label: "Insurance applications processed" },
+  { value: 120000, suffix: "+", label: "Payer enrollment applications processed" },
   { value: 99, suffix: "%", label: "First-time submission success rate" },
 ];
 
 // Item names follow the live site's service lists: short labels only, no per-item explanations.
+// Title Case per the client's wording table (Nov 12 2026); keep new items in Title Case too.
 
 export const services: {
   id: "credentialing" | "billing" | "licensing";
@@ -116,45 +118,45 @@ export const services: {
   {
     id: "credentialing",
     eyebrow: "Front of the cycle",
-    title: "Provider enrollment & credentialing",
+    title: "Provider Enrollment & Credentialing",
     body: "Get every provider in network and keep them there, with one team tracking every payer and deadline.",
     items: [
-      "Commercial & government payer enrollment",
-      "CAQH registration & maintenance",
-      "NPI registration (Type 1 & Type 2)",
-      "Medicare & Medicaid enrollment",
-      "Facility & group enrollment",
-      "Revalidations & demographic updates",
-      "Provider onboarding support",
+      "Commercial & Government Payer Enrollment",
+      "CAQH Registration & Maintenance",
+      "NPI Registration (Type 1 & Type 2)",
+      "Medicare & Medicaid Enrollment",
+      "Group & Facility Enrollment",
+      "Revalidations & Demographic Updates",
+      "Provider Onboarding Support",
     ],
   },
   {
     id: "billing",
     eyebrow: "Across the claim cycle",
-    title: "Medical billing & revenue cycle",
+    title: "Medical Billing & Revenue Cycle Management",
     // TODO(client): confirm before launch
     body: "Clean claims out the door, denials worked fast, and payments posted and reconciled every day.",
     items: [
-      "Insurance verification & eligibility checks",
-      "Prior authorization management",
-      "Claim submission & follow-up",
-      "Denial management & appeals",
-      "Accounts receivable (A/R) management",
-      "Payment posting & reconciliation",
-      "Patient statements & billing support",
-      "DME billing",
+      "Insurance Verification & Eligibility Checks",
+      "Prior Authorization Management",
+      "Claim Submission & Follow-Up",
+      "Denial Management & Appeals",
+      "Accounts Receivable (A/R) Management",
+      "Payment Posting & Reconciliation",
+      "Patient Statements & Billing Support",
+      "DME Billing",
     ],
   },
   {
     id: "licensing",
     eyebrow: "Around the cycle",
-    title: "Licensing & practice support",
+    title: "Provider Licensing & Practice Support",
     body: "Expand into new states and telehealth, and keep the day-to-day paperwork from slowing your team down.",
     items: [
-      "Multi-state & telehealth licensing",
-      "Credentialing database management (CAQH, Modio, etc.)",
-      "Compliance & audit support",
-      "Ongoing payer maintenance",
+      "Multi-State & Telehealth Licensing",
+      "Credentialing Database Management (CAQH, Modio, etc.)",
+      "Compliance & Audit Support",
+      "Ongoing Provider & Payer Maintenance",
     ],
   },
 ];
@@ -361,8 +363,9 @@ export const faqs = [
 ];
 
 export const contact = {
-  title: "Tell us where revenue is stuck.",
-  body: "Share a few details and a member of our team will get back to you.",
+  title: "Let's Identify What's Holding Your Revenue Back",
+  titleHighlight: "Revenue", // orange marker word in the contact page headline
+  body: "Tell us a little about your practice and the support you need. Our team will reach out to discuss how we can help.",
   phiNotice: "Please don't include patient names or other health information in this form.",
   providerOptions: ["1", "2–5", "6–20", "21–50", "50+"],
   needs: ["Credentialing", "Medical billing", "Licensing", "Not sure yet"],
@@ -442,8 +445,8 @@ export const billingWhy = {
 
 // Closing CTA in the footer. Body is the live site's "Feel free to connect with us" line.
 export const closing = {
-  titleStart: "Ready to get your providers enrolled and",
-  titleHighlight: "paid?",
+  titleStart: "Ready to Simplify Provider Enrollment and Improve Your",
+  titleHighlight: "Revenue Cycle?",
   body: "Talk to us about credentialing, enrollment or billing. We'll make onboarding simple and efficient.",
 };
 
@@ -452,11 +455,11 @@ export const closing = {
 export const about = {
   kicker: "About Kram RCM",
   titleStart: "Your",
-  titleHighlight: "partner",
-  titleEnd: "in credentialing and revenue cycle",
+  titleHighlight: "Partner",
+  titleEnd: "in Credentialing and Revenue Cycle Management",
   body: "We take the administrative load of enrollment, credentialing and billing off your team, so providers can focus on patients and the practice gets paid on time.",
   mission: {
-    title: "Why we exist",
+    title: "Why We Exist",
     // Client copy from kramhealthcare.com/about-us
     paragraphs: [
       "At Kram RCM, our mission is to empower healthcare providers and organizations by delivering reliable, efficient, and compliant revenue cycle management solutions. We specialize in provider enrollment, credentialing, medical billing, denial management, and DME billing, ensuring that every step of the process is handled with accuracy and care.",
@@ -466,7 +469,7 @@ export const about = {
   },
   values: [
     { title: "Accuracy first", body: "Applications and claims are checked before they go out, because a clean first submission is the fastest path to approval and payment." },
-    { title: "Open status", body: "You always know where each enrollment and claim batch stands, who owns the next step, and when it is due." },
+    { title: "Transparent Status Updates", body: "You always know where each enrollment and claim batch stands, who owns the next step, and when it is due." },
     // TODO(client): confirm before launch
     { title: "Compliance by default", body: "Signed BAAs, minimum-necessary access and audit-ready records on every engagement." },
     { title: "Long-term partnership", body: "We stay after go-live: re-attestations, revalidations and payer changes are tracked for as long as you work with us." },
@@ -516,6 +519,23 @@ export const specialtiesSection = {
 };
 
 export const marquee = { pause: "Pause scrolling specialties", play: "Play scrolling specialties" };
+
+// Home payer strip, requested by the client (Nov 12 2026, "Can be added to website"). Names are plain text wordmarks:
+// payer logos are trademarks, so swap in logo files only once the client supplies them and confirms they may be used.
+// TODO(client): confirm the payer list.
+export const payers = {
+  // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
+  titleStart: "We work with",
+  titleHighlight: "all",
+  titleEnd: "major payers",
+  body: "We enroll and credential providers across every major insurance network: Medicare, Medicaid and commercial payers nationwide.",
+  rows: [
+    ["Blue Cross Blue Shield", "Aetna", "Anthem", "UnitedHealthcare", "Cigna", "Humana", "Medicare", "Medicaid"],
+    ["Innovation Health", "Johns Hopkins EHP", "TRICARE", "Magellan Health", "Kaiser Permanente", "Optum", "CareFirst"],
+  ],
+  pause: "Pause scrolling payers",
+  play: "Play scrolling payers",
+};
 
 export const faqSection = {
   title: "Questions practices ask us first",
@@ -616,11 +636,11 @@ export const claimAnatomy = {
     { label: "Charges", k: 5, w: 36 },
   ],
   checks: [
-    { title: "Eligibility confirmed", body: "Coverage and benefits are verified before the visit is billed." },
-    { title: "Provider matches enrollment", body: "The rendering provider is enrolled with that payer and the NPI lines up." },
-    { title: "Diagnosis supports the procedure", body: "Codes are checked against each other before anything is submitted." },
-    { title: "Prior authorization on file", body: "Required approvals are in place and attached to the claim." },
-    { title: "Charges and modifiers verified", body: "Units, modifiers and amounts are checked so the claim pays right the first time." },
+    { title: "Eligibility Verified", body: "Coverage and benefits are verified before the visit is billed." },
+    { title: "Provider Enrollment Verified", body: "The rendering provider is enrolled with that payer and the NPI lines up." },
+    { title: "Diagnosis and Procedure Codes Verified", body: "Codes are checked against each other before anything is submitted." },
+    { title: "Prior Authorization Confirmed", body: "Required approvals are in place and attached to the claim." },
+    { title: "Charges and Modifiers Verified", body: "Units, modifiers and amounts are checked so the claim pays right the first time." },
   ],
   link: "See our billing service",
   href: "/services#billing",
@@ -653,13 +673,14 @@ export const contactPage = {
     title: "Free practice review",
     tag: "What we look at",
     rows: ["Your payers", "Your providers", "Open A/R and denials"],
-    result: "Where revenue is stuck",
+    resultLabel: "Your Results",
+    result: "Where Revenue Is Being Lost",
     footer: "Written quote. No commitment until you sign.",
   },
-  channelsTitle: "Reach us your way",
+  channelsTitle: "Connect with us your way",
   nextTitle: "What happens next",
   steps: [
-    { title: "We get back to you", body: "We set up a free consultation at a time that suits you." },
+    { title: "We'll get back to you", body: "We schedule a free consultation at your convenience." },
     { title: "We review your practice", body: "We look at your payers, providers and open A/R, and show you where revenue is stuck." },
     { title: "You get a written quote", body: "No commitment until you sign." },
   ],

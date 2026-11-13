@@ -64,7 +64,7 @@ Home order: hero, "Trusted by" strip (hidden until real logos), stats band, serv
 - **Scroll reveals**: `reveal(delayMs)` on a block, `stagger` on a list/grid (children rise 90 ms apart, `--i` set by `MotionObserver`). Each plays once, 28 px rise + fade. Process steps also draw a hairline across the top of each column. Service rows shift and tint on hover; their arrow nudges.
 - **Count-up** (`data-count`, plus `data-suffix`): stats band, About stats, specialties page aside, About timelines (`~45 days`). 1.7 s ease-out quart from 0; the real number is in the HTML.
 - Cutout clinicians (`ui/cutout.tsx`): rise 120px + a white glow blooms behind them, once on first view. Corner glows (`.band-glow` on orange, `.band-glow-ink` on gray) give flat bands depth, as on the calculator card. The status board is a ~6 s one-shot: pills roll up, rows flash, tracks glow, footer tallies count; "Replay" restarts it.
-- Not used: parallax on text, looping or bouncing motion, hover lifts. One exception, added Nov 9 2026 at the client's request (ported from `main`): the home specialties marquee (two slow rows, pauses on hover/focus and via the visible pause button, off under reduced motion).
+- Not used: parallax on text, looping or bouncing motion, hover lifts. One exception, added Nov 9 2026 at the client's request (ported from `main`): the home specialties marquee (two slow rows, pauses on hover/focus and via the visible pause button, off under reduced motion). Nov 12 2026, also client-requested: the home payers marquee, same rules (each pause button scopes to its own section).
 - `prefers-reduced-motion`: everything is shown at once, nothing counts, the board shows its end state. Without JS everything is visible and the hero and board still play.
 
 ## Accessibility

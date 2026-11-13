@@ -3,17 +3,18 @@
 import { useState } from "react";
 
 /**
- * Pause / play for the specialty marquee, so keyboard and touch users can stop the motion (hover alone can't).
- * It sets `data-paused` on every `.marquee`; globals.css pauses the tracks. Hidden without JS (it would do
+ * Pause / play for a marquee (specialties, payers), so keyboard and touch users can stop the motion (hover alone can't).
+ * It sets `data-paused` on the `.marquee` inside its own <section>; globals.css pauses the tracks. Hidden without JS (it would do
  * nothing) and under reduced motion (the marquee is already static there). Labels come from `marquee` in site.ts.
  */
 export function MarqueeToggle({ pauseLabel, playLabel }: { pauseLabel: string; playLabel: string }) {
   const [paused, setPaused] = useState(false);
 
-  const toggle = () => {
+  const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const next = !paused;
     setPaused(next);
-    document.querySelectorAll<HTMLElement>(".marquee").forEach((el) => {
+    const scope = e.currentTarget.closest("section") ?? document;
+    scope.querySelectorAll<HTMLElement>(".marquee").forEach((el) => {
       if (next) el.setAttribute("data-paused", "");
       else el.removeAttribute("data-paused");
     });
