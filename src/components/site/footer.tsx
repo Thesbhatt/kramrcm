@@ -1,5 +1,5 @@
 import Link from "next/link";
-import clinicianCutout from "@/assets/photos/cutout-clinician.webp";
+import consultantCutout from "@/assets/photos/cutout-consultant.webp";
 import { closing, company, cta, legal, nav, services } from "@/content/site";
 import { Cutout } from "../ui/cutout";
 import { Logo } from "../ui/logo";
@@ -10,11 +10,11 @@ export function Footer() {
   return (
     <footer>
       <section className="band-glow relative bg-orange py-20 md:py-28" aria-labelledby="closing-title">
-        {/* Decorative clinician standing on the band's bottom edge (wide screens only, so it never touches the text) */}
-        <Cutout src={clinicianCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
+        {/* Decorative client photo (Nov 12 2026) standing on the band's bottom edge (wide screens only, so it never touches the text) */}
+        <Cutout src={consultantCutout} sizes="300px" className="absolute bottom-0 left-[max(1.5rem,calc(50%-37.5rem))] hidden w-[300px] xl:block" />
         <Container className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-6" {...reveal()}>
-          <h2 id="closing-title" className="max-w-[22ch] font-bold text-white">{closing.titleStart} {closing.titleHighlight}</h2>
+          <h2 id="closing-title" className="max-w-[24ch] font-bold text-white">{closing.titleStart} {closing.titleHighlight}</h2>
           <p className="max-w-[46ch] text-white">{closing.body}</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3 pt-2" {...reveal(160)}>

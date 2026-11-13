@@ -33,7 +33,7 @@ Reused from the client's current website on Nov 8 2026. TODO(client): confirm th
 | cutout-duo.webp | hero-slide-tablet.jpg, background removed | Home services band |
 | cutout-pair.webp | about-review.jpg, background removed | Closing CTA band, right |
 | cutout-desk.webp | service-credentialing.jpg, background removed | Calculator hero |
-| cutout-phone.webp | hero-slide-phone.jpg, background removed | Specialties "don't see yours" band |
+| cutout-phone.webp | hero-slide-phone.jpg, background removed | Unused since Nov 12 2026 (client asked to remove the photo from the Specialties "don't see yours" band); kept for `main` / rollback |
 
 ## Nov 10 2026 sharpness pass (client: photos looked blurry and dull on a laptop)
 Hero slides, clinician-patient and practice-team were re-downloaded from the same Unsplash photos at 2400/2000px, quality 88 (the old files were smaller, re-compressed copies). Two replacements, both Unsplash License:
@@ -41,4 +41,10 @@ Hero slides, clinician-patient and practice-team were re-downloaded from the sam
 | File | Unsplash photo | Used on |
 |---|---|---|
 | billing-team.jpg | photo-1590650516494-0c8e4a4dd67e (two women reviewing a screen in a medical office) | "Why choose Kram for medical billing?" (About). Replaced the client's 804px why.png |
-| cutout-clinician.webp | photo-1594824476967-48c8b964273f (clinician in teal scrubs, arms crossed), background removed with macOS Vision, embroidered name and clinic logo retouched out; hair edges defringed and the wall gap behind the neck painted dark (white wall showed through the curls) | Closing CTA band, left (every page). Replaced the 359px cutout-glasses.webp |
+| cutout-clinician.webp | photo-1594824476967-48c8b964273f (clinician in teal scrubs, arms crossed), background removed with macOS Vision, embroidered name and clinic logo retouched out; hair edges defringed and the wall gap behind the neck painted dark (white wall showed through the curls) | Unused since Nov 12 2026 (replaced by cutout-consultant.webp); kept for rollback |
+
+## Client-supplied photos
+
+| File | Source | Used on |
+|---|---|---|
+| cutout-consultant.webp | Photo sent by the client with the Nov 12 2026 feedback doc (woman in a white blazer, arms crossed). Background removed locally with macOS Vision, cropped at the waist above the laptop, 900px WebP | Closing CTA band, left (every page). Replaced cutout-clinician.webp |

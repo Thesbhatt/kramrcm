@@ -3,6 +3,7 @@ import { HomeHero } from "@/components/home/hero";
 import { ClaimAnatomy } from "@/components/sections/claim-anatomy";
 import { CalculatorShowcase } from "@/components/sections/calculator-showcase";
 import { Faq } from "@/components/sections/faq";
+import { PayerMarquee } from "@/components/sections/payers";
 import { ProductPreview } from "@/components/sections/product-preview";
 import { Process } from "@/components/sections/process";
 import { ServiceList } from "@/components/sections/service-list";
@@ -18,6 +19,7 @@ export default function Home() {
       <SpecialtyMarquee />
       <TrustedBy />
       <Stats />
+      <PayerMarquee />
       <ServiceList />
       <ClaimAnatomy />
       <CalculatorShowcase />

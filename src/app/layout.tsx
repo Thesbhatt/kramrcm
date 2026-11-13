@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "Provider enrollment, credentialing, medical billing and multi-state licensing for US practices. Faster payer approvals and cleaner claims, with weekly status reports.",
   openGraph: {
     title: "Kram RCM | Credentialing & Medical Billing",
-    description: "Get credentialed faster and paid on the first pass.",
+    description: "Get credentialed faster and get paid on the first pass.",
     url: "https://kramhealthcare.com",
     siteName: "Kram RCM",
     locale: "en_US",

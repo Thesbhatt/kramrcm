@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { MotionObserver } from "@/components/ui/motion-observer";
-import phoneCutout from "@/assets/photos/cutout-phone.webp";
 import { PageStage } from "@/components/sections/page-stage";
 import { SpecialtyExplorer } from "@/components/sections/specialty-explorer";
 import { SpecialtyDial } from "@/components/sections/stage-visuals";
 import { featuredIcons, groupIcons } from "@/components/sections/specialties-preview";
-import { Cutout } from "@/components/ui/cutout";
 import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal } from "@/components/ui/primitives";
 import { company, cta, featuredSpecialties, specialties, specialtiesPage, specialtyGroups } from "@/content/site";
 
@@ -71,9 +69,8 @@ export default function SpecialtiesPage() {
           <SectionHeading eyebrow={specialtiesPage.explorer.label} title={specialtiesPage.explorer.title} />
           <SpecialtyExplorer groups={groups} copy={specialtiesPage.explorer} ctaHref={cta.href} ctaLabel={cta.primary} />
 
-          {/* Orange banner; on wide screens the clinician stands on its bottom edge and her head rises above the top */}
-          <div className="band-glow relative mt-10 rounded-2xl bg-orange px-7 py-9 sm:px-9 md:pl-[300px]" {...reveal()}>
-            <Cutout src={phoneCutout} sizes="260px" className="absolute bottom-0 left-8 hidden w-[250px] md:block" delay={200} />
+          {/* Orange banner, text only (client asked to remove the photo, Nov 12 2026) */}
+          <div className="band-glow relative mt-10 rounded-2xl bg-orange px-7 py-9 sm:px-9" {...reveal()}>
             <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
               <div>
                 <h3 className="text-[1.75rem] font-bold text-white">Don&apos;t see your specialty?</h3>

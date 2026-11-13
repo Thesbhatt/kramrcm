@@ -78,7 +78,7 @@ export async function submitContact(_prev: ContactState, fd: FormData): Promise<
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM_EMAIL ?? "Kram RCM <website@kramhealthcare.com>",
-        to: (process.env.CONTACT_TO_EMAIL ?? "sales@kramhealthcare.com").split(","),
+        to: (process.env.CONTACT_TO_EMAIL ?? "info@kramrcm.com").split(","),
         reply_to: data.email,
         subject: `New inquiry: ${data.practice} (${data.needs || "general"})`,
         html,
@@ -87,7 +87,7 @@ export async function submitContact(_prev: ContactState, fd: FormData): Promise<
     if (!res.ok) throw new Error(`Resend responded ${res.status}`);
   } catch (err) {
     console.error("[contact] send failed", err);
-    return { status: "error", message: "We couldn't send your message. Please call us or email sales@kramhealthcare.com.", values };
+    return { status: "error", message: "We couldn't send your message. Please call us or email info@kramrcm.com.", values };
   }
 
   return { status: "success", name: data.name.split(" ")[0] };
