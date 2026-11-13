@@ -75,12 +75,24 @@ export function Words({ text, from = 0, mark }: { text: string; from?: number; m
   const words = text.split(" ").filter(Boolean);
   return (
     <>
-      {words.map((w, i) => (
+      {words.map((w, i) => {
+        // A word that matches `mark` once trailing punctuation is stripped gets the marker; the punctuation stays outside it.
+        const core = w.replace(/[.,!?;:]+$/, "");
+        const hit = !!mark && (w === mark || core === mark);
+        const tail = hit ? w.slice(core.length) : "";
+        return (
         <span key={`${w}-${i}`}>
-          <span className="w-mask"><span className={mark && w === mark ? "w hl" : "w"} style={{ ["--i" as string]: from + i }}>{w}</span></span>
+          <span className="w-mask">
+            {hit && tail ? (
+              <span className="w" style={{ ["--i" as string]: from + i }}><span className="hl">{core}</span>{tail}</span>
+            ) : (
+              <span className={hit ? "w hl" : "w"} style={{ ["--i" as string]: from + i }}>{w}</span>
+            )}
+          </span>
           {i < words.length - 1 && " "}
         </span>
-      ))}
+        );
+      })}
     </>
   );
 }

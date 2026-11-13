@@ -39,11 +39,10 @@ export const cta = {
 };
 
 export const hero = {
-  // Rendered as one headline: {titleStart} [orange marker: {titleHighlight}] {titleEnd}
-  // Client wording (Nov 12 2026): "Get credentialed faster and get paid on the first pass."
-  titleStart: "Get credentialed faster and get",
-  titleHighlight: "paid",
-  titleEnd: "on the first pass",
+  // Client's alternate headline (Nov 12 2026), one sentence per line. The word equal to `titleHighlight` gets the
+  // orange marker (trailing punctuation stays outside it). Their first option was "Get credentialed faster and get paid on the first pass."
+  titleLines: ["Get Credentialed Faster.", "Submit Cleaner Claims.", "Accelerate Payments."],
+  titleHighlight: "Payments",
   // TODO(client): approve. Replaces the live site's sentence ("KRAM Healthcare simplifies your practice management,
   // with accurate billing, faster credentialing, and compliant revenue cycle solutions built for modern healthcare providers.")
   // TODO(client): confirm before launch
@@ -101,7 +100,7 @@ export const statusBoard = {
 export const stats = [
   { value: 10, suffix: "+", label: "Years of combined industry expertise" },
   { value: 5000, suffix: "+", label: "Providers served across all 50 states" },
-  { value: 120000, suffix: "+", label: "Payer enrollment applications processed" },
+  { value: 120000, suffix: "+", label: "Payer Enrollment Applications Processed" },
   { value: 99, suffix: "%", label: "First-time submission success rate" },
 ];
 

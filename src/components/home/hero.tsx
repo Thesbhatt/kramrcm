@@ -27,8 +27,13 @@ export function HomeHero() {
       <Container className="relative z-10">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
           <div className="flex flex-col items-start">
-            <h1 className="max-w-[16ch]">
-              <Words text={`${hero.titleStart} ${hero.titleHighlight} ${hero.titleEnd}`} mark={hero.titleHighlight} />
+            {/* Sized from the viewport so each sentence keeps to one line (about 11.2em wide) in the hero column at every width */}
+            <h1 className="text-[clamp(1.75rem,8.4vw-0.3rem,3rem)] lg:text-[clamp(2.25rem,4.3vw-0.5rem,2.85rem)]">
+              {hero.titleLines.map((line, i) => (
+                <span key={line} className="block">
+                  <Words text={line} mark={hero.titleHighlight} from={hero.titleLines.slice(0, i).join(" ").split(" ").filter(Boolean).length} />
+                </span>
+              ))}
             </h1>
             <p className="hero-in mt-6 max-w-[46ch] text-[1.0625rem] text-muted" style={hi(4)}>{hero.body}</p>
             <div className="hero-in mt-8" style={hi(5)}>
