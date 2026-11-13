@@ -519,18 +519,42 @@ export const specialtiesSection = {
 
 export const marquee = { pause: "Pause scrolling specialties", play: "Play scrolling specialties" };
 
-// Home payer strip, requested by the client (Nov 12 2026, "Can be added to website"). Names are plain text wordmarks:
-// payer logos are trademarks, so swap in logo files only once the client supplies them and confirms they may be used.
-// TODO(client): confirm the payer list.
-export const payers = {
+// Home payer strip, requested by the client (Nov 12 2026, "Can be added to website"). Logos (Nov 13 2026) are the public
+// Wikimedia Commons / Wikipedia files in public/payers; they are trademarks shown only to say we work with that payer.
+// Payers with no `logo` fall back to a text wordmark (no usable file found).
+// TODO(client): confirm the payer list and that the logos may be used; swap in official artwork if they have it.
+type PayerLogo = { src: string; w: number; h: number };
+export type Payer = { name: string; logo?: PayerLogo };
+const p = (name: string, logo?: PayerLogo): Payer => ({ name, logo });
+
+export const payers: {
+  titleStart: string; titleHighlight: string; titleEnd: string; body: string; rows: Payer[][]; pause: string; play: string;
+} = {
   // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
   titleStart: "We work with",
   titleHighlight: "all",
   titleEnd: "major payers",
   body: "We enroll and credential providers across every major insurance network: Medicare, Medicaid and commercial payers nationwide.",
   rows: [
-    ["Blue Cross Blue Shield", "Aetna", "Anthem", "UnitedHealthcare", "Cigna", "Humana", "Medicare", "Medicaid"],
-    ["Innovation Health", "Johns Hopkins EHP", "TRICARE", "Magellan Health", "Kaiser Permanente", "Optum", "CareFirst"],
+    [
+      p("Blue Cross Blue Shield", { src: "/payers/bcbs.svg", w: 216, h: 45 }),
+      p("Aetna", { src: "/payers/aetna.svg", w: 121, h: 30 }),
+      p("Anthem", { src: "/payers/anthem.svg", w: 1000, h: 224 }),
+      p("UnitedHealthcare", { src: "/payers/uhc.svg", w: 160, h: 50 }),
+      p("Cigna", { src: "/payers/cigna.png", w: 221, h: 205 }),
+      p("Humana", { src: "/payers/humana.svg", w: 312, h: 66 }),
+      p("Medicare", { src: "/payers/medicare.svg", w: 197, h: 28 }),
+      p("Medicaid"),
+    ],
+    [
+      p("Innovation Health"),
+      p("Johns Hopkins EHP"),
+      p("TRICARE", { src: "/payers/tricare.svg", w: 1217, h: 610 }),
+      p("Magellan Health", { src: "/payers/magellan.png", w: 195, h: 72 }),
+      p("Kaiser Permanente", { src: "/payers/kp.svg", w: 486, h: 55 }),
+      p("Optum", { src: "/payers/optum.svg", w: 708, h: 205 }),
+      p("CareFirst"),
+    ],
   ],
   pause: "Pause scrolling payers",
   play: "Play scrolling payers",

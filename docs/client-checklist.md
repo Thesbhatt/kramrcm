@@ -32,7 +32,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [x] US business address (received Nov 9 2026; shown in footer, contact page and legal pages)
 - [ ] Business hours + time zone
 - [ ] Main phone (confirm (213) 832-7088). Lead email changed to info@kramrcm.com (client, Nov 12 2026): set `CONTACT_TO_EMAIL` in production to match, and confirm the sending domain for `CONTACT_FROM_EMAIL`
-- [ ] Payers strip (home): confirm the payer list in `payers` (site.ts); send payer logo files only if they may be used
+- [ ] Payers strip (home): confirm the payer list in `payers` (site.ts); payer logos in `public/payers` are public Wikimedia files, so confirm they may be used; send official artwork for Medicaid, Innovation Health, Johns Hopkins EHP and CareFirst (text fallback now)
 - [ ] Where the team works (US / offshore / mixed); how they want it described
 - [ ] Founding year, founder/leadership names, headshots (for About page)
 - [ ] Real photos (team at work, office, or partner clinics) to replace the Unsplash placeholders in `src/assets/photos/` (4 home hero slides, About hero, About mission). Landscape, 1600px+ wide.
