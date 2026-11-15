@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type Slide = { src: StaticImageData; alt: string; focus: string };
-type Labels = { label: string; pause: string; play: string; slide: string; of: string };
+type Labels = { label: string; slide: string; of: string };
 
 /** Time each photo stays up before the next one fades in (client asked for quick changes). */
 const INTERVAL_MS = 1500;
@@ -14,13 +14,12 @@ const INTERVAL_MS = 1500;
  * zoom) over the outgoing one, which stays fully opaque underneath until it is covered, so the frame never dips
  * to the background. Slide 1 is in the server HTML, so the hero is complete without JS.
  *
- * Autoplay stops for `prefers-reduced-motion`, while the tab is hidden, while the hero is off screen, and when the
- * visitor presses Pause (WCAG 2.2.2: moving content that lasts more than 5 s needs a way to stop it).
+ * Autoplay stops for `prefers-reduced-motion`, while the tab is hidden, and while the hero is off screen.
+ * No pause button (client, Nov 15 2026).
  */
 export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; labels: Labels; onSlide?: (index: number) => void }) {
   const [active, setActive] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
-  const [paused, setPaused] = useState(false);
   const [canMove, setCanMove] = useState(false); // false until we know motion is allowed (and always without JS)
   const [inView, setInView] = useState(true);
   const root = useRef<HTMLDivElement>(null);
@@ -46,7 +45,7 @@ export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; lab
   const [reach, setReach] = useState(1);
   useEffect(() => { onSlide?.(active); }, [active, onSlide]);
 
-  const playing = canMove && !paused && inView;
+  const playing = canMove && inView;
   useEffect(() => {
     if (!playing) return;
     const id = window.setInterval(() => {
@@ -101,24 +100,14 @@ export function HeroCarousel({ slides, labels, onSlide }: { slides: Slide[]; lab
         })}
       </div>
 
-      {/* Position dots (decorative) and the Pause/Play control, only when the slideshow can actually move */}
+      {/* Position dots (decorative), only when the slideshow can actually move */}
       {canMove && (
-        <div className="absolute inset-x-4 bottom-4 z-30 flex items-center justify-between gap-3">
+        <div className="absolute inset-x-4 bottom-4 z-30 flex items-center">
           <div className="flex gap-1.5 rounded-full bg-white/85 px-3 py-2" aria-hidden="true">
             {slides.map((s, i) => (
               <span key={s.src.src} className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${i === active ? "w-5 bg-ink" : "w-1.5 bg-ink/30"}`} />
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? labels.play : labels.pause}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-ink transition-colors hover:bg-white"
-          >
-            <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden="true" fill="currentColor">
-              {paused ? <path d="M4.5 2.8v10.4L13 8z" /> : <path d="M4 2.5h2.8v11H4zm5.2 0H12v11H9.2z" />}
-            </svg>
-          </button>
         </div>
       )}
     </div>

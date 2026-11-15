@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 
 /**
- * Makes the gradient bands follow the mouse. On pointer move it finds the `.hero-diag`, `.band-glow` or `.band-glow-ink`
+ * Makes the gradient bands follow the mouse. On pointer move it finds the `.hero-diag`, `.band-glow`, `.band-glow-ink`, `.spot` or footer `.f-mark`
  * section under the cursor and writes the cursor's position inside it to `--mx` / `--my` (and fades `--ga` in); CSS paints
  * a soft radial light there (globals.css). Fine pointers only (no touch), off under `prefers-reduced-motion`. Decorative:
  * with no JS the bands keep their static gradients. Rendered once in the layout because the footer bands live there.
  */
-const SELECTOR = ".hero-diag, .band-glow, .band-glow-ink, .spot";
+const SELECTOR = ".hero-diag, .band-glow, .band-glow-ink, .spot, .f-mark";
 
 export function PointerGlow() {
   useEffect(() => {

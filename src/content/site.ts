@@ -39,9 +39,9 @@ export const cta = {
 };
 
 export const hero = {
-  // Client's alternate headline (Nov 12 2026), one sentence per line. The word equal to `titleHighlight` gets the
+  // Client's alternate headline (Nov 12 2026), one sentence per line, no trailing periods (client, Nov 15 2026). The word equal to `titleHighlight` gets the
   // orange marker (trailing punctuation stays outside it). Their first option was "Get credentialed faster and get paid on the first pass."
-  titleLines: ["Get Credentialed Faster.", "Submit Cleaner Claims.", "Accelerate Payments."],
+  titleLines: ["Get Credentialed Faster", "Submit Cleaner Claims", "Accelerate Payments"],
   titleHighlight: "Payments",
   // TODO(client): approve. Replaces the live site's sentence ("KRAM Healthcare simplifies your practice management,
   // with accurate billing, faster credentialing, and compliant revenue cycle solutions built for modern healthcare providers.")
@@ -68,8 +68,6 @@ export const hero = {
   ],
   carousel: {
     label: "Photos of healthcare teams at work",
-    pause: "Pause photo slideshow",
-    play: "Play photo slideshow",
     slide: "Photo",
     of: "of",
   },
@@ -320,13 +318,17 @@ export const specialties = [
   "Angioplasty", "Eye Care", "RMI",
 ];
 
-export const featuredSpecialties = [
-  { name: "Primary & Family Care", note: "High-volume visits and fast panel growth" },
-  { name: "Behavioral Health", note: "Telehealth, multi-state licensing, and carve-out payers" },
-  { name: "Cardiology", note: "Prior auths for imaging and procedures" },
-  { name: "Home Health & Hospice", note: "Medicare enrollment and revalidations" },
-  { name: "DME", note: "Supplier enrollment and documentation" },
-  { name: "Pharmacy", note: "Pharmacy and pharmacist enrollment" },
+/**
+ * Featured specialty cards. On /specialties each card links to `#anchor`, which scrolls to the explorer, filters it to
+ * `group` (a `specialtyGroups` name) and highlights the `match` tiles (exact item names; omit to show the whole group).
+ */
+export const featuredSpecialties: { name: string; note: string; anchor: string; group: string; match?: string[] }[] = [
+  { name: "Primary & Family Care", note: "High-volume visits and fast panel growth", anchor: "specialty-primary-care", group: "Primary & urgent care", match: ["Family Medicine", "Internal Medicine", "Primary Care", "Pediatrics"] },
+  { name: "Behavioral Health", note: "Telehealth, multi-state licensing, and carve-out payers", anchor: "specialty-behavioral-health", group: "Behavioral health" },
+  { name: "Cardiology", note: "Prior auths for imaging and procedures", anchor: "specialty-cardiology", group: "Medical specialties", match: ["Cardiology", "Angioplasty"] },
+  { name: "Home Health & Hospice", note: "Medicare enrollment and revalidations", anchor: "specialty-home-health-hospice", group: "Post-acute & equipment", match: ["Home Health", "Hospice Care"] },
+  { name: "DME", note: "Supplier enrollment and documentation", anchor: "specialty-dme", group: "Post-acute & equipment", match: ["Durable Medical Equipment (DME)"] },
+  { name: "Pharmacy", note: "Pharmacy and pharmacist enrollment", anchor: "specialty-pharmacy", group: "Pharmacy & dental", match: ["Pharmacy", "Retail Pharmacy", "Specialty Pharmacy", "Pharmacist Enrollment Services"] },
 ];
 
 export const reasons = [
@@ -449,6 +451,17 @@ export const closing = {
   body: "Talk to us about credentialing, enrollment or billing. We'll make onboarding simple and efficient.",
 };
 
+// Gray footer under the closing band. The tagline is split so its last words get the orange accent.
+export const footer = {
+  taglineStart: "Accuracy you can",
+  taglineHighlight: "count on.",
+  blurb: "Credentialing, medical billing and licensing for US healthcare practices, run by one accountable team.",
+  columns: { company: "Company", services: "Services", follow: "Follow" },
+  contact: { call: "Call us", email: "Email us", visit: "Visit us" },
+  wordmark: "KRAM RCM", // decorative giant type at the bottom (aria-hidden; the logo carries the name)
+  backToTop: "Back to top",
+};
+
 /* ---------------- About page ---------------- */
 
 export const about = {
@@ -517,7 +530,6 @@ export const specialtiesSection = {
   link: "See all specialties",
 };
 
-export const marquee = { pause: "Pause scrolling specialties", play: "Play scrolling specialties" };
 
 // Home payer strip, requested by the client (Nov 12 2026, "Can be added to website"). Logos (Nov 13 2026) are the public
 // Wikimedia Commons / Wikipedia files in public/payers; they are trademarks shown only to say we work with that payer.
@@ -528,7 +540,7 @@ export type Payer = { name: string; logo?: PayerLogo };
 const p = (name: string, logo?: PayerLogo): Payer => ({ name, logo });
 
 export const payers: {
-  titleStart: string; titleHighlight: string; titleEnd: string; body: string; rows: Payer[][]; pause: string; play: string;
+  titleStart: string; titleHighlight: string; titleEnd: string; body: string; rows: Payer[][];
 } = {
   // Rendered as: {titleStart} <highlight>{titleHighlight}</highlight> {titleEnd}
   titleStart: "We work with",
@@ -556,8 +568,6 @@ export const payers: {
       p("CareFirst"),
     ],
   ],
-  pause: "Pause scrolling payers",
-  play: "Play scrolling payers",
 };
 
 export const faqSection = {
@@ -626,7 +636,7 @@ export const servicesPage = {
 export const specialtiesPage = {
   body: "Each specialty has its own payers, prior authorization rules and enrollment paperwork. We already know where each one gets stuck.",
   dialCenter: "specialties",
-  featured: { title: "Specialties we see most", label: "Where we go deepest" },
+  featured: { title: "Specialties we see most", label: "Where we go deepest", cardLink: "See what we cover" },
   explorer: {
     label: "Every specialty",
     title: "Find your specialty",

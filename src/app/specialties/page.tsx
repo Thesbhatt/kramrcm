@@ -3,8 +3,8 @@ import { MotionObserver } from "@/components/ui/motion-observer";
 import { PageStage } from "@/components/sections/page-stage";
 import { SpecialtyExplorer } from "@/components/sections/specialty-explorer";
 import { SpecialtyDial } from "@/components/sections/stage-visuals";
-import { featuredIcons, groupIcons } from "@/components/sections/specialties-preview";
-import { Arrow, ButtonLink, Container, Icon, SectionHeading, reveal } from "@/components/ui/primitives";
+import { SpecialtyCard, featuredIcons, groupIcons } from "@/components/sections/specialties-preview";
+import { Arrow, ButtonLink, Container, SectionHeading, reveal } from "@/components/ui/primitives";
 import { company, cta, featuredSpecialties, specialties, specialtiesPage, specialtyGroups } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -19,6 +19,7 @@ const span = ["lg:col-span-3 lg:row-span-2", "lg:col-span-3", "lg:col-span-3", "
 
 export default function SpecialtiesPage() {
   const groups = specialtyGroups.map((g) => ({ name: g.name, items: g.items, icon: groupIcons[g.name] ?? "stethoscope" as const }));
+  const jumps = featuredSpecialties.map(({ anchor, group, match }) => ({ anchor, group, match }));
   return (
     <>
       <PageStage
@@ -39,35 +40,27 @@ export default function SpecialtiesPage() {
       <section className="py-20 md:py-28">
         <Container className="flex flex-col gap-10">
           <SectionHeading eyebrow={specialtiesPage.featured.label} title={specialtiesPage.featured.title} />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
-            {featuredSpecialties.map((s, i) => {
-              const hero = i === 0;
-              return (
-                <div
-                  key={s.name}
-                  className={`spot relative flex min-h-[220px] flex-col justify-between gap-10 overflow-hidden rounded-2xl p-7 ${span[i]} ${hero ? "band-glow bg-orange text-white" : "bg-tint"}`}
-                  {...reveal(i * 70)}
-                >
-                  <Icon name={featuredIcons[i]} className={`pointer-events-none absolute right-5 top-5 h-24 w-24 ${hero ? "text-white/20" : "text-orange/15"}`} />
-                  <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-orange-ink shadow-[0_12px_28px_-14px_rgb(47_51_54/0.5)]">
-                    <Icon name={featuredIcons[i]} className="h-6 w-6" />
-                  </span>
-                  <div className="relative">
-                    <h3 className={`leading-tight ${hero ? "text-[clamp(1.75rem,3vw,2.4rem)]" : "text-[1.5rem]"}`}>{s.name}</h3>
-                    <p className={`mt-2 max-w-[34ch] ${hero ? "text-white" : "text-muted"}`}>{s.note}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* All six cards look the same at rest (one orange card read as "the only thing we do"); each turns orange on
+              hover/focus and links down to the explorer, filtered to that specialty. */}
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+            {featuredSpecialties.map((s, i) => (
+              <li key={s.name} className={`flex ${span[i]}`} {...reveal(i * 70)}>
+                <SpecialtyCard specialty={s} icon={featuredIcons[i]} href={`#${s.anchor}`} large={i === 0} />
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
       {/* Every specialty: searchable, filterable */}
-      <section id="explorer" className="scroll-mt-24 bg-white pb-20 md:pb-28">
+      <section id="explorer" className="relative scroll-mt-24 bg-white pb-20 md:pb-28">
+        {/* Jump targets for the featured cards: the browser scrolls here even without JS; the explorer reads the hash to filter. */}
+        {featuredSpecialties.map((s) => (
+          <span key={s.anchor} id={s.anchor} className="absolute top-0" aria-hidden="true" />
+        ))}
         <Container className="flex flex-col gap-10">
           <SectionHeading eyebrow={specialtiesPage.explorer.label} title={specialtiesPage.explorer.title} />
-          <SpecialtyExplorer groups={groups} copy={specialtiesPage.explorer} ctaHref={cta.href} ctaLabel={cta.primary} />
+          <SpecialtyExplorer groups={groups} jumps={jumps} copy={specialtiesPage.explorer} ctaHref={cta.href} ctaLabel={cta.primary} />
 
           {/* Orange banner, text only (client asked to remove the photo, Nov 12 2026) */}
           <div className="band-glow relative mt-10 rounded-2xl bg-orange px-7 py-9 sm:px-9" {...reveal()}>

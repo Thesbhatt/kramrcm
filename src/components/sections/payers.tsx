@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { payers } from "@/content/site";
-import { MarqueeToggle } from "../ui/marquee-toggle";
 import { Container, reveal } from "../ui/primitives";
 
 /**
  * Home: "We work with all major payers" (client request, Nov 12 2026). Headline left, line right, then two rows of payer
- * name cards scrolling in opposite directions (the specialty marquee's `.marquee` pattern: pauses on hover, focus or the
- * button, static under reduced motion). The moving rows are decorative duplicates; screen readers get the plain list.
+ * name cards scrolling in opposite directions (the specialty marquee's `.marquee` pattern: pauses on hover or focus,
+ * static under reduced motion). The moving rows are decorative duplicates; screen readers get the plain list.
  */
 export function PayerMarquee() {
   return (
@@ -47,9 +46,6 @@ export function PayerMarquee() {
           </div>
         ))}
       </div>
-      <Container className="mt-3 flex justify-end">
-        <MarqueeToggle pauseLabel={payers.pause} playLabel={payers.play} />
-      </Container>
     </section>
   );
 }

@@ -1,5 +1,5 @@
-import { featuredSpecialties, marquee, specialties, specialtiesSection, specialtyGroups } from "@/content/site";
-import { MarqueeToggle } from "../ui/marquee-toggle";
+import Link from "next/link";
+import { featuredSpecialties, specialties, specialtiesPage, specialtiesSection, specialtyGroups } from "@/content/site";
 import { Arrow, ButtonLink, Container, Icon, reveal, stagger, type IconName } from "../ui/primitives";
 
 /** Icons for the featured specialties (same order as `featuredSpecialties`) and the category groups. */
@@ -18,6 +18,44 @@ export const groupIcons: Record<string, IconName> = {
 const iconFor = new Map<string, IconName>(
   specialtyGroups.flatMap((g) => g.items.map((item) => [item, groupIcons[g.name]] as const)),
 );
+
+/**
+ * One featured specialty card, shared by the home preview and the /specialties bento. All six look the same at rest (one
+ * orange card read as "the only thing we do"); on hover/focus the `.spec-fill` layer fades in orange and the text eases to
+ * white. Links to the explorer on /specialties, which filters to that specialty (see `featuredSpecialties`).
+ */
+export function SpecialtyCard({ specialty, icon, href, compact = false, large = false }: {
+  specialty: (typeof featuredSpecialties)[number];
+  icon: IconName;
+  href: string;
+  /** Home grid: smaller padding, icons and title */
+  compact?: boolean;
+  /** The big first tile in the /specialties bento */
+  large?: boolean;
+}) {
+  const ease = "duration-500 ease-[cubic-bezier(.2,.7,.2,1)]";
+  return (
+    <Link
+      href={href}
+      className={`spec-card spot group relative flex w-full flex-col justify-between overflow-hidden rounded-2xl bg-tint ${compact ? "min-h-[200px] gap-8 p-6" : "min-h-[220px] gap-10 p-7"}`}
+    >
+      <span className="spec-fill pointer-events-none absolute inset-0" aria-hidden="true" />
+      <Icon name={icon} className={`pointer-events-none absolute right-5 top-5 text-orange/15 transition-[color,transform] ${ease} group-hover:-rotate-6 group-hover:scale-105 group-hover:text-white/25 group-focus-visible:text-white/25 ${compact ? "h-20 w-20" : "h-24 w-24"}`} />
+      <span className={`relative flex items-center justify-center bg-white text-orange-ink shadow-[0_12px_28px_-14px_rgb(47_51_54/0.5)] ${compact ? "h-11 w-11 rounded-xl" : "h-12 w-12 rounded-2xl"}`}>
+        <Icon name={icon} className={compact ? "h-5 w-5" : "h-6 w-6"} />
+      </span>
+      <div className="relative">
+        <h3 className={`leading-tight text-fg transition-colors ${ease} group-hover:text-white group-focus-visible:text-white ${compact ? "font-display text-xl" : large ? "text-[clamp(1.75rem,3vw,2.4rem)]" : "text-[1.5rem]"}`}>
+          {specialty.name}
+        </h3>
+        <p className={`max-w-[34ch] text-muted transition-colors ${ease} group-hover:text-white group-focus-visible:text-white ${compact ? "mt-1 text-sm" : "mt-2"}`}>{specialty.note}</p>
+        <span className={`mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-ink transition-colors ${ease} group-hover:text-white group-focus-visible:text-white`}>
+          {specialtiesPage.featured.cardLink} <Arrow />
+        </span>
+      </div>
+    </Link>
+  );
+}
 
 /** Home: headline with an orange "50" and six featured specialty cards (ported from the main-branch design). Full list lives on /specialties. */
 export function SpecialtiesPreview() {
@@ -38,18 +76,8 @@ export function SpecialtiesPreview() {
 
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" {...stagger}>
           {featuredSpecialties.map((s, i) => (
-            <li
-              key={s.name}
-              className={`group spot relative flex min-h-[200px] flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 transition-colors duration-300 ${i === 0 ? "band-glow bg-orange text-white" : "bg-tint hover:bg-peach-2"}`}
-            >
-              <Icon name={featuredIcons[i]} className={`pointer-events-none absolute right-5 top-5 h-20 w-20 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105 ${i === 0 ? "text-white/20" : "text-orange/15"}`} />
-              <span className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-white text-orange-ink shadow-[0_12px_26px_-14px_rgb(47_51_54/0.5)] transition-colors duration-200 group-hover:bg-orange group-hover:text-white">
-                <Icon name={featuredIcons[i]} className="h-5 w-5" />
-              </span>
-              <div className="relative">
-                <h3 className="font-display text-xl">{s.name}</h3>
-                <p className={`mt-1 text-sm ${i === 0 ? "text-white" : "text-muted"}`}>{s.note}</p>
-              </div>
+            <li key={s.name} className="flex">
+              <SpecialtyCard specialty={s} icon={featuredIcons[i]} href={`/specialties#${s.anchor}`} compact />
             </li>
           ))}
         </ul>
@@ -61,7 +89,7 @@ export function SpecialtiesPreview() {
 
 /**
  * Slow two-row marquee of every specialty (ported from the main-branch design), shown right under the hero. It is decorative
- * (aria-hidden), pauses on hover/focus, has a visible pause button, and stops entirely under prefers-reduced-motion.
+ * (aria-hidden), pauses on hover/focus (no pause button: client, Nov 15 2026), and stops entirely under prefers-reduced-motion.
  */
 export function SpecialtyMarquee() {
   const half = Math.ceil(specialties.length / 2);
@@ -93,10 +121,6 @@ export function SpecialtyMarquee() {
           </div>
         ))}
       </div>
-      {/* Outside the aria-hidden marquee so assistive tech and keyboards can reach it */}
-      <Container className="mt-3 flex justify-end">
-        <MarqueeToggle pauseLabel={marquee.pause} playLabel={marquee.play} />
-      </Container>
     </section>
   );
 }

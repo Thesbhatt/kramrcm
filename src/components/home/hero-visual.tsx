@@ -5,7 +5,7 @@ import { useState } from "react";
 import { HeroCarousel } from "./hero-carousel";
 
 type Slide = { src: StaticImageData; alt: string; focus: string };
-type Labels = { label: string; pause: string; play: string; slide: string; of: string };
+type Labels = { label: string; slide: string; of: string };
 type ChipData = { label: string; from: string; to: string };
 
 /**

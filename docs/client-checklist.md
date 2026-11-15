@@ -38,7 +38,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [ ] Real photos (team at work, office, or partner clinics) to replace the Unsplash placeholders in `src/assets/photos/` (4 home hero slides, About hero, About mission). Landscape, 1600px+ wide.
 - [ ] Confirm rights to the 6 photos reused from the live site (`about-*`, `billing-team`, `service-*` in `src/assets/photos/CREDITS.md`)
 - [ ] Approve the tightened versions of the live-site copy (`aboutIntro`, `billingWhy`, service item explanations, new FAQs on CAQH, DME and revalidation)
-- [ ] Correct social URLs (current Instagram link points to a single post)
+- [ ] Correct LinkedIn URL (footer shows LinkedIn only since Nov 15 2026)
 
 ## Content decisions
 - [ ] Top 8 specialties for dedicated pages
