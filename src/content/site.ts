@@ -718,3 +718,37 @@ export const contactPage = {
     { title: "You get a written quote", body: "No commitment until you sign." },
   ],
 };
+
+/* ---------------- Contact form emails (src/emails/contact.ts) ---------------- */
+// Two emails per submission: the lead to the team (must send) and a confirmation to the visitor (best effort).
+// The confirmation never echoes free text the visitor typed (message, practice, state): otherwise anyone could
+// use the form to send their own text to any address from our domain. "Next steps" reuses contactPage.steps.
+export const contactEmails = {
+  confirmation: {
+    subject: "We received your request | Kram RCM",
+    preheader: "A member of our team will reach out to schedule your free practice review.",
+    eyebrow: "Request received",
+    heading: "Thanks, {name}. We'll be in touch.", // {name}: first name, or dropped when it looks unsafe
+    headingNoName: "Thanks. We'll be in touch.",
+    body: "We received your request for a free practice review. A member of our team will reach out by phone or email to find a time that works for you.",
+    summaryTitle: "Your request",
+    summaryRows: { needs: "Services", providers: "Providers", submitted: "Submitted" },
+    stepsTitle: "What happens next",
+    sooner: "Need to talk sooner?",
+    soonerBody: "Call us, or reply to this email and it comes straight to our team.",
+    callLabel: "Call", // button: "Call (213) 832-7088"
+    privacy: "For your privacy, please don't send patient names or other health information by email.",
+    footerWhy: "You're receiving this one-time email because you requested a free practice review on our website. If that wasn't you, you can ignore it.",
+  },
+  lead: {
+    eyebrow: "New website inquiry",
+    replyLabel: "Reply to", // button: "Reply to Jane"
+    callLabel: "Call",
+    detailsTitle: "Details",
+    messageTitle: "Message",
+    noMessage: "No message left.",
+    rows: { email: "Email", phone: "Phone", practice: "Practice", providers: "Providers", state: "State", needs: "Services" },
+    footer: "Hit reply to answer {name} directly. They got an automatic confirmation that we'll be in touch.",
+  },
+  website: { label: "kramhealthcare.com", href: "https://kramhealthcare.com" },
+};

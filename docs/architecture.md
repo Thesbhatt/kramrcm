@@ -21,9 +21,12 @@ Read this before touching build config, motion, the contact form or anything cac
 - Numbers and easing: see "Motion" in `docs/design-system.md`.
 
 ## Contact form
-- Server Action `src/app/actions/contact.ts` posts to the Resend REST API with plain `fetch` (no SDK).
+- Server Action `src/app/actions/contact.ts` posts to the Resend REST API with plain `fetch` (no SDK). Each submission sends two emails:
+  1. **Lead** to `CONTACT_TO_EMAIL` (reply-to = the visitor). Must succeed: retried once on network errors, 429 and 5xx with an `Idempotency-Key`, and the form shows an error if it still fails.
+  2. **Confirmation** to the visitor (reply-to = `company.email`), sent in `after()` so it never slows or fails the form; a failure is only logged. It never echoes free text the visitor typed (anti-abuse: the form must not relay arbitrary text to arbitrary addresses).
+- Templates: `src/emails/contact.ts` (table layout, inline styles, web-safe fonts, colours mirror the tokens); copy in `contactEmails` in `site.ts`. The logo is embedded inline (`src/emails/logo.ts`, PNG via Resend `content_id`), so it shows before launch and in clients that block remote images.
 - Without `RESEND_API_KEY` it logs the lead to the server console, so local dev works with no setup.
-- Env vars (`.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`.
+- Env vars (`.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` (must be on a domain verified in Resend: `kramrcm.com`). Values are trimmed and wrapping quotes stripped, because the Vercel dashboard keeps quotes that `.env` drops (a quoted sender gets Resend 422). Server logs include Resend's error body.
 - UI is `src/components/sections/contact-form.tsx` (client). It is the only form on the site and must keep the "no patient information" notice.
 
 ## Images
