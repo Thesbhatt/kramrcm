@@ -15,7 +15,7 @@ Send this list to the client. Anything unchecked stays as `TODO(client)` in `src
 - [ ] Approval of colours (orange #F77C27, graphite #414546) and font (Space Grotesk + Inter on the Medallion-style branch, Geist on `main`; the current live site uses Manrope, so mention the change)
 
 ## Proof and claims
-- [ ] Confirm stats and how each is measured, with an "as of" date: 10+ years, 5,000+ providers, 120,000+ applications, 99% first-time submission success
+- [x] Stats: client (Nov 16 2026) kept only "10+ Years of Combined Industry Experience"; 5,000+ / 120,000+ / 99% were removed for trust points. Confirm the wording of the "Flexible" point (partly hidden in their screenshot)
 - [ ] Confirm the weekly-report promise and the named account manager, both stated as fact on the site
 - [ ] Say what the 99% "first-time submission success" measures, and whether "combined" years can be replaced with years in business
 - [ ] Billing metrics with definitions and an as-of date: net collection rate, days in A/R, denial rate, clean claim rate (goes in `trust.metrics`)

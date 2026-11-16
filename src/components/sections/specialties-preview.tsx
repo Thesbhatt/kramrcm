@@ -95,8 +95,9 @@ export function SpecialtyMarquee() {
   const half = Math.ceil(specialties.length / 2);
   const rows = [specialties.slice(0, half), specialties.slice(half)];
 
+  // Equal space above and below the chips (client, Nov 16 2026): the hero's tint ends right above this section.
   return (
-    <section className="pb-12 md:pb-16" aria-label="Specialties we support">
+    <section className="py-12 md:py-16" aria-label="Specialties we support">
       <div
         className="marquee relative flex flex-col gap-3 overflow-hidden py-1 [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
         aria-hidden="true"

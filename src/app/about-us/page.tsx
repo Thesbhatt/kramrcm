@@ -25,7 +25,7 @@ const valueSpan = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-sp
 
 export default function AboutPage() {
   const [lead, ...rest] = about.mission.paragraphs;
-  const accuracy = stats[stats.length - 1];
+  const years = stats.lead;
   return (
     <>
       <PageStage
@@ -80,7 +80,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="band-glow absolute -left-3 bottom-6 rounded-2xl bg-orange px-5 py-4 text-white shadow-[0_24px_50px_-20px_rgb(247_124_39/0.9)] sm:-left-8">
-              <p className="font-display text-4xl font-light leading-none tabular-nums"><span data-count={accuracy.value} data-suffix={accuracy.suffix}>{accuracy.value}{accuracy.suffix}</span></p>
+              <p className="font-display text-4xl font-light leading-none tabular-nums"><span data-count={years.value} data-suffix={years.suffix}>{years.value}{years.suffix}</span></p>
               <p className="mt-1 max-w-[16ch] text-xs">{aboutPage.missionBadge}</p>
             </div>
           </div>

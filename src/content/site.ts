@@ -97,13 +97,20 @@ export const statusBoard = {
   ] as { name: string; detail: string; end: "done" | "review"; final: "Approved" | "Paid" }[],
 };
 
-// TODO(client): confirm each figure and its "as of" date
-export const stats = [
-  { value: 10, suffix: "+", label: "Years of combined industry expertise" },
-  { value: 5000, suffix: "+", label: "Providers served across all 50 states" },
-  { value: 120000, suffix: "+", label: "Payer Enrollment Applications Processed" },
-  { value: 99, suffix: "%", label: "First-time submission success rate" },
-];
+// Client, Nov 16 2026: keep only the years figure; the other numbers were replaced by plain, verifiable
+// trust points (no volume or success-rate claims). Wording follows the client's "top recommendation" card.
+export const stats: {
+  lead: { value: number; suffix: string; label: string };
+  points: { icon: IconName; title: string; subtitle: string; body: string }[];
+} = {
+  lead: { value: 10, suffix: "+", label: "Years of Combined Industry Experience" },
+  points: [
+    { icon: "receipt", title: "End-to-End", subtitle: "Healthcare RCM Support", body: "From provider enrollment to billing operations" },
+    { icon: "user", title: "Dedicated", subtitle: "Professional Support", body: "People focused on your operational needs" },
+    { icon: "briefcase", title: "Flexible", subtitle: "Engagement Solutions", body: "Support aligned with your workflow" },
+    { icon: "shield", title: "Quality-Focused", subtitle: "Operational Approach", body: "Structured processes and quality reviews" },
+  ],
+};
 
 // Item names follow the live site's service lists: short labels only, no per-item explanations.
 // Title Case per the client's wording table (Nov 12 2026); keep new items in Title Case too.
@@ -594,7 +601,7 @@ export const aboutPage = {
     chipState: "Sent",
   },
   missionLabel: "Our mission",
-  missionBadge: "first-time submission success rate",
+  missionBadge: "years of combined industry experience",
   valuesTitle: "Four commitments on every account",
   valuesLabel: "How we work",
 };
