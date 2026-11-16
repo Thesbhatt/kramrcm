@@ -3,6 +3,9 @@
 
 import type { IconName } from "@/components/ui/primitives";
 
+// Live domain (kramhealthcare.com still serves the old WordPress site). Used for metadataBase, sitemap, robots.
+export const siteUrl = "https://www.kramrcm.com";
+
 export const company = {
   name: "Kram RCM",
   tagline: "Accuracy you can count on",
@@ -750,5 +753,5 @@ export const contactEmails = {
     rows: { email: "Email", phone: "Phone", practice: "Practice", providers: "Providers", state: "State", needs: "Services" },
     footer: "Hit reply to answer {name} directly. They got an automatic confirmation that we'll be in touch.",
   },
-  website: { label: "kramhealthcare.com", href: "https://kramhealthcare.com" },
+  website: { label: "kramrcm.com", href: siteUrl },
 };

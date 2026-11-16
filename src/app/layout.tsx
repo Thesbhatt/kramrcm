@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { PointerGlow } from "@/components/ui/pointer-glow";
+import { siteUrl } from "@/content/site";
 import "./globals.css";
 
 // Self-hosted (src/fonts, Latin subset, both OFL): no build-time or runtime call to Google.
@@ -23,7 +24,7 @@ const display = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kramhealthcare.com"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Kram RCM | Provider Credentialing & Medical Billing Services",
     template: "%s | Kram RCM",
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kram RCM | Credentialing & Medical Billing",
     description: "Get Credentialed Faster. Submit Cleaner Claims. Accelerate Payments.",
-    url: "https://kramhealthcare.com",
+    url: siteUrl,
     siteName: "Kram RCM",
     locale: "en_US",
     type: "website",
