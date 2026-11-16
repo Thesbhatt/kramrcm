@@ -9,12 +9,14 @@ import { Process } from "@/components/sections/process";
 import { ServiceList } from "@/components/sections/service-list";
 import { SpecialtiesPreview, SpecialtyMarquee } from "@/components/sections/specialties-preview";
 import { Stats } from "@/components/sections/stats";
+import { OrganizationSchema } from "@/components/site/organization-schema";
 import { TrustedBy } from "@/components/sections/trusted-by";
 
 // Closing CTA band + footer come from the layout's <Footer />.
 export default function Home() {
   return (
     <>
+      <OrganizationSchema />
       <HomeHero />
       <SpecialtyMarquee />
       <TrustedBy />
